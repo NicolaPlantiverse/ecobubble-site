@@ -1,11 +1,15 @@
 # EcoBubble — sito ecobubble.it
 
-Sito vetrina della holding EcoBubble S.r.l., orientato ai servizi che fatturano (Tier 0):
-installazioni multispettrali chiavi in mano, progettazione verde + fitorimedio, piloti
-Meta-Intelligence (Ennous), licensing brevetti.
+Sito vetrina di EcoBubble S.r.l. come **Intelligence Module Foundry**: costruttore di moduli di
+intelligenza artificiale per **ambiente e territorio** (verde/Bio-Driven + Geo-Driven di qualsiasi
+tipo). Vende i motori resi governabili (misurabili, auditabili, certificabili), non il verticale.
 
-Sostituisce il vecchio sito Webflow (obsoleto). La landing Meta-Intelligence che era su
-ecobubble.it vive ora su https://ennous.it (decisione 2026-06-29).
+PIVOT 2026-07-05 (decisione Nicola): supera la precedente bozza "vetrina servizi Tier-0". EcoBubble
+NON è un aggregatore delle controllate: Ennous ORCHESTRA i modelli, EcoBubble li FABBRICA;
+Plantiverse/GreenEazy sono verticali-clienti nel portfolio. Vetrina costruita da asset reali
+(modulo Flora+Phyto live, banco di prova ~90 motori, architetture Bio-Driven+Geo-Driven).
+Foto vecchio Webflow salvate in `assets/old-site/` (FAO rooftop, MAXXI) per la sezione track-record.
+La landing Meta-Intelligence che era su ecobubble.it vive ora su https://ennous.it.
 
 ## Struttura
 
