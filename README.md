@@ -4,6 +4,15 @@ Sito vetrina di EcoBubble S.r.l. come **Intelligence Module Foundry**: costrutto
 intelligenza artificiale per **ambiente e territorio** (verde/Bio-Driven + Geo-Driven di qualsiasi
 tipo). Vende i motori resi governabili (misurabili, auditabili, certificabili), non il verticale.
 
+ESTENSIONE 2026-07-06 (brief Nicola "azienda billionaire"): il sito diventa la vetrina dei SERVIZI
+di IA su misura. Nuove sezioni: esploratore **Geo-Driven** con radar del territorio animato
+(perdite idriche nei terreni, frane, alluvioni, sismica, subsidenza, falde e siccità; badge
+"patent pending") · sezione **Ennous** con griglia di gating 100 motori che si ricompone (~1 su 10
+attivi, −80/90% calcolo, ~90% copertura, audit SHA-256) e CTA a ennous.it/platform · metodo
+"un'intelligenza per cliente" in 3 passi (progetto → pilota pagato con esito misurato →
+esercizio con certificati / licenza dell'architettura) · strip numeri misurati · nav con ancore.
+Restano: hero cinematico rete-di-reti, sezione Bio-Driven, modulo fitorimedio dal vivo (GreenEazy).
+
 PIVOT 2026-07-05 (decisione Nicola): supera la precedente bozza "vetrina servizi Tier-0". EcoBubble
 NON è un aggregatore delle controllate: Ennous ORCHESTRA i modelli, EcoBubble li FABBRICA;
 Plantiverse/GreenEazy sono verticali-clienti nel portfolio. Vetrina costruita da asset reali
