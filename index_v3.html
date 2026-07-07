@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <!-- ============================================================
      EcoBubble · sito ufficiale · VERSIONE 3 (2026-07-07)
-     Logo-emblema reale, aurora/bloom/grana, sezione ecosistema.
+     Riscrittura totale: PARTICLE SPINE WebGL (15k particelle che si
+     rifondono per sezione) + glow + grana + sezione ecosistema.
      v1/v2 restano in index.html (altra chat).
      ============================================================ -->
 <html lang="it">
@@ -34,6 +35,11 @@ a{color:inherit;text-decoration:none}
 #stage{position:fixed;inset:0;z-index:0;width:100%;height:100%;display:block}
 #veil{position:fixed;inset:0;z-index:1;pointer-events:none;
  background:radial-gradient(120% 80% at 50% 40%, transparent 40%, rgba(5,8,11,.55) 100%)}
+#glow{position:fixed;inset:-22%;z-index:0;pointer-events:none;filter:blur(90px);opacity:.55;
+ background:radial-gradient(40% 34% at 22% 26%,rgba(75,224,142,.17),transparent 70%),radial-gradient(38% 32% at 80% 22%,rgba(90,169,255,.14),transparent 70%),radial-gradient(48% 42% at 55% 84%,rgba(169,139,255,.12),transparent 70%);
+ animation:glowdrift 30s ease-in-out infinite alternate}
+@keyframes glowdrift{to{transform:rotate(7deg) scale(1.14)}}
+body.nogl #stage{display:none}
 #grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;mix-blend-mode:soft-light;
  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .mark{width:34px;height:auto;flex:none;color:var(--env);filter:drop-shadow(0 0 9px rgba(75,224,142,.45))}
@@ -219,6 +225,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:56px
 </head>
 <body>
 
+<div id="glow"></div>
 <canvas id="stage"></canvas>
 <div id="veil"></div>
 <div id="grain"></div>
@@ -236,7 +243,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:56px
 
 <main>
   <!-- HERO -->
-  <section class="panel" id="hero" data-phase="hero">
+  <section class="panel" id="hero" data-shape="emblem">
     <div class="inner">
       <div class="slab">
         <div class="ey rv on">EcoBubble</div>
@@ -248,7 +255,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:56px
   </section>
 
   <!-- WHAT: assembly -->
-  <section class="panel" id="build" data-phase="build">
+  <section class="panel" id="build" data-shape="network">
     <div class="inner">
       <div class="slab right">
         <div class="ey n rv">Cosa facciamo</div>
@@ -264,7 +271,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:56px
   </section>
 
   <!-- GEO-DRIVEN: territory applications -->
-  <section class="panel" id="geo" data-phase="geo" style="min-height:auto;padding-bottom:70px">
+  <section class="panel" id="geo" data-shape="terrain" style="min-height:auto;padding-bottom:70px">
     <div class="inner">
       <div class="slab" style="max-width:820px">
         <div class="ey geo rv">Geo-Driven · il territorio</div>
@@ -295,7 +302,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:56px
   </section>
 
   <!-- ENVIRONMENT -->
-  <section class="panel" id="env" data-phase="env">
+  <section class="panel" id="env" data-shape="leaf">
     <div class="inner">
       <div class="slab right">
         <div class="ey rv">Bio-Driven · l'ambiente</div>
@@ -311,7 +318,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:56px
   </section>
 
   <!-- LIVE MODULE -->
-  <section class="panel" id="module" data-phase="env" style="min-height:auto;padding:60px 30px 100px">
+  <section class="panel" id="module" data-shape="leaf" style="min-height:auto;padding:60px 30px 100px">
     <div class="inner">
       <div class="slab" style="max-width:820px">
         <div class="ey rv">Un modulo, dal vivo</div>
@@ -341,7 +348,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:56px
   </section>
 
   <!-- ENNOUS: the orchestrator -->
-  <section class="panel" id="ennous" data-phase="you" style="min-height:auto;padding-bottom:70px">
+  <section class="panel" id="ennous" data-shape="grid" style="min-height:auto;padding-bottom:70px">
     <div class="inner">
       <div class="slab" style="max-width:820px">
         <div class="ey v rv">Ennous · la rete multidimensionale</div>
@@ -371,7 +378,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:56px
   </section>
 
   <!-- METHOD -->
-  <section class="panel" id="method" data-phase="calm" style="min-height:auto;padding-bottom:70px">
+  <section class="panel" id="method" data-shape="network" style="min-height:auto;padding-bottom:70px">
     <div class="inner">
       <div class="slab" style="max-width:820px">
         <div class="ey rv">Come lavoriamo</div>
@@ -402,7 +409,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:56px
   </section>
 
   <!-- NUMBERS -->
-  <section class="panel" data-phase="calm" style="min-height:auto;padding:20px 30px 90px">
+  <section class="panel" data-shape="grid" style="min-height:auto;padding:20px 30px 90px">
     <div class="inner">
       <div class="slab center" style="max-width:760px">
         <div class="ey n rv">Numeri misurati, non promessi</div>
@@ -417,7 +424,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:56px
   </section>
 
   <!-- CREDIBILITY -->
-  <section class="panel" id="proof" data-phase="calm" style="min-height:auto;padding:20px 30px 110px">
+  <section class="panel" id="proof" data-shape="rings" style="min-height:auto;padding:20px 30px 110px">
     <div class="inner">
       <div class="slab center" style="max-width:760px">
         <div class="ey n rv">Con chi</div>
@@ -430,7 +437,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:56px
   </section>
 
   <!-- ECOSYSTEM: spin-off sites -->
-  <section class="panel" id="eco" data-phase="you" style="min-height:auto;padding:40px 30px 90px">
+  <section class="panel" id="eco" data-shape="rings" style="min-height:auto;padding:40px 30px 90px">
     <div class="inner">
       <div class="slab center" style="max-width:820px;margin:0 auto">
         <div class="ey v rv">L'ecosistema</div>
@@ -455,7 +462,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:56px
   </section>
 
   <!-- CONTACT -->
-  <section class="panel" id="contact" data-phase="calm" style="min-height:auto;padding:40px 30px 130px">
+  <section class="panel" id="contact" data-shape="emblem" style="min-height:auto;padding:40px 30px 130px">
     <div class="inner">
       <div class="slab center">
         <div class="ey rv">Iniziamo</div>
@@ -488,152 +495,198 @@ footer{position:relative;z-index:2;border-top:1px solid var(--line);padding:56px
 
 <script>
 /* =========================================================================
-   NETWORK-OF-NETWORKS — assembles on scroll, reacts to mouse.
-   Two lobes: environment (green, left) + territory (blue, right), bridged.
+   PARTICLE SPINE — 15.000 particelle WebGL: una sola materia che si
+   rifonde a ogni sezione. emblema → rete → territorio → foglia →
+   catalogo → anelli → emblema.
    ========================================================================= */
 (function(){
-  const cv=document.getElementById('stage'); const ctx=cv.getContext('2d');
-  let W,H,dpr,cx,cy,scale;
-  function size(){dpr=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);cx=W*0.5;cy=H*0.5;scale=Math.min(W,H)*0.30;}
-  size();
+var cv=document.getElementById('stage');
+var gl=cv.getContext('webgl',{antialias:false,alpha:true});
+if(!gl){document.body.classList.add('nogl');return;}
+var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var N=15000;
+function rnd(a,b){return a+Math.random()*(b-a);}
 
-  // ---- build modules in two lobes of sub-clusters (rete di reti) ----
-  const rnd=(a,b)=>a+Math.random()*(b-a);
-  const clusters=[];
-  const envCenters=[[-1.15,0.62,-.2],[-1.28,-.05,.35],[-1.05,-.66,-.35]];
-  const geoCenters=[[1.15,0.6,.3],[1.30,-.02,-.35],[1.05,-.68,.3]];
-  const neuCenters=[[-0.42,0.12,0],[0.0,-0.15,.15],[0.42,0.1,-.1]];
-  function addCluster(c,fam,n){const idx=clusters.length;clusters.push({c,fam});for(let i=0;i<n;i++){
-    const off=[rnd(-.34,.34),rnd(-.34,.34),rnd(-.34,.34)];
-    const home=[c[0]+off[0],c[1]+off[1],c[2]+off[2]];
-    const dir=Math.hypot(home[0],home[1],home[2])||1;
-    const sc=[home[0]/dir*rnd(2.6,3.8)+rnd(-.6,.6), home[1]/dir*rnd(2.6,3.8)+rnd(-.6,.6), home[2]/dir*rnd(2.6,3.8)+rnd(-.6,.6)];
-    const ang=modules.length*0.5; const cr=1.15;
-    const comp=[Math.cos(ang)*cr, Math.sin(ang)*cr*0.62, Math.sin(ang*1.3)*0.25];
-    const inner=[];for(let k=0;k<4;k++){inner.push([rnd(-1,1),rnd(-1,1),rnd(-1,1)]);}
-    modules.push({home,sc,comp,fam,cl:idx,inner,ph:Math.random()*6.28});
-  }}
-  const modules=[];
-  envCenters.forEach(c=>addCluster(c,1,6));
-  geoCenters.forEach(c=>addCluster(c,2,6));
-  neuCenters.forEach(c=>addCluster(c,0,2));
+var ENV=[0.29,0.88,0.55],ENV2=[0.63,0.95,0.77],GEO=[0.36,0.66,1.0],GEO2=[0.73,0.85,1.0],VIO=[0.66,0.55,1.0],WHT=[0.95,1.0,0.97];
 
-  const edges=[];
-  for(let i=0;i<modules.length;i++){
-    const d=[];for(let j=0;j<modules.length;j++){if(i===j)continue;const a=modules[i].home,b=modules[j].home;d.push([Math.hypot(a[0]-b[0],a[1]-b[1],a[2]-b[2]),j]);}
-    d.sort((p,q)=>p[0]-q[0]);
-    for(let k=0;k<2;k++){const j=d[k][1];if(j>i)edges.push([i,j]);else if(!edges.some(e=>e[0]===j&&e[1]===i))edges.push([j,i]);}
-  }
+function mk(){return{p:new Float32Array(N*3),c:new Float32Array(N*3)};}
+function put(s,i,x,y,z,c,f){var k=i*3;s.p[k]=x;s.p[k+1]=y;s.p[k+2]=z;f=f||1;s.c[k]=c[0]*f;s.c[k+1]=c[1]*f;s.c[k+2]=c[2]*f;}
 
-  const COL={0:[150,170,165],1:[75,224,142],2:[90,169,255]};
-  const st={assemble:0,env:0,geo:0,compose:0,shiftX:0, rotX:0,rotY:0, mrx:0,mry:0};
-  const tg={assemble:0,env:0.0,geo:0.0,compose:0,shiftX:0};
-  const PHASE={
-    hero:{assemble:0,env:0,geo:0,compose:0,shiftX:.28},
-    build:{assemble:1,env:.16,geo:.16,compose:0,shiftX:-.30},
-    env:{assemble:1,env:1,geo:.12,compose:0,shiftX:-.42},
-    geo:{assemble:1,env:.12,geo:1,compose:0,shiftX:.42},
-    you:{assemble:1,env:.7,geo:.7,compose:1,shiftX:0},
-    calm:{assemble:1,env:.24,geo:.24,compose:.35,shiftX:0}
-  };
-  function setPhase(name){const p=PHASE[name]||PHASE.you;Object.assign(tg,p);}
+/* — emblema EcoBubble: due nodi pieni + archi sopra e sotto — */
+function shapeEmblem(){var s=mk(),R=0.70,TH=0.06,DR=0.375,DX=0.70,i;
+ for(i=0;i<N;i++){var u=Math.random();
+  if(u<0.28){var a=Math.random()*6.2832,r=DR*Math.sqrt(Math.random());put(s,i,-DX+Math.cos(a)*r,Math.sin(a)*r,rnd(-0.05,0.05),Math.random()<0.05?WHT:ENV,0.75+0.5*Math.random());}
+  else if(u<0.56){var a2=Math.random()*6.2832,r2=DR*Math.sqrt(Math.random());put(s,i,DX+Math.cos(a2)*r2,Math.sin(a2)*r2,rnd(-0.05,0.05),Math.random()<0.05?WHT:ENV,0.75+0.5*Math.random());}
+  else{var a3;do{a3=Math.random()*6.2832;}while(Math.abs(Math.cos(a3))>0.72);
+   var rr=R+rnd(-TH,TH);put(s,i,Math.cos(a3)*rr,Math.sin(a3)*rr,rnd(-0.04,0.04),Math.random()<0.06?ENV2:ENV,0.8+0.5*Math.random());}}
+ return s;}
 
-  let tmx=0,tmy=0;
-  window.addEventListener('pointermove',e=>{tmx=(e.clientX/W-0.5);tmy=(e.clientY/H-0.5);},{passive:true});
+/* — rete di reti: 30 hub in tre lobi + polvere di profondità — */
+function shapeNetwork(){var s=mk(),H=30,hubs=[],i;
+ for(i=0;i<H;i++){var lob=i%3;var cx=lob===0?-0.72:(lob===1?0.72:0);
+  hubs.push([cx+rnd(-0.45,0.45),rnd(-0.75,0.75),rnd(-0.55,0.55),lob]);}
+ var per=Math.floor(N*0.88/H);
+ for(i=0;i<N;i++){
+  if(i<per*H){var h=hubs[Math.floor(i/per)];
+   var g=0.13*(Math.random()+Math.random()+Math.random()-1.5);
+   var g2=0.13*(Math.random()+Math.random()+Math.random()-1.5);
+   var g3=0.13*(Math.random()+Math.random()+Math.random()-1.5);
+   var c=h[3]===0?ENV:(h[3]===1?GEO:VIO);
+   put(s,i,h[0]+g,h[1]+g2,h[2]+g3,Math.random()<0.04?WHT:c,0.6+0.6*Math.random());}
+  else{var a=Math.random()*6.2832,ph=Math.acos(rnd(-1,1)),r=1.35*Math.cbrt(Math.random());
+   put(s,i,r*Math.sin(ph)*Math.cos(a),r*Math.cos(ph)*0.8,r*Math.sin(ph)*Math.sin(a),[0.5,0.6,0.56],0.22);}}
+ var L=[];
+ for(i=0;i<H;i++){var d=[];for(var j=0;j<H;j++){if(j===i)continue;
+   var dx=hubs[i][0]-hubs[j][0],dy=hubs[i][1]-hubs[j][1],dz=hubs[i][2]-hubs[j][2];
+   d.push([dx*dx+dy*dy+dz*dz,j]);}
+  d.sort(function(p,q){return p[0]-q[0];});
+  for(var k=0;k<2;k++){var j2=d[k][1];
+   L.push(hubs[i][0],hubs[i][1],hubs[i][2],hubs[j2][0],hubs[j2][1],hubs[j2][2]);}}
+ s.lines=new Float32Array(L);
+ return s;}
 
-  function smooth(a,b,t){return a+(b-a)*t;}
-  function lerp3(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];}
+/* — territorio: superficie che ondeggia — */
+function shapeTerrain(){var s=mk(),i;
+ for(i=0;i<N;i++){var x=rnd(-1.6,1.6),z=rnd(-1.15,1.15);
+  var h=0.30*Math.sin(x*2.0)*Math.cos(z*2.6)+0.20*Math.sin(x*4.1+1.3)*Math.sin(z*3.7+0.6)+0.09*Math.sin(x*8.3+2.1)*Math.cos(z*7.9);
+  var t=(h+0.59)/1.18;
+  var c=[GEO[0]*(0.35+0.65*t),GEO[1]*(0.4+0.6*t),GEO[2]*(0.55+0.45*t)];
+  if(Math.random()<0.02)c=GEO2;
+  put(s,i,x*0.92,(h-0.12)*0.85,z,c,0.4+0.85*t);}
+ return s;}
 
-  function project(p,A,T){
-    let x=p[0],y=p[1],z=p[2];
-    let x1=x*Math.cos(A)+z*Math.sin(A), z1=-x*Math.sin(A)+z*Math.cos(A);
-    let y1=y*Math.cos(T)-z1*Math.sin(T), z2=y*Math.sin(T)+z1*Math.cos(T);
-    const fov=4.2, s=fov/(fov-z2);
-    return {x:cx+st.shiftX*scale+x1*s*scale, y:cy+y1*s*scale, s, z:z2};
-  }
+/* — foglia: spirale di fillotassi a cupola — */
+var GA=2.39996323;
+function shapeLeaf(){var s=mk(),i;
+ for(i=0;i<N;i++){var f=i/N,r=1.18*Math.sqrt(f),a=i*GA;
+  var x=r*Math.cos(a),z=r*Math.sin(a),y=0.30-0.42*r*r+rnd(-0.015,0.015);
+  var c=[ENV[0]+(ENV2[0]-ENV[0])*f,ENV[1]+(ENV2[1]-ENV[1])*f,ENV[2]+(ENV2[2]-ENV[2])*f];
+  if(Math.random()<0.015)c=WHT;
+  put(s,i,x,y,z,c,0.55+0.7*(1-f));}
+ return s;}
 
-  let last=performance.now();
-  function frame(now){
-    const dt=Math.min(2,(now-last)/16.7);last=now;
-    st.assemble=smooth(st.assemble,tg.assemble,0.06*dt);
-    st.env=smooth(st.env,tg.env,0.06*dt);
-    st.geo=smooth(st.geo,tg.geo,0.06*dt);
-    st.compose=smooth(st.compose,tg.compose,0.05*dt);
-    st.shiftX=smooth(st.shiftX,tg.shiftX,0.05*dt);
-    st.mrx=smooth(st.mrx,tmx,0.05*dt); st.mry=smooth(st.mry,tmy,0.05*dt);
-    st.rotY+=0.0016*dt;
-    const A=st.rotY+st.mrx*0.6;
-    const T=-0.18+st.mry*0.4;
+/* — catalogo: 100 celle, ~9 accese — */
+function shapeGrid(){var s=mk(),lit={},n=0;
+ while(n<9){var k=Math.floor(Math.random()*100);if(!lit[k]){lit[k]=1;n++;}}
+ var per=Math.floor(N/100),i;
+ for(i=0;i<N;i++){var cell=Math.min(99,Math.floor(i/per));
+  var col=cell%10,row=Math.floor(cell/10);
+  var cx=-1.17+col*0.26,cy=0.86-row*0.19;
+  var isLit=lit[cell];
+  var c=isLit?(Math.random()<0.3?WHT:VIO):VIO;
+  put(s,i,cx+rnd(-0.085,0.085),cy*0.95+rnd(-0.06,0.06),rnd(-0.05,0.05),c,isLit?1.5:0.5);}
+ return s;}
 
-    ctx.clearRect(0,0,W,H);
+/* — anelli: i tre prodotti — */
+function shapeRings(){var s=mk(),i;
+ var rings=[
+  {c:[-0.55,0.16,0],ax:0.9,az:0.35,col:GEO},
+  {c:[0.55,0.16,0],ax:-0.7,az:-0.4,col:ENV},
+  {c:[0,-0.42,0],ax:0.25,az:1.0,col:VIO}];
+ for(i=0;i<N;i++){var R2=rings[i%3];
+  var a=Math.random()*6.2832,r=0.68+rnd(-0.03,0.03);
+  var x=Math.cos(a)*r,y=Math.sin(a)*r,z=rnd(-0.03,0.03);
+  var y1=y*Math.cos(R2.ax)-z*Math.sin(R2.ax),z1=y*Math.sin(R2.ax)+z*Math.cos(R2.ax);
+  var x2=x*Math.cos(R2.az)-y1*Math.sin(R2.az),y2=x*Math.sin(R2.az)+y1*Math.cos(R2.az);
+  put(s,i,R2.c[0]+x2,R2.c[1]+y2,R2.c[2]+z1,Math.random()<0.04?WHT:R2.col,0.6+0.5*Math.random());}
+ return s;}
 
-    // ---- aurora: slow drifting colored haze (additive) ----
-    ctx.globalCompositeOperation='lighter';
-    const AUR=[[75,224,142],[90,169,255],[169,139,255]];
-    for(let i=0;i<3;i++){
-      const t2=now*0.00006*(1+i*0.35)+i*2.1;
-      const ax=cx+Math.cos(t2)*W*0.30+(i-1)*W*0.14;
-      const ay=cy+Math.sin(t2*1.25)*H*0.28+(i-1)*H*0.06;
-      const rr=Math.max(W,H)*0.55;
-      const c=AUR[i],ag=ctx.createRadialGradient(ax,ay,0,ax,ay,rr);
-      ag.addColorStop(0,`rgba(${c[0]},${c[1]},${c[2]},0.055)`);ag.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle=ag;ctx.fillRect(0,0,W,H);
-    }
-    ctx.globalCompositeOperation='source-over';
+var SHAPES={emblem:shapeEmblem(),network:shapeNetwork(),terrain:shapeTerrain(),leaf:shapeLeaf(),grid:shapeGrid(),rings:shapeRings()};
 
-    const pos=modules.map(m=>{
-      let base=lerp3(m.sc,m.home,st.assemble);
-      if(st.compose>0.001) base=lerp3(base,m.comp,st.compose*0.85);
-      return project(base,A,T);
-    });
+function sh(type,src){var o=gl.createShader(type);gl.shaderSource(o,src);gl.compileShader(o);return o;}
+function prog(vs,fs){var p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,vs));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(p);return p;}
 
-    ctx.lineCap='round';
-    for(const[a,b]of edges){
-      const pa=pos[a],pb=pos[b];
-      const fam=modules[a].fam||modules[b].fam;
-      const glow=fam===1?st.env:fam===2?st.geo:0.28*st.assemble+0.1;
-      const col=COL[modules[a].fam];
-      const al=(0.05+0.22*glow)*Math.min(1,st.assemble*1.2)*Math.min(pa.s,pb.s)*0.7;
-      if(al<=0.01)continue;
-      ctx.strokeStyle=`rgba(${col[0]},${col[1]},${col[2]},${al})`;
-      ctx.lineWidth=0.6*Math.min(pa.s,pb.s);
-      ctx.beginPath();ctx.moveTo(pa.x,pa.y);ctx.lineTo(pb.x,pb.y);ctx.stroke();
-    }
+var VS='attribute vec3 aPA;attribute vec3 aPB;attribute vec3 aCA;attribute vec3 aCB;attribute float aR;'+
+'uniform float uT,uTime,uRy,uRx,uAsp,uDpr,uWob;varying vec3 vC;varying float vA;'+
+'void main(){vec3 p=mix(aPA,aPB,uT);'+
+'p+=uWob*(0.014+0.028*aR)*vec3(sin(uTime*0.7+aR*43.7),cos(uTime*0.8+aR*29.3),sin(uTime*0.6+aR*17.9));'+
+'float cy=cos(uRy),sy=sin(uRy);p=vec3(p.x*cy+p.z*sy,p.y,-p.x*sy+p.z*cy);'+
+'float cx=cos(uRx),sx=sin(uRx);p=vec3(p.x,p.y*cx-p.z*sx,p.y*sx+p.z*cx);'+
+'float s=2.3/(2.3-p.z);'+
+'gl_Position=vec4(p.x*s*0.78/uAsp,p.y*s*0.78,0.0,1.0);'+
+'gl_PointSize=(1.4+2.4*aR)*s*uDpr;'+
+'vC=mix(aCA,aCB,uT);'+
+'vA=(0.5+0.5*clamp(s-0.7,0.0,1.0))*(0.72+0.28*sin(uTime*2.0+aR*95.0));}';
+var FS='precision mediump float;varying vec3 vC;varying float vA;'+
+'void main(){vec2 q=gl_PointCoord-vec2(0.5);float d=length(q);float a=smoothstep(0.5,0.03,d)*vA;gl_FragColor=vec4(vC*a,a);}';
+var P=prog(VS,FS);
 
-    ctx.globalCompositeOperation='lighter';
-    for(let i=0;i<modules.length;i++){
-      const m=modules[i],p=pos[i],col=COL[m.fam];
-      const fg=m.fam===1?st.env:m.fam===2?st.geo:0.35;
-      const ign=0.25+0.75*fg;
-      const ir=6*p.s*(0.6+0.4*st.assemble);
-      const spin=now*0.0006+m.ph;
-      const ipts=m.inner.map(q=>{
-        const ix=q[0]*Math.cos(spin)-q[2]*Math.sin(spin);
-        const iz=q[0]*Math.sin(spin)+q[2]*Math.cos(spin);
-        return {x:p.x+ix*ir, y:p.y+q[1]*ir};
-      });
-      ctx.strokeStyle=`rgba(${col[0]},${col[1]},${col[2]},${0.18*ign*p.s})`;
-      ctx.lineWidth=0.5;
-      for(let k=0;k<ipts.length;k++){const a=ipts[k],b=ipts[(k+1)%ipts.length];ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
-      ctx.fillStyle=`rgba(${col[0]},${col[1]},${col[2]},${0.5*ign*p.s})`;
-      ipts.forEach(a=>{ctx.beginPath();ctx.arc(a.x,a.y,1*p.s,0,7);ctx.fill();});
-      if(fg>0.25){const pulse=0.7+0.3*Math.sin(now*0.003+m.ph);
-        const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,20*p.s);
-        g.addColorStop(0,`rgba(${col[0]},${col[1]},${col[2]},${0.32*fg*pulse})`);g.addColorStop(1,'rgba(0,0,0,0)');
-        ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,20*p.s,0,7);ctx.fill();}
-      ctx.fillStyle=`rgba(${col[0]},${col[1]},${col[2]},${(0.55+0.45*fg)*p.s})`;
-      ctx.beginPath();ctx.arc(p.x,p.y,(2.4+1.4*fg)*p.s,0,7);ctx.fill();
-    }
-    ctx.globalCompositeOperation='source-over';
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-  let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(size,180);});
+var LVS='attribute vec3 aP;uniform float uRy,uRx,uAsp;'+
+'void main(){vec3 p=aP;'+
+'float cy=cos(uRy),sy=sin(uRy);p=vec3(p.x*cy+p.z*sy,p.y,-p.x*sy+p.z*cy);'+
+'float cx=cos(uRx),sx=sin(uRx);p=vec3(p.x,p.y*cx-p.z*sx,p.y*sx+p.z*cx);'+
+'float s=2.3/(2.3-p.z);gl_Position=vec4(p.x*s*0.78/uAsp,p.y*s*0.78,0.0,1.0);}';
+var LFS='precision mediump float;uniform float uA;void main(){gl_FragColor=vec4(0.55,0.75,0.95,1.0)*uA;}';
+var LP=prog(LVS,LFS);
 
-  const io=new IntersectionObserver(es=>{
-    es.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>0.5){setPhase(e.target.dataset.phase);}});
-  },{threshold:[0.5,0.75]});
-  document.querySelectorAll('.panel[data-phase]').forEach(s=>io.observe(s));
+function buf(arr,usage){var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,arr,usage||gl.DYNAMIC_DRAW);return b;}
+var rnArr=new Float32Array(N);for(var i0=0;i0<N;i0++)rnArr[i0]=Math.random();
+var A=SHAPES.emblem,B=SHAPES.emblem,t=1,target='emblem';
+var bPA=buf(A.p),bPB=buf(B.p),bCA=buf(A.c),bCB=buf(B.c),bR=buf(rnArr,gl.STATIC_DRAW);
+var bL=buf(SHAPES.network.lines,gl.STATIC_DRAW),LNUM=SHAPES.network.lines.length/3;
+var lineA=0,lineB=0;
+
+function ease(x){return x*x*(3.0-2.0*x);}
+function up(b,arr){gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,arr,gl.DYNAMIC_DRAW);}
+function go(name){if(!SHAPES[name]||name===target)return;
+ var e=ease(Math.min(1,t)),p=new Float32Array(N*3),c=new Float32Array(N*3),i;
+ for(i=0;i<N*3;i++){p[i]=A.p[i]+(B.p[i]-A.p[i])*e;c[i]=A.c[i]+(B.c[i]-A.c[i])*e;}
+ A={p:p,c:c};B=SHAPES[name];
+ lineA=lineA+(lineB-lineA)*e;lineB=(name==='network')?1:0;
+ up(bPA,A.p);up(bPB,B.p);up(bCA,A.c);up(bCB,B.c);
+ t=0;target=name;}
+window.EB={go:go};
+
+var FACE={emblem:0.10,grid:0.30,rings:0.8,network:1,terrain:0.9,leaf:0.85};
+var rotAmp=0.1,drift=0;
+
+var W,H2,dpr,asp;
+function size(){dpr=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H2=innerHeight;cv.width=W*dpr;cv.height=H2*dpr;asp=W/H2;gl.viewport(0,0,cv.width,cv.height);}
+size();window.addEventListener('resize',function(){clearTimeout(size._t);size._t=setTimeout(size,150);});
+
+var tmx=0,tmy=0,mx=0,my=0;
+window.addEventListener('pointermove',function(e){tmx=e.clientX/W-0.5;tmy=e.clientY/H2-0.5;},{passive:true});
+
+gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);
+
+var AT={},UN={},LT={};
+['aPA','aPB','aCA','aCB','aR'].forEach(function(n){AT[n]=gl.getAttribLocation(P,n);});
+['uT','uTime','uRy','uRx','uAsp','uDpr','uWob'].forEach(function(n){UN[n]=gl.getUniformLocation(P,n);});
+LT.aP=gl.getAttribLocation(LP,'aP');
+['uRy','uRx','uAsp','uA'].forEach(function(n){LT[n]=gl.getUniformLocation(LP,n);});
+
+function attr(loc,b,size){gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,size,gl.FLOAT,false,0,0);}
+
+var last=performance.now();
+function frame(now){
+ var dt=Math.min(0.05,(now-last)/1000);last=now;
+ if(t<1)t=Math.min(1,t+dt*0.85);
+ var e=ease(t);
+ mx+=(tmx-mx)*Math.min(1,dt*3);my+=(tmy-my)*Math.min(1,dt*3);
+ var fa=FACE[target]!==undefined?FACE[target]:1;
+ rotAmp+=(fa-rotAmp)*Math.min(1,dt*1.5);
+ if(!reduced)drift+=dt*0.11*rotAmp;
+ var ry=drift+mx*0.55,rx=-0.14*rotAmp+my*0.35;
+ var tm=reduced?0:now/1000;
+ gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
+ var la=(lineA+(lineB-lineA)*e)*0.14;
+ if(la>0.004){gl.useProgram(LP);attr(LT.aP,bL,3);
+  gl.uniform1f(LT.uRy,ry);gl.uniform1f(LT.uRx,rx);gl.uniform1f(LT.uAsp,asp);gl.uniform1f(LT.uA,la);
+  gl.drawArrays(gl.LINES,0,LNUM);gl.disableVertexAttribArray(LT.aP);}
+ gl.useProgram(P);
+ attr(AT.aPA,bPA,3);attr(AT.aPB,bPB,3);attr(AT.aCA,bCA,3);attr(AT.aCB,bCB,3);attr(AT.aR,bR,1);
+ gl.uniform1f(UN.uT,e);gl.uniform1f(UN.uTime,tm);gl.uniform1f(UN.uRy,ry);gl.uniform1f(UN.uRx,rx);
+ gl.uniform1f(UN.uAsp,asp);gl.uniform1f(UN.uDpr,dpr);gl.uniform1f(UN.uWob,reduced?0:1);
+ gl.drawArrays(gl.POINTS,0,N);
+ requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting&&en.intersectionRatio>0.5)go(en.target.dataset.shape);});},{threshold:[0.5,0.75]});
+document.querySelectorAll('.panel[data-shape]').forEach(function(sec){io.observe(sec);});
+
+var m=location.search.match(/shape=(\w+)/);
+if(m&&SHAPES[m[1]]){A=B=SHAPES[m[1]];t=1;target=m[1];lineA=lineB=(m[1]==='network')?1:0;up(bPA,A.p);up(bPB,B.p);up(bCA,A.c);up(bCB,B.c);}
 })();
 
 /* reveal text */
