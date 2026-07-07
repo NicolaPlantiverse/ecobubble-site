@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EcoBubble — Costruttori di reti multidimensionali di intelligenza</title>
+<meta name="description" content="EcoBubble costruisce reti multidimensionali di intelligenza artificiale su misura: Ennous, Geo-Driven, GreenEazy, Plantiverse. Componi la tua dal vivo: settore, esigenza, motori, audit. Numeri misurati, non promessi.">
+<link rel="canonical" href="https://www.ecobubble.it/next.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="EcoBubble">
+<meta property="og:title" content="EcoBubble — Costruttori di reti multidimensionali di intelligenza">
+<meta property="og:description" content="Un universo di reti già costruite. La prossima si assembla sulla tua azienda, davanti ai tuoi occhi.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1715 1243%22><defs><mask id=%22m%22><rect width=%221715%22 height=%221243%22 fill=%22white%22/><circle cx=%22310%22 cy=%22622%22 r=%22355%22 fill=%22black%22/><circle cx=%221405%22 cy=%22622%22 r=%22355%22 fill=%22black%22/></mask></defs><circle cx=%22857%22 cy=%22622%22 r=%22570%22 fill=%22none%22 stroke=%22%234be08e%22 stroke-width=%22100%22 mask=%22url(%23m)%22/><circle cx=%22310%22 cy=%22622%22 r=%22310%22 fill=%22%234be08e%22/><circle cx=%221405%22 cy=%22622%22 r=%22310%22 fill=%22%234be08e%22/></svg>">
+<style>
+:root{
+ --bg:#04070a;
+ --env:#4be08e; --env2:#9df3c3; --geo:#5aa9ff; --geo2:#b9d8ff; --vio:#a98bff; --vio2:#cdbcff;
+ --teal:#35d0c0; --amber:#ffc46b;
+ --txt:#edf4f0; --txt2:#95a8a1; --txt3:#5f7269;
+ --line:rgba(255,255,255,.10); --glass:rgba(9,14,19,.72);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:rgba(75,224,142,.3)}
+
+/* ===== fixed universe canvas + atmosphere ===== */
+#stage{position:fixed;inset:0;z-index:0;display:block;cursor:grab}
+#stage.drag{cursor:grabbing}
+.aur{position:fixed;z-index:1;pointer-events:none;filter:blur(90px);opacity:.5;mix-blend-mode:screen}
+#aur1{width:56vw;height:56vw;left:-16vw;top:-18vw;background:radial-gradient(circle,rgba(75,224,142,.24),transparent 62%);animation:drift1 26s ease-in-out infinite alternate}
+#aur2{width:52vw;height:52vw;right:-14vw;bottom:-16vw;background:radial-gradient(circle,rgba(90,169,255,.22),transparent 62%);animation:drift2 31s ease-in-out infinite alternate}
+#aur3{width:40vw;height:40vw;left:32vw;top:44vh;background:radial-gradient(circle,rgba(169,139,255,.16),transparent 62%);animation:drift1 37s ease-in-out infinite alternate-reverse}
+@keyframes drift1{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(9vw,6vh,0) scale(1.18)}}
+@keyframes drift2{from{transform:translate3d(0,0,0) scale(1.12)}to{transform:translate3d(-8vw,-5vh,0) scale(.95)}}
+#veil{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(130% 85% at 50% 42%,transparent 42%,rgba(4,7,10,.6) 100%)}
+#grain{position:fixed;inset:-50%;z-index:40;pointer-events:none;opacity:.05;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+ animation:grain 7s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-6%,4%)}40%{transform:translate(4%,-7%)}60%{transform:translate(-3%,6%)}80%{transform:translate(6%,-3%)}100%{transform:translate(0,0)}}
+@media(prefers-reduced-motion:reduce){#grain,.aur{animation:none}}
+
+/* ===== nav ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:18px 30px;gap:14px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.01em;font-size:18px}
+.brand .mark{width:30px;height:21.7px;flex:none;filter:drop-shadow(0 0 8px rgba(75,224,142,.45))}
+.brand small{font-weight:500;color:var(--txt3);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.navlinks{display:flex;gap:22px;font-size:13.5px;font-weight:600;color:var(--txt2)}
+.navlinks a:hover{color:var(--txt)}
+.navcta{font-size:13px;font-weight:700;border:1px solid var(--line);padding:9px 18px;border-radius:999px;background:rgba(255,255,255,.03);backdrop-filter:blur(8px);transition:.25s;white-space:nowrap}
+.navcta:hover{border-color:var(--env);color:var(--env2)}
+@media(max-width:900px){.navlinks{display:none}}
+
+/* ===== layout ===== */
+main{position:relative;z-index:3}
+.isle{min-height:100vh;display:flex;align-items:center;padding:110px 30px}
+.isle .inner{max-width:1220px;margin:0 auto;width:100%}
+.ey{font-size:12px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;margin-bottom:20px;color:var(--env)}
+.ey.b{color:var(--geo)} .ey.v{color:var(--vio)} .ey.n{color:var(--txt3)}
+h1{font-size:clamp(42px,7.6vw,100px);line-height:.98;letter-spacing:-.038em;font-weight:800;text-shadow:0 2px 44px rgba(4,7,10,.95)}
+h2{font-size:clamp(30px,5vw,62px);line-height:1.02;letter-spacing:-.03em;font-weight:800;text-shadow:0 2px 44px rgba(4,7,10,.95)}
+p.lead{font-size:clamp(16px,1.55vw,20px);color:var(--txt2);line-height:1.62;margin-top:22px;max-width:560px}
+.grad{background:linear-gradient(100deg,var(--geo) 0%,var(--vio) 45%,var(--env) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.grad-e{background:linear-gradient(100deg,var(--env),var(--env2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.grad-b{background:linear-gradient(100deg,var(--geo),var(--geo2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:15px;padding:15px 28px;border-radius:999px;transition:transform .25s,box-shadow .25s;cursor:pointer;border:0;font-family:inherit}
+.btn.p{background:linear-gradient(120deg,var(--env),#25b06a);color:#041209}
+.btn.p:hover{transform:translateY(-2px);box-shadow:0 16px 44px -16px var(--env)}
+.btn.g{background:rgba(255,255,255,.05);color:var(--txt);border:1px solid var(--line)}
+.btn.g:hover{border-color:var(--env);color:var(--env2)}
+.ctarow{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
+.rv{opacity:0;transform:translateY(28px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.rv.on{opacity:1;transform:none}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+.hint{margin-top:46px;display:inline-flex;align-items:center;gap:12px;color:var(--txt3);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.hint .bar{width:34px;height:1px;background:var(--txt3);position:relative;overflow:hidden}
+.hint .bar::after{content:"";position:absolute;inset:0;background:var(--env);animation:sweep 2.4s infinite}
+@keyframes sweep{0%{transform:translateX(-100%)}60%,100%{transform:translateX(100%)}}
+#hero .inner{pointer-events:none}
+#hero a,#hero .btn{pointer-events:auto}
+
+/* ===== forge (configurator) ===== */
+.forge{margin-top:42px;background:var(--glass);border:1px solid var(--line);border-radius:26px;overflow:hidden;backdrop-filter:blur(12px);box-shadow:0 60px 110px -70px rgba(90,169,255,.6)}
+.forge-top{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
+.frow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.frow .fl{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt3);font-weight:700;width:86px;flex:none}
+.fchip{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:9px 14px;cursor:pointer;font-family:inherit;color:var(--txt2);font-size:13px;font-weight:600;transition:.2s;display:flex;align-items:center;gap:7px}
+.fchip:hover{color:var(--txt);transform:translateY(-2px)}
+.fchip.sel{border-color:var(--env);color:var(--env2);box-shadow:0 0 0 1px var(--env),0 0 24px -10px var(--env)}
+.frow.need .fchip.sel{border-color:var(--geo);color:var(--geo2);box-shadow:0 0 0 1px var(--geo),0 0 24px -10px var(--geo)}
+.forge-body{display:grid;grid-template-columns:1.45fr 1fr;min-height:430px}
+.forge-canvas{position:relative;border-right:1px solid var(--line)}
+#forgeCv{position:absolute;inset:0;width:100%;height:100%;display:block}
+.forge-out{padding:26px;display:flex;flex-direction:column;gap:15px}
+.forge-out .ot{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt3);font-weight:700}
+.forge-out h3{font-size:21px;line-height:1.2;font-weight:800}
+.forge-out .dec{font-size:13.5px;color:var(--txt2);line-height:1.6}
+.mods{display:flex;flex-wrap:wrap;gap:6px}
+.mods span{font-size:11.5px;font-weight:600;color:var(--vio2);background:rgba(169,139,255,.08);border:1px solid rgba(169,139,255,.25);border-radius:999px;padding:4px 10px}
+.fmet{display:flex;gap:9px}
+.fmet .m{flex:1;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:11px;text-align:center}
+.fmet .mv{font-size:17px;font-weight:800;color:var(--env2)}
+.fmet .mk{font-size:9.5px;color:var(--txt3);letter-spacing:.05em;text-transform:uppercase;margin-top:3px;line-height:1.3}
+.sig{font-size:11.5px;color:var(--txt3);line-height:1.6;border-top:1px solid var(--line);padding-top:13px}
+.sig b{color:var(--txt2);font-weight:600}
+.hash{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--geo2);word-break:break-all;background:rgba(90,169,255,.06);border:1px solid rgba(90,169,255,.18);border-radius:10px;padding:9px 12px}
+.hash small{display:block;color:var(--txt3);font-family:inherit;margin-top:4px}
+.forge-cta{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap}
+.forge-note{padding:13px 24px;border-top:1px solid var(--line);font-size:12px;color:var(--txt3);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+@media(max-width:880px){.forge-body{grid-template-columns:1fr}.forge-canvas{min-height:330px;border-right:0;border-bottom:1px solid var(--line)}}
+
+/* ===== portals ===== */
+.ports{margin-top:46px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px;perspective:1400px}
+.port{position:relative;display:block;cursor:pointer;background:var(--glass);border:1px solid var(--line);border-radius:24px;padding:30px;overflow:hidden;backdrop-filter:blur(10px);transition:border-color .3s,box-shadow .3s;transform-style:preserve-3d;will-change:transform}
+.port:hover{border-color:var(--pc)}
+.port::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 80% -10%,var(--pg),transparent 55%);opacity:.55;transition:opacity .3s}
+.port:hover::before{opacity:.9}
+.port .orb{position:absolute;top:24px;right:26px;width:64px;height:64px;transform:translateZ(40px)}
+.port .orb i{position:absolute;left:50%;top:50%;width:7px;height:7px;margin:-3.5px;border-radius:50%;background:var(--pc);box-shadow:0 0 12px var(--pc);animation:orbit 5s linear infinite}
+.port .orb i:nth-child(2){animation-delay:-1.6s;width:5px;height:5px;margin:-2.5px}
+.port .orb i:nth-child(3){animation-delay:-3.3s;width:4px;height:4px;margin:-2px;animation-duration:7s}
+.port .orb::before{content:"";position:absolute;inset:8px;border:1px solid color-mix(in srgb,var(--pc) 45%,transparent);border-radius:50%}
+@keyframes orbit{from{transform:rotate(0) translateX(26px)}to{transform:rotate(360deg) translateX(26px)}}
+.port .pk{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--pc)}
+.port h3{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:10px 0 8px;transform:translateZ(26px)}
+.port p{font-size:13.5px;color:var(--txt2);line-height:1.6;max-width:400px;transform:translateZ(16px)}
+.port .go{margin-top:20px;display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:var(--pc);transform:translateZ(30px)}
+.port .go a{color:inherit;display:inline-flex;align-items:center;gap:8px}
+.port .go .ar{transition:transform .25s}
+.port:hover .go .ar{transform:translateX(5px)}
+.port .sub{margin-left:18px;color:var(--txt3);font-weight:600;font-size:12.5px}
+.port .sub:hover{color:var(--txt)}
+@media(max-width:840px){.ports{grid-template-columns:1fr}}
+
+/* ===== proof ===== */
+.nums{margin-top:44px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.num{background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:22px 18px;text-align:center;backdrop-filter:blur(8px)}
+.num .v{font-size:clamp(26px,3vw,36px);font-weight:800;letter-spacing:-.02em}
+.num .k{font-size:11.5px;color:var(--txt3);letter-spacing:.05em;text-transform:uppercase;margin-top:7px;line-height:1.45}
+.num.e .v{color:var(--env2)} .num.g .v{color:var(--geo2)} .num.vi .v{color:var(--vio2)} .num.a .v{color:var(--amber)}
+.steps3{margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.st{background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:20px 22px}
+.st .n{font-size:11px;font-weight:800;letter-spacing:.18em;color:var(--env);margin-bottom:9px}
+.st h4{font-size:16px;font-weight:800;margin-bottom:6px}
+.st p{font-size:12.5px;color:var(--txt2);line-height:1.55}
+.partners{display:flex;flex-wrap:wrap;gap:11px;margin-top:30px;justify-content:center}
+.partners span{font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-weight:600;background:var(--glass)}
+@media(max-width:840px){.nums{grid-template-columns:repeat(2,1fr)}.steps3{grid-template-columns:1fr}}
+
+/* ===== footer ===== */
+footer{position:relative;z-index:3;border-top:1px solid var(--line);padding:52px 30px 42px;background:linear-gradient(180deg,transparent,#070c11)}
+.foot-in{max-width:1220px;margin:0 auto;display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between}
+.foot-in a{color:var(--txt2)} .foot-in a:hover{color:var(--env2)}
+.foot-col h4{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt2);margin-bottom:12px}
+.foot-col div{margin-bottom:7px;font-size:14px}
+.foot-bot{max-width:1220px;margin:30px auto 0;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--txt3);line-height:1.7}
+.center{text-align:center}.center p.lead{margin-left:auto;margin-right:auto}.center .ctarow{justify-content:center}
+@media(max-width:640px){.isle{padding:100px 22px}}
+</style>
+</head>
+<body>
+
+<canvas id="stage"></canvas>
+<div class="aur" id="aur1"></div><div class="aur" id="aur2"></div><div class="aur" id="aur3"></div>
+<div id="veil"></div>
+<div id="grain"></div>
+
+<nav>
+  <a class="brand" href="#hero"><svg class="mark" viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm1"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#4be08e" stroke-width="100" mask="url(#ebm1)"/><circle cx="310" cy="622" r="310" fill="#4be08e"/><circle cx="1405" cy="622" r="310" fill="#4be08e"/></svg>EcoBubble <small>Applied Intelligence</small></a>
+  <div class="navlinks">
+    <a href="#forge">Forgia la tua rete</a>
+    <a href="#ports">Le reti già vive</a>
+    <a href="#proof">La prova</a>
+  </div>
+  <a class="navcta" href="#contact">Parliamone &rarr;</a>
+</nav>
+
+<main>
+  <!-- HERO: the universe -->
+  <section class="isle" id="hero">
+    <div class="inner">
+      <div style="max-width:720px">
+        <div class="ey rv on">EcoBubble · costruttori di intelligenza</div>
+        <h1 class="rv on d1">Un universo<br>di <span class="grad">reti pensanti</span>.<br>Una è la tua.</h1>
+        <p class="lead rv on d2">Ogni costellazione che vedi è una rete multidimensionale di moduli di intelligenza che abbiamo già costruito: orchestrazione, territorio, natura, agritech. La prossima si assembla sulla tua azienda.</p>
+        <div class="ctarow rv on d3">
+          <a class="btn p" href="#forge">Assembla la tua, adesso &rarr;</a>
+          <a class="btn g" href="#ports">Esplora le reti vive</a>
+        </div>
+        <div class="hint rv on d3"><span class="bar"></span> trascina l'universo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORGE -->
+  <section class="isle" id="forge" style="min-height:auto;padding-bottom:80px">
+    <div class="inner">
+      <div style="max-width:840px">
+        <div class="ey b rv">La fucina</div>
+        <h2 class="rv d1">Dimmi chi sei.<br>Ti <span class="grad-b">assemblo la rete</span>.</h2>
+        <p class="lead rv d2" style="max-width:640px">Scegli settore ed esigenza: il catalogo si sveglia, i motori giusti si staccano e compongono la pipeline, dal segnale alla decisione. Quella che vedi è un'anteprima; quella vera si progetta e si misura sui tuoi dati.</p>
+      </div>
+      <div class="forge rv d2">
+        <div class="forge-top">
+          <div class="frow" id="rowSector"><span class="fl">Settore</span></div>
+          <div class="frow need" id="rowNeed"><span class="fl">Esigenza</span></div>
+        </div>
+        <div class="forge-body">
+          <div class="forge-canvas"><canvas id="forgeCv"></canvas></div>
+          <div class="forge-out">
+            <div class="ot">La tua rete · anteprima</div>
+            <h3 id="fTitle"></h3>
+            <div class="dec" id="fDec"></div>
+            <div class="mods" id="fMods"></div>
+            <div class="fmet">
+              <div class="m"><div class="mv" id="fN">9</div><div class="mk">motori scelti su ~100</div></div>
+              <div class="m"><div class="mv">0,90</div><div class="mk">copertura target, poi misurata</div></div>
+              <div class="m"><div class="mv">−80/90%</div><div class="mk">calcolo evitato</div></div>
+            </div>
+            <div class="sig" id="fSig"></div>
+            <div class="hash" id="fHash"></div>
+            <div class="forge-cta">
+              <a class="btn p" id="fCta" href="#" style="padding:12px 22px;font-size:14px">Costruiamola davvero &rarr;</a>
+            </div>
+          </div>
+        </div>
+        <div class="forge-note">
+          <span>Composizione illustrativa: la selezione reale avviene sui tuoi dati, con statistiche misurate e budget di calcolo esplicito.</span>
+          <span style="color:var(--vio2);font-weight:600">Orchestrata da Ennous · architettura patent pending</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTALS -->
+  <section class="isle" id="ports" style="min-height:auto;padding-bottom:80px">
+    <div class="inner">
+      <div style="max-width:840px">
+        <div class="ey v rv">Le reti già vive</div>
+        <h2 class="rv d1">Non promesse.<br><span class="grad">Portali</span> aperti.</h2>
+        <p class="lead rv d2" style="max-width:620px">Ogni rete che costruiamo diventa un mondo con il proprio nome e il proprio sito. Entra: alcune si lasciano persino guidare, con i motori che girano nel tuo browser.</p>
+      </div>
+      <div class="ports rv d2">
+        <div class="port" data-href="https://ennous.it" data-ext="1" style="--pc:var(--vio);--pg:rgba(169,139,255,.14)">
+          <span class="orb"><i></i><i></i><i></i></span>
+          <div class="pk">Orchestrazione · Meta-Intelligence</div>
+          <h3>Ennous</h3>
+          <p>Il cervello che orchestra i cervelli: ~100 motori, se ne accendono ~1 su 10 per decisione, copertura ~90% verificata, audit SHA-256. La rete madre di tutte le altre.</p>
+          <span class="go"><a href="https://ennous.it" target="_blank" rel="noopener">Entra nel portale <span class="ar">&rarr;</span></a><a class="sub" href="https://ennous.it/platform" target="_blank" rel="noopener">Piattaforma live &nearr;</a></span>
+        </div>
+        <div class="port" data-href="index.html#geo" style="--pc:var(--geo);--pg:rgba(90,169,255,.14)">
+          <span class="orb"><i></i><i></i><i></i></span>
+          <div class="pk">Territorio · patent pending</div>
+          <h3>Geo-Driven Systems</h3>
+          <p>Il territorio che parla: perdite idriche nei terreni, frane, alluvioni, sismica, subsidenza, falde. Un radar che fonde satellite e sensori in decisioni con confidenza calibrata.</p>
+          <span class="go"><a href="index.html#geo">Guarda il radar <span class="ar">&rarr;</span></a></span>
+        </div>
+        <div class="port" data-href="https://greeneazy.it" data-ext="1" style="--pc:var(--env);--pg:rgba(75,224,142,.14)">
+          <span class="orb"><i></i><i></i><i></i></span>
+          <div class="pk">Natura · fitorimedio</div>
+          <h3>GreenEazy</h3>
+          <p>L'intelligenza che sceglie le piante giuste per depurare aria, acqua e suolo: dai database ambientali ai progetti per città, aziende e comunità.</p>
+          <span class="go"><a class="plink">Entra nel portale <span class="ar">&rarr;</span></a></span>
+        </div>
+        <div class="port" data-href="https://www.plantiverse.it" data-ext="1" style="--pc:var(--teal);--pg:rgba(53,208,192,.14)">
+          <span class="orb"><i></i><i></i><i></i></span>
+          <div class="pk">Agritech · Bio-Driven</div>
+          <h3>Plantiverse</h3>
+          <p>Leggere i sistemi vivi: camere multispettrali e reti che colgono lo stress delle colture prima dei sintomi, validate sul campo con CNR, Sapienza ed ENEA.</p>
+          <span class="go"><a class="plink">Entra nel portale <span class="ar">&rarr;</span></a></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section class="isle" id="proof" style="min-height:auto;padding-bottom:90px">
+    <div class="inner">
+      <div class="center" style="max-width:780px;margin:0 auto">
+        <div class="ey n rv">La prova</div>
+        <h2 class="rv d1" style="font-size:clamp(28px,4.2vw,52px)">Numeri <span class="grad-e">misurati</span>,<br>non promessi.</h2>
+      </div>
+      <div class="nums rv d1">
+        <div class="num vi"><div class="v">~100</div><div class="k">motori nel catalogo, in gara continua</div></div>
+        <div class="num g"><div class="v">~90%</div><div class="k">copertura degli intervalli, verificata</div></div>
+        <div class="num e"><div class="v">&gt;85%</div><div class="k">stress del verde colto prima dei sintomi</div></div>
+        <div class="num a"><div class="v">SHA-256</div><div class="k">ogni decisione firmata in catena di audit</div></div>
+      </div>
+      <div class="steps3 rv d2">
+        <div class="st"><div class="n">01 · SETTIMANE</div><h4>Ascolto e progetto</h4><p>Porti problema e dati, anche pochi e imperfetti. Disegniamo la rete: segnali, motori, decisione. Sensori e camere, se servono, li installiamo noi.</p></div>
+        <div class="st"><div class="n">02 · MESI</div><h4>Prova sul campo</h4><p>La rete gira sul tuo caso e si misura: accuratezza, copertura, calcolo. Se non regge la prova, lo vedi subito, con l'audit che lo dimostra.</p></div>
+        <div class="st"><div class="n">03 · SEMPRE</div><h4>Resta a te</h4><p>In esercizio con certificati periodici di copertura misurata, oppure in licenza sull'architettura brevettata, dentro i tuoi sistemi.</p></div>
+      </div>
+      <div class="partners rv d3">
+        <span>CNR-IAC</span><span>Sapienza</span><span>ENEA</span><span>Orto Botanico di Roma</span><span>FAO · Mountain Partnership</span><span>ESA BIC</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="isle" id="contact" style="min-height:auto;padding:30px 30px 130px">
+    <div class="inner">
+      <div class="center" style="max-width:720px;margin:0 auto">
+        <div class="ey rv">Iniziamo</div>
+        <h2 class="rv d1">La tua rete<br>non esiste <span class="grad">ancora</span>.</h2>
+        <p class="lead rv d2">Raccontaci il problema e i dati che hai. Ti diciamo che rete serve, come la mettiamo alla prova e cosa ti resta in mano.</p>
+        <div class="ctarow rv d3">
+          <a class="btn p" href="mailto:info@ecobubble.it?subject=Rete%20multidimensionale%20su%20misura">Scrivici &rarr;</a>
+          <a class="btn g" href="https://calendly.com/nicola-nescatelli/30min">Prenota una call</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-in">
+    <div class="foot-col" style="max-width:320px">
+      <div class="brand" style="margin-bottom:14px"><svg class="mark" viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm2"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#4be08e" stroke-width="100" mask="url(#ebm2)"/><circle cx="310" cy="622" r="310" fill="#4be08e"/><circle cx="1405" cy="622" r="310" fill="#4be08e"/></svg>EcoBubble</div>
+      <div style="color:var(--txt2);line-height:1.6;font-size:14px">Costruiamo reti multidimensionali di moduli di intelligenza, su misura della tua azienda o del tuo territorio. E le misuriamo sul campo.</div>
+    </div>
+    <div class="foot-col"><h4>Qui</h4><div><a href="#forge">Forgia la tua rete</a></div><div><a href="#ports">Le reti già vive</a></div><div><a href="#proof">La prova</a></div><div><a href="index.html">Versione classica</a></div></div>
+    <div class="foot-col"><h4>Portali</h4><div><a href="https://ennous.it">Ennous</a></div><div><a href="https://greeneazy.it">GreenEazy</a></div><div><a href="https://www.plantiverse.it">Plantiverse</a></div></div>
+    <div class="foot-col"><h4>Contatti</h4><div><a href="mailto:info@ecobubble.it">info@ecobubble.it</a></div><div><a href="https://calendly.com/nicola-nescatelli/30min">Prenota una call</a></div></div>
+  </div>
+  <div class="foot-bot">
+    © 2026 EcoBubble S.r.l. · Applied Intelligence · Architetture Bio-Driven e Geo-Driven, patent pending<br>
+    EcoBubble S.r.l. · Via del Casale Giuliani 71, 00139 Roma (RM) · P.IVA / C.F. 15109141000 · REA RM-1568443 · PEC ecobubble@arubapec.it
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   UNIVERSE — true 3D constellation of built networks.
+   Nucleus = EcoBubble mark; satellites = Ennous / Geo / Green / Plant.
+   Drag with inertia, depth fog, additive bloom, data packets.
+   ============================================================ */
+(function(){
+  const cv=document.getElementById('stage'), ctx=cv.getContext('2d');
+  let W,H,dpr,scale;
+  function size(){dpr=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);scale=Math.min(W,H)*0.235;}
+  size();addEventListener('resize',()=>size());
+
+  const rnd=(a,b)=>a+Math.random()*(b-a);
+  // --- nucleus: the EcoBubble mark as constellation ---
+  const nodes=[],edges=[],labels=[];
+  const NUC=[159,213,181]; // soft sage for ring
+  const ringN=30,ringR=.6;
+  const ringIdx=[];
+  for(let i=0;i<ringN;i++){const a=i/ringN*Math.PI*2;
+    if(Math.abs(Math.cos(a))>0.82)continue; // gaps where the side nodes sit
+    ringIdx.push(nodes.length);
+    nodes.push({p:[Math.cos(a)*ringR,Math.sin(a)*ringR*0.92,0],r:1.7,c:[75,224,142],glow:.5});
+  }
+  for(let i=0;i<ringIdx.length-1;i++){edges.push({a:ringIdx[i],b:ringIdx[i+1],c:[75,224,142],w:1.4,al:.5});}
+  const nucL=nodes.length;nodes.push({p:[-.72,0,0],r:6.5,c:[75,224,142],glow:1});
+  const nucR=nodes.length;nodes.push({p:[.72,0,0],r:6.5,c:[75,224,142],glow:1});
+
+  // --- satellites ---
+  const SATS=[
+    {name:'ENNOUS',tag:'orchestrazione',c:[169,139,255],az:0.65,el:0.32},
+    {name:'GEO-DRIVEN',tag:'territorio',c:[90,169,255],az:2.25,el:-0.28},
+    {name:'GREENEAZY',tag:'fitorimedio',c:[75,224,142],az:3.85,el:0.30},
+    {name:'PLANTIVERSE',tag:'agritech',c:[53,208,192],az:5.45,el:-0.34},
+  ];
+  const packets=[];
+  SATS.forEach(s=>{
+    const R=2.35;
+    const cx=Math.cos(s.az)*Math.cos(s.el)*R, cy=Math.sin(s.el)*R, cz=Math.sin(s.az)*Math.cos(s.el)*R;
+    const ci=nodes.length;
+    nodes.push({p:[cx,cy,cz],r:4.2,c:s.c,glow:1,label:s});
+    const start=nodes.length,n=16,r=.58,ga=Math.PI*(3-Math.sqrt(5));
+    for(let i=0;i<n;i++){
+      const y=1-(i/(n-1))*2, rr=Math.sqrt(1-y*y), th=ga*i;
+      nodes.push({p:[cx+Math.cos(th)*rr*r,cy+y*r,cz+Math.sin(th)*rr*r],r:rnd(1.2,2.2),c:s.c,glow:.55,tw:Math.random()*6.28});
+      edges.push({a:ci,b:start+i,c:s.c,w:.6,al:.22});
+    }
+    for(let i=0;i<n;i++){edges.push({a:start+i,b:start+(i+1)%n,c:s.c,w:.7,al:.3});
+      edges.push({a:start+i,b:start+(i+5)%n,c:s.c,w:.5,al:.16});}
+    // spoke to nucleus side node (alternate sides)
+    const anchor=(s.az<Math.PI)?nucR:nucL;
+    edges.push({a:anchor,b:ci,c:s.c,w:1,al:.34,spoke:true});
+    for(let k=0;k<3;k++)packets.push({a:anchor,b:ci,t:Math.random(),v:rnd(.0016,.003),c:s.c,out:Math.random()>.5});
+  });
+
+  // --- interaction: drag with inertia ---
+  let yaw=.6,pitch=-.16,vyaw=0,vpitch=0,auto=.0011,dragging=false,px=0,py=0;
+  function down(e){if(e.target.closest('a,button,.forge,.port,nav,input'))return;dragging=true;px=e.clientX;py=e.clientY;cv.classList.add('drag');}
+  addEventListener('pointerdown',down);
+  addEventListener('pointermove',e=>{if(!dragging)return;const dx=e.clientX-px,dy=e.clientY-py;px=e.clientX;py=e.clientY;
+    vyaw=dx*0.0045;vpitch=dy*0.0032;yaw+=vyaw;pitch=Math.max(-1.1,Math.min(1.1,pitch+vpitch));});
+  addEventListener('pointerup',()=>{dragging=false;cv.classList.remove('drag');});
+  let tmx=0,tmy=0;addEventListener('pointermove',e=>{tmx=e.clientX/W-.5;tmy=e.clientY/H-.5;},{passive:true});
+
+  function project(p,cy){
+    const [x,y,z]=p;
+    const x1=x*Math.cos(yaw)+z*Math.sin(yaw), z1=-x*Math.sin(yaw)+z*Math.cos(yaw);
+    const y1=y*Math.cos(pitch)-z1*Math.sin(pitch), z2=y*Math.sin(pitch)+z1*Math.cos(pitch);
+    const fov=5.2,s=fov/(fov-z2);
+    return {x:W*.5+tmx*14+x1*s*scale*1.0,y:cy+tmy*10+y1*s*scale,s,z:z2};
+  }
+
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let last=performance.now();
+  function frame(now){
+    const dt=Math.min(2.5,(now-last)/16.7);last=now;
+    if(!dragging){yaw+=(auto+vyaw)*dt;pitch+=vpitch*dt;pitch=Math.max(-1.1,Math.min(1.1,pitch));
+      vyaw*=Math.pow(.965,dt);vpitch*=Math.pow(.94,dt);}
+    const cy=H*.5;
+    ctx.clearRect(0,0,W,H);
+    const pos=nodes.map(n=>project(n.p,cy));
+    const fog=p=>Math.max(0,Math.min(1,(p.s-.62)*1.9));
+
+    // edges
+    ctx.lineCap='round';
+    for(const e of edges){
+      const a=pos[e.a],b=pos[e.b];
+      const al=e.al*Math.min(fog(a),fog(b));if(al<=.008)continue;
+      ctx.strokeStyle=`rgba(${e.c[0]},${e.c[1]},${e.c[2]},${al})`;
+      ctx.lineWidth=e.w*Math.min(a.s,b.s);
+      ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+    }
+    // packets (additive)
+    ctx.globalCompositeOperation='lighter';
+    for(const pk of packets){
+      pk.t+=pk.v*dt;if(pk.t>1)pk.t=0;
+      const a=pos[pk.a],b=pos[pk.b];const t=pk.out?pk.t:1-pk.t;
+      const x=a.x+(b.x-a.x)*t,y=a.y+(b.y-a.y)*t,s=(a.s+(b.s-a.s)*t);
+      const al=.7*Math.min(fog(a),fog(b));
+      const g=ctx.createRadialGradient(x,y,0,x,y,7*s);
+      g.addColorStop(0,`rgba(${pk.c[0]},${pk.c[1]},${pk.c[2]},${al})`);g.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,7*s,0,7);ctx.fill();
+    }
+    // nodes with bloom
+    for(let i=0;i<nodes.length;i++){
+      const n=nodes[i],p=pos[i],f=fog(p);if(f<=.01)continue;
+      const tw=n.tw?(.75+.25*Math.sin(now*.002+n.tw)):1;
+      if(n.glow>=.5){
+        const R=n.r*6.5*p.s;
+        const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,R);
+        g.addColorStop(0,`rgba(${n.c[0]},${n.c[1]},${n.c[2]},${.30*n.glow*f*tw})`);g.addColorStop(1,'rgba(0,0,0,0)');
+        ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,R,0,7);ctx.fill();
+      }
+      ctx.fillStyle=`rgba(${n.c[0]},${n.c[1]},${n.c[2]},${(.55+.45*f)*tw})`;
+      ctx.beginPath();ctx.arc(p.x,p.y,n.r*p.s,0,7);ctx.fill();
+    }
+    ctx.globalCompositeOperation='source-over';
+    // labels
+    ctx.textAlign='center';
+    for(let i=0;i<nodes.length;i++){
+      const n=nodes[i];if(!n.label)continue;const p=pos[i],f=fog(p);if(f<=.05)continue;
+      ctx.font='700 11px -apple-system,BlinkMacSystemFont,sans-serif';
+      ctx.fillStyle=`rgba(${n.c[0]},${n.c[1]},${n.c[2]},${.9*f})`;
+      ctx.fillText(n.label.name,p.x,p.y-16*p.s);
+      ctx.font='500 9px -apple-system,BlinkMacSystemFont,sans-serif';
+      ctx.fillStyle=`rgba(237,244,240,${.42*f})`;
+      ctx.fillText(n.label.tag.toUpperCase(),p.x,p.y+22*p.s);
+    }
+    if(!reduced)requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* reveal */
+(function(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}}),{threshold:.18});
+  document.querySelectorAll('.rv:not(.on)').forEach(el=>io.observe(el));
+  setTimeout(()=>document.querySelectorAll('.rv:not(.on)').forEach(el=>el.classList.add('on')),2400);
+})();
+
+/* ============================================================
+   FORGE — sector + need → the network assembles live.
+   Real SHA-256 of the composition, computed in the browser.
+   ============================================================ */
+const FORGE={
+ sectors:[
+  {id:'finanza',ic:'🏦',name:'Finanza & credito',
+   dom:['GBoost PD','GNN controparti','Scenari tasso'],
+   sig:'transazioni, bureau, bilanci, mercato',
+   dec:'primi segnali di deterioramento del credito e concentrazioni, con intervallo di confidenza verificabile e dossier di audit per vigilanza.'},
+  {id:'energia',ic:'⚡',name:'Energia & infrastrutture',
+   dom:['Fisico PV','Curva eolica','Degrado asset'],
+   sig:'SCADA, meteo, mercati, registro asset',
+   dec:'previsione di produzione e ricavo per asset, con manutenzione ordinata per priorità e copertura misurata.'},
+  {id:'agro',ic:'🌾',name:'Agroalimentare',
+   dom:['Indici NDVI','Bilancio idrico','Fenologia'],
+   sig:'multispettrale, meteo, umidità del suolo',
+   dec:'stress delle colture colto prima dei sintomi e irrigazione dove serve, con esito verificato sul campo.'},
+  {id:'citta',ic:'🏙️',name:'Città & PA',
+   dom:['InSAR trend','Idrologia','Reti urbane'],
+   sig:'satellite, sensori urbani, piogge, catasto reti',
+   dec:'rischio territoriale per quartiere e versante, perdite idriche localizzate, priorità di intervento motivate.'},
+  {id:'industria',ic:'🏭',name:'Industria',
+   dom:['Vibrazionale','Qualità visione','Consumi'],
+   sig:'sensori macchina, MES, qualità, energia',
+   dec:'anomalie di processo e manutenzione predittiva, con fermi evitati e confidenza dichiarata.'},
+  {id:'assicura',ic:'🛡️',name:'Assicurazioni',
+   dom:['Catastrofale','Frodi sinistri','Esposizione'],
+   sig:'sinistri, esposizione, eventi, territorio',
+   dec:'rischio e riserve con copertura misurata, e un certificato che regge davanti ad attuari e revisori.'}],
+ needs:[
+  {id:'prevedere',ic:'📈',name:'Prevedere',t:'Previsione governata'},
+  {id:'sorvegliare',ic:'👁️',name:'Sorvegliare',t:'Sorveglianza delle anomalie'},
+  {id:'certificare',ic:'📜',name:'Certificare',t:'Fiducia certificabile'},
+  {id:'ottimizzare',ic:'🎛️',name:'Ottimizzare',t:'Decisioni a budget'}],
+ base:['EWMA','Theta','Holt','Kalman','Ridge ARX','KNN analoghi','Random Forest','Conformal Q','Drift PH']
+};
+
+(function(){
+  const rowS=document.getElementById('rowSector'),rowN=document.getElementById('rowNeed');
+  let si=0,ni=0,animStart=performance.now(),seed=1;
+  FORGE.sectors.forEach((s,i)=>{const b=document.createElement('button');b.className='fchip'+(i===0?' sel':'');b.innerHTML=`<span>${s.ic}</span>${s.name}`;b.onclick=()=>{si=i;update();};rowS.appendChild(b);});
+  FORGE.needs.forEach((n,i)=>{const b=document.createElement('button');b.className='fchip'+(i===0?' sel':'');b.innerHTML=`<span>${n.ic}</span>${n.name}`;b.onclick=()=>{ni=i;update();};rowN.appendChild(b);});
+
+  async function sha256(s){
+    try{const h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+      return[...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,'0')).join('');}
+    catch(_){let h=0x811c9dc5;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}return h.toString(16).padStart(8,'0').repeat(8).slice(0,64);}
+  }
+
+  let engines=[];
+  async function update(){
+    const s=FORGE.sectors[si],n=FORGE.needs[ni];
+    document.querySelectorAll('#rowSector .fchip').forEach((b,j)=>b.classList.toggle('sel',j===si));
+    document.querySelectorAll('#rowNeed .fchip').forEach((b,j)=>b.classList.toggle('sel',j===ni));
+    engines=[...s.dom,...FORGE.base.slice(0,6)];
+    fTitle.textContent=`${n.t} · ${s.name}`;
+    fDec.textContent='Cosa esce: '+s.dec;
+    fMods.innerHTML=engines.map(e=>`<span>${e}</span>`).join('');
+    fN.textContent=engines.length;
+    fSig.innerHTML=`<b>Segnali che entrano:</b> ${s.sig}. La rete si ricompone da sola quando il regime dei dati cambia.`;
+    fCta.href=`mailto:info@ecobubble.it?subject=${encodeURIComponent('Rete su misura · '+s.name+' · '+n.name)}`;
+    const hex=await sha256(JSON.stringify({s:s.id,n:n.id,engines}));
+    fHash.innerHTML=`${hex.slice(0,40)}…<small>impronta SHA-256 di questa composizione, calcolata adesso nel tuo browser: così firmiamo ogni decisione.</small>`;
+    animStart=performance.now();seed=(si*7+ni*13+3)||1;
+  }
+
+  // --- forge canvas: catalog awakens, chosen engines fly into a pipeline ---
+  const cv=document.getElementById('forgeCv'),ctx=cv.getContext('2d');
+  let W=0,H=0,dpr=1;
+  function size(){dpr=Math.min(2,devicePixelRatio||1);const r=cv.parentElement.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+  size();addEventListener('resize',size);
+  function rng(){seed=(seed*1103515245+12345)&0x7fffffff;return seed/0x7fffffff;}
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+
+  function frame(now){
+    if(!W){requestAnimationFrame(frame);return;}
+    const p=ease(Math.min(1,(now-animStart)/1500));
+    ctx.clearRect(0,0,W,H);
+    const gx=W*.30,gy=H*.5,gw=W*.34,gh=H*.66; // catalog block
+    // catalog 10x10
+    let s2=seed;const r2=()=>{s2=(s2*1103515245+12345)&0x7fffffff;return s2/0x7fffffff;};
+    const chosen=new Set();while(chosen.size<engines.length)chosen.add(Math.floor(r2()*100));
+    const chArr=[...chosen];
+    // pipeline targets
+    const L1=[.06,.5],L4=[.80,.5],L5=[.93,.5];
+    const sigY=[.26,.5,.74];
+    let ci=0;
+    for(let i=0;i<100;i++){
+      const col=i%10,row=(i/10)|0;
+      const x0=gx-gw/2+col/9*gw, y0=gy-gh/2+row/9*gh;
+      if(chosen.has(i)){
+        const k=chArr.indexOf(i);
+        const a=(k/(engines.length-1)-.5)*1.9;
+        const tx=W*.58+Math.sin(a)*W*.10*0.4+ (Math.cos(a)-1)*W*0.02, ty=H*.5+Math.sin(a)*H*.36;
+        const x=x0+(W*.58+ (Math.cos(a)-1)*W*.03 -x0)*p, y=y0+(ty-y0)*p;
+        const pu=.7+.3*Math.sin(now*.003+k);
+        ctx.globalCompositeOperation='lighter';
+        const g=ctx.createRadialGradient(x,y,0,x,y,14);
+        g.addColorStop(0,`rgba(169,139,255,${.5*pu*p+.12})`);g.addColorStop(1,'rgba(0,0,0,0)');
+        ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,14,0,7);ctx.fill();
+        ctx.globalCompositeOperation='source-over';
+        ctx.fillStyle=`rgba(205,188,255,${.85})`;
+        ctx.beginPath();ctx.arc(x,y,3.2,0,7);ctx.fill();
+        if(p>.85){ctx.font='600 9px ui-monospace,Menlo,monospace';ctx.textAlign='left';
+          ctx.fillStyle=`rgba(205,188,255,${(p-.85)/.15*.8})`;
+          ctx.fillText(engines[k]||'',x+8,y+3);}
+        // edges to L4
+        ctx.strokeStyle=`rgba(169,139,255,${.25*p})`;ctx.lineWidth=.8;
+        ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(W*L4[0],H*L4[1]);ctx.stroke();
+        // edges from L1s
+        const sy=sigY[k%3];
+        ctx.strokeStyle=`rgba(90,169,255,${.20*p})`;
+        ctx.beginPath();ctx.moveTo(W*L1[0]+8,H*sy);ctx.lineTo(x,y);ctx.stroke();
+        ci++;
+      }else{
+        ctx.fillStyle=`rgba(237,244,240,${.10+.05*Math.sin(now*.002+i)})`;
+        ctx.beginPath();ctx.arc(x0,y0,1.6,0,7);ctx.fill();
+      }
+    }
+    // L1 signal nodes
+    sigY.forEach((sy,i)=>{
+      const pu=.6+.4*Math.sin(now*.0025+i*2);
+      ctx.fillStyle=`rgba(90,169,255,${.5+.4*pu})`;
+      ctx.beginPath();ctx.arc(W*L1[0],H*sy,4,0,7);ctx.fill();
+      ctx.strokeStyle=`rgba(90,169,255,${.2*pu})`;ctx.beginPath();ctx.arc(W*L1[0],H*sy,8+4*pu,0,7);ctx.stroke();
+    });
+    // L4 fusion + L5 decision
+    ctx.strokeStyle=`rgba(75,224,142,${.5*p})`;ctx.lineWidth=1.4;
+    ctx.beginPath();ctx.moveTo(W*L4[0],H*L4[1]);ctx.lineTo(W*L5[0],H*L5[1]);ctx.stroke();
+    ctx.globalCompositeOperation='lighter';
+    let g4=ctx.createRadialGradient(W*L4[0],H*L4[1],0,W*L4[0],H*L4[1],26);
+    g4.addColorStop(0,`rgba(169,139,255,${.5*p})`);g4.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=g4;ctx.beginPath();ctx.arc(W*L4[0],H*L4[1],26,0,7);ctx.fill();
+    let g5=ctx.createRadialGradient(W*L5[0],H*L5[1],0,W*L5[0],H*L5[1],30);
+    g5.addColorStop(0,`rgba(75,224,142,${.55*p})`);g5.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=g5;ctx.beginPath();ctx.arc(W*L5[0],H*L5[1],30,0,7);ctx.fill();
+    ctx.globalCompositeOperation='source-over';
+    ctx.fillStyle=`rgba(205,188,255,.95)`;ctx.beginPath();ctx.arc(W*L4[0],H*L4[1],5,0,7);ctx.fill();
+    ctx.fillStyle=`rgba(157,243,195,.95)`;ctx.beginPath();ctx.arc(W*L5[0],H*L5[1],6,0,7);ctx.fill();
+    ctx.font='700 9.5px ui-monospace,Menlo,monospace';ctx.textAlign='center';
+    ctx.fillStyle=`rgba(205,188,255,${.8*p})`;ctx.fillText('FUSIONE · L4',W*L4[0],H*L4[1]-32);
+    ctx.fillStyle=`rgba(157,243,195,${.85*p})`;ctx.fillText('DECISIONE · L5',W*L5[0],H*L5[1]-36);
+    ctx.fillStyle=`rgba(185,216,255,.75)`;ctx.textAlign='left';
+    ctx.fillText('SEGNALI · L1',W*L1[0]-4,H*.10);
+    ctx.fillStyle='rgba(237,244,240,.35)';
+    ctx.fillText('CATALOGO ~100',gx-gw/2,gy+gh/2+18);
+    // conformal band on decision
+    if(p>.92){const f=(p-.92)/.08;
+      ctx.strokeStyle=`rgba(157,243,195,${.5*f})`;ctx.setLineDash([4,4]);
+      ctx.beginPath();ctx.arc(W*L5[0],H*L5[1],14,0,7);ctx.stroke();ctx.setLineDash([]);
+      ctx.font='600 8.5px ui-monospace,Menlo,monospace';ctx.textAlign='center';
+      ctx.fillStyle=`rgba(157,243,195,${.7*f})`;ctx.fillText('±q · 0,90',W*L5[0],H*L5[1]+28);}
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  update();
+})();
+
+/* portal cards: whole card clickable, links stay links */
+(function(){
+  document.querySelectorAll('.port').forEach(p=>{
+    const href=p.dataset.href,ext=p.dataset.ext;
+    const pl=p.querySelector('a.plink');
+    if(pl){pl.href=href;if(ext){pl.target='_blank';pl.rel='noopener';}}
+    p.addEventListener('click',e=>{
+      if(e.target.closest('a'))return;
+      if(ext)window.open(href,'_blank','noopener');else location.href=href;
+    });
+  });
+})();
+
+/* 3D tilt on portal cards */
+(function(){
+  if(matchMedia('(hover: none)').matches)return;
+  document.querySelectorAll('.port').forEach(c=>{
+    c.addEventListener('pointermove',e=>{
+      const r=c.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      c.style.transform=`rotateY(${x*9}deg) rotateX(${-y*8}deg) translateZ(0)`;
+    });
+    c.addEventListener('pointerleave',()=>{c.style.transform='rotateY(0) rotateX(0)';});
+  });
+})();
+</script>
+</body>
+</html>
