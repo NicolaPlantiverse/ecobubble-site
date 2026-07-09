@@ -159,12 +159,7 @@ var chaps=srcs.map(function(el){
  var words=[];
  el.childNodes.forEach(function(n){
   var key=(n.nodeName==='B'),txt=n.textContent;
-  txt.split(/\s+/).forEach(function(w){
-   if(!w)return;
-   /* punteggiatura da sola: incollala alla parola precedente, senza spazio */
-   if(/^[.,;:!?)»”]+$/.test(w)&&words.length){words[words.length-1].t+=w;return;}
-   words.push({t:w,k:key});
-  });
+  txt.split(/\s+/).forEach(function(w){if(w)words.push({t:w,k:key});});
  });
  return{k:el.dataset.k,ac:el.dataset.ac,sub:el.dataset.sub||'',cta:!!el.dataset.cta,words:words};
 });
@@ -196,14 +191,11 @@ function mount(i){
 }
 
 function update(){
- /* getBoundingClientRect: relativo al viewport, funziona a prescindere da
-    quale elemento gestisce lo scroll (body ha overflow-x:hidden). */
- var vh=innerHeight,mark=vh*0.5,idx=-1,p=0;
+ var y=window.scrollY,vh=innerHeight,base=track.offsetTop,idx=0,p=0;
  for(var i=0;i<segs.length;i++){
-  var r=segs[i].getBoundingClientRect();
-  if(r.top<=mark&&r.bottom>mark){idx=i;p=Math.min(1,Math.max(0,(mark-r.top)/(r.height-vh*0.4)));break;}
+  var top=segs[i].offsetTop+base-0,h=segs[i].offsetHeight;
+  if(y>=top-vh*0.0&&y<top+h||i===segs.length-1&&y>=top){idx=i;p=Math.min(1,Math.max(0,(y-(top))/(h-vh*0.9)));break;}
  }
- if(idx<0){idx=(segs[0].getBoundingClientRect().top>mark)?0:segs.length-1;p=idx===0?0:1;}
  if(idx!==cur)mount(idx);
  var c=chaps[idx],n=spans.length;
  var pe=(idx===0)?Math.max(p,auto):p;
@@ -215,21 +207,17 @@ function update(){
  var done=shown>=n;
  sub.classList.toggle('on',done&&!!c.sub);
  cta.classList.toggle('on',done&&c.cta);
- hint.classList.toggle('off',segs[0].getBoundingClientRect().top<mark*0.6);
+ hint.classList.toggle('off',y>vh*0.4);
 }
 
-/* loop continuo: legge i rettangoli ogni frame, indipendente dall'evento
-   scroll (che con body overflow-x:hidden non scatta in modo affidabile).
-   auto = il primo capitolo che si scrive da solo al caricamento. */
+var tick=false;
+window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(function(){tick=false;update();});}},{passive:true});
+window.addEventListener('resize',function(){clearTimeout(update._t);update._t=setTimeout(update,120);});
+/* il primo capitolo si scrive da solo al caricamento, come un sottotitolo */
 var auto=0,t0=null;
-function loop(now){
- if(t0===null)t0=now;
- auto=Math.min(1,(now-t0)/2400);
- update();
- requestAnimationFrame(loop);
-}
-mount(0);
-requestAnimationFrame(loop);
+function step(now){if(t0===null)t0=now;auto=Math.min(1,(now-t0)/2400);if(cur===0)update();if(auto<1)requestAnimationFrame(step);}
+mount(0);update();
+requestAnimationFrame(step);
 })();
 </script>
 </body>
