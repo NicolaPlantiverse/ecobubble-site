@@ -58,15 +58,29 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
 #obj .dot{width:8px;height:8px;border-radius:50%;background:var(--ac,var(--env));box-shadow:0 0 12px var(--ac,var(--env))}
 #obj small{color:var(--txt3);font-weight:600}
 
-/* CTA finale */
-#cta{position:fixed;left:50%;bottom:120px;transform:translateX(-50%) translateY(12px);z-index:21;
- display:flex;gap:14px;flex-wrap:wrap;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s,transform .5s}
-#cta.on{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+/* CTA finale — in flusso sotto il sottotitolo (niente sovrapposizioni) */
+#cta{display:none;margin-top:26px;gap:14px;flex-wrap:wrap;justify-content:center;pointer-events:auto}
+#cta.on{display:flex}
 .btn{display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:700;text-decoration:none;border-radius:999px;padding:15px 28px;transition:.25s}
 .btn.p{background:var(--env);color:#04150b}
 .btn.p:hover{transform:translateY(-2px);box-shadow:0 18px 40px -16px var(--env)}
 .btn.s{border:1px solid var(--line);color:var(--txt);background:rgba(9,14,19,.5)}
 .btn.s:hover{border-color:rgba(255,255,255,.3)}
+/* portfolio: reti già in funzione */
+#port{display:none;margin-top:20px;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;pointer-events:auto;font-size:12.5px}
+#port.on{display:flex}
+#port span{color:var(--txt3);letter-spacing:.14em;text-transform:uppercase;font-size:10.5px}
+#port a{color:var(--txt2);text-decoration:none;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:7px 15px;background:rgba(9,14,19,.5);transition:.25s}
+#port a:hover{color:var(--txt);border-color:rgba(255,255,255,.28)}
+/* overlay team */
+#team{position:fixed;left:50%;top:43%;transform:translate(-50%,-50%);z-index:20;display:flex;gap:26px;opacity:0;transition:opacity .55s;pointer-events:none;
+ background:rgba(4,7,10,.5);border:1px solid var(--line);border-radius:28px;padding:30px 34px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+#team.on{opacity:1}
+#team .tm{text-align:center;width:150px}
+#team .tm img{width:112px;height:112px;border-radius:50%;object-fit:cover;object-position:50% 4%;border:1.5px solid var(--ac,var(--env));box-shadow:0 0 30px -6px var(--ac,var(--env));filter:grayscale(.28)}
+#team .tm .n{font-size:14px;font-weight:700;margin-top:14px}
+#team .tm .r{font-size:11.5px;color:var(--ac,var(--txt2));margin-top:3px;font-weight:600}
+@media(max-width:640px){#team{gap:14px;flex-wrap:wrap;justify-content:center;max-width:320px;padding:20px}#team .tm{width:130px}#team .tm img{width:96px;height:96px}}
 
 /* barra di avanzamento capitoli */
 #bar{position:fixed;left:0;right:0;bottom:0;z-index:22;display:flex;gap:6px;padding:16px 30px}
@@ -115,13 +129,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
   <div id="kick"></div>
   <div id="cap"></div>
   <p id="sub"></p>
+  <div id="cta">
+    <a class="btn p" href="mailto:info@ecobubble.it?subject=Infrastruttura%20di%20intelligenza%20artificiale">Scrivici &rarr;</a>
+    <a class="btn s" href="https://calendly.com/nicola-nescatelli/30min" target="_blank" rel="noopener">Prenota una call</a>
+  </div>
+  <div id="port"><span>Reti già in funzione</span>
+    <a href="https://ennous.it" target="_blank" rel="noopener">Ennous</a>
+    <a href="https://greeneazy.it" target="_blank" rel="noopener">GreenEazy</a>
+    <a href="https://www.plantiverse.it" target="_blank" rel="noopener">Bio-Driven</a>
+    <a href="https://www.plantiverse.it" target="_blank" rel="noopener">Plantiverse</a>
+  </div>
 </div>
 
 <div id="obj"><span class="dot"></span><span id="objName"></span></div>
 
-<div id="cta">
-  <a class="btn p" href="mailto:info@ecobubble.it?subject=Infrastruttura%20di%20intelligenza%20artificiale">Scrivici &rarr;</a>
-  <a class="btn s" href="https://calendly.com/nicola-nescatelli/30min" target="_blank" rel="noopener">Prenota una call</a>
+<div id="team">
+  <div class="tm" style="--ac:var(--env)"><img src="assets/team/nicola.webp" alt="Nicola Nescatelli" loading="lazy"><div class="n">Nicola Nescatelli</div><div class="r">Founder &amp; CEO</div></div>
+  <div class="tm" style="--ac:var(--geo)"><img src="assets/team/andrea.webp" alt="Andrea Procaccini" loading="lazy"><div class="n">Andrea Procaccini</div><div class="r">AI &amp; Software</div></div>
+  <div class="tm" style="--ac:var(--violet)"><img src="assets/team/riccardo.jpg" alt="Riccardo Benini" loading="lazy"><div class="n">Riccardo Benini</div><div class="r">Ricerca &amp; Sviluppo</div></div>
+  <div class="tm" style="--ac:var(--amber)"><img src="assets/team/federico.webp" alt="Federico Di Vincenzo" loading="lazy"><div class="n">Federico Di Vincenzo</div><div class="r">Design &amp; Green</div></div>
 </div>
 
 <div id="bar"></div>
@@ -131,9 +157,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
 <!-- contenuto leggibile senza JS -->
 <div id="fallback">
   <h1>Sviluppiamo infrastrutture di intelligenza artificiale costruite sulla tua organizzazione.</h1>
-  <p>Dentro vive una <b>rete multidimensionale</b> di circa cento motori. Per ogni obiettivo si accendono <b>solo i nodi giusti</b> per la tua azienda.</p>
+  <p>Dentro pulsa una <b>rete multidimensionale</b> di centinaia di motori. Per ogni obiettivo si accendono <b>solo i nodi giusti</b> per la tua azienda.</p>
   <p>I motori che non servono restano <b>spenti</b>: i costi di calcolo scendono dell'<b>80&#8211;90%</b>.</p>
-  <p>È <b>agnostica e flessibile</b>: quando i dati cambiano, la rete si ricompone. I tuoi <b>dati non escono mai</b>: l'intelligenza vive dove vivi tu.</p>
+  <p>È <b>agnostica e flessibile</b>: quando i dati cambiano, la rete si ricompone. I tuoi <b>dati non escono mai</b>: l'intelligenza resta dove sei tu.</p>
   <p>Indipendente da <b>governi, paesi e aziende terze</b>. Ogni risposta dichiara quanto fidarsi, con una <b>firma verificabile</b>. Alla fine del percorso l'infrastruttura <b>è tua</b>.</p>
   <p><a href="mailto:info@ecobubble.it">info@ecobubble.it</a></p>
 </div>
@@ -246,19 +272,19 @@ function sh(type,src){var o=gl.createShader(type);gl.shaderSource(o,src);gl.comp
 function prog(vs,fs){var p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,vs));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(p);return p;}
 var ROT='float cy=cos(uRy),sy=sin(uRy);p=vec3(p.x*cy+p.z*sy,p.y,-p.x*sy+p.z*cy);float cx=cos(uRx),sx=sin(uRx);p=vec3(p.x,p.y*cx-p.z*sx,p.y*sx+p.z*cx);float s=2.3/(2.3-p.z);';
 var VS='attribute vec3 aPA;attribute vec3 aPB;attribute vec3 aCA;attribute vec3 aCB;attribute float aR;'+
-'uniform float uT,uTime,uRy,uRx,uAsp,uDpr,uWob;uniform vec2 uM;varying vec3 vC;varying float vA;'+
+'uniform float uT,uTime,uRy,uRx,uAsp,uDpr,uWob,uShiftY;uniform vec2 uM;varying vec3 vC;varying float vA;'+
 'void main(){vec3 p=mix(aPA,aPB,uT);p+=uWob*(0.012+0.026*aR)*vec3(sin(uTime*0.7+aR*43.7),cos(uTime*0.8+aR*29.3),sin(uTime*0.6+aR*17.9));'+ROT+
-'vec2 scr=vec2(p.x*s*0.72/uAsp,p.y*s*0.72);gl_Position=vec4(scr,0.0,1.0);'+
+'vec2 scr=vec2(p.x*s*0.72/uAsp,p.y*s*0.72+uShiftY);gl_Position=vec4(scr,0.0,1.0);'+
 'float md=length(vec2((scr.x-uM.x)*uAsp,scr.y-uM.y));float bo=smoothstep(0.40,0.0,md);'+
 'gl_PointSize=(1.3+2.3*aR)*s*uDpr*(1.0+1.5*bo);vC=mix(aCA,aCB,uT);'+
 'float br=max(vC.r,max(vC.g,vC.b));'+
 'vA=(0.5+0.5*clamp(s-0.7,0.0,1.0))*(0.72+0.28*sin(uTime*2.0+aR*95.0))*(1.0+1.3*bo)*(0.35+0.65*smoothstep(0.12,0.5,br));}';
 var FS='precision mediump float;varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-vec2(0.5);float d=length(q);float a=smoothstep(0.5,0.03,d)*vA;gl_FragColor=vec4(vC*a,a);}';
 var P=prog(VS,FS);
-var LVS='attribute vec3 aA;attribute vec3 aB;attribute vec3 aC;uniform float uT,uRy,uRx,uAsp;varying vec3 vC;void main(){vec3 p=mix(aA,aB,uT);'+ROT+'gl_Position=vec4(p.x*s*0.72/uAsp,p.y*s*0.72,0.0,1.0);vC=aC;}';
+var LVS='attribute vec3 aA;attribute vec3 aB;attribute vec3 aC;uniform float uT,uRy,uRx,uAsp,uShiftY;varying vec3 vC;void main(){vec3 p=mix(aA,aB,uT);'+ROT+'gl_Position=vec4(p.x*s*0.72/uAsp,p.y*s*0.72+uShiftY,0.0,1.0);vC=aC;}';
 var LFS='precision mediump float;uniform float uA;varying vec3 vC;void main(){gl_FragColor=vec4(vC,1.0)*uA;}';
 var LP=prog(LVS,LFS);
-var PVS='attribute vec3 aA0;attribute vec3 aB0;attribute vec3 aA1;attribute vec3 aB1;attribute float aPh;attribute float aSp;uniform float uT,uTime,uRy,uRx,uAsp,uDpr;varying float vA;void main(){float tt=fract(aPh+uTime*aSp);vec3 e0=mix(aA0,aB0,uT);vec3 e1=mix(aA1,aB1,uT);vec3 p=mix(e0,e1,tt);'+ROT+'gl_Position=vec4(p.x*s*0.72/uAsp,p.y*s*0.72,0.0,1.0);gl_PointSize=(2.0+1.6*sin(tt*3.14159))*s*uDpr;vA=sin(tt*3.14159)*clamp(s-0.55,0.0,1.0);}';
+var PVS='attribute vec3 aA0;attribute vec3 aB0;attribute vec3 aA1;attribute vec3 aB1;attribute float aPh;attribute float aSp;uniform float uT,uTime,uRy,uRx,uAsp,uDpr,uShiftY;varying float vA;void main(){float tt=fract(aPh+uTime*aSp);vec3 e0=mix(aA0,aB0,uT);vec3 e1=mix(aA1,aB1,uT);vec3 p=mix(e0,e1,tt);'+ROT+'gl_Position=vec4(p.x*s*0.72/uAsp,p.y*s*0.72+uShiftY,0.0,1.0);gl_PointSize=(2.0+1.6*sin(tt*3.14159))*s*uDpr;vA=sin(tt*3.14159)*clamp(s-0.55,0.0,1.0);}';
 var PFS='precision mediump float;uniform float uA;varying float vA;void main(){vec2 q=gl_PointCoord-vec2(0.5);float d=length(q);float a=smoothstep(0.5,0.0,d)*vA*uA;gl_FragColor=vec4(vec3(0.75,1.0,0.88)*a,a);}';
 var PP=prog(PVS,PFS);
 
@@ -295,7 +321,9 @@ function ignite(lit,accent){var s=curP();A=s;var cc=catalogColors(lit,accent);B=
 var LINE_A={catalog:0.16,network:0.34,dome:0.12,ring:0.16,lattice:0.2,emblem:0.1};
 var PULSE_A={catalog:0.8,network:1.0,dome:0.5,ring:0.7,lattice:0.6,emblem:0.5};
 var FACE={catalog:0.55,network:1,dome:0.75,ring:0.8,lattice:0.5,emblem:0.12};
-var rotAmp=1,drift=0,lineAmp=0.34,pulseAmp=1;
+/* shift verticale in NDC: alza l'emblema finale sopra il testo di chiusura */
+var SHIFT={emblem:0.30};
+var rotAmp=1,drift=0,lineAmp=0.34,pulseAmp=1,shiftY=0;
 
 var W,H2,dpr,asp;
 function size(){dpr=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H2=innerHeight;cv.width=W*dpr;cv.height=H2*dpr;asp=W/H2;gl.viewport(0,0,cv.width,cv.height);}
@@ -309,11 +337,11 @@ window.addEventListener('pointerup',function(){dragging=false;});
 gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);
 var AT={},UN={},LT={},PT={};
 ['aPA','aPB','aCA','aCB','aR'].forEach(function(n){AT[n]=gl.getAttribLocation(P,n);});
-['uT','uTime','uRy','uRx','uAsp','uDpr','uWob','uM'].forEach(function(n){UN[n]=gl.getUniformLocation(P,n);});
+['uT','uTime','uRy','uRx','uAsp','uDpr','uWob','uM','uShiftY'].forEach(function(n){UN[n]=gl.getUniformLocation(P,n);});
 ['aA','aB','aC'].forEach(function(n){LT[n]=gl.getAttribLocation(LP,n);});
-['uT','uRy','uRx','uAsp','uA'].forEach(function(n){LT[n]=gl.getUniformLocation(LP,n);});
+['uT','uRy','uRx','uAsp','uA','uShiftY'].forEach(function(n){LT[n]=gl.getUniformLocation(LP,n);});
 ['aA0','aB0','aA1','aB1','aPh','aSp'].forEach(function(n){PT[n]=gl.getAttribLocation(PP,n);});
-['uT','uTime','uRy','uRx','uAsp','uDpr','uA'].forEach(function(n){PT[n]=gl.getUniformLocation(PP,n);});
+['uT','uTime','uRy','uRx','uAsp','uDpr','uA','uShiftY'].forEach(function(n){PT[n]=gl.getUniformLocation(PP,n);});
 function attr(loc,b,size){gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,size,gl.FLOAT,false,0,0);}
 function dis(){for(var i=0;i<8;i++)gl.disableVertexAttribArray(i);}
 
@@ -324,14 +352,15 @@ function frame(now){var dt=Math.min(0.05,(now-last)/1000);last=now;
  var fa=FACE[target]!==undefined?FACE[target]:1;rotAmp+=(fa-rotAmp)*Math.min(1,dt*1.5);
  lineAmp+=((LINE_A[target]||0.1)-lineAmp)*Math.min(1,dt*1.6);
  pulseAmp+=((PULSE_A[target]||0.6)-pulseAmp)*Math.min(1,dt*1.6);
+ shiftY+=((SHIFT[target]||0)-shiftY)*Math.min(1,dt*1.6);
  if(!reduced)drift+=dt*0.10*rotAmp;
  if(!dragging){yv*=Math.pow(0.94,dt*60);drift+=yv;}
  var ry=drift+mx*0.5,rx=-0.12*rotAmp+my*0.32;var tm=reduced?0:now/1000;
  gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
- if(lineAmp>0.004&&ENUM>0){gl.useProgram(LP);dis();attr(LT.aA,bLA,3);attr(LT.aB,bLB,3);attr(LT.aC,bLC,3);gl.uniform1f(LT.uT,e);gl.uniform1f(LT.uRy,ry);gl.uniform1f(LT.uRx,rx);gl.uniform1f(LT.uAsp,asp);gl.uniform1f(LT.uA,lineAmp);gl.drawArrays(gl.LINES,0,ENUM);}
- if(pulseAmp>0.02&&!reduced){gl.useProgram(PP);dis();attr(PT.aA0,bp.aA0,3);attr(PT.aB0,bp.aB0,3);attr(PT.aA1,bp.aA1,3);attr(PT.aB1,bp.aB1,3);attr(PT.aPh,bPh,1);attr(PT.aSp,bSp,1);gl.uniform1f(PT.uT,e);gl.uniform1f(PT.uTime,tm);gl.uniform1f(PT.uRy,ry);gl.uniform1f(PT.uRx,rx);gl.uniform1f(PT.uAsp,asp);gl.uniform1f(PT.uDpr,dpr);gl.uniform1f(PT.uA,pulseAmp);gl.drawArrays(gl.POINTS,0,NP);}
+ if(lineAmp>0.004&&ENUM>0){gl.useProgram(LP);dis();attr(LT.aA,bLA,3);attr(LT.aB,bLB,3);attr(LT.aC,bLC,3);gl.uniform1f(LT.uT,e);gl.uniform1f(LT.uRy,ry);gl.uniform1f(LT.uRx,rx);gl.uniform1f(LT.uAsp,asp);gl.uniform1f(LT.uA,lineAmp);gl.uniform1f(LT.uShiftY,shiftY);gl.drawArrays(gl.LINES,0,ENUM);}
+ if(pulseAmp>0.02&&!reduced){gl.useProgram(PP);dis();attr(PT.aA0,bp.aA0,3);attr(PT.aB0,bp.aB0,3);attr(PT.aA1,bp.aA1,3);attr(PT.aB1,bp.aB1,3);attr(PT.aPh,bPh,1);attr(PT.aSp,bSp,1);gl.uniform1f(PT.uT,e);gl.uniform1f(PT.uTime,tm);gl.uniform1f(PT.uRy,ry);gl.uniform1f(PT.uRx,rx);gl.uniform1f(PT.uAsp,asp);gl.uniform1f(PT.uDpr,dpr);gl.uniform1f(PT.uA,pulseAmp);gl.uniform1f(PT.uShiftY,shiftY);gl.drawArrays(gl.POINTS,0,NP);}
  gl.useProgram(P);dis();attr(AT.aPA,bPA,3);attr(AT.aPB,bPB,3);attr(AT.aCA,bCA,3);attr(AT.aCB,bCB,3);attr(AT.aR,bR,1);
- gl.uniform1f(UN.uT,e);gl.uniform1f(UN.uTime,tm);gl.uniform1f(UN.uRy,ry);gl.uniform1f(UN.uRx,rx);gl.uniform1f(UN.uAsp,asp);gl.uniform1f(UN.uDpr,dpr);gl.uniform1f(UN.uWob,reduced?0:1);gl.uniform2f(UN.uM,mx*2.0,-my*2.0);
+ gl.uniform1f(UN.uT,e);gl.uniform1f(UN.uTime,tm);gl.uniform1f(UN.uRy,ry);gl.uniform1f(UN.uRx,rx);gl.uniform1f(UN.uAsp,asp);gl.uniform1f(UN.uDpr,dpr);gl.uniform1f(UN.uWob,reduced?0:1);gl.uniform2f(UN.uM,mx*2.0,-my*2.0);gl.uniform1f(UN.uShiftY,shiftY);
  gl.drawArrays(gl.POINTS,0,N);
  requestAnimationFrame(frame);}
 requestAnimationFrame(frame);
@@ -350,26 +379,38 @@ if(!ENGINE) return; /* niente WebGL: resta il fallback leggibile */
 var kick=document.getElementById('kick'),cap=document.getElementById('cap'),sub=document.getElementById('sub'),
     cta=document.getElementById('cta'),bar=document.getElementById('bar'),cnt=document.getElementById('cnt'),
     hint=document.getElementById('hint'),pp=document.getElementById('pp'),
-    objBox=document.getElementById('obj'),objName=document.getElementById('objName'),glow=document.getElementById('glow');
+    objBox=document.getElementById('obj'),objName=document.getElementById('objName'),glow=document.getElementById('glow'),
+    port=document.getElementById('port'),teamBox=document.getElementById('team');
 var C=ENGINE.colors;
 
 function setAccent(hex){document.documentElement.style.setProperty('--ac',hex);glow.style.background='radial-gradient(56% 46% at 50% 54%, '+hex+', transparent 72%)';}
 function rgb(a){return 'rgb('+Math.round(a[0]*255)+','+Math.round(a[1]*255)+','+Math.round(a[2]*255)+')';}
 
+/* obiettivi della scena "selezione": ognuno accende una COMBINAZIONE diversa
+   di motori (numero e posizione cambiano) — copre i settori di aatech/arpinge
+   e industria/finanza/ambiente. */
 var OBJ=[
- {name:'Prevedere il credito',   sub:'Finanza',        lit:ENGINE.objectiveSet(3,26),  ac:C.GEO},
- {name:'Sorvegliare il territorio',sub:'Ambiente',      lit:ENGINE.objectiveSet(41,24),ac:C.ENV},
- {name:'Ottimizzare l’energia',  sub:'Infrastrutture', lit:ENGINE.objectiveSet(70,22),ac:C.VIO}
+ {name:'Prevedere il credito',    sub:'Finanza',           lit:ENGINE.objectiveSet(3,22), ac:C.GEO},
+ {name:'Rischio operativo · DORA', sub:'Banche & assicurazioni',lit:ENGINE.objectiveSet(28,16),ac:C.GEO},
+ {name:'Governare i modelli AI',  sub:'AI infrastructure', lit:ENGINE.objectiveSet(50,12),ac:C.VIO},
+ {name:'Ottimizzare la produzione',sub:'Industria',        lit:ENGINE.objectiveSet(11,27),ac:C.AMB},
+ {name:'Gestire l’energia',       sub:'Infrastrutture',    lit:ENGINE.objectiveSet(68,20),ac:C.VIO},
+ {name:'Sorvegliare il territorio',sub:'Ambiente',         lit:ENGINE.objectiveSet(40,15),ac:C.ENV}
 ];
 var GATED=ENGINE.objectiveSet(48,9);
+function nLit(o){return Object.keys(o).length;}
 
 var BEATS=[
  {k:'EcoBubble',ac:'#4be08e',shape:'network',
   cap:'Sviluppiamo <b>infrastrutture</b> di intelligenza artificiale <b>costruite</b> sulla tua <b>organizzazione</b>.',hold:2600},
+ {k:'Il problema',ac:'#4be08e',shape:'network',
+  cap:'Ogni azienda ha <b>decisioni difficili</b>. I modelli <b>generici</b> non bastano.',
+  sub:'Servono i motori giusti, sul tuo problema e sui tuoi dati — non una scatola chiusa uguale per tutti.',hold:2900},
  {k:'La rete',ac:'#4be08e',shape:'network',
-  cap:'Non un modello unico: una <b>rete multidimensionale</b> di <b>circa cento motori</b>, ognuno un modo diverso di capire.',hold:2600},
+  cap:'Dentro pulsa una <b>rete multidimensionale</b>: <b>centinaia di motori</b>, uno per ogni modo di leggere i dati.',
+  sub:'Quanti ne servono per il tuo settore: più il problema è complesso, più motori entrano in gara.',hold:2900},
  {k:'01 · Selezione',ac:'#5aa9ff',
-  cap:'Per ogni <b>obiettivo</b> si accendono <b>solo i nodi giusti</b> per la tua azienda.',hold:900,objcycle:true},
+  cap:'Per ogni <b>obiettivo</b> si accende una <b>combinazione diversa</b> di motori.',hold:900,objcycle:true},
  {k:'02 · Efficienza',ac:'#35d0c0',ignite:GATED,igAc:C.ENV2,
   cap:'I motori che <b>non servono</b> restano <b>spenti</b>: i costi di calcolo scendono dell’<b>80–90%</b>.',
   sub:'Meno calcolo, stesso risultato: la rete accende solo ciò che serve, e lo misura.',hold:3000},
@@ -377,7 +418,7 @@ var BEATS=[
   cap:'È <b>agnostica</b> e <b>flessibile</b>: quando i dati cambiano, la rete <b>si ricompone</b>.',
   sub:'Nessun modello imposto, nessuna tecnologia obbligata.',hold:3000},
  {k:'04 · Privacy',ac:'#4be08e',shape:'dome',
-  cap:'I tuoi <b>dati non escono mai</b>: l’intelligenza vive <b>dove vivi tu</b>.',
+  cap:'I tuoi <b>dati non escono mai</b>: l’intelligenza resta <b>dove sei tu</b>.',
   sub:'Gira nei tuoi sistemi, sotto le tue chiavi. Niente dati verso piattaforme esterne.',hold:3200},
  {k:'05 · Indipendenza',ac:'#a98bff',shape:'ring',
   cap:'Indipendente da <b>governi</b>, <b>paesi</b> e <b>aziende terze</b>.',
@@ -385,9 +426,12 @@ var BEATS=[
  {k:'06 · Fiducia',ac:'#ffc46b',shape:'lattice',
   cap:'Ogni risposta dichiara <b>quanto fidarsi</b>, con una <b>firma</b> che chiunque può verificare.',
   sub:'Copertura verificata (~90%) e catena di audit SHA-256: controllabile da una banca o un revisore.',hold:3200},
- {k:'Iniziamo',ac:'#4be08e',shape:'emblem',cta:true,
-  cap:'Alla fine del percorso l’infrastruttura <b>è tua</b>. Che <b>intelligenza</b> costruiamo per te?',
-  sub:'Raccontaci il problema e i dati che hai. Ti diciamo che rete serve e cosa ti resta in mano.',hold:99999}
+ {k:'Il team',ac:'#4be08e',shape:'network',team:true,
+  cap:'Dietro la rete, <b>tre fisici</b> e un <b>architetto</b>.',
+  sub:'Fisica dei sistemi complessi applicata all’ambiente e al territorio. La rete la firmiamo noi.',hold:3600},
+ {k:'Iniziamo',ac:'#4be08e',shape:'emblem',cta:true,port:true,
+  cap:'Che <b>intelligenza</b> costruiamo per te?',
+  sub:'Alla fine del percorso l’infrastruttura è tua. Raccontaci il problema e i dati: ti diciamo che rete serve.',hold:99999}
 ];
 
 BEATS.forEach(function(b,i){var el=document.createElement('i');el.innerHTML='<b></b>';el.addEventListener('click',function(){play(i);});bar.appendChild(el);});
@@ -425,27 +469,33 @@ function play(i){
  clearAll();idx=i;var b=BEATS[i];
  setAccent(b.ac);kick.textContent=b.k;
  sub.textContent='';sub.classList.remove('on');
- cta.classList.remove('on');objBox.classList.remove('on');
+ cta.classList.remove('on');port.classList.remove('on');objBox.classList.remove('on');
+ teamBox.classList.toggle('on',!!b.team);
  cnt.textContent=(i+1)+' / '+BEATS.length;
  fillBar(i);
  if(b.shape)ENGINE.go(b.shape);
  if(b.ignite)ENGINE.ignite(b.ignite,b.igAc);
- var ws=words(b.cap);
- typeWords(ws,150,function(){
+ var ws=words(b.cap),perWord=168,typeMs=ws.length*perWord;
+ /* tempo di lettura: pausa proporzionata al testo (didascalia + sottotitolo) */
+ var read=Math.max(b.hold,1500+(b.cap.replace(/<[^>]+>/g,'').length+(b.sub?b.sub.length:0))*30);
+ typeWords(ws,perWord,function(){
   if(b.sub){sub.textContent=b.sub;sub.classList.add('on');}
   if(b.cta)cta.classList.add('on');
-  if(b.objcycle){cycleObjectives(function(){scheduleNext(i,1400);});return;}
-  scheduleNext(i,b.hold);
+  if(b.port)port.classList.add('on');
+  if(b.objcycle){cycleObjectives(function(){scheduleNext(i,1600);});return;}
+  scheduleNext(i,read);
  });
- if(!b.objcycle&&!b.cta)animBar(i,Math.max(1200,b.hold));
+ if(!b.objcycle&&!b.cta)animBar(i,typeMs+read);
 }
 
 function cycleObjectives(done){
  var n=0;
  (function step(){if(paused){later(step,200);return;}
   if(n>=OBJ.length){objBox.classList.remove('on');if(done)done();return;}
-  var o=OBJ[n];setAccent(rgb(o.ac));objName.innerHTML=o.name+' <small>&middot; '+o.sub+'</small>';objBox.classList.add('on');
-  ENGINE.ignite(o.lit,o.ac);n++;later(step,1700);
+  var o=OBJ[n];setAccent(rgb(o.ac));
+  objName.innerHTML=o.name+' <small>&middot; '+o.sub+' &middot; '+nLit(o.lit)+' motori accesi</small>';
+  objBox.classList.add('on');
+  ENGINE.ignite(o.lit,o.ac);n++;later(step,1550);
  })();
 }
 
