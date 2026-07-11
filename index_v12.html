@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Versione 12 — EcoBubble · Portfolio</title>
+<meta name="description" content="EcoBubble genera intelligenze artificiali specifiche e ottimizzate per settore. Sei demo dal vivo: energia e infrastrutture, governance AI per la finanza, capitale naturale, e le reti Ennous, GreenEazy, Plantiverse.">
+<link rel="canonical" href="https://www.ecobubble.it/portfolio">
+<meta property="og:title" content="EcoBubble — Portfolio di intelligenze su misura">
+<meta property="og:description" content="Un'architettura che genera AI specifiche per settore. Sei demo dal vivo, misurate e firmate. Patent pending.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1715 1243%22><defs><mask id=%22m%22><rect width=%221715%22 height=%221243%22 fill=%22white%22/><circle cx=%22310%22 cy=%22622%22 r=%22355%22 fill=%22black%22/><circle cx=%221405%22 cy=%22622%22 r=%22355%22 fill=%22black%22/></mask></defs><circle cx=%22857%22 cy=%22622%22 r=%22570%22 fill=%22none%22 stroke=%22%234be08e%22 stroke-width=%22100%22 mask=%22url(%23m)%22/><circle cx=%22310%22 cy=%22622%22 r=%22310%22 fill=%22%234be08e%22/><circle cx=%221405%22 cy=%22622%22 r=%22310%22 fill=%22%234be08e%22/></svg>">
+<style>
+:root{
+ --bg:#050b16;--bg2:#070d18;--panel:rgba(10,16,27,.72);--panel2:rgba(14,21,33,.9);
+ --env:#4be08e;--env2:#9df3c3;--geo:#5aa9ff;--vio:#a98bff;--amber:#ffc46b;--teal:#35d0c0;
+ --txt:#eef4f0;--txt2:#93a7a0;--txt3:#5b6e66;--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:rgba(75,224,142,.3)}
+a{color:inherit}
+
+/* atmosfera */
+#aura{position:fixed;inset:0;z-index:0;pointer-events:none;
+ background:
+  radial-gradient(48% 40% at 18% 8%,rgba(75,224,142,.10),transparent 70%),
+  radial-gradient(46% 42% at 88% 12%,rgba(90,169,255,.10),transparent 70%),
+  radial-gradient(60% 50% at 50% 108%,rgba(169,139,255,.08),transparent 70%)}
+.wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 26px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
+ padding:18px 26px;background:linear-gradient(180deg,rgba(5,11,22,.92),rgba(5,11,22,.55) 70%,transparent);backdrop-filter:blur(6px)}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:16px;text-decoration:none;color:var(--txt)}
+.brand .mark{width:28px;height:auto;display:block}
+.brand small{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--txt3)}
+.navcta{font-size:13px;font-weight:700;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 18px;background:rgba(255,255,255,.03);transition:.25s}
+.navcta:hover{border-color:rgba(75,224,142,.6);color:var(--env)}
+
+/* hero */
+header{padding:76px 0 40px;text-align:center}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--env);margin-bottom:20px}
+h1{font-size:clamp(30px,5.2vw,60px);line-height:1.08;letter-spacing:-.03em;font-weight:800;max-width:16ch;margin:0 auto}
+h1 .g{background:linear-gradient(100deg,var(--geo),var(--vio) 45%,var(--env));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{margin:24px auto 0;max-width:60ch;font-size:clamp(15px,1.7vw,18px);line-height:1.6;color:var(--txt2)}
+.nums{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:34px}
+.nums .n{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:14px 20px;min-width:150px}
+.nums .n b{display:block;font-size:22px;font-weight:800;letter-spacing:-.02em}
+.nums .n span{font-size:11px;color:var(--txt3);letter-spacing:.04em}
+.nums .n.e b{color:var(--env)} .nums .n.g b{color:var(--geo)} .nums .n.v b{color:var(--vio)} .nums .n.a b{color:var(--amber)}
+
+/* sezione portfolio */
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:56px 0 22px;flex-wrap:wrap}
+.sec-h h2{font-size:clamp(20px,2.6vw,28px);letter-spacing:-.02em}
+.sec-h p{font-size:13px;color:var(--txt3)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+
+.card{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:20px;overflow:hidden;
+ background:var(--panel);transition:transform .32s cubic-bezier(.2,.7,.2,1),border-color .32s,box-shadow .32s;text-decoration:none;color:inherit}
+.card:hover{transform:translateY(-6px);border-color:var(--ac);box-shadow:0 30px 64px -34px var(--ac)}
+.frame{position:relative;aspect-ratio:16/10;overflow:hidden;background:radial-gradient(130% 130% at 25% 12%,color-mix(in srgb,var(--ac) 24%,transparent),var(--bg))}
+.frame iframe{position:absolute;top:0;left:0;width:1280px;height:800px;border:0;transform-origin:0 0;pointer-events:none;background:var(--bg)}
+.frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(5,11,22,.86));pointer-events:none}
+.badge{position:absolute;top:12px;right:12px;z-index:2;font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+ padding:5px 10px;border-radius:999px;border:1px solid var(--line2);background:rgba(5,11,22,.72);color:var(--txt2);backdrop-filter:blur(4px)}
+.badge.pat{color:#04150b;background:var(--ac);border-color:transparent}
+.meta{display:flex;align-items:center;gap:12px;padding:16px 18px}
+.meta .dot{width:10px;height:10px;border-radius:50%;background:var(--ac);box-shadow:0 0 12px var(--ac);flex:none}
+.meta .tx{min-width:0;flex:1}
+.meta .tx b{display:block;font-size:16px;letter-spacing:-.01em}
+.meta .tx span{display:block;font-size:12px;color:var(--txt3);margin-top:2px}
+.meta .go{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--txt3);white-space:nowrap;transition:.25s}
+.card:hover .go{color:var(--ac)}
+.desc{padding:0 18px 18px;font-size:13px;line-height:1.55;color:var(--txt2)}
+
+/* vantaggio */
+.value{margin-top:64px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,var(--panel2),var(--panel));padding:40px 30px}
+.value h2{font-size:clamp(20px,2.6vw,28px);letter-spacing:-.02em;text-align:center;max-width:22ch;margin:0 auto}
+.value .row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:30px}
+@media(max-width:860px){.value .row{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.value .row{grid-template-columns:1fr}}
+.value .v b{display:block;font-size:14.5px;margin-bottom:6px}
+.value .v p{font-size:12.5px;color:var(--txt2);line-height:1.55}
+.value .v.e b{color:var(--env)} .value .v.g b{color:var(--geo)} .value .v.v b{color:var(--vio)} .value .v.a b{color:var(--amber)}
+
+/* cta */
+.cta{margin:56px 0 20px;text-align:center}
+.cta h2{font-size:clamp(22px,3vw,34px);letter-spacing:-.02em}
+.cta .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.btn{display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:700;text-decoration:none;border-radius:999px;padding:15px 28px;transition:.25s}
+.btn.p{background:var(--env);color:#04150b}
+.btn.p:hover{transform:translateY(-2px);box-shadow:0 18px 40px -16px var(--env)}
+.btn.s{border:1px solid var(--line);background:rgba(255,255,255,.03)}
+.btn.s:hover{border-color:var(--line2)}
+
+footer{margin-top:60px;border-top:1px solid var(--line);padding:30px 0 60px}
+footer p{font-size:11.5px;color:var(--txt3);line-height:1.7;max-width:90ch}
+footer .ph{color:var(--txt2);font-weight:600}
+
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.rv.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<div id="aura"></div>
+
+<nav>
+  <a class="brand" href="index.html"><svg class="mark" viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm1"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#4be08e" stroke-width="100" mask="url(#ebm1)"/><circle cx="310" cy="622" r="310" fill="#4be08e"/><circle cx="1405" cy="622" r="310" fill="#4be08e"/></svg>EcoBubble <small>Applied Intelligence</small></a>
+  <a class="navcta" href="mailto:info@ecobubble.it?subject=Portfolio%20EcoBubble">Parliamone &rarr;</a>
+</nav>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow rv">Il portfolio</div>
+    <h1 class="rv">Un'architettura che genera <span class="g">intelligenze su misura</span>, settore per settore.</h1>
+    <p class="lead rv">EcoBubble non vende un modello. Compone, per ogni organizzazione, la rete di motori giusta per il suo problema, la misura con una confidenza verificabile e la firma. Qui sotto sei intelligenze dal vivo, ognuna cucita su un dominio diverso.</p>
+    <div class="nums rv">
+      <div class="n e"><b>centinaia</b><span>di motori in gara</span></div>
+      <div class="n g"><b>~90%</b><span>copertura calibrata</span></div>
+      <div class="n v"><b>&minus;80/90%</b><span>di calcolo evitato</span></div>
+      <div class="n a"><b>SHA-256</b><span>ogni decisione firmata</span></div>
+    </div>
+  </header>
+
+  <div class="sec-h rv">
+    <h2>Sei intelligenze dal vivo</h2>
+    <p>Passa il mouse per l'anteprima, apri per la demo intera. Contenuti illustrativi.</p>
+  </div>
+
+  <div class="grid" id="grid">
+    <a class="card rv" style="--ac:var(--env)" href="demos/ennous.html" target="_blank" rel="noopener">
+      <div class="frame"><span class="badge pat">Patent pending</span><iframe data-src="demos/ennous.html" title="Demo Ennous" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
+      <div class="meta"><span class="dot"></span><div class="tx"><b>Ennous</b><span>Meta-intelligenza · orchestrazione</span></div><span class="go">Apri &rarr;</span></div>
+      <p class="desc">Il cervello che sceglie e governa i motori dentro ogni rete. Da qui nascono, ottimizzate, tutte le altre.</p>
+    </a>
+
+    <a class="card rv" style="--ac:var(--amber)" href="demos/energia.html" target="_blank" rel="noopener">
+      <div class="frame"><span class="badge pat">Patent pending</span><iframe data-src="demos/energia.html" title="Demo Energia e Infrastrutture" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
+      <div class="meta"><span class="dot"></span><div class="tx"><b>Energia e Infrastrutture</b><span>Fondi e asset manager</span></div><span class="go">Apri &rarr;</span></div>
+      <p class="desc">Ascolta un portafoglio di asset energetici e ne misura rischio e performance con confidenza calibrata, fino alla ricevuta di decisione per il board.</p>
+    </a>
+
+    <a class="card rv" style="--ac:var(--vio)" href="demos/governance-ai.html" target="_blank" rel="noopener">
+      <div class="frame"><span class="badge pat">Patent pending</span><iframe data-src="demos/governance-ai.html" title="Demo Governance AI" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
+      <div class="meta"><span class="dot"></span><div class="tx"><b>Governance dell'AI</b><span>Servizi finanziari · AI Act, DORA</span></div><span class="go">Apri &rarr;</span></div>
+      <p class="desc">Loro ospitano i modelli, noi li governiamo: copertura verificata, re-gating sul drift e catena di audit utile verso la vigilanza.</p>
+    </a>
+
+    <a class="card rv" style="--ac:var(--env2)" href="demos/natural-capital.html" target="_blank" rel="noopener">
+      <div class="frame"><span class="badge pat">Patent pending</span><iframe data-src="demos/natural-capital.html" title="Demo Natural Capital" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
+      <div class="meta"><span class="dot"></span><div class="tx"><b>Capitale naturale</b><span>Timberland · fondi forestali</span></div><span class="go">Apri &rarr;</span></div>
+      <p class="desc">Legge i sistemi vivi da telerilevamento: stress colto pre-sintomatico, crescita e carbonio misurati e certificabili per il reporting.</p>
+    </a>
+
+    <a class="card rv" style="--ac:var(--teal)" href="demos/greeneazy.html" target="_blank" rel="noopener">
+      <div class="frame"><span class="badge pat">Patented</span><iframe data-src="demos/greeneazy.html" title="Demo GreenEazy" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
+      <div class="meta"><span class="dot"></span><div class="tx"><b>GreenEazy</b><span>Verde urbano · fitorimedio</span></div><span class="go">Apri &rarr;</span></div>
+      <p class="desc">L'intelligenza che sceglie le piante giuste per depurare aria, acqua e suolo, dai database ambientali ai progetti per le città.</p>
+    </a>
+
+    <a class="card rv" style="--ac:var(--geo)" href="demos/plantiverse.html" target="_blank" rel="noopener">
+      <div class="frame"><span class="badge pat">Patented</span><iframe data-src="demos/plantiverse.html" title="Demo Plantiverse" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
+      <div class="meta"><span class="dot"></span><div class="tx"><b>Plantiverse</b><span>Colture · Bio-Driven</span></div><span class="go">Apri &rarr;</span></div>
+      <p class="desc">Legge le colture prima dei sintomi con camere multispettrali e reti dedicate, validata sul campo con enti di ricerca.</p>
+    </a>
+  </div>
+
+  <section class="value rv">
+    <h2>Potenza chiara, metodo protetto.</h2>
+    <div class="row">
+      <div class="v e"><b>Su misura, non generico</b><p>Per ogni settore nasce la rete di motori adatta a quel problema, non un modello unico riadattato.</p></div>
+      <div class="v a"><b>Efficiente per progetto</b><p>La rete accende solo ciò che serve e spegne il resto: il calcolo scende dell'80/90%.</p></div>
+      <div class="v g"><b>Fiducia verificabile</b><p>Ogni risposta dichiara la sua copertura e porta una firma controllabile da un terzo.</p></div>
+      <div class="v v"><b>Tua e indipendente</b><p>Gira dove sono i tuoi dati, che non escono, senza dipendere da fornitori o paesi terzi.</p></div>
+    </div>
+    <p style="text-align:center;color:var(--txt3);font-size:11.5px;margin-top:24px">Il vantaggio è mostrato nel comportamento delle demo. Il metodo che lo produce è protetto: Geo-Driven Patent pending, Bio-Driven concesso.</p>
+  </section>
+
+  <section class="cta">
+    <h2 class="rv">Che intelligenza costruiamo per te?</h2>
+    <div class="btns rv">
+      <a class="btn p" href="mailto:info@ecobubble.it?subject=Un'intelligenza%20su%20misura">Scrivici &rarr;</a>
+      <a class="btn s" href="https://calendly.com/nicola-nescatelli/30min" target="_blank" rel="noopener">Prenota una call</a>
+    </div>
+  </section>
+
+  <footer>
+    <p class="ph">EcoBubble S.r.l. · Applied Intelligence</p>
+    <p>Le demo mostrano contenuti illustrativi e generali di settore, non dati di clienti. I numeri sono calibrati e non costituiscono misure certificate. L'architettura Geo-Driven è Patent pending; l'architettura Bio-Driven, GreenEazy e Plantiverse sono coperte da brevetto concesso. Via del Casale Giuliani 71, 00139 Roma · <a href="mailto:info@ecobubble.it">info@ecobubble.it</a> · <a href="index.html">Torna alla rete</a></p>
+  </footer>
+</div>
+
+<script>
+/* iframe montati solo quando la card entra in vista, e scalati alla larghezza reale */
+(function(){
+ function scaleFrames(){
+  document.querySelectorAll('.frame').forEach(function(fr){
+   var w=fr.clientWidth;var f=fr.querySelector('iframe');
+   if(f)f.style.transform='scale('+(w/1280)+')';
+  });
+ }
+ window.addEventListener('resize',function(){clearTimeout(scaleFrames._t);scaleFrames._t=setTimeout(scaleFrames,120);});
+ scaleFrames();
+
+ var io=new IntersectionObserver(function(es){es.forEach(function(en){
+  if(en.isIntersecting){var f=en.target.querySelector('iframe[data-src]');
+   if(f&&!f.src){f.src=f.getAttribute('data-src');f.addEventListener('load',scaleFrames);}
+   io.unobserve(en.target);}
+ });},{rootMargin:'200px'});
+ document.querySelectorAll('.card').forEach(function(c){io.observe(c);});
+
+ var rio=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('on');rio.unobserve(en.target);}});},{threshold:.14});
+ document.querySelectorAll('.rv').forEach(function(el){rio.observe(el);});
+ setTimeout(function(){document.querySelectorAll('.rv:not(.on)').forEach(function(el){el.classList.add('on');});},2600);
+})();
+</script>
+</body>
+</html>
