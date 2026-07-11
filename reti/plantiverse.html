@@ -16,11 +16,15 @@ body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSys
 #bg{position:fixed;inset:0;z-index:0;width:100%;height:100%}
 .nogl #bg{background:radial-gradient(60% 60% at 50% 40%,rgba(20,40,32,.5),transparent)}
 #glow{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.12;background:radial-gradient(56% 46% at 50% 54%,var(--ac),transparent 72%)}
-#veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 42%,transparent 40%,rgba(4,7,10,.8) 100%)}
+#veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(4,7,10,.62) 0%,rgba(4,7,10,.3) 34%,transparent 56%),radial-gradient(120% 90% at 50% 42%,transparent 40%,rgba(4,7,10,.8) 100%)}
 nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:20px 30px;background:linear-gradient(180deg,rgba(4,7,10,.85),transparent)}
+.brandwrap{display:flex;align-items:center;gap:12px;min-width:0}
 .brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:16.5px;color:var(--txt);text-decoration:none}
 .brand svg{width:30px;height:auto;display:block}
 .brand small{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--txt3)}
+.brandx{font-size:12px;font-weight:700;color:var(--txt3);text-decoration:none;white-space:nowrap;transition:color .25s}
+.brandx b{color:var(--txt2);font-weight:700;transition:color .25s}
+.brandx:hover b{color:var(--env)}
 .navlinks{display:flex;gap:10px;align-items:center}
 .navcta{font-size:13px;font-weight:700;color:var(--txt);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:10px 18px;transition:.25s;background:rgba(255,255,255,.03)}
 .navcta:hover{border-color:color-mix(in srgb,var(--ac) 60%,transparent);color:var(--ac2)}
@@ -105,7 +109,10 @@ footer a:hover{color:var(--txt)}
 <div id="glow"></div>
 <div id="veil"></div>
 <nav aria-label="Navigazione principale">
-  <a class="brand" href="../index_v16C.html"><svg viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm1"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#4be08e" stroke-width="100" mask="url(#ebm1)"/><circle cx="310" cy="622" r="310" fill="#4be08e"/><circle cx="1405" cy="622" r="310" fill="#4be08e"/></svg>EcoBubble <small class="hidemob">Applied Intelligence</small></a>
+  <div class="brandwrap">
+    <a class="brand" href="../index_v16C.html"><svg viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm1"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#4be08e" stroke-width="100" mask="url(#ebm1)"/><circle cx="310" cy="622" r="310" fill="#4be08e"/><circle cx="1405" cy="622" r="310" fill="#4be08e"/></svg>EcoBubble <small class="hidemob">Applied Intelligence</small></a>
+    <a class="brandx" href="https://www.plantiverse.it" target="_blank" rel="noopener" title="Sviluppato con Plantiverse">&times; <b>Plantiverse</b></a>
+  </div>
   <div class="navlinks"><a class="navcta hidemob" href="https://platform.plantiverse.it" target="_blank" rel="noopener">platform.plantiverse.it</a><a class="navcta" href="index.html">Le reti</a><a class="navcta primary" href="mailto:info@ecobubble.it?subject=Pilota%20Plantiverse">Avvia un pilota &rarr;</a></div>
 </nav>
 <main>
@@ -153,11 +160,11 @@ footer a:hover{color:var(--txt)}
 </main>
 <footer>
   <div class="frow">
-    <div style="max-width:560px"><b>EcoBubble S.r.l.</b> &middot; Plantiverse &egrave; una rete in funzione: i numeri vengono dalla piattaforma reale. Brevetto concesso.<br>info@ecobubble.it</div>
+    <div style="max-width:560px"><b>EcoBubble S.r.l.</b> &times; <a href="https://www.plantiverse.it" target="_blank" rel="noopener"><b>Plantiverse</b></a> &middot; Plantiverse &egrave; una rete in funzione: i numeri vengono dalla piattaforma reale. Brevetto concesso.<br>Le reti del portfolio e l&#8217;architettura Ennous sono sviluppate con <a href="https://www.plantiverse.it" target="_blank" rel="noopener">Plantiverse</a>.<br>info@ecobubble.it</div>
     <div><a href="../index_v16C.html">&larr; Torna alla home</a> &middot; <a href="index.html">Tutte le reti</a><div style="margin-top:10px">&copy; 2026 EcoBubble S.r.l. &middot; Tutti i diritti riservati.</div></div>
   </div>
 </footer>
-<script>window.RETE_CFG={ac:[0.36,0.66,1.0],ac2:[0.29,0.88,0.55],ac3:[0.21,0.82,0.75]};</script>
+<script>window.RETE_CFG={ac:[0.36,0.66,1.0],ac2:[0.29,0.88,0.55],ac3:[0.21,0.82,0.75],sx:0.55,sy:0.02};</script>
 <script src="../assets/rete-bg-v16c.js"></script>
 </body>
 </html>
