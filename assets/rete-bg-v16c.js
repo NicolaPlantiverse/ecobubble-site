@@ -79,7 +79,7 @@ var VS='attribute vec3 aP;attribute vec3 aC;attribute float aR;'+
 'void main(){vec3 p=aP;p+=uWob*(0.012+0.026*aR)*vec3(sin(uTime*0.7+aR*43.7),cos(uTime*0.8+aR*29.3),sin(uTime*0.6+aR*17.9));'+ROT+
 'vec2 scr=vec2(p.x*s*0.72/uAsp+uSX,p.y*s*0.72+uSY);gl_Position=vec4(scr,0.0,1.0);'+
 'float md=length(vec2((scr.x-uM.x)*uAsp,scr.y-uM.y));float bo=smoothstep(0.40,0.0,md);'+
-'gl_PointSize=(1.3+2.3*aR)*s*uDpr*uScl*(1.0+1.5*bo);vC=aC;'+
+'gl_PointSize=(1.3+2.3*aR)*s*uDpr*uScl*(1.0+1.5*bo/uScl);vC=aC;'+
 'vA=(0.5+0.5*clamp(s-0.7,0.0,1.0))*(0.72+0.28*sin(uTime*2.0+aR*95.0))*(1.0+1.3*bo);}';
 var FS='precision mediump float;varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-vec2(0.5);float d=length(q);float a=smoothstep(0.5,0.03,d)*vA;gl_FragColor=vec4(vC*a,a);}';
 var PR=prog(VS,FS);
@@ -95,7 +95,9 @@ var bP=buf(P),bC=buf(C),bR=(function(){var r=new Float32Array(N);for(var i=0;i<N
 var bLA=buf(LA),bLC=buf(LC),bA0=buf(PA0),bA1=buf(PA1),bPh=buf(PPh),bSp=buf(PSp);
 
 var W,H2,dpr,asp,scl;
-function size(){dpr=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H2=innerHeight;cv.width=W*dpr;cv.height=H2*dpr;asp=W/H2;scl=Math.min(1.7,Math.max(1,Math.min(W,H2)/820));gl.viewport(0,0,cv.width,cv.height);}
+function size(){dpr=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H2=innerHeight;cv.width=W*dpr;cv.height=H2*dpr;asp=W/H2;
+ /* scala punto NEUTRA sul laptop (min<=1000 -> 1), cresce solo su monitor grandi */
+ scl=Math.min(1.6,Math.max(1,Math.min(W,H2)/1000));gl.viewport(0,0,cv.width,cv.height);}
 size();window.addEventListener('resize',function(){clearTimeout(size._t);size._t=setTimeout(size,150);});
 
 var tmx=0,tmy=0,mx=0,my=0,dragging=false,dpx=0,yv=0,drift=0;

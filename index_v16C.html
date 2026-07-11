@@ -290,8 +290,9 @@ function shapeRing(){var s=mk(),i;
 function shapeLattice(){var s=mk(),i,side=Math.ceil(Math.cbrt(N));
  for(i=0;i<N;i++){var gx=i%side,gy=Math.floor(i/side)%side,gz=Math.floor(i/(side*side));
   var x=(gx/(side-1)-0.5)*2.3,y=(gy/(side-1)-0.5)*1.5,z=(gz/(side-1)-0.5)*1.0;
-  var edge=(gx%6===0||gy%6===0)?1:0;
-  put(s,i,x+rnd(-0.02,0.02),y+rnd(-0.02,0.02),z+rnd(-0.02,0.02),edge?AMB:[0.5,0.42,0.3],edge?1.1:0.32);}
+  /* piu linee accese (anche in profondita) e trama di fondo piu visibile: reticolo denso */
+  var edge=(gx%5===0||gy%5===0||gz%6===0)?1:0;
+  put(s,i,x+rnd(-0.02,0.02),y+rnd(-0.02,0.02),z+rnd(-0.02,0.02),edge?AMB:[0.5,0.42,0.3],edge?1.1:0.45);}
  return s;}
 function shapeEmblem(){var s=mk(),R=0.72,TH=0.052,DR=0.31,DX=0.66,GAP=0.055,i;
  for(i=0;i<N;i++){var u=Math.random();
@@ -323,7 +324,7 @@ var VS='attribute vec3 aPA;attribute vec3 aPB;attribute vec3 aCA;attribute vec3 
 'void main(){vec3 p=mix(aPA,aPB,uT);p+=uWob*(0.012+0.026*aR)*vec3(sin(uTime*0.7+aR*43.7),cos(uTime*0.8+aR*29.3),sin(uTime*0.6+aR*17.9));'+ROT+
 'vec2 scr=vec2(p.x*s*0.72/uAsp,p.y*s*0.72+uShiftY);gl_Position=vec4(scr,0.0,1.0);'+
 'float md=length(vec2((scr.x-uM.x)*uAsp,scr.y-uM.y));float bo=smoothstep(0.40,0.0,md);'+
-'gl_PointSize=(1.3+2.3*aR)*s*uDpr*uScl*(1.0+1.5*bo);vC=mix(aCA,aCB,uT);'+
+'gl_PointSize=(1.3+2.3*aR)*s*uDpr*uScl*(1.0+1.5*bo/uScl);vC=mix(aCA,aCB,uT);'+
 'float br=max(vC.r,max(vC.g,vC.b));'+
 'vA=(0.5+0.5*clamp(s-0.7,0.0,1.0))*(0.72+0.28*sin(uTime*2.0+aR*95.0))*(1.0+1.3*bo)*(0.35+0.65*smoothstep(0.12,0.5,br));}';
 var FS='precision mediump float;varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-vec2(0.5);float d=length(q);float a=smoothstep(0.5,0.03,d)*vA;gl_FragColor=vec4(vC*a,a);}';
@@ -377,7 +378,9 @@ var SHIFT={emblem:0.30};
 var rotAmp=1,drift=0,lineAmp=0.34,pulseAmp=1,shiftY=0;
 
 var W,H2,dpr,asp,scl;
-function size(){dpr=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H2=innerHeight;cv.width=W*dpr;cv.height=H2*dpr;asp=W/H2;scl=Math.min(1.7,Math.max(1,Math.min(W,H2)/820));gl.viewport(0,0,cv.width,cv.height);}
+function size(){dpr=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H2=innerHeight;cv.width=W*dpr;cv.height=H2*dpr;asp=W/H2;
+ /* scala punto NEUTRA sul laptop (min<=1000 -> 1), cresce solo su monitor grandi */
+ scl=Math.min(1.6,Math.max(1,Math.min(W,H2)/1000));gl.viewport(0,0,cv.width,cv.height);}
 size();window.addEventListener('resize',function(){clearTimeout(size._t);size._t=setTimeout(size,150);});
 
 var tmx=0,tmy=0,mx=0,my=0,dragging=false,dpx=0,yv=0;
