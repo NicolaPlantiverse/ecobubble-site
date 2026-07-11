@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GreenEazy · L&#8217;intelligenza del verde urbano</title>
+<meta name="description" content="GreenEazy è la rete EcoBubble che sceglie la pianta giusta per ogni luogo: 6.072 specie in enciclopedia, 135 inquinanti mappati, aria misurata dal satellite Copernicus, cura che segue il meteo. Demo interattiva sui dati reali del motore.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1715 1243%22><defs><mask id=%22m%22><rect width=%221715%22 height=%221243%22 fill=%22white%22/><circle cx=%22310%22 cy=%22622%22 r=%22355%22 fill=%22black%22/><circle cx=%221405%22 cy=%22622%22 r=%22355%22 fill=%22black%22/></mask></defs><circle cx=%22857%22 cy=%22622%22 r=%22570%22 fill=%22none%22 stroke=%22%2335d0c0%22 stroke-width=%22100%22 mask=%22url(%23m)%22/><circle cx=%22310%22 cy=%22622%22 r=%22310%22 fill=%22%2335d0c0%22/><circle cx=%221405%22 cy=%22622%22 r=%22310%22 fill=%22%2335d0c0%22/></svg>">
+<style>
+:root{
+ --bg:#050b16;--panel:rgba(10,16,27,.72);--panel2:rgba(14,21,33,.85);
+ --ac:#35d0c0;--ac2:#8ceadf;--env:#4be08e;--geo:#5aa9ff;--vio:#a98bff;--amber:#ffc46b;--rose:#ff8fa3;
+ --txt:#eef4f0;--txt2:#93a7a0;--txt3:#5b6e66;--line:rgba(255,255,255,.09);
+ --ok:#4be08e;--warn:#ffc46b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:rgba(53,208,192,.3)}
+#net{position:fixed;inset:0;z-index:0}
+#veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 42%,transparent 40%,rgba(5,11,22,.78) 100%)}
+
+header{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 28px;background:linear-gradient(180deg,rgba(5,11,22,.88),rgba(5,11,22,.55) 70%,transparent)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;text-decoration:none;color:var(--txt)}
+.brand svg{width:28px;height:auto}
+.brand small{font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3)}
+.hright{display:flex;align-items:center;gap:10px}
+.badge{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--txt2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;background:rgba(10,16,27,.6)}
+.badge i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ac);margin-right:7px;vertical-align:1px}
+.badge.gold{border-color:rgba(53,208,192,.45);color:var(--ac2)}
+
+main{position:relative;z-index:10}
+section{min-height:100vh;display:flex;align-items:center;padding:110px 6vw 80px;position:relative}
+.wrap{width:100%;max-width:1180px;margin:0 auto}
+.kick{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ac);margin-bottom:18px}
+h1{font-size:clamp(34px,5vw,62px);line-height:1.12;letter-spacing:-.02em;font-weight:800;max-width:15em}
+h2{font-size:clamp(26px,3.4vw,42px);line-height:1.18;letter-spacing:-.018em;font-weight:800;max-width:17em}
+.lead{margin-top:20px;font-size:16.5px;line-height:1.65;color:var(--txt2);max-width:640px}
+.lead b{color:var(--txt);font-weight:600}
+
+.stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:38px}
+.stat{border:1px solid var(--line);border-radius:18px;padding:16px 22px;background:var(--panel);min-width:150px}
+.stat .v{font-size:26px;font-weight:800;letter-spacing:-.02em;color:var(--ac2);font-variant-numeric:tabular-nums}
+.stat .l{font-size:11.5px;color:var(--txt2);margin-top:4px;line-height:1.4}
+.scrollhint{margin-top:44px;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--txt3)}
+.scrollhint::after{content:"";display:block;width:1px;height:38px;margin-top:12px;background:linear-gradient(180deg,var(--ac),transparent)}
+
+.panel{border:1px solid var(--line);border-radius:22px;background:var(--panel);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:24px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:34px;align-items:start}
+@media(max-width:960px){.grid2{grid-template-columns:1fr}}
+
+.assets{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:34px}
+@media(max-width:960px){.assets{grid-template-columns:repeat(2,1fr)}}
+.asset{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:15px 16px;cursor:pointer;transition:border-color .25s,transform .25s;position:relative}
+.asset:hover{transform:translateY(-2px)}
+.asset.on{border-color:rgba(53,208,192,.65);box-shadow:0 14px 34px -22px var(--ac)}
+.asset .t{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ac)}
+.asset .n{font-size:13.5px;font-weight:700;margin-top:6px;line-height:1.35}
+.asset .m{font-size:11px;color:var(--txt2);margin-top:7px;font-variant-numeric:tabular-nums}
+.asset .dot{position:absolute;top:14px;right:14px;width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.asset .dot.w{background:var(--warn);box-shadow:0 0 8px var(--warn)}
+#adet{margin-top:16px;display:flex;gap:26px;flex-wrap:wrap;align-items:center;border:1px solid var(--line);border-radius:18px;background:var(--panel2);padding:18px 22px}
+#adet .kv{min-width:120px}
+#adet .kv .v{font-size:21px;font-weight:800;color:var(--ac2);font-variant-numeric:tabular-nums}
+#adet .kv .l{font-size:10.5px;color:var(--txt3);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+#adet .note{font-size:12.5px;color:var(--txt2);line-height:1.55;flex:1;min-width:220px}
+#adet .note b{color:var(--txt)}
+
+.objs{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.chip{appearance:none;border:1px solid var(--line);border-radius:999px;background:rgba(10,16,27,.6);color:var(--txt2);font:inherit;font-size:13px;font-weight:700;padding:11px 20px;cursor:pointer;transition:.25s}
+.chip:hover{color:var(--txt);border-color:rgba(255,255,255,.3)}
+.chip.on{background:var(--ac);border-color:var(--ac);color:#03211d}
+#gatebox{margin-top:26px;display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch}
+@media(max-width:960px){#gatebox{grid-template-columns:1fr}}
+.gcount{font-size:clamp(30px,3.2vw,44px);font-weight:800;letter-spacing:-.02em;color:var(--ac2);font-variant-numeric:tabular-nums}
+.gcount small{font-size:.45em;color:var(--txt2);font-weight:600;letter-spacing:0}
+.gsub{font-size:13px;color:var(--txt2);margin-top:8px;line-height:1.6}
+.meter{margin-top:20px}
+.meter .lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--txt3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.meter .bar{height:10px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden}
+.meter .bar b{display:block;height:100%;width:100%;border-radius:6px;background:linear-gradient(90deg,var(--env),var(--ac));transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+.meter .big{font-size:24px;font-weight:800;color:var(--env);margin-top:10px;font-variant-numeric:tabular-nums}
+.fams{display:grid;grid-template-columns:1fr 1fr;gap:9px 18px;margin-top:6px}
+.fam{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--txt2)}
+.fam i{width:8px;height:8px;border-radius:50%;flex:none}
+.fam b{color:var(--txt);font-weight:700;font-variant-numeric:tabular-nums;margin-left:auto}
+
+.scn{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+canvas.chart{width:100%;height:300px;display:block}
+canvas.heat{width:100%;height:280px;display:block;border-radius:12px}
+.chartcap{font-size:11px;color:var(--txt3);margin-top:12px;line-height:1.6}
+.covline{display:flex;align-items:center;gap:16px;margin-top:16px;border-top:1px solid var(--line);padding-top:16px}
+.covline .arc{flex:none}
+.covline p{font-size:12.5px;color:var(--txt2);line-height:1.55}
+.covline p b{color:var(--env)}
+.kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.kpi{border:1px solid var(--line);border-radius:14px;padding:12px 16px;background:var(--panel2);min-width:130px}
+.kpi .v{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--txt)}
+.kpi .v.ok{color:var(--env)}
+.kpi .v.wa{color:var(--warn)}
+.kpi .l{font-size:10.5px;color:var(--txt3);margin-top:3px;letter-spacing:.06em;text-transform:uppercase}
+.legend{display:flex;gap:16px;margin-top:12px;font-size:11px;color:var(--txt3);flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+#receipt{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.75;color:var(--txt2);border:1px solid var(--line);border-radius:18px;background:var(--panel2);padding:22px 24px;position:relative;overflow:hidden}
+#receipt .rk{color:var(--txt3)}
+#receipt .rv{color:var(--txt)}
+#receipt .hash{word-break:break-all;color:var(--ac2);letter-spacing:.02em}
+#receipt .sig{margin-top:14px;padding-top:14px;border-top:1px dashed rgba(255,255,255,.14)}
+#receipt::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--ac),transparent)}
+.rbtns{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+.btn{appearance:none;border:0;border-radius:999px;font:inherit;font-size:14px;font-weight:700;padding:13px 26px;cursor:pointer;transition:.25s;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn.p{background:var(--ac);color:#03211d}
+.btn.p:hover{transform:translateY(-2px);box-shadow:0 16px 36px -16px var(--ac)}
+.btn.s{border:1px solid var(--line);background:rgba(10,16,27,.6);color:var(--txt)}
+.btn.s:hover{border-color:rgba(255,255,255,.3)}
+#vres{font-size:12.5px;margin-top:14px;min-height:18px;color:var(--env);font-weight:600}
+.chain{margin-top:18px;font-size:11px;color:var(--txt3);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.9}
+.chain b{color:var(--txt2)}
+
+#close .panel{padding:34px}
+.closecta{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+footer{position:relative;z-index:10;border-top:1px solid var(--line);padding:34px 6vw 44px;font-size:11.5px;color:var(--txt3);line-height:1.8;background:rgba(5,11,22,.85)}
+footer .frow{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer .fb{max-width:560px}
+footer b{color:var(--txt2)}
+.pbadges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pbadges span{border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt2)}
+.pbadges span.gold{border-color:rgba(53,208,192,.45);color:var(--ac2)}
+
+#rail{position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:12px}
+#rail a{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.16);transition:.3s;display:block}
+#rail a.on{background:var(--ac);box-shadow:0 0 10px var(--ac)}
+@media(max-width:960px){#rail{display:none}}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+ html{scroll-behavior:auto}
+ .rv{opacity:1;transform:none;transition:none}
+ .meter .bar b{transition:none}
+}
+
+/* anteprima in miniatura per la galleria del sito (?mini=1) */
+.mini header,.mini #rail,.mini .kick,.mini h1,.mini h2,.mini .lead,.mini .scrollhint,.mini .stats,.mini footer{display:none}
+.mini section{min-height:100vh;padding:26px 3vw 20px;align-items:flex-start}
+.mini .objs,.mini .scn{margin-top:6px}
+.mini .grid2,.mini #gatebox,.mini .assets,.mini .cats,.mini .path{margin-top:14px}
+
+/* velatura minimale nel colore della rete */
+body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
+ background:radial-gradient(85% 60% at 82% -8%,rgba(53,208,192,.10),transparent 60%),radial-gradient(70% 55% at -5% 105%,rgba(53,208,192,.05),transparent 55%)}
+
+/* cambio pagina scorrevole */
+@view-transition{navigation:auto}
+@media (prefers-reduced-motion: no-preference){
+ body{animation:pagein .5s ease}
+ @keyframes pagein{from{opacity:0}to{opacity:1}}
+}
+
+/* scorrimento a schermate, come la landing */
+html{scroll-snap-type:y mandatory}
+html.mini{scroll-snap-type:none}
+section{scroll-snap-align:start;scroll-snap-stop:always}
+footer{scroll-snap-align:start}
+</style>
+</head>
+<body>
+
+<canvas id="net" aria-hidden="true"></canvas>
+<div id="veil"></div>
+
+<header>
+  <a class="brand" href="../index_v16.html">
+    <svg viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#35d0c0" stroke-width="100" mask="url(#ebm)"/><circle cx="310" cy="622" r="310" fill="#35d0c0"/><circle cx="1405" cy="622" r="310" fill="#35d0c0"/></svg>
+    EcoBubble <small>Rete GreenEazy</small>
+  </a>
+  <div class="hright">
+    <span class="badge"><i></i>Demo · Verde urbano</span>
+    <span class="badge gold">GreenEazy · Patented</span>
+  </div>
+</header>
+
+<div id="rail" aria-hidden="true"></div>
+
+<main id="top">
+
+<!-- HERO -->
+<section id="s0">
+  <div class="wrap">
+    <div class="kick rv">La rete EcoBubble per il verde urbano e i patrimoni verdi · già in funzione</div>
+    <h1 class="rv">Il verde giusto, scelto dai dati. E tenuto in salute.</h1>
+    <p class="lead rv">GreenEazy suggerisce la pianta giusta per ogni luogo: tra quelle che possono viverci bene sceglie quelle che <b>assorbono gli inquinanti misurati proprio lì</b>, poi le tiene in salute con una <b>cura che segue il meteo</b>. Il motore è alimentato dalle misure vive della rete Plantiverse e dai dati satellitari Copernicus. I numeri qui sotto sono <b>reali</b> (2026); gli scenari urbani più avanti sono dimostrativi.</p>
+    <div class="stats rv">
+      <div class="stat"><div class="v">6.072</div><div class="l">specie nell&#8217;enciclopedia botanica</div></div>
+      <div class="stat"><div class="v">135</div><div class="l">inquinanti mappati sulle piante che li assorbono</div></div>
+      <div class="stat"><div class="v">&gt;85%</div><div class="l">degli episodi di stress colti prima dei sintomi</div></div>
+      <div class="stat"><div class="v">~22 kg</div><div class="l">CO&#8322; assorbita a pianta ogni anno, da misura di rete</div></div>
+    </div>
+    <div class="scrollhint rv">Scorri</div>
+  </div>
+</section>
+
+<!-- 01 IL PATRIMONIO -->
+<section id="s1">
+  <div class="wrap">
+    <div class="kick rv">01 · Il motore, in numeri veri</div>
+    <h2 class="rv">Non un catalogo. Un motore alimentato da misure.</h2>
+    <p class="lead rv">Enciclopedia botanica, fitorimedio documentato, aria letta dal satellite, cura che segue le previsioni e le misure vive della rete Plantiverse. Questi sono i numeri correnti del motore GreenEazy. <b>Seleziona una voce</b> per capirla.</p>
+    <div class="assets rv" id="assets"></div>
+    <div id="adet" class="rv"></div>
+  </div>
+</section>
+
+<!-- 02 LA RETE SI COMPONE -->
+<section id="s2">
+  <div class="wrap">
+    <div class="kick rv">02 · La rete si compone</div>
+    <h2 class="rv">Cambia la domanda. Cambiano i motori accesi.</h2>
+    <p class="lead rv">La sicurezza di un viale non è l&#8217;irrigazione di un parco. Per ogni domanda della città GreenEazy accende una <b>combinazione dedicata</b> di motori e lascia il resto spento: stessi risultati, una frazione del calcolo. <b>Scegli una domanda</b>.</p>
+    <div class="objs rv" id="objs"></div>
+    <div id="gatebox" class="rv">
+      <div class="panel">
+        <div class="gcount"><span id="gc">27</span> <small>motori accesi su 198</small></div>
+        <p class="gsub" id="gsub"></p>
+        <div class="meter">
+          <div class="lbl"><span>Calcolo utilizzato</span><span>rispetto alla rete piena</span></div>
+          <div class="bar"><b id="mbar"></b></div>
+          <div class="big" id="msave">-86%</div>
+          <p class="gsub">I motori che non servono non consumano nulla. Un bilancio comunale se ne accorge.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <p class="gsub" style="margin:0 0 14px">Famiglie di motori accese per questa domanda</p>
+        <div class="fams" id="fams"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 LO STRESS PRIMA DEI SINTOMI -->
+<section id="s3">
+  <div class="wrap">
+    <div class="kick rv">03 · Gli alberi parlano prima</div>
+    <h2 class="rv">Lo stress si vede nello spettro settimane prima che si veda in strada.</h2>
+    <p class="lead rv">Quando una chioma ingiallisce, il danno è già fatto. GreenEazy sente il segnale precoce: <b>più dell&#8217;85% degli episodi di stress viene colto prima dei sintomi visibili</b>, con metodologia validata su 661 specie insieme a CNR-IAC e Sapienza. Lo scenario urbano qui sotto è dimostrativo: cambia la stagione e osserva la città rispondere.</p>
+    <div class="scn rv" id="scns"></div>
+    <div class="grid2">
+      <div class="panel rv">
+        <p class="gsub" style="margin:0">Mappa dello stress · una cella, un gruppo di alberi</p>
+        <canvas class="heat" id="heat"></canvas>
+        <div class="legend">
+          <span><i style="background:#123c26"></i>quiete</span>
+          <span><i style="background:#3f7a37"></i>osservazione</span>
+          <span><i style="background:#ffc46b"></i>segnale precoce</span>
+          <span><i style="background:#ff8fa3"></i>sintomatico</span>
+          <span><i style="background:transparent;border:1.5px solid #8ceadf;border-radius:50%"></i>colto in anticipo</span>
+        </div>
+        <p class="chartcap" id="heatCap"></p>
+      </div>
+      <div class="panel rv">
+        <p class="gsub" style="margin:0">L&#8217;anticipo, misurato in giorni</p>
+        <canvas class="chart" id="early"></canvas>
+        <p class="chartcap" id="earlyCap"></p>
+        <div class="kpis" id="kpis"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 IL BILANCIO DEL VERDE -->
+<section id="s4">
+  <div class="wrap">
+    <div class="kick rv">04 · Il bilancio del verde</div>
+    <h2 class="rv">Dal verde curato al verde certificato.</h2>
+    <p class="lead rv">CO&#8322; assorbita da misura, alberi ad alto rischio, interventi fatti al momento giusto: GreenEazy raccoglie tutto in un bilancio del verde e lo firma con <b>SHA-256, calcolato adesso, nel tuo browser</b>. Il consiglio comunale, i cittadini o un revisore lo verificano da soli. È lo stesso principio del Certificato d&#8217;Impatto già emesso dalla piattaforma.</p>
+    <div class="grid2">
+      <div>
+        <div id="receipt" class="rv"></div>
+        <div class="rbtns rv">
+          <button class="btn p" id="signBtn" type="button">Firma il bilancio</button>
+          <button class="btn s" id="verBtn" type="button">Verifica la firma</button>
+        </div>
+        <div id="vres"></div>
+      </div>
+      <div class="panel rv">
+        <p class="gsub" style="margin:0 0 12px">Cosa entra nel bilancio, e da dove viene</p>
+        <div class="kpis" style="margin-top:0">
+          <div class="kpi"><div class="v ok">~22 kg</div><div class="l">CO&#8322; a pianta / anno · misura di rete</div></div>
+          <div class="kpi"><div class="v">6.072</div><div class="l">specie disponibili al progetto</div></div>
+          <div class="kpi"><div class="v">135</div><div class="l">inquinanti mappati</div></div>
+          <div class="kpi"><div class="v wa" id="riskKpi">210</div><div class="l">alberi ad alto rischio · scenario</div></div>
+        </div>
+        <p class="gsub" style="margin:16px 0 10px">Catena di custodia della sessione</p>
+        <div class="chain" id="chain"></div>
+        <p class="chartcap">Ogni bilancio incorpora la firma del precedente: la storia del verde della città non si può riscrivere. Utile per PNRR, bandi e rendicontazione ESG.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 CHIUSURA -->
+<section id="s5">
+  <div class="wrap">
+    <div class="kick rv">05 · Cosa ha visto la città</div>
+    <h2 class="rv">Il verde smette di essere una spesa cieca. Diventa un patrimonio che rende conto.</h2>
+    <div class="panel rv" style="margin-top:30px">
+      <p class="lead" style="margin:0">Meno sopralluoghi a tappeto, interventi dove servono, un bilancio che regge davanti a chiunque. GreenEazy è una rete generata dal motore Ennous, già in funzione: enciclopedia di 6.072 specie, 135 inquinanti mappati, cura guidata dal meteo e misure vive della rete Plantiverse. Gli scenari urbani di questa demo sono dimostrativi; sulla tua città il motore lavora con i tuoi alberi, e i dati restano tuoi.</p>
+      <div class="closecta">
+        <a class="btn p" href="mailto:info@ecobubble.it?subject=GreenEazy">Parliamone</a>
+        <a class="btn s" href="https://greeneazy.it" target="_blank" rel="noopener">greeneazy.it</a>
+        <a class="btn s" href="../index_v16.html">Torna al sito</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="frow">
+    <div class="fb">
+      <b>EcoBubble S.r.l.</b> · Infrastrutture di intelligenza artificiale costruite sulla singola organizzazione, orchestrate dal motore Ennous / Meta-Intelligence.<br>
+      I numeri del motore (specie, inquinanti, misure di rete, validazione, CO&#8322; per pianta) sono dati reali della piattaforma GreenEazy / Plantiverse, aggiornati al 2026. Gli scenari urbani, le mappe e le stagioni interattive sono dimostrativi e non si riferiscono ad alcuna città reale.<br>
+      info@ecobubble.it
+    </div>
+    <div>
+      <div class="pbadges">
+        <span class="gold">GreenEazy · Patented</span>
+        <span class="gold">Metodo Geo-Driven · Patent pending</span>
+        <span>Ennous · Patent pending</span>
+      </div>
+      <div style="margin-top:12px">© 2026 EcoBubble S.r.l. · Tutti i diritti riservati.</div>
+    </div>
+  </div>
+</footer>
+
+<noscript><div style="position:fixed;inset:0;z-index:99;background:#050b16;color:#eef4f0;padding:120px 8vw;font-size:18px;line-height:1.7">Questa dimostrazione richiede JavaScript. EcoBubble sviluppa infrastrutture di intelligenza artificiale costruite sulla singola organizzazione. Scrivi a info@ecobubble.it.</div></noscript>
+
+<script>
+"use strict";
+/* ============================================================
+   GreenEazy · Demo · L'intelligenza del verde urbano
+   Dati illustrativi. Nessun meccanismo interno viene esposto.
+   ============================================================ */
+var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function $(s){return document.querySelector(s);}
+function $$(s){return [].slice.call(document.querySelectorAll(s));}
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+/* ---------------- dati illustrativi ---------------- */
+var FAMS=[
+ {n:"Lettura satellitare e aerea",c:"#5aa9ff"},
+ {n:"Salute degli alberi",c:"#4be08e"},
+ {n:"Suolo e acqua",c:"#35d0c0"},
+ {n:"Clima urbano",c:"#ffc46b"},
+ {n:"Costi e cantieri",c:"#a98bff"},
+ {n:"Prova e audit",c:"#ff8fa3"}
+];
+var OBJS=[
+ {id:"progetto",n:"Progettare un&#8217;area verde",lit:27,save:86,seed:21,mix:[6,9,2,3,4,3],
+  gsub:"Prima le specie che possono vivere nel luogo (luce, suolo, clima, ingombro), poi tra queste quelle che piacciono: la proposta nasce dall&#8217;enciclopedia di 6.072 specie, non da un listino."},
+ {id:"aria",n:"Scegliere per l&#8217;aria",lit:24,save:88,seed:49,mix:[5,4,8,4,1,2],
+  gsub:"La posizione porta con sé l&#8217;inquinamento reale, letto dal satellite Copernicus e dalle centraline: il motore privilegia le specie che assorbono i PM, gli ossidi e l&#8217;ozono di quel punto, sui 135 inquinanti mappati."},
+ {id:"cura",n:"Piano di cura dinamico",lit:21,save:89,seed:77,mix:[6,5,3,2,1,4],
+  gsub:"Le previsioni meteo guidano irrigazione e difesa: litri per metro quadro adattati a pioggia e caldo, rischio peronospora dal punto di rugiada, avvisi solo quando la routine non basta."},
+ {id:"esg",n:"Report ESG misurato",lit:33,save:83,seed:93,mix:[4,7,4,3,10,5],
+  gsub:"L&#8217;impatto dichiarato nasce dalle misure della rete, circa 22 kg di CO&#8322; assorbiti a pianta ogni anno, e ogni numero del report risale alla sua evidenza firmata."}
+];
+var SCNS=[
+ {id:"base",n:"Stagione regolare",ep:4,caught:4,days:21,risk:210,heatSeed:7,hot:3,
+  heatCap:"Una stagione tranquilla. Poche zone chiedono attenzione, tutte segnalate dal livello spettrale ben prima di qualsiasi cambiamento visibile.",
+  earlyCap:"Segnale spettrale (verde acqua) contro sintomi visibili (rosa). Lo spazio fra le due curve è l&#8217;anticipo della città: circa tre settimane."},
+ {id:"caldo",n:"Ondata di calore",ep:16,caught:14,days:17,risk:520,heatSeed:31,hot:10,
+  heatCap:"Il caldo colpisce prima i viali sull&#8217;asfalto e i suoli sottili. Il cerchio indica i gruppi colti quando erano ancora verdi alla vista: acqua e ombreggiature arrivano in anticipo.",
+  earlyCap:"Sotto un&#8217;ondata di calore l&#8217;anticipo vale di più: 14 episodi su 16 colti prima dei sintomi, 17 giorni di vantaggio mediano."},
+ {id:"vento",n:"Dopo la tempesta",ep:25,caught:22,days:2,risk:610,heatSeed:63,hot:14,
+  heatCap:"Dopo una tempesta la domanda cambia: non se ci sono danni, ma esattamente dove, quanto gravi e in che ordine intervenire.",
+  earlyCap:"In 48 ore la città è rimappata: rami pericolanti ordinati per rischio, viabilità protetta, e il conto dei danni misurato invece che stimato."},
+ {id:"nuovi",n:"Nuove piantumazioni",ep:5,caught:5,days:19,risk:180,heatSeed:89,hot:4,
+  heatCap:"I nuovi impianti sono i più fragili: due estati decidono se un albero attecchisce. La rete li segue uno a uno.",
+  earlyCap:"Sulle nuove piantumazioni l&#8217;attecchimento sale quando lo stress idrico è colto subito: qui il 94% delle piante supera la seconda estate."}
+];
+var ASSETS=[
+ {t:"FLORA",n:"6.072 specie in enciclopedia",st:"1.104 generi",ok:1,
+  note:"Per ogni specie: esposizione, suolo, altezza, fabbisogno idrico giornaliero e immagini. È il catalogo vivo da cui nasce ogni proposta di impianto."},
+ {t:"FITORIMEDIO",n:"5.229 record di fitorimedio",st:"2.349 piante · 135 inquinanti",ok:1,
+  note:"Quali piante assorbono quali inquinanti, con <b>388 abbinamenti ad alta priorità</b> documentati in letteratura: la scelta segue l&#8217;aria del luogo."},
+ {t:"ARIA",n:"Aria misurata sul luogo",st:"Copernicus · PM, NO&#8322;, O&#8323;, SO&#8322;",ok:1,
+  note:"Satellite Copernicus più centraline a terra: l&#8217;inquinamento reale dell&#8217;indirizzo, non una media nazionale, guida la selezione delle specie."},
+ {t:"CURA",n:"Cura che segue il meteo",st:"irrigazione adattiva · allerte malattie",ok:1,
+  note:"Le previsioni guidano litri e difesa: irrigazione adattata a pioggia e caldo, rischio peronospora calcolato dal punto di rugiada, avvisi solo quando la routine non basta."},
+ {t:"MISURE",n:"573 piante misurate davvero",st:"6.390 report agronomici",ok:1,
+  note:"Il motore impara dalla rete Plantiverse: letture multispettrali e giudizi di agronomi in campo, non schede statiche copiate da un manuale."},
+ {t:"VALIDAZIONE",n:"661 specie validate",st:"con CNR-IAC e Sapienza",ok:1,
+  note:"La lettura pre-sintomatica dello stress è validata con enti di ricerca nazionali: più dell&#8217;85% degli episodi viene colto prima dei sintomi."},
+ {t:"IMPATTO",n:"~22 kg di CO&#8322; a pianta l&#8217;anno",st:"misura derivata dalla rete",ok:1,
+  note:"L&#8217;assorbimento dichiarato nei report nasce dalle misure della rete, non da tabelle generiche: per questo si può firmare."},
+ {t:"TWIN",n:"688 piante nel gemello digitale",st:"il verde non strumentato si segue lo stesso",ok:1,
+  note:"Satellite, statistiche di specie e vicini di campo al posto del sensore: il costo di monitoraggio per pianta scende <b>da 880 a 44 euro</b>."}
+];
+
+/* ---------------- rete di sfondo ---------------- */
+var NET=(function(){
+ var cv=$("#net");
+ var gl=cv.getContext("webgl",{antialias:false,alpha:true})||cv.getContext("experimental-webgl",{antialias:false,alpha:true});
+ var noop={setLit:function(){},litSetFor:function(){return{};},setFam:function(){},recompose:function(){}};
+ if(!gl)return noop;
+ var ACC=hex3("#35d0c0"),NIGHT=[0.16,0.28,0.52];
+ function hex3(h){var n=parseInt(h.slice(1),16);return[(n>>16&255)/255,(n>>8&255)/255,(n&255)/255];}
+ var rnd=mulberry(22);
+ var CN=120,PER=84,N=CN*PER,NP=140;
+ /* geometria fissa: offset locali + indice hub. Gli hub vivono in un uniform e possono migrare. */
+ var OFF=new Float32Array(N*3),HB=new Float32Array(N),RN=new Float32Array(N);
+ function g(){return (rnd()+rnd()+rnd()-1.5)*0.10;}
+ var i,j;
+ for(i=0;i<CN;i++)for(j=0;j<PER;j++){
+  var k=i*PER+j;
+  OFF[k*3]=g();OFF[k*3+1]=g();OFF[k*3+2]=g();
+  HB[k]=i;RN[k]=rnd();
+ }
+ /* generatore di disposizioni: 3 lobi compatti, una porzione della rete primordiale */
+ function genHubs(seed){
+  var rr=mulberry(seed),out=new Float32Array(CN*3);
+  for(var q=0;q<CN;q++){
+   var lob=q%3,cx=lob===0?-0.58:(lob===1?0.58:0);
+   out[q*3]=cx+(rr()-.5)*0.70;
+   out[q*3+1]=(rr()-.5)*1.10;
+   out[q*3+2]=(rr()-.5)*0.85;
+  }
+  return out;
+ }
+ var hubCur=genHubs(22+1),hubTgt=hubCur.slice(0);
+ /* archi: coppie di indici hub, scelte sul layout iniziale */
+ var E=[],seen={};
+ for(i=0;i<CN;i++){
+  var d=[];
+  for(j=0;j<CN;j++){if(i===j)continue;
+   var dx=hubCur[i*3]-hubCur[j*3],dy=hubCur[i*3+1]-hubCur[j*3+1],dz=hubCur[i*3+2]-hubCur[j*3+2];
+   d.push([dx*dx+dy*dy+dz*dz,j]);}
+  d.sort(function(a,b){return a[0]-b[0];});
+  for(var t=0;t<2;t++){var jj=d[t][1],key=Math.min(i,jj)+"_"+Math.max(i,jj);
+   if(!seen[key]){seen[key]=1;E.push([i,jj]);}}
+ }
+ var NE=E.length;
+ var LH=new Float32Array(NE*2);
+ for(i=0;i<NE;i++){LH[i*2]=E[i][0];LH[i*2+1]=E[i][1];}
+ /* impulsi: coppie di indici hub sugli archi accesi */
+ var PH0=new Float32Array(NP),PH1=new Float32Array(NP),PPh=new Float32Array(NP),PSp=new Float32Array(NP);
+ function seedPulses(){
+  var litEdges=[];
+  for(var e=0;e<NE;e++){if(tgt[E[e][0]]>.5&&tgt[E[e][1]]>.5)litEdges.push(e);}
+  if(!litEdges.length)litEdges=[0];
+  for(var p2=0;p2<NP;p2++){
+   var e2=litEdges[Math.floor(Math.random()*litEdges.length)];
+   PH0[p2]=E[e2][0];PH1[p2]=E[e2][1];
+   PPh[p2]=Math.random();PSp[p2]=0.06+Math.random()*0.20;
+  }
+  up(bh0,PH0);up(bh1,PH1);up(bph,PPh);up(bpsp,PSp);
+ }
+ function sh(t,s){var o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o;}
+ function prog(v,f){var p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,v));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,f));gl.linkProgram(p);return p;}
+ var ROT="float cy=cos(uRy),sy=sin(uRy);p=vec3(p.x*cy+p.z*sy,p.y,-p.x*sy+p.z*cy);float cx=cos(uRx),sx=sin(uRx);p=vec3(p.x,p.y*cx-p.z*sx,p.y*sx+p.z*cx);float s=2.3/(2.3-p.z);";
+ var VS="attribute vec3 aOff;attribute float aHub;attribute float aR;"+
+ "uniform vec4 uHub[120];uniform float uTime,uRy,uRx,uAsp,uDpr,uWob;"+
+ "varying float vLit;varying float vA;varying float vR;"+
+ "void main(){vec4 hb=uHub[int(aHub)];vec3 p=hb.xyz+aOff;"+
+ "p+=uWob*(0.010+0.022*aR)*vec3(sin(uTime*0.6+aR*41.0),cos(uTime*0.7+aR*29.0),sin(uTime*0.5+aR*17.0));"+ROT+
+ "gl_Position=vec4(p.x*s*0.72/uAsp,p.y*s*0.72,0.0,1.0);"+
+ "float lit=hb.w;vLit=lit;vR=aR;"+
+ "gl_PointSize=(1.25+2.4*aR)*s*uDpr*(0.7+0.7*lit);"+
+ "vA=(0.66+0.34*clamp(s-0.7,0.0,1.0))*(0.72+0.28*sin(uTime*2.0+aR*95.0));}";
+ var FS="precision mediump float;uniform vec3 uAcc,uNight;varying float vLit;varying float vA;varying float vR;"+
+ "void main(){vec2 q=gl_PointCoord-vec2(0.5);float d=length(q);float a=smoothstep(0.5,0.05,d)*vA;"+
+ "vec3 col=mix(uNight,uAcc,smoothstep(0.12,0.85,vLit));"+
+ "if(vR>0.94)col=mix(col,vec3(0.95,0.99,1.0),0.55*vLit);"+
+ "a*=mix(0.4,1.0,vLit);gl_FragColor=vec4(col*a,a);}";
+ var PPRG=prog(VS,FS);
+ var LVS="attribute float aHub;uniform vec4 uHub[120];uniform float uRy,uRx,uAsp;varying float vL;"+
+ "void main(){vec4 hb=uHub[int(aHub)];vec3 p=hb.xyz;"+ROT+"gl_Position=vec4(p.x*s*0.72/uAsp,p.y*s*0.72,0.0,1.0);vL=hb.w;}";
+ var LFS="precision mediump float;uniform vec3 uAcc;uniform float uA;varying float vL;"+
+ "void main(){float a=uA*vL*vL;gl_FragColor=vec4(mix(vec3(0.35,0.5,0.8),uAcc,vL)*a,a);}";
+ var LPRG=prog(LVS,LFS);
+ var UVS="attribute float aH0;attribute float aH1;attribute float aPh;attribute float aSp;"+
+ "uniform vec4 uHub[120];uniform float uTime,uRy,uRx,uAsp,uDpr;varying float vA;"+
+ "void main(){float tt=fract(aPh+uTime*aSp);vec4 h0=uHub[int(aH0)];vec4 h1=uHub[int(aH1)];"+
+ "vec3 p=mix(h0.xyz,h1.xyz,tt);"+ROT+
+ "gl_Position=vec4(p.x*s*0.72/uAsp,p.y*s*0.72,0.0,1.0);"+
+ "gl_PointSize=(1.8+1.4*sin(tt*3.14159))*s*uDpr;"+
+ "vA=sin(tt*3.14159)*clamp(s-0.55,0.0,1.0)*min(h0.w,h1.w);}";
+ var UFS="precision mediump float;uniform vec3 uAcc;uniform float uA;varying float vA;"+
+ "void main(){vec2 q=gl_PointCoord-vec2(0.5);float d=length(q);float a=smoothstep(0.5,0.0,d)*vA*uA;"+
+ "gl_FragColor=vec4(mix(uAcc,vec3(1.0),0.4)*a,a);}";
+ var UPRG=prog(UVS,UFS);
+ function buf(a,u){var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,a,u||gl.STATIC_DRAW);return b;}
+ function up(b,a){gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,a,gl.DYNAMIC_DRAW);}
+ var bOFF=buf(OFF),bHB=buf(HB),bRN=buf(RN),bLH=buf(LH);
+ var bh0=buf(PH0,gl.DYNAMIC_DRAW),bh1=buf(PH1,gl.DYNAMIC_DRAW),bph=buf(PPh,gl.DYNAMIC_DRAW),bpsp=buf(PSp,gl.DYNAMIC_DRAW);
+ function locs(p,at,un){var A={},U={};at.forEach(function(n){A[n]=gl.getAttribLocation(p,n);});un.forEach(function(n){U[n]=gl.getUniformLocation(p,n)||gl.getUniformLocation(p,n+"[0]");});return{A:A,U:U};}
+ var LPo=locs(PPRG,["aOff","aHub","aR"],["uHub","uTime","uRy","uRx","uAsp","uDpr","uWob","uAcc","uNight"]);
+ var LL=locs(LPRG,["aHub"],["uHub","uRy","uRx","uAsp","uA","uAcc"]);
+ var LU=locs(UPRG,["aH0","aH1","aPh","aSp"],["uHub","uTime","uRy","uRx","uAsp","uDpr","uA","uAcc"]);
+ function attr(l,b,s){gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,s,gl.FLOAT,false,0,0);}
+ function dis(){for(var a=0;a<8;a++)gl.disableVertexAttribArray(a);}
+ gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);
+ var lit=new Float32Array(CN),tgt=new Float32Array(CN);
+ for(i=0;i<CN;i++){lit[i]=0.66;tgt[i]=0.66;}
+ var U4=new Float32Array(CN*4);
+ function setLit(set,flash){
+  for(var k=0;k<CN;k++)tgt[k]=set?(set[k]?1:0.16):0.66;
+  if(flash&&!reduced)for(k=0;k<CN;k++)lit[k]=Math.max(lit[k],0.9);
+  seedPulses();
+ }
+ function setFam(f){for(var k=0;k<CN;k++)tgt[k]=(k%6===f)?1:0.16;seedPulses();}
+ function litSetFor(seed,count){
+  var rr=mulberry(seed),o={},n=0,guard=0;
+  while(n<count&&guard++<4000){var c=Math.floor(rr()*CN);if(!o[c]){o[c]=1;n++;}}
+  return o;
+ }
+ /* la porzione di rete si ricompone: nuova disposizione, morphing fluido */
+ function recompose(seed){hubTgt=genHubs(seed);}
+ var W=0,H=0,dpr=1,asp=1;
+ function size(){dpr=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;asp=W/H;gl.viewport(0,0,cv.width,cv.height);}
+ size();addEventListener("resize",function(){clearTimeout(size._t);size._t=setTimeout(size,150);});
+ var tx=0,ty=0,mx=0,my=0,drift=0;
+ addEventListener("pointermove",function(e){tx=e.clientX/W-.5;ty=e.clientY/H-.5;},{passive:true});
+ var last=performance.now();
+ function frame(now){
+  var dt=Math.min(.05,(now-last)/1000);last=now;
+  mx+=(tx-mx)*Math.min(1,dt*3);my+=(ty-my)*Math.min(1,dt*3);
+  if(!reduced)drift+=dt*0.085;
+  var k,e=Math.min(1,dt*(reduced?20:1.7));
+  for(k=0;k<CN;k++){
+   lit[k]+=(tgt[k]-lit[k])*Math.min(1,dt*(reduced?20:2.4));
+   hubCur[k*3]+=(hubTgt[k*3]-hubCur[k*3])*e;
+   hubCur[k*3+1]+=(hubTgt[k*3+1]-hubCur[k*3+1])*e;
+   hubCur[k*3+2]+=(hubTgt[k*3+2]-hubCur[k*3+2])*e;
+   U4[k*4]=hubCur[k*3];U4[k*4+1]=hubCur[k*3+1];U4[k*4+2]=hubCur[k*3+2];U4[k*4+3]=lit[k];
+  }
+  var ry=drift+mx*0.4,rx=-0.10+my*0.26,tm=reduced?0:now/1000;
+  gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.useProgram(LPRG);dis();
+  attr(LL.A.aHub,bLH,1);
+  gl.uniform4fv(LL.U.uHub,U4);gl.uniform1f(LL.U.uRy,ry);gl.uniform1f(LL.U.uRx,rx);gl.uniform1f(LL.U.uAsp,asp);
+  gl.uniform1f(LL.U.uA,0.3);gl.uniform3fv(LL.U.uAcc,ACC);
+  gl.drawArrays(gl.LINES,0,NE*2);
+  if(!reduced){
+   gl.useProgram(UPRG);dis();
+   attr(LU.A.aH0,bh0,1);attr(LU.A.aH1,bh1,1);attr(LU.A.aPh,bph,1);attr(LU.A.aSp,bpsp,1);
+   gl.uniform4fv(LU.U.uHub,U4);gl.uniform1f(LU.U.uTime,tm);gl.uniform1f(LU.U.uRy,ry);gl.uniform1f(LU.U.uRx,rx);
+   gl.uniform1f(LU.U.uAsp,asp);gl.uniform1f(LU.U.uDpr,dpr);gl.uniform1f(LU.U.uA,0.75);gl.uniform3fv(LU.U.uAcc,ACC);
+   gl.drawArrays(gl.POINTS,0,NP);
+  }
+  gl.useProgram(PPRG);dis();
+  attr(LPo.A.aOff,bOFF,3);attr(LPo.A.aHub,bHB,1);attr(LPo.A.aR,bRN,1);
+  gl.uniform4fv(LPo.U.uHub,U4);gl.uniform1f(LPo.U.uTime,tm);gl.uniform1f(LPo.U.uRy,ry);gl.uniform1f(LPo.U.uRx,rx);
+  gl.uniform1f(LPo.U.uAsp,asp);gl.uniform1f(LPo.U.uDpr,dpr);gl.uniform1f(LPo.U.uWob,reduced?0:1);
+  gl.uniform3fv(LPo.U.uAcc,ACC);gl.uniform3fv(LPo.U.uNight,NIGHT);
+  gl.drawArrays(gl.POINTS,0,N);
+  requestAnimationFrame(frame);
+ }
+ seedPulses();
+ requestAnimationFrame(frame);
+ return {setLit:setLit,litSetFor:litSetFor,setFam:setFam,recompose:recompose};
+})();
+
+/* ---------------- patrimonio ---------------- */
+var aSel=1;
+function renderAssets(){
+ var host=$("#assets");host.innerHTML="";
+ ASSETS.forEach(function(a,i){
+  var d=document.createElement("div");
+  d.className="asset"+(i===aSel?" on":"");
+  d.innerHTML='<span class="dot"></span><div class="t">'+a.t+'</div><div class="n">'+a.n+'</div><div class="m">'+a.st+"</div>";
+  d.addEventListener("click",function(){aSel=i;renderAssets();});
+  host.appendChild(d);
+ });
+ var a=ASSETS[aSel];
+ $("#adet").innerHTML=
+  '<div class="kv"><div class="v">✓</div><div class="l">Dato reale · 2026</div></div>'+
+  '<div class="kv"><div class="v">API</div><div class="l">Verificabile su piattaforma</div></div>'+
+  '<div class="note"><b>'+a.n+"</b> · "+a.note+"</div>";
+}
+
+/* ---------------- composizione ---------------- */
+var oSel=0,countAnim=null;
+function renderObjs(){
+ var host=$("#objs");host.innerHTML="";
+ OBJS.forEach(function(o,i){
+  var b=document.createElement("button");
+  b.type="button";b.className="chip"+(i===oSel?" on":"");
+  b.innerHTML=o.n;
+  b.addEventListener("click",function(){oSel=i;applyObj(true);renderObjs();});
+  host.appendChild(b);
+ });
+}
+function applyObj(flash){
+ var o=OBJS[oSel];
+ if(flash)NET.recompose(500+oSel*31);
+ NET.setLit(NET.litSetFor(o.seed,Math.round(o.lit*120/198)+8),flash);
+ var from=parseInt($("#gc").textContent,10)||198,to=o.lit,t0=null;
+ if(countAnim)cancelAnimationFrame(countAnim);
+ if(reduced){$("#gc").textContent=to;}
+ else{
+  var start=flash?198:from;
+  (function tick(now){if(t0===null)t0=now;var u=Math.min(1,(now-t0)/900);
+   $("#gc").textContent=Math.round(start+(to-start)*(u*u*(3-2*u)));
+   if(u<1)countAnim=requestAnimationFrame(tick);})(performance.now());
+ }
+ $("#gsub").innerHTML=o.gsub;
+ $("#mbar").style.width=(100-o.save)+"%";
+ $("#msave").textContent="-"+o.save+"%";
+ var fh=$("#fams");fh.innerHTML="";
+ FAMS.forEach(function(f,i){
+  var d=document.createElement("div");d.className="fam";
+  d.innerHTML='<i style="background:'+f.c+';box-shadow:0 0 8px '+f.c+'"></i>'+f.n+"<b>"+o.mix[i]+"</b>";
+  fh.appendChild(d);
+ });
+}
+
+/* ---------------- stagioni ---------------- */
+var sSel=0,animT=1,fromGrid=null,curGrid=null;
+var GW=16,GH=9;
+function gridFor(idx){
+ var s=SCNS[idx],rr=mulberry(2000+s.heatSeed),cells=[],i;
+ for(i=0;i<GW*GH;i++)cells.push({v:rr()*.24,early:0});
+ var h;
+ for(h=0;h<s.hot;h++){
+  var cx=1+Math.floor(rr()*(GW-2)),cy=1+Math.floor(rr()*(GH-2));
+  var caught=(h<s.caught*s.hot/Math.max(1,s.ep));
+  var peak=.55+rr()*.45;
+  var dx,dy;
+  for(dy=-2;dy<=2;dy++)for(dx=-2;dx<=2;dx++){
+   var x=cx+dx,y=cy+dy;
+   if(x<0||y<0||x>=GW||y>=GH)continue;
+   var fall=Math.max(0,1-Math.sqrt(dx*dx+dy*dy)/2.6);
+   var c=cells[y*GW+x];
+   c.v=Math.min(1,c.v+peak*fall);
+   if(caught&&fall>.6)c.early=1;
+  }
+ }
+ return cells;
+}
+function renderScns(){
+ var host=$("#scns");host.innerHTML="";
+ SCNS.forEach(function(s,i){
+  var b=document.createElement("button");
+  b.type="button";b.className="chip"+(i===sSel?" on":"");
+  b.textContent=s.n;
+  b.addEventListener("click",function(){
+   sSel=i;fromGrid=curGrid;animT=reduced?1:0;renderScns();updateScnTexts();
+   NET.setLit(NET.litSetFor(OBJS[oSel].seed+i*7,Math.round(OBJS[oSel].lit*120/198)+8+i*3),true);
+  });
+  host.appendChild(b);
+ });
+}
+function updateScnTexts(){
+ var s=SCNS[sSel];
+ $("#heatCap").innerHTML=s.heatCap;
+ $("#earlyCap").innerHTML=s.earlyCap;
+ var caughtPct=s.ep?Math.round(100*s.caught/s.ep):100;
+ $("#kpis").innerHTML=
+  '<div class="kpi"><div class="v">'+s.ep+'</div><div class="l">Episodi di stress</div></div>'+
+  '<div class="kpi"><div class="v ok">'+s.caught+" ("+caughtPct+'%)</div><div class="l">Colti prima dei sintomi</div></div>'+
+  '<div class="kpi"><div class="v">'+(sSel===2?"48 h":s.days+" g")+'</div><div class="l">'+(sSel===2?"Mappa completa dei danni":"Anticipo mediano")+"</div></div>"+
+  '<div class="kpi"><div class="v'+(s.risk>400?" wa":"")+'">'+s.risk+'</div><div class="l">Alberi ad alto rischio</div></div>';
+ var rk=$("#riskKpi");if(rk)rk.textContent=s.risk;
+}
+function lerpGrid(a,b,t){
+ if(!a||t>=1)return b;
+ var o=[],i;
+ for(i=0;i<b.length;i++)o.push({v:a[i].v+(b[i].v-a[i].v)*t,early:b[i].early});
+ return o;
+}
+function fitCanvas(cv){
+ var dpr=Math.min(2,devicePixelRatio||1),r=cv.getBoundingClientRect();
+ if(!r.width)return null;
+ cv.width=r.width*dpr;cv.height=r.height*dpr;
+ var ctx=cv.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);
+ return {ctx:ctx,w:r.width,h:r.height};
+}
+function heatColor(v){
+ function mix(c1,c2,t){return[c1[0]+(c2[0]-c1[0])*t,c1[1]+(c2[1]-c1[1])*t,c1[2]+(c2[2]-c1[2])*t];}
+ var q=[18,60,38],w=[63,122,55],e=[255,196,107],s=[255,143,163],c;
+ if(v<.4)c=mix(q,w,v/.4);
+ else if(v<.7)c=mix(w,e,(v-.4)/.3);
+ else c=mix(e,s,(v-.7)/.3);
+ return "rgb("+Math.round(c[0])+","+Math.round(c[1])+","+Math.round(c[2])+")";
+}
+function drawHeat(cells){
+ var f=fitCanvas($("#heat"));if(!f||!cells)return;
+ var ctx=f.ctx,w=f.w,h=f.h;
+ var cw=(w-2)/GW,ch=(h-2)/GH,x,y;
+ for(y=0;y<GH;y++)for(x=0;x<GW;x++){
+  var c=cells[y*GW+x];
+  ctx.fillStyle=heatColor(c.v);
+  ctx.globalAlpha=.9;
+  ctx.beginPath();
+  var px=1+x*cw,py=1+y*ch;
+  ctx.roundRect?ctx.roundRect(px+1,py+1,cw-2,ch-2,3):ctx.rect(px+1,py+1,cw-2,ch-2);
+  ctx.fill();
+  ctx.globalAlpha=1;
+  if(c.early&&c.v>.5){
+   ctx.strokeStyle="rgba(140,234,223,.95)";ctx.lineWidth=1.6;
+   ctx.beginPath();ctx.arc(px+cw/2,py+ch/2,Math.min(cw,ch)*.30,0,6.29);ctx.stroke();
+  }
+ }
+}
+function drawEarly(){
+ var f=fitCanvas($("#early"));if(!f)return;
+ var ctx=f.ctx,w=f.w,h=f.h,pad=34;
+ var s=SCNS[sSel],i;
+ function X(i){return pad+(w-pad-12)*(i/25);}
+ function Y(v){return h-26-(h-50)*v;}
+ ctx.strokeStyle="rgba(255,255,255,.07)";ctx.lineWidth=1;ctx.font="10px ui-monospace,Menlo,monospace";ctx.fillStyle="rgba(147,167,160,.8)";
+ [0,.25,.5,.75,1].forEach(function(g){
+  ctx.beginPath();ctx.moveTo(pad,Y(g));ctx.lineTo(w-8,Y(g));ctx.stroke();
+ });
+ var shift=sSel===2?2:Math.round(s.days/3.2);
+ var onset=13;
+ function sig(i,off){var u=(i-(onset-off))/5;return 1/(1+Math.exp(-u*2.2));}
+ ctx.lineWidth=2;
+ ctx.strokeStyle="#35d0c0";
+ ctx.beginPath();for(i=0;i<26;i++)ctx[i?"lineTo":"moveTo"](X(i),Y(sig(i,shift)*.86+.05));ctx.stroke();
+ ctx.strokeStyle="#ff8fa3";
+ ctx.beginPath();for(i=0;i<26;i++)ctx[i?"lineTo":"moveTo"](X(i),Y(sig(i,0)*.86+.05));ctx.stroke();
+ var xa=X(onset-shift),xb=X(onset);
+ ctx.fillStyle="rgba(140,234,223,.10)";
+ ctx.fillRect(xa,Y(1),xb-xa,Y(0)-Y(1));
+ ctx.fillStyle="#8ceadf";
+ ctx.fillText(sSel===2?"48 h":s.days+" giorni",Math.max(pad,(xa+xb)/2-20),Y(1)+14);
+ ctx.fillStyle="#35d0c0";ctx.fillText("segnale spettrale",pad+4,Y(.97)+10);
+ ctx.fillStyle="#ff8fa3";ctx.fillText("sintomi visibili",w-104,Y(.05)-6);
+ ctx.fillStyle="rgba(147,167,160,.8)";ctx.fillText("giorni dell'episodio",w-124,h-8);
+}
+function chartLoop(){
+ var target=gridFor(sSel);
+ if(animT<1)animT=Math.min(1,animT+.045);
+ curGrid=lerpGrid(fromGrid,target,animT*animT*(3-2*animT));
+ drawHeat(curGrid);drawEarly();
+ requestAnimationFrame(chartLoop);
+}
+
+/* ---------------- bilancio SHA-256 ---------------- */
+var chainN=0,lastHash="GENESI".padEnd(64,"0"),curHash="",curPayload="";
+function fnv64(str){
+ var h1=0x811c9dc5,h2=0x811c9dc5,i;
+ for(i=0;i<str.length;i++){h1^=str.charCodeAt(i);h1=(h1*0x01000193)>>>0;}
+ for(i=str.length-1;i>=0;i--){h2^=str.charCodeAt(i)*7&255;h2=(h2*0x01000193)>>>0;}
+ var out="",k;
+ for(k=0;k<8;k++){out+=((h1^(h2>>>(k*4)))>>>0).toString(16).padStart(8,"0");h1=(h1*31+k)>>>0;}
+ return out.slice(0,64);
+}
+function sha256(str){
+ if(window.crypto&&crypto.subtle&&crypto.subtle.digest){
+  return crypto.subtle.digest("SHA-256",new TextEncoder().encode(str)).then(function(buf){
+   return [].map.call(new Uint8Array(buf),function(b){return b.toString(16).padStart(2,"0");}).join("");
+  }).catch(function(){return Promise.resolve(fnv64(str));});
+ }
+ return Promise.resolve(fnv64(str));
+}
+function receiptPayload(){
+ var o=OBJS[oSel],s=SCNS[sSel];
+ return JSON.stringify({
+  rete:"GREENEAZY·DEMO",
+  blocco:chainN+1,
+  motore:"6.072 specie · 135 inquinanti · misure rete Plantiverse",
+  domanda:o.n.replace(/&#8322;/g,"2").replace(/&#8217;/g,"'"),
+  stagione:s.n+" (scenario dimostrativo)",
+  motori:o.lit+"/198",
+  copertura:"~90%",
+  esito:"CO2 ~22 kg a pianta/anno da misura · alto rischio "+s.risk+" (scenario)",
+  precedente:lastHash.slice(0,16),
+  ts:new Date().toISOString()
+ });
+}
+function renderReceipt(hash,signed){
+ var o=OBJS[oSel],s=SCNS[sSel];
+ $("#receipt").innerHTML=
+  '<div><span class="rk">bilancio:</span> <span class="rv">VERDE URBANO · DEMO</span></div>'+
+  '<div><span class="rk">blocco:</span> <span class="rv">#'+String(chainN+1).padStart(3,"0")+"</span></div>"+
+  '<div><span class="rk">motore:</span> <span class="rv">6.072 specie · 135 inquinanti · misure rete Plantiverse</span></div>'+
+  '<div><span class="rk">domanda:</span> <span class="rv">'+o.n+"</span></div>"+
+  '<div><span class="rk">stagione (dimostrativa):</span> <span class="rv">'+s.n+"</span></div>"+
+  '<div><span class="rk">motori accesi:</span> <span class="rv">'+o.lit+" / 198 · calcolo evitato "+o.save+"%</span></div>"+
+  '<div><span class="rk">copertura calibrata:</span> <span class="rv">~90%</span></div>'+
+  '<div><span class="rk">esito:</span> <span class="rv">CO&#8322; ~22 kg a pianta/anno da misura · alto rischio '+s.risk+" (scenario)</span></div>"+
+  '<div><span class="rk">aggancio al blocco precedente:</span> <span class="rv">'+lastHash.slice(0,16)+"…</span></div>"+
+  '<div class="sig"><span class="rk">'+(signed?"firma SHA-256, calcolata in questo browser":"firma")+":</span><br>"+
+  '<span class="hash">'+(hash||"non ancora firmato, premi «Firma il bilancio»")+"</span></div>";
+}
+function typeHash(hash){
+ var el=$("#receipt .hash"),i=0;
+ if(reduced){el.textContent=hash;return;}
+ el.textContent="";
+ (function step(){
+  el.textContent=hash.slice(0,i)+(i<hash.length?"▌":"");
+  i+=3;
+  if(i<=hash.length+2)setTimeout(step,14);
+  else el.textContent=hash;
+ })();
+}
+function addChain(hash){
+ chainN++;
+ var d=document.createElement("div");
+ d.innerHTML="blocco <b>#"+String(chainN).padStart(3,"0")+"</b> · "+hash.slice(0,20)+"… ✓";
+ $("#chain").prepend(d);
+ lastHash=hash;
+}
+function bindReceipt(){
+ $("#signBtn").addEventListener("click",function(){
+  curPayload=receiptPayload();
+  sha256(curPayload).then(function(h){
+   curHash=h;renderReceipt(" ",true);typeHash(h);
+   setTimeout(function(){addChain(h);renderReceipt(h,true);},reduced?0:700);
+   $("#vres").textContent="";
+  });
+ });
+ $("#verBtn").addEventListener("click",function(){
+  if(!curHash){$("#vres").textContent="Prima firma un bilancio.";return;}
+  sha256(curPayload).then(function(h){
+   $("#vres").textContent=(h===curHash)
+    ?"✓ Firma valida: il bilancio non è stato alterato."
+    :"✗ Firma non valida.";
+  });
+ });
+}
+
+/* ---------------- scroll / sezioni ---------------- */
+var SECS=["s0","s1","s2","s3","s4","s5"];
+function buildRail(){
+ var r=$("#rail");
+ SECS.forEach(function(id){var a=document.createElement("a");a.href="#"+id;r.appendChild(a);});
+}
+function sectionMode(id){
+ NET.recompose(900+parseInt(id.slice(1),10)*37);
+ if(id==="s0")NET.setLit(null);
+ else if(id==="s1"){var all={};for(var k=0;k<120;k++)if(k%3)all[k]=1;NET.setLit(all);}
+ else if(id==="s2"||id==="s3")applyObj(false);
+ else if(id==="s4")NET.setLit(NET.litSetFor(7,24));
+ else if(id==="s5")NET.setLit(NET.litSetFor(99,60),true);
+}
+function bindScroll(){
+ var obs=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+   if(e.isIntersecting){
+    sectionMode(e.target.id);
+    var i=SECS.indexOf(e.target.id);
+    $$("#rail a").forEach(function(a,j){a.classList.toggle("on",j===i);});
+   }
+  });
+ },{threshold:.45});
+ SECS.forEach(function(id){obs.observe(document.getElementById(id));});
+ var robs=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");robs.unobserve(e.target);}});
+ },{threshold:.16});
+ $$(".rv").forEach(function(el){robs.observe(el);});
+}
+
+/* ---------------- avvio ---------------- */
+buildRail();
+renderAssets();renderObjs();applyObj(false);renderScns();updateScnTexts();
+renderReceipt(null,false);bindReceipt();bindScroll();
+requestAnimationFrame(chartLoop);
+/* hook QA e presentazione: ?go=s3 mostra solo quella sezione */
+(function(){
+ if(/mini=1/.test(location.search))document.documentElement.classList.add("mini");
+ var m=location.search.match(/go=(s\d)/);
+ if(!m)return;
+ document.documentElement.style.scrollBehavior="auto";
+ $$(".rv").forEach(function(el){el.classList.add("in");});
+ SECS.forEach(function(id){if(id!==m[1])document.getElementById(id).style.display="none";});
+ sectionMode(m[1]);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="it" class="nojs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Versione 14 · EcoBubble · Una schermata alla volta</title>
+<meta name="description" content="EcoBubble sviluppa infrastrutture di intelligenza artificiale su misura. Una rete multidimensionale seleziona i motori più adatti e mantiene dati, modelli e controllo nei sistemi del cliente.">
+<meta name="theme-color" content="#04070a">
+<link rel="canonical" href="https://www.ecobubble.it/">
+<meta property="og:title" content="EcoBubble · Intelligenza artificiale costruita sulla tua organizzazione">
+<meta property="og:description" content="Una rete multidimensionale seleziona i motori più adatti e mantiene dati, modelli e controllo nei tuoi sistemi.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1715 1243%22%3E%3Cdefs%3E%3Cmask id=%22m%22%3E%3Crect width=%221715%22 height=%221243%22 fill=%22white%22/%3E%3Ccircle cx=%22310%22 cy=%22622%22 r=%22355%22 fill=%22black%22/%3E%3Ccircle cx=%221405%22 cy=%22622%22 r=%22355%22 fill=%22black%22/%3E%3C/mask%3E%3C/defs%3E%3Ccircle cx=%22857%22 cy=%22622%22 r=%22570%22 fill=%22none%22 stroke=%22%234be08e%22 stroke-width=%22100%22 mask=%22url(%23m)%22/%3E%3Ccircle cx=%22310%22 cy=%22622%22 r=%22310%22 fill=%22%234be08e%22/%3E%3Ccircle cx=%221405%22 cy=%22622%22 r=%22310%22 fill=%22%234be08e%22/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"EcoBubble","url":"https://www.ecobubble.it/","email":"info@ecobubble.it","description":"Infrastrutture di intelligenza artificiale costruite sulla singola organizzazione."}</script>
+<style>
+:root{
+ --bg:#04070a;
+ --env:#4be08e;--env2:#9df3c3;--geo:#5aa9ff;--violet:#a98bff;--amber:#ffc46b;--teal:#35d0c0;
+ --txt:#eef4f0;--txt2:#93a7a0;--txt3:#5b6e66;
+ --line:rgba(255,255,255,.09);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+::selection{background:rgba(75,224,142,.3)}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+:focus-visible{outline:2px solid var(--env);outline-offset:3px}
+
+#stage{position:fixed;inset:0;z-index:0;display:block;width:100%;height:100%;cursor:grab}
+#stage:active{cursor:grabbing}
+#glow{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.13;transition:background 1.1s ease, opacity 1.1s ease;
+ background:radial-gradient(56% 46% at 50% 54%, var(--ac,#4be08e), transparent 72%)}
+#veil{position:fixed;inset:0;z-index:1;pointer-events:none;
+ background:radial-gradient(120% 90% at 50% 46%, transparent 52%, rgba(4,7,10,.72) 100%)}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
+ padding:20px 30px;background:linear-gradient(180deg,rgba(4,7,10,.8),transparent)}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:16.5px;color:var(--txt);text-decoration:none}
+.brand .mark{width:30px;height:auto;display:block}
+.brand small{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--txt3)}
+.navlinks{display:flex;gap:10px;align-items:center}
+.navcta{font:700 13px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;color:var(--txt);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:10px 18px;transition:.25s;background:rgba(255,255,255,.03);cursor:pointer}
+.navcta:hover{border-color:rgba(75,224,142,.6);color:var(--env)}
+.navcta.primary{background:var(--env);border-color:var(--env);color:#04150b}
+.navcta.primary:hover{color:#04150b;box-shadow:0 12px 34px -16px var(--env)}
+
+/* palco sottotitoli */
+#play{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+ padding:0 26px 66px;pointer-events:none;text-align:center}
+#kick{font-size:11.5px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ac,var(--env));margin-bottom:16px;min-height:15px;transition:color .8s;opacity:.92}
+#cap{max-width:900px;font-size:clamp(24px,3.7vw,46px);line-height:1.4;font-weight:700;letter-spacing:-.015em;text-shadow:0 2px 40px rgba(4,7,10,.75)}
+#cap .w{opacity:.12;transition:opacity .22s ease,color .4s;border-radius:9px;padding:0 .06em}
+#cap .w.on{opacity:1}
+#cap .w.on.k{color:var(--ac,var(--env))}
+#cap .w.cur{color:var(--txt)}
+#sub{margin-top:16px;font-size:14.5px;color:var(--txt2);max-width:720px;line-height:1.6;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s;text-shadow:0 2px 30px rgba(4,7,10,.8)}
+#sub.on{opacity:1;transform:none}
+
+/* etichetta obiettivo (scena selezione) */
+#obj{position:fixed;z-index:20;left:50%;top:26%;transform:translateX(-50%);pointer-events:none;
+ display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--txt);
+ background:rgba(9,14,19,.66);border:1px solid var(--line);border-radius:999px;padding:9px 18px;
+ opacity:0;transition:opacity .45s}
+#obj.on{opacity:1}
+#obj .dot{width:8px;height:8px;border-radius:50%;background:var(--ac,var(--env));box-shadow:0 0 12px var(--ac,var(--env))}
+#obj small{color:var(--txt3);font-weight:600}
+
+/* CTA finale: in flusso sotto il sottotitolo (niente sovrapposizioni) */
+#cta{display:none;margin-top:20px;gap:14px;flex-wrap:wrap;justify-content:center;pointer-events:auto}
+#cta.on{display:flex}
+.btn{display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:700;text-decoration:none;border-radius:999px;padding:15px 28px;transition:.25s}
+.btn.p{background:var(--env);color:#04150b}
+.btn.p:hover{transform:translateY(-2px);box-shadow:0 18px 40px -16px var(--env)}
+.btn.s{border:1px solid var(--line);color:var(--txt);background:rgba(9,14,19,.5)}
+.btn.s:hover{border-color:rgba(255,255,255,.3)}
+/* portfolio: scritte piccole verso le demo, una sola riga */
+#port{display:none;margin-top:14px;align-items:center;gap:8px;flex-wrap:nowrap;justify-content:center;pointer-events:auto;font-size:11.5px;max-width:none;white-space:nowrap}
+#port.on{display:flex}
+#port span{color:var(--txt3);letter-spacing:.14em;text-transform:uppercase;font-size:10px;margin-right:4px}
+#port a{color:var(--txt2);text-decoration:none;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:rgba(9,14,19,.5);transition:.25s;display:inline-flex;align-items:center;gap:6px}
+#port a i{width:6px;height:6px;border-radius:50%;background:var(--pac,var(--env));box-shadow:0 0 8px var(--pac,var(--env))}
+#port a:hover{color:var(--txt);border-color:var(--pac,rgba(255,255,255,.28))}
+#port a.all{color:var(--txt);border-color:rgba(75,224,142,.4)}
+#port a.all:hover{border-color:var(--env);color:var(--env)}
+@media(max-width:1120px){#port{flex-wrap:wrap;white-space:normal;max-width:720px}}
+/* overlay team */
+#team{position:fixed;left:50%;top:43%;transform:translate(-50%,-50%);z-index:20;display:flex;gap:26px;opacity:0;transition:opacity .55s;pointer-events:none;
+ background:rgba(4,7,10,.5);border:1px solid var(--line);border-radius:28px;padding:30px 34px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+#team.on{opacity:1}
+#team .tm{text-align:center;width:138px}
+#team .tm img{width:104px;height:104px;border-radius:50%;object-fit:cover;object-position:50% 4%;border:1.5px solid var(--ac,var(--env));box-shadow:0 0 30px -6px var(--ac,var(--env));filter:grayscale(.28)}
+#team .tm .n{font-size:14px;font-weight:700;margin-top:14px}
+#team .tm .r{font-size:11.5px;color:var(--ac,var(--txt2));margin-top:3px;font-weight:600}
+@media(max-width:640px){#team{gap:14px;flex-wrap:wrap;justify-content:center;max-width:320px;padding:20px}#team .tm{width:130px}#team .tm img{width:96px;height:96px}}
+
+/* barra di avanzamento capitoli */
+#bar{position:fixed;left:0;right:0;bottom:0;z-index:22;display:flex;gap:6px;padding:16px 30px}
+#bar button{appearance:none;border:0;padding:0;flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden;position:relative;cursor:pointer;pointer-events:auto}
+#bar button b{position:absolute;inset:0;width:0;background:var(--ac,var(--env));border-radius:2px}
+#bar button.done b{width:100%}
+#bar button:focus-visible{height:5px;outline-offset:2px}
+
+/* controlli */
+#hud{position:fixed;right:30px;bottom:34px;z-index:23;display:flex;align-items:center;gap:16px;font-size:11.5px;letter-spacing:.16em;color:var(--txt3);font-variant-numeric:tabular-nums}
+#pp{display:none}
+#pp:hover{border-color:var(--env);color:var(--env)}
+#hint{position:fixed;left:30px;bottom:34px;z-index:23;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--txt3);transition:opacity .5s}
+#hint.off{opacity:0}
+
+.nojs #play,.nojs #bar,.nojs #hud,.nojs #hint,.nojs #glow,.nojs #veil,.nojs #obj{display:none}
+#fallback{display:none}
+.nojs #fallback{display:block;position:relative;z-index:5;max-width:820px;margin:0 auto;padding:130px 26px 90px}
+.nojs #fallback h1{font-size:30px;line-height:1.3;margin-bottom:26px}
+.nojs #fallback p{font-size:18px;line-height:1.6;color:var(--txt2);margin-bottom:16px}
+.nojs #fallback b{color:var(--txt)}
+.nogl #stage{background:radial-gradient(60% 60% at 50% 45%,rgba(20,40,32,.5),transparent)}
+
+@media(max-width:640px){
+ nav{padding:16px 18px}
+ .brand small,.portfolio-link{display:none}
+ .navlinks{gap:6px}.navcta{padding:9px 12px;font-size:12px}
+ #play{padding-bottom:110px}
+ #cap{font-size:clamp(22px,6vw,32px)}
+ #hud{right:18px}#hint{left:18px}#bar{padding:16px 18px}
+ #obj{top:20%}
+}
+@media (prefers-reduced-motion: reduce){#cap .w,#sub,#glow,#obj,#team{transition:none}}
+</style>
+</head>
+<body>
+
+<canvas id="stage" aria-hidden="true"></canvas>
+<div id="glow"></div>
+<div id="veil"></div>
+
+<nav aria-label="Navigazione principale">
+  <a class="brand" href="#"><svg class="mark" viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm1"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#4be08e" stroke-width="100" mask="url(#ebm1)"/><circle cx="310" cy="622" r="310" fill="#4be08e"/><circle cx="1405" cy="622" r="310" fill="#4be08e"/></svg>EcoBubble <small>Applied Intelligence</small></a>
+  <div class="navlinks"><a class="navcta portfolio-link" href="portfolio.html">Portfolio</a><button class="navcta" id="summaryBtn" type="button">Sintesi</button><a class="navcta primary" href="mailto:info@ecobubble.it?subject=Pilota%20di%20intelligenza%20artificiale">Avvia un pilota &rarr;</a></div>
+</nav>
+
+<!-- palco -->
+<div id="play">
+  <div id="kick"></div>
+  <div id="cap"></div>
+  <p id="sub"></p>
+  <div id="cta">
+    <a class="btn p" href="mailto:info@ecobubble.it?subject=Pilota%20di%20intelligenza%20artificiale">Avvia un pilota &rarr;</a>
+    <a class="btn s" href="https://calendly.com/nicola-nescatelli/30min" target="_blank" rel="noopener">Prenota 30 minuti</a>
+  </div>
+  <div id="port"><span>Il portfolio</span>
+    <a style="--pac:#4be08e" href="demos/ennous.html" target="_blank" rel="noopener"><i></i>Ennous</a>
+    <a style="--pac:#35d0c0" href="demos/greeneazy.html" target="_blank" rel="noopener"><i></i>GreenEazy</a>
+    <a style="--pac:#5aa9ff" href="demos/plantiverse.html" target="_blank" rel="noopener"><i></i>Plantiverse</a>
+    <a style="--pac:#ffc46b" href="demos/energia.html" target="_blank" rel="noopener"><i></i>Energia &amp; Infrastrutture</a>
+    <a style="--pac:#a98bff" href="demos/governance-ai.html" target="_blank" rel="noopener"><i></i>Governance AI</a>
+    <a style="--pac:#9df3c3" href="demos/natural-capital.html" target="_blank" rel="noopener"><i></i>Natural Capital</a>
+    <a class="all" href="portfolio.html">Tutto il portfolio &rarr;</a>
+  </div>
+</div>
+<p id="srStatus" class="sr-only" aria-live="polite"></p>
+
+<div id="obj"><span class="dot"></span><span id="objName"></span></div>
+
+<div id="team">
+  <div class="tm" style="--ac:var(--env)"><img src="assets/team/nn.jpg" alt="Nicola Nescatelli" loading="lazy"><div class="n">Nicola Nescatelli</div><div class="r">Founder &amp; CEO</div></div>
+  <div class="tm" style="--ac:var(--geo)"><img src="assets/team/ap.jpg" alt="Andrea Procaccini" loading="lazy"><div class="n">Andrea Procaccini</div><div class="r">AI &amp; Modelling</div></div>
+  <div class="tm" style="--ac:var(--teal)"><img src="assets/team/lg.jpg" alt="Leonardo Giannini" loading="lazy"><div class="n">Leonardo Giannini</div><div class="r">Geospatial &amp; EO</div></div>
+  <div class="tm" style="--ac:var(--violet)"><img src="assets/team/fp.jpg" alt="Fabio Pallini" loading="lazy"><div class="n">Fabio Pallini</div><div class="r">Engineering &amp; Platform</div></div>
+  <div class="tm" style="--ac:var(--amber)"><img src="assets/team/fd.jpg" alt="Federico Di Vincenzo" loading="lazy"><div class="n">Federico Di Vincenzo</div><div class="r">Design &amp; Experience</div></div>
+</div>
+
+<div id="bar"></div>
+<div id="hint">Scorri verso il basso &middot; una schermata alla volta</div>
+<div id="hud"><span id="cnt"></span><button id="pp" type="button" title="Pausa / Play" aria-label="Pausa o Play">❚❚</button></div>
+
+<!-- contenuto leggibile senza JS -->
+<div id="fallback">
+  <h1>Sviluppiamo infrastrutture di intelligenza artificiale costruite sulla tua organizzazione.</h1>
+  <p>Dentro agisce una <b>rete multidimensionale</b> di centinaia di motori. Per ogni obiettivo si accendono <b>i nodi più adatti</b> alla tua azienda.</p>
+  <p>La rete attiva <b>i motori utili</b>: il calcolo si riduce dell'<b>80/90%</b>.</p>
+  <p>È <b>agnostica e flessibile</b>: quando i dati cambiano, la rete si ricompone. I tuoi <b>dati restano nei tuoi sistemi</b>: l'intelligenza resta dove sei tu.</p>
+  <p>Mantieni la piena <b>autonomia tecnologica</b>. Ogni risposta dichiara quanto fidarsi, con una <b>firma verificabile</b>. Alla fine del percorso l'infrastruttura <b>è tua</b>.</p>
+  <p>Ogni rete nasce da un <b>pilota misurato</b>, con obiettivi, tempi e criteri di successo definiti insieme.</p>
+  <p><a href="mailto:info@ecobubble.it">info@ecobubble.it</a></p>
+</div>
+
+<script>
+/* =========================================================================
+   PARTICLE ENGINE: 15.000 nodi di una rete multidimensionale che si
+   ricompongono per capitolo. Deriva dal PARTICLE BRAIN v5, con forme e
+   ri-accensione (relight) pensate per SPIEGARE il prodotto.
+   ========================================================================= */
+var ENGINE=(function(){
+var cv=document.getElementById('stage');
+var gl=cv.getContext('webgl',{antialias:false,alpha:true})||cv.getContext('experimental-webgl',{antialias:false,alpha:true});
+if(!gl){document.body.classList.add('nogl');return null;}
+var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var N=15000,NH=440,NP=320;
+function rnd(a,b){return a+Math.random()*(b-a);}
+var ENV=[0.29,0.88,0.55],ENV2=[0.63,0.95,0.77],GEO=[0.36,0.66,1.0],GEO2=[0.73,0.85,1.0],VIO=[0.66,0.55,1.0],AMB=[1.0,0.77,0.42],WHT=[0.95,1.0,0.97],DARK=[0.10,0.16,0.15];
+
+function mk(){return{p:new Float32Array(N*3),c:new Float32Array(N*3)};}
+function put(s,i,x,y,z,c,f){var k=i*3;s.p[k]=x;s.p[k+1]=y;s.p[k+2]=z;f=(f==null?1:f);s.c[k]=c[0]*f;s.c[k+1]=c[1]*f;s.c[k+2]=c[2]*f;}
+
+/* ---- CATALOGO: ~100 cluster (i motori), ognuno un gruppo di punti.
+   Posizioni FISSE: le scene "selezione" ed "efficienza" cambiano solo
+   quali cluster sono accesi, quindi i nodi si accendono SUL POSTO. ---- */
+var CLU=100, cluCenter=[], cluOf=new Int16Array(N);
+(function(){
+ for(var c=0;c<CLU;c++){
+  var lob=c%3, ang=(c/CLU)*Math.PI*2*2.0, rad=0.35+ (c%17)/17*1.15;
+  var cx=Math.cos(ang)*rad + (lob-1)*0.18;
+  var cy=Math.sin(ang*0.8)*rad*0.62 + ((c*7)%13-6)/13*0.25;
+  var cz=Math.sin(ang)*rad*0.5;
+  cluCenter.push([cx,cy,cz,lob]);
+ }
+})();
+function shapeCatalog(){var s=mk(),i;
+ for(i=0;i<N;i++){var c=i%CLU;cluOf[i]=c;var C=cluCenter[c];
+  var g=0.075*(Math.random()+Math.random()+Math.random()-1.5);
+  var g2=0.075*(Math.random()+Math.random()+Math.random()-1.5);
+  var g3=0.075*(Math.random()+Math.random()+Math.random()-1.5);
+  put(s,i,C[0]+g,C[1]+g2,C[2]+g3,DARK,0.5);}
+ return s;}
+var CATALOG=shapeCatalog();
+
+function catalogColors(lit,accent){
+ var c=new Float32Array(N*3),i;
+ var A=accent||ENV;
+ for(i=0;i<N;i++){var cl=cluOf[i];var on=lit[cl];var k=i*3;
+  if(on){var col=(Math.random()<0.14)?WHT:A;var f=0.95+0.5*Math.random();c[k]=col[0]*f;c[k+1]=col[1]*f;c[k+2]=col[2]*f;}
+  else{c[k]=DARK[0]*0.55;c[k+1]=DARK[1]*0.55;c[k+2]=DARK[2]*0.55;}}
+ return c;}
+function litFor(seedList){var o={};seedList.forEach(function(c){o[c]=1;});return o;}
+function objectiveSet(offset,count){var arr=[],i;for(i=0;i<count;i++){arr.push((offset+i*3+(i*i)%7)%CLU);}return litFor(arr);}
+
+/* ---- forme "geometriche" per gli altri capitoli ---- */
+function shapeNetwork(){var s=mk(),H=34,hubs=[],i;
+ for(i=0;i<H;i++){var lob=i%3;var cx=lob===0?-0.74:(lob===1?0.74:0);
+  hubs.push([cx+rnd(-0.42,0.42),rnd(-0.72,0.72),rnd(-0.55,0.55),lob]);}
+ var per=Math.floor(N*0.9/H);
+ for(i=0;i<N;i++){
+  if(i<per*H){var h=hubs[Math.floor(i/per)];
+   var g=0.12*(Math.random()+Math.random()+Math.random()-1.5),g2=0.12*(Math.random()+Math.random()+Math.random()-1.5),g3=0.12*(Math.random()+Math.random()+Math.random()-1.5);
+   var col=h[3]===0?ENV:(h[3]===1?GEO:VIO);
+   put(s,i,h[0]+g,h[1]+g2,h[2]+g3,Math.random()<0.05?WHT:col,0.6+0.6*Math.random());}
+  else{var a=Math.random()*6.2832,ph=Math.acos(rnd(-1,1)),r=1.4*Math.cbrt(Math.random());
+   put(s,i,r*Math.sin(ph)*Math.cos(a),r*Math.cos(ph)*0.8,r*Math.sin(ph)*Math.sin(a),[0.5,0.6,0.56],0.24);}}
+ return s;}
+function shapeDome(){var s=mk(),i;
+ for(i=0;i<N;i++){
+  if(i%100<64){var a=Math.random()*6.2832,ph=Math.acos(rnd(-1,1)),r=0.55*Math.cbrt(Math.random());
+   put(s,i,r*Math.sin(ph)*Math.cos(a),r*Math.cos(ph),r*Math.sin(ph)*Math.sin(a),Math.random()<0.06?WHT:ENV,0.55+0.6*Math.random());}
+  else{var a2=Math.random()*6.2832,ph2=Math.acos(rnd(-1,1)),R=1.02+rnd(-0.01,0.01);
+   put(s,i,R*Math.sin(ph2)*Math.cos(a2),R*Math.cos(ph2),R*Math.sin(ph2)*Math.sin(a2),GEO2,0.5);}}
+ return s;}
+function shapeRing(){var s=mk(),i;
+ for(i=0;i<N;i++){
+  if(i%100<80){var a=i*0.001+Math.random()*6.2832,r=0.92+rnd(-0.03,0.03);
+   var tube=0.10*Math.sqrt(Math.random()),ta=Math.random()*6.2832;
+   var x=Math.cos(a)*(r+tube*Math.cos(ta)),y=Math.sin(a)*(r+tube*Math.cos(ta)),z=tube*Math.sin(ta);
+   put(s,i,x,y*0.86,z,Math.random()<0.05?WHT:VIO,0.6+0.5*Math.random());}
+  else{var a3=Math.random()*6.2832,rr=1.3*Math.cbrt(Math.random());put(s,i,Math.cos(a3)*rr,Math.sin(a3)*rr*0.7,rnd(-0.2,0.2),[0.5,0.55,0.6],0.2);}}
+ return s;}
+function shapeLattice(){var s=mk(),i,side=Math.ceil(Math.cbrt(N));
+ for(i=0;i<N;i++){var gx=i%side,gy=Math.floor(i/side)%side,gz=Math.floor(i/(side*side));
+  var x=(gx/(side-1)-0.5)*2.3,y=(gy/(side-1)-0.5)*1.5,z=(gz/(side-1)-0.5)*1.0;
+  var edge=(gx%6===0||gy%6===0)?1:0;
+  put(s,i,x+rnd(-0.02,0.02),y+rnd(-0.02,0.02),z+rnd(-0.02,0.02),edge?AMB:[0.5,0.42,0.3],edge?1.1:0.32);}
+ return s;}
+function shapeEmblem(){var s=mk(),R=0.72,TH=0.052,DR=0.31,DX=0.66,GAP=0.055,i;
+ for(i=0;i<N;i++){var u=Math.random();
+  if(u<0.28){var a=Math.random()*6.2832,r=DR*Math.sqrt(Math.random());put(s,i,-DX+Math.cos(a)*r,Math.sin(a)*r,rnd(-0.05,0.05),Math.random()<0.05?WHT:ENV,0.8+0.5*Math.random());}
+  else if(u<0.56){var a2=Math.random()*6.2832,r2=DR*Math.sqrt(Math.random());put(s,i,DX+Math.cos(a2)*r2,Math.sin(a2)*r2,rnd(-0.05,0.05),Math.random()<0.05?WHT:ENV,0.8+0.5*Math.random());}
+  else{var a3,rr,x3,y3;do{a3=Math.random()*6.2832;rr=R+rnd(-TH,TH);x3=Math.cos(a3)*rr;y3=Math.sin(a3)*rr;}
+   while(Math.hypot(x3+DX,y3)<DR+GAP||Math.hypot(x3-DX,y3)<DR+GAP);
+   put(s,i,x3,y3,rnd(-0.04,0.04),Math.random()<0.06?ENV2:ENV,0.85+0.5*Math.random());}}
+ return s;}
+
+var SHAPES={catalog:CATALOG,network:shapeNetwork(),dome:shapeDome(),ring:shapeRing(),lattice:shapeLattice(),emblem:shapeEmblem()};
+
+var hubIdx=[];(function(){var step=Math.floor(N/NH);for(var i=0;i<NH;i++)hubIdx.push((i*step+(i*37)%29)%N);})();
+function edgesFor(shape){var P=shape.p,pts=[],i,j;
+ for(i=0;i<NH;i++){var k=hubIdx[i]*3;pts.push([P[k],P[k+1],P[k+2]]);}
+ var E=[],seen={};
+ for(i=0;i<NH;i++){var d=[];
+  for(j=0;j<NH;j++){if(j===i)continue;var dx=pts[i][0]-pts[j][0],dy=pts[i][1]-pts[j][1],dz=pts[i][2]-pts[j][2];d.push([dx*dx+dy*dy+dz*dz,j]);}
+  d.sort(function(p,q){return p[0]-q[0];});
+  for(var k2=0;k2<2;k2++){var jj=d[k2][1],key=Math.min(i,jj)+'_'+Math.max(i,jj);if(!seen[key]){seen[key]=1;E.push([i,jj]);}}}
+ for(var t2=0;t2<40;t2++){i=Math.floor(Math.random()*NH);j=Math.floor(Math.random()*NH);var key2=Math.min(i,j)+'_'+Math.max(i,j);if(i!==j&&!seen[key2]){seen[key2]=1;E.push([i,j]);}}
+ return E;}
+
+function sh(type,src){var o=gl.createShader(type);gl.shaderSource(o,src);gl.compileShader(o);return o;}
+function prog(vs,fs){var p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,vs));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(p);return p;}
+var ROT='float cy=cos(uRy),sy=sin(uRy);p=vec3(p.x*cy+p.z*sy,p.y,-p.x*sy+p.z*cy);float cx=cos(uRx),sx=sin(uRx);p=vec3(p.x,p.y*cx-p.z*sx,p.y*sx+p.z*cx);float s=2.3/(2.3-p.z);';
+var VS='attribute vec3 aPA;attribute vec3 aPB;attribute vec3 aCA;attribute vec3 aCB;attribute float aR;'+
+'uniform float uT,uTime,uRy,uRx,uAsp,uDpr,uWob,uShiftY;uniform vec2 uM;varying vec3 vC;varying float vA;'+
+'void main(){vec3 p=mix(aPA,aPB,uT);p+=uWob*(0.012+0.026*aR)*vec3(sin(uTime*0.7+aR*43.7),cos(uTime*0.8+aR*29.3),sin(uTime*0.6+aR*17.9));'+ROT+
+'vec2 scr=vec2(p.x*s*0.72/uAsp,p.y*s*0.72+uShiftY);gl_Position=vec4(scr,0.0,1.0);'+
+'float md=length(vec2((scr.x-uM.x)*uAsp,scr.y-uM.y));float bo=smoothstep(0.40,0.0,md);'+
+'gl_PointSize=(1.3+2.3*aR)*s*uDpr*(1.0+1.5*bo);vC=mix(aCA,aCB,uT);'+
+'float br=max(vC.r,max(vC.g,vC.b));'+
+'vA=(0.5+0.5*clamp(s-0.7,0.0,1.0))*(0.72+0.28*sin(uTime*2.0+aR*95.0))*(1.0+1.3*bo)*(0.35+0.65*smoothstep(0.12,0.5,br));}';
+var FS='precision mediump float;varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-vec2(0.5);float d=length(q);float a=smoothstep(0.5,0.03,d)*vA;gl_FragColor=vec4(vC*a,a);}';
+var P=prog(VS,FS);
+var LVS='attribute vec3 aA;attribute vec3 aB;attribute vec3 aC;uniform float uT,uRy,uRx,uAsp,uShiftY;varying vec3 vC;void main(){vec3 p=mix(aA,aB,uT);'+ROT+'gl_Position=vec4(p.x*s*0.72/uAsp,p.y*s*0.72+uShiftY,0.0,1.0);vC=aC;}';
+var LFS='precision mediump float;uniform float uA;varying vec3 vC;void main(){gl_FragColor=vec4(vC,1.0)*uA;}';
+var LP=prog(LVS,LFS);
+var PVS='attribute vec3 aA0;attribute vec3 aB0;attribute vec3 aA1;attribute vec3 aB1;attribute float aPh;attribute float aSp;uniform float uT,uTime,uRy,uRx,uAsp,uDpr,uShiftY;varying float vA;void main(){float tt=fract(aPh+uTime*aSp);vec3 e0=mix(aA0,aB0,uT);vec3 e1=mix(aA1,aB1,uT);vec3 p=mix(e0,e1,tt);'+ROT+'gl_Position=vec4(p.x*s*0.72/uAsp,p.y*s*0.72+uShiftY,0.0,1.0);gl_PointSize=(2.0+1.6*sin(tt*3.14159))*s*uDpr;vA=sin(tt*3.14159)*clamp(s-0.55,0.0,1.0);}';
+var PFS='precision mediump float;uniform float uA;varying float vA;void main(){vec2 q=gl_PointCoord-vec2(0.5);float d=length(q);float a=smoothstep(0.5,0.0,d)*vA*uA;gl_FragColor=vec4(vec3(0.75,1.0,0.88)*a,a);}';
+var PP=prog(PVS,PFS);
+
+function buf(arr,usage){var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,arr,usage||gl.DYNAMIC_DRAW);return b;}
+function up(b,arr){gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,arr,gl.DYNAMIC_DRAW);}
+var rnArr=new Float32Array(N);for(var i0=0;i0<N;i0++)rnArr[i0]=Math.random();
+var A={p:SHAPES.network.p.slice(),c:SHAPES.network.c.slice()},B=SHAPES.network,t=1,target='network';
+var bPA=buf(A.p),bPB=buf(B.p),bCA=buf(A.c),bCB=buf(B.c),bR=buf(rnArr,gl.STATIC_DRAW);
+var bLA=buf(new Float32Array(3)),bLB=buf(new Float32Array(3)),bLC=buf(new Float32Array(3)),ENUM=0;
+var bp={};['aA0','aB0','aA1','aB1'].forEach(function(n){bp[n]=buf(new Float32Array(3));});
+var bPh=buf(new Float32Array(NP)),bSp=buf(new Float32Array(NP));
+(function(){var ph=new Float32Array(NP),sp=new Float32Array(NP);for(var i=0;i<NP;i++){ph[i]=Math.random();sp[i]=0.05+Math.random()*0.22;}up(bPh,ph);up(bSp,sp);})();
+
+function hubPos(arr,h){var k=hubIdx[h]*3;return[arr[k],arr[k+1],arr[k+2]];}
+function buildNet(fromP,toShape){var E=edgesFor(toShape),ne=E.length;
+ var la=new Float32Array(ne*6),lb=new Float32Array(ne*6),lc=new Float32Array(ne*6);
+ for(var e=0;e<ne;e++){var i=E[e][0],j=E[e][1];
+  var a0=hubPos(fromP,i),a1=hubPos(fromP,j),b0=hubPos(toShape.p,i),b1=hubPos(toShape.p,j);
+  la.set(a0,e*6);la.set(a1,e*6+3);lb.set(b0,e*6);lb.set(b1,e*6+3);
+  var c0=hubPos(toShape.c,i),c1=hubPos(toShape.c,j);
+  lc[e*6]=Math.min(1,c0[0]*1.5);lc[e*6+1]=Math.min(1,c0[1]*1.5);lc[e*6+2]=Math.min(1,c0[2]*1.5);
+  lc[e*6+3]=Math.min(1,c1[0]*1.5);lc[e*6+4]=Math.min(1,c1[1]*1.5);lc[e*6+5]=Math.min(1,c1[2]*1.5);}
+ up(bLA,la);up(bLB,lb);up(bLC,lc);ENUM=ne*2;
+ var a0s=new Float32Array(NP*3),b0s=new Float32Array(NP*3),a1s=new Float32Array(NP*3),b1s=new Float32Array(NP*3);
+ for(var k=0;k<NP;k++){var ee=E[Math.floor(Math.random()*ne)];a0s.set(hubPos(fromP,ee[0]),k*3);b0s.set(hubPos(toShape.p,ee[0]),k*3);a1s.set(hubPos(fromP,ee[1]),k*3);b1s.set(hubPos(toShape.p,ee[1]),k*3);}
+ up(bp.aA0,a0s);up(bp.aB0,b0s);up(bp.aA1,a1s);up(bp.aB1,b1s);}
+buildNet(A.p,B);
+
+function ease(x){return x*x*(3.0-2.0*x);}
+function curP(){var e=ease(Math.min(1,t)),p=new Float32Array(N*3),c=new Float32Array(N*3),i;for(i=0;i<N*3;i++){p[i]=A.p[i]+(B.p[i]-A.p[i])*e;c[i]=A.c[i]+(B.c[i]-A.c[i])*e;}return{p:p,c:c};}
+var SHAPEFN={network:shapeNetwork,dome:shapeDome,ring:shapeRing,lattice:shapeLattice};
+function go(name){if(!SHAPES[name])return;var s=curP();A=s;
+ /* stessa forma del capitolo precedente: rigenera una variante, così la rete si ricompone a ogni cambio */
+ if(name===target&&SHAPEFN[name])SHAPES[name]=SHAPEFN[name]();
+ B=SHAPES[name];up(bPA,A.p);up(bPB,B.p);up(bCA,A.c);up(bCB,B.c);buildNet(A.p,B);t=0;target=name;}
+function ignite(lit,accent){var s=curP();A=s;var cc=catalogColors(lit,accent);B={p:CATALOG.p,c:cc};up(bPA,A.p);up(bPB,B.p);up(bCA,A.c);up(bCB,B.c);buildNet(A.p,B);t=0;target='catalog';}
+
+var LINE_A={catalog:0.16,network:0.34,dome:0.12,ring:0.16,lattice:0.2,emblem:0.1};
+var PULSE_A={catalog:0.8,network:1.0,dome:0.5,ring:0.7,lattice:0.6,emblem:0.5};
+var FACE={catalog:0.55,network:1,dome:0.75,ring:0.8,lattice:0.5,emblem:0.12};
+/* shift verticale in NDC: alza l'emblema finale sopra il testo di chiusura */
+var SHIFT={emblem:0.30};
+var rotAmp=1,drift=0,lineAmp=0.34,pulseAmp=1,shiftY=0;
+
+var W,H2,dpr,asp;
+function size(){dpr=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H2=innerHeight;cv.width=W*dpr;cv.height=H2*dpr;asp=W/H2;gl.viewport(0,0,cv.width,cv.height);}
+size();window.addEventListener('resize',function(){clearTimeout(size._t);size._t=setTimeout(size,150);});
+
+var tmx=0,tmy=0,mx=0,my=0,dragging=false,dpx=0,yv=0;
+window.addEventListener('pointermove',function(e){tmx=e.clientX/W-0.5;tmy=e.clientY/H2-0.5;if(dragging){var dx=e.clientX-dpx;dpx=e.clientX;yv=dx*0.0038;drift+=yv;}},{passive:true});
+cv.addEventListener('pointerdown',function(e){dragging=true;dpx=e.clientX;});
+window.addEventListener('pointerup',function(){dragging=false;});
+
+gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);
+var AT={},UN={},LT={},PT={};
+['aPA','aPB','aCA','aCB','aR'].forEach(function(n){AT[n]=gl.getAttribLocation(P,n);});
+['uT','uTime','uRy','uRx','uAsp','uDpr','uWob','uM','uShiftY'].forEach(function(n){UN[n]=gl.getUniformLocation(P,n);});
+['aA','aB','aC'].forEach(function(n){LT[n]=gl.getAttribLocation(LP,n);});
+['uT','uRy','uRx','uAsp','uA','uShiftY'].forEach(function(n){LT[n]=gl.getUniformLocation(LP,n);});
+['aA0','aB0','aA1','aB1','aPh','aSp'].forEach(function(n){PT[n]=gl.getAttribLocation(PP,n);});
+['uT','uTime','uRy','uRx','uAsp','uDpr','uA','uShiftY'].forEach(function(n){PT[n]=gl.getUniformLocation(PP,n);});
+function attr(loc,b,size){gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,size,gl.FLOAT,false,0,0);}
+function dis(){for(var i=0;i<8;i++)gl.disableVertexAttribArray(i);}
+
+var last=performance.now();
+function frame(now){var dt=Math.min(0.05,(now-last)/1000);last=now;
+ if(t<1)t=Math.min(1,t+dt*0.9);var e=ease(t);
+ mx+=(tmx-mx)*Math.min(1,dt*3);my+=(tmy-my)*Math.min(1,dt*3);
+ var fa=FACE[target]!==undefined?FACE[target]:1;rotAmp+=(fa-rotAmp)*Math.min(1,dt*1.5);
+ lineAmp+=((LINE_A[target]||0.1)-lineAmp)*Math.min(1,dt*1.6);
+ pulseAmp+=((PULSE_A[target]||0.6)-pulseAmp)*Math.min(1,dt*1.6);
+ shiftY+=((SHIFT[target]||0)-shiftY)*Math.min(1,dt*1.6);
+ if(!reduced)drift+=dt*0.10*rotAmp;
+ if(!dragging){yv*=Math.pow(0.94,dt*60);drift+=yv;}
+ var ry=drift+mx*0.5,rx=-0.12*rotAmp+my*0.32;var tm=reduced?0:now/1000;
+ gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
+ if(lineAmp>0.004&&ENUM>0){gl.useProgram(LP);dis();attr(LT.aA,bLA,3);attr(LT.aB,bLB,3);attr(LT.aC,bLC,3);gl.uniform1f(LT.uT,e);gl.uniform1f(LT.uRy,ry);gl.uniform1f(LT.uRx,rx);gl.uniform1f(LT.uAsp,asp);gl.uniform1f(LT.uA,lineAmp);gl.uniform1f(LT.uShiftY,shiftY);gl.drawArrays(gl.LINES,0,ENUM);}
+ if(pulseAmp>0.02&&!reduced){gl.useProgram(PP);dis();attr(PT.aA0,bp.aA0,3);attr(PT.aB0,bp.aB0,3);attr(PT.aA1,bp.aA1,3);attr(PT.aB1,bp.aB1,3);attr(PT.aPh,bPh,1);attr(PT.aSp,bSp,1);gl.uniform1f(PT.uT,e);gl.uniform1f(PT.uTime,tm);gl.uniform1f(PT.uRy,ry);gl.uniform1f(PT.uRx,rx);gl.uniform1f(PT.uAsp,asp);gl.uniform1f(PT.uDpr,dpr);gl.uniform1f(PT.uA,pulseAmp);gl.uniform1f(PT.uShiftY,shiftY);gl.drawArrays(gl.POINTS,0,NP);}
+ gl.useProgram(P);dis();attr(AT.aPA,bPA,3);attr(AT.aPB,bPB,3);attr(AT.aCA,bCA,3);attr(AT.aCB,bCB,3);attr(AT.aR,bR,1);
+ gl.uniform1f(UN.uT,e);gl.uniform1f(UN.uTime,tm);gl.uniform1f(UN.uRy,ry);gl.uniform1f(UN.uRx,rx);gl.uniform1f(UN.uAsp,asp);gl.uniform1f(UN.uDpr,dpr);gl.uniform1f(UN.uWob,reduced?0:1);gl.uniform2f(UN.uM,mx*2.0,-my*2.0);gl.uniform1f(UN.uShiftY,shiftY);
+ gl.drawArrays(gl.POINTS,0,N);
+ requestAnimationFrame(frame);}
+requestAnimationFrame(frame);
+
+return {go:go, ignite:ignite, litFor:litFor, objectiveSet:objectiveSet,
+        colors:{ENV:ENV,GEO:GEO,VIO:VIO,AMB:AMB,ENV2:ENV2}, CLU:CLU};
+})();
+
+/* =========================================================================
+   NARRAZIONE: karaoke in auto-play. Ogni beat: kicker, accento, didascalia
+   parola-per-parola, visual (morph o ignite), sotto-passi opzionali.
+   ========================================================================= */
+(function(){
+if(!ENGINE){document.documentElement.classList.add('nojs');return;}
+document.documentElement.classList.remove('nojs');
+/* portfolio: pillole del capitolo finale */
+var gal=document.getElementById('port');
+if(/[?&]port=1/.test(location.search))gal.classList.add('on');
+var kick=document.getElementById('kick'),cap=document.getElementById('cap'),sub=document.getElementById('sub'),
+    cta=document.getElementById('cta'),bar=document.getElementById('bar'),cnt=document.getElementById('cnt'),
+    hint=document.getElementById('hint'),pp=document.getElementById('pp'),
+    objBox=document.getElementById('obj'),objName=document.getElementById('objName'),glow=document.getElementById('glow'),
+    teamBox=document.getElementById('team'),srStatus=document.getElementById('srStatus'),summaryBtn=document.getElementById('summaryBtn');
+var C=ENGINE.colors;
+
+function setAccent(hex){document.documentElement.style.setProperty('--ac',hex);glow.style.background='radial-gradient(56% 46% at 50% 54%, '+hex+', transparent 72%)';}
+function rgb(a){return 'rgb('+Math.round(a[0]*255)+','+Math.round(a[1]*255)+','+Math.round(a[2]*255)+')';}
+
+/* obiettivi della scena "selezione": ognuno accende una COMBINAZIONE diversa
+   di motori (numero e posizione cambiano); copre i settori di aatech/arpinge
+   e industria/finanza/ambiente. */
+var OBJ=[
+ {name:'Prevedere il credito',    sub:'Finanza',           lit:ENGINE.objectiveSet(3,22), ac:C.GEO},
+ {name:'Rafforzare la conformità · DORA',sub:'Banche & assicurazioni',lit:ENGINE.objectiveSet(28,16),ac:C.GEO},
+ {name:'Governare i modelli AI',  sub:'AI infrastructure', lit:ENGINE.objectiveSet(50,12),ac:C.VIO},
+ {name:'Ottimizzare la produzione',sub:'Industria',        lit:ENGINE.objectiveSet(11,27),ac:C.AMB},
+ {name:'Gestire l’energia',       sub:'Infrastrutture',    lit:ENGINE.objectiveSet(68,20),ac:C.VIO},
+ {name:'Interpretare il territorio',sub:'Ambiente',        lit:ENGINE.objectiveSet(40,15),ac:C.ENV}
+];
+var GATED=ENGINE.objectiveSet(48,9);
+function nLit(o){return Object.keys(o).length;}
+
+var BEATS=[
+ {k:'EcoBubble',ac:'#4be08e',shape:'network',
+  cap:'Costruiamo <b>infrastrutture di intelligenza artificiale</b> sulla forma della tua <b>organizzazione</b>.',
+  sub:'Dati, obiettivi e regole diventano la struttura della rete.',hold:2600},
+ {k:'Il punto di partenza',ac:'#4be08e',shape:'network',
+  cap:'Ogni azienda ha <b>decisioni</b>, <b>dati</b> e <b>priorità</b> uniche.',
+  sub:'La rete seleziona i motori più adatti ai tuoi obiettivi e ai tuoi dati.',hold:2900},
+ {k:'La rete',ac:'#4be08e',shape:'network',
+  cap:'Dentro agisce una <b>rete multidimensionale</b>: <b>centinaia di motori</b>, uno per ogni modo di leggere i dati.',
+  sub:'La combinazione si adatta al tuo settore e alla complessità di ogni obiettivo.',hold:2900},
+ {k:'01 · Selezione',ac:'#5aa9ff',
+  cap:'Per ogni <b>obiettivo</b> si accende una <b>combinazione diversa</b> di motori.',hold:900,objcycle:true},
+ {k:'02 · Efficienza',ac:'#35d0c0',ignite:GATED,igAc:C.ENV2,
+  cap:'La rete attiva <b>i motori utili</b>: il calcolo si riduce dell’<b>80/90%</b>.',
+  sub:'Il calcolo si concentra sui motori più adatti e la rete ne misura il risultato.',hold:3000},
+ {k:'03 · Agnostica',ac:'#5aa9ff',shape:'network',
+  cap:'È <b>agnostica</b> e <b>flessibile</b>: quando i dati cambiano, la rete <b>si ricompone</b>.',
+  sub:'Modelli e tecnologie restano liberamente combinabili.',hold:3000},
+ {k:'04 · Privacy',ac:'#4be08e',shape:'dome',
+  cap:'I tuoi <b>dati restano nei tuoi sistemi</b>: l’intelligenza resta <b>dove sei tu</b>.',
+  sub:'Funziona nei tuoi sistemi, sotto le tue chiavi e secondo le tue regole.',hold:3200},
+ {k:'05 · Indipendenza',ac:'#a98bff',shape:'ring',
+  cap:'Mantieni la piena <b>autonomia tecnologica</b>.',
+  sub:'Cloud, modelli e infrastruttura restano sotto il tuo controllo. Sovranità reale.',hold:3200},
+ {k:'06 · Fiducia',ac:'#ffc46b',shape:'lattice',
+  cap:'Ogni risposta dichiara <b>quanto fidarsi</b>, con una <b>firma</b> che chiunque può verificare.',
+  sub:'Copertura verificata (~90%) e catena di audit SHA-256: controllabile da una banca o un revisore.',hold:3200},
+ {k:'07 · Pilota',ac:'#4be08e',shape:'network',
+  cap:'Ogni rete nasce da un <b>pilota misurato</b> sui tuoi <b>dati</b> e sui tuoi <b>obiettivi</b>.',
+  sub:'Criteri di successo, tempi e risultati sono definiti insieme fin dall’inizio.',hold:3000},
+ {k:'Il team',ac:'#4be08e',shape:'network',team:true,
+  cap:'Dietro la rete, <b>fisica</b>, <b>scienze della Terra</b> e <b>ingegneria</b>.',
+  sub:'Fisica dei sistemi complessi applicata all’ambiente e al territorio. La rete la firmiamo noi.',hold:3600},
+ {k:'Iniziamo',ac:'#4be08e',shape:'emblem',cta:true,port:true,
+  cap:'Che <b>intelligenza</b> costruiamo per te?',
+  sub:'Definiamo obiettivi, metriche e rete. Il primo passo è un pilota misurato, l’infrastruttura resta tua.',hold:99999}
+];
+
+BEATS.forEach(function(b,i){var el=document.createElement('button');el.type='button';el.innerHTML='<b></b>';el.setAttribute('aria-label','Capitolo '+(i+1)+': '+b.k);el.addEventListener('click',function(){play(i);});bar.appendChild(el);});
+var barEls=[].slice.call(bar.children);
+
+function words(htmlStr){
+ var tmp=document.createElement('div');tmp.innerHTML=htmlStr;var out=[];
+ [].slice.call(tmp.childNodes).forEach(function(n){var key=(n.nodeName==='B');(n.textContent||'').split(/\s+/).forEach(function(w){
+  if(!w)return;if(/^[.,;:!?)»”]+$/.test(w)&&out.length){out[out.length-1].t+=w;return;}out.push({t:w,k:key});});});
+ return out;
+}
+
+var idx=-1,paused=false,timers=[],rafW=null;
+function clearAll(){timers.forEach(clearTimeout);timers=[];if(rafW)cancelAnimationFrame(rafW);rafW=null;}
+function later(fn,ms){var id=setTimeout(fn,ms);timers.push(id);return id;}
+
+function typeWords(ws,perWord,cb){
+ cap.innerHTML='';var spans=[];
+ ws.forEach(function(o){var sp=document.createElement('span');sp.className='w'+(o.k?' k':'');sp.textContent=o.t;cap.appendChild(sp);cap.appendChild(document.createTextNode(' '));spans.push(sp);});
+ if(perWord===0){spans.forEach(function(sp){sp.classList.add('on');});if(cb)cb();return;}
+ var i=0;
+ (function nextW(){if(paused){later(nextW,120);return;}
+  if(i>0)spans[i-1].classList.remove('cur');
+  if(i>=spans.length){if(cb)cb();return;}
+  spans[i].classList.add('on','cur');i++;later(nextW,perWord);})();
+}
+
+function fillBar(i){barEls.forEach(function(el,j){el.classList.toggle('done',j<i);el.setAttribute('aria-current',j===i?'step':'false');el.querySelector('b').style.width=(j<i?'100%':'0');});}
+function completeBar(i){if(barEls[i])barEls[i].querySelector('b').style.width='100%';}
+function animBar(i,ms){var el=barEls[i].querySelector('b'),t0=null,accum=0;
+ function tick(now){if(t0===null)t0=now;if(paused){t0=now-accum;rafW=requestAnimationFrame(tick);return;}
+  accum=Math.min(ms,now-t0);el.style.width=(accum/ms*100)+'%';if(accum<ms)rafW=requestAnimationFrame(tick);}
+ rafW=requestAnimationFrame(tick);}
+
+function play(i){
+ if(i<0||i>=BEATS.length)return;
+ clearAll();idx=i;var b=BEATS[i];
+ setAccent(b.ac);kick.textContent=b.k;
+ sub.textContent='';sub.classList.remove('on');
+ cta.classList.remove('on');gal.classList.remove('on');objBox.classList.remove('on');
+ teamBox.classList.toggle('on',!!b.team);
+ cnt.textContent=(i+1)+' / '+BEATS.length;
+ srStatus.textContent=b.k+'. '+b.cap.replace(/<[^>]+>/g,'')+(b.sub?' '+b.sub:'');
+ fillBar(i);
+ if(b.shape)ENGINE.go(b.shape);
+ if(b.ignite)ENGINE.ignite(b.ignite,b.igAc);
+ var reducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ var ws=words(b.cap),perWord=reducedMotion?0:130,typeMs=ws.length*perWord;
+ /* tempo di lettura: pausa proporzionata al testo (didascalia + sottotitolo) */
+ var read=Math.max(b.hold,1150+(b.cap.replace(/<[^>]+>/g,'').length+(b.sub?b.sub.length:0))*22);
+ typeWords(ws,perWord,function(){
+  if(b.sub){sub.textContent=b.sub;sub.classList.add('on');}
+  if(b.cta)cta.classList.add('on');
+  if(b.port)gal.classList.add('on');
+  if(b.objcycle){cycleObjectives(function(){completeBar(i);});return;}
+  completeBar(i);
+ });
+}
+
+function cycleObjectives(done){
+ var n=0;
+ (function step(){if(paused){later(step,200);return;}
+  if(n>=OBJ.length){objBox.classList.remove('on');if(done)done();return;}
+  var o=OBJ[n];setAccent(rgb(o.ac));
+  objName.innerHTML=o.name+' <small>&middot; '+o.sub+' &middot; '+nLit(o.lit)+' motori accesi</small>';
+  objBox.classList.add('on');
+  ENGINE.ignite(o.lit,o.ac);n++;later(step,1150);
+ })();
+}
+
+function next(){if(idx<BEATS.length-1)play(idx+1);}
+function prev(){if(idx>0)play(idx-1);}
+
+var wheelLock=false,wheelSum=0,wheelReset=null;
+window.addEventListener('wheel',function(e){
+ if(wheelLock)return;wheelSum+=e.deltaY;clearTimeout(wheelReset);wheelReset=setTimeout(function(){wheelSum=0;},180);
+ if(Math.abs(wheelSum)<24)return;wheelLock=true;
+ if(wheelSum>0)next();else prev();wheelSum=0;setTimeout(function(){wheelLock=false;},1000);
+},{passive:true});
+window.addEventListener('keydown',function(e){
+ if(e.target&&e.target.closest&&e.target.closest('button,a'))return;
+ if(e.key===' '||e.key==='ArrowDown'||e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();next();}
+ else if(e.key==='ArrowUp'||e.key==='ArrowLeft'||e.key==='PageUp')prev();});
+var touchY=null;
+window.addEventListener('touchstart',function(e){touchY=e.touches&&e.touches[0]?e.touches[0].clientY:null;},{passive:true});
+window.addEventListener('touchend',function(e){if(touchY===null)return;var y=e.changedTouches&&e.changedTouches[0]?e.changedTouches[0].clientY:touchY;
+ if(Math.abs(touchY-y)>42){if(touchY>y)next();else prev();}touchY=null;},{passive:true});
+var dragMoved=false,downX=0;
+var stage=document.getElementById('stage');
+stage.addEventListener('pointerdown',function(e){downX=e.clientX;dragMoved=false;});
+window.addEventListener('pointermove',function(e){if(Math.abs(e.clientX-downX)>6)dragMoved=true;});
+stage.addEventListener('click',function(){if(!dragMoved)next();});
+summaryBtn.addEventListener('click',function(){paused=false;play(BEATS.length-1);});
+
+/* hook QA: ?ch=N mostra direttamente il capitolo richiesto */
+var m=location.search.match(/ch=(\d+)/);
+play(m?Math.max(0,Math.min(BEATS.length-1,parseInt(m[1],10)-1)):0);
+})();
+</script>
+</body>
+</html>

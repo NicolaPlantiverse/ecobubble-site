@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portfolio · EcoBubble</title>
+<meta name="description" content="Il portfolio EcoBubble: sei reti di intelligenza artificiale generate dal motore Ennous, in anteprima dal vivo. Energia, governance AI, natural capital, verde urbano, agricoltura.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1715 1243%22><defs><mask id=%22m%22><rect width=%221715%22 height=%221243%22 fill=%22white%22/><circle cx=%22310%22 cy=%22622%22 r=%22355%22 fill=%22black%22/><circle cx=%221405%22 cy=%22622%22 r=%22355%22 fill=%22black%22/></mask></defs><circle cx=%22857%22 cy=%22622%22 r=%22570%22 fill=%22none%22 stroke=%22%234be08e%22 stroke-width=%22100%22 mask=%22url(%23m)%22/><circle cx=%22310%22 cy=%22622%22 r=%22310%22 fill=%22%234be08e%22/><circle cx=%221405%22 cy=%22622%22 r=%22310%22 fill=%22%234be08e%22/></svg>">
+<style>
+:root{
+ --bg:#04070a;--panel:rgba(9,14,19,.72);
+ --env:#4be08e;--txt:#eef4f0;--txt2:#93a7a0;--txt3:#5b6e66;--line:rgba(255,255,255,.09);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+::selection{background:rgba(75,224,142,.3)}
+body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+ background:radial-gradient(80% 55% at 85% -10%,rgba(75,224,142,.07),transparent 60%),
+            radial-gradient(65% 50% at -8% 108%,rgba(90,169,255,.05),transparent 55%)}
+
+header{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;
+ padding:20px 30px;background:linear-gradient(180deg,rgba(4,7,10,.9),rgba(4,7,10,.6) 70%,transparent)}
+.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:16.5px;color:var(--txt);text-decoration:none}
+.brand svg{width:30px;height:auto;display:block}
+.brand small{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--txt3)}
+.navcta{font-size:13px;font-weight:700;color:var(--txt);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 18px;transition:.25s;background:rgba(255,255,255,.03)}
+.navcta:hover{border-color:rgba(75,224,142,.6);color:var(--env)}
+
+main{position:relative;z-index:10;max-width:1220px;margin:0 auto;padding:130px 5vw 60px}
+.kick{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--env);margin-bottom:16px}
+h1{font-size:clamp(32px,4.6vw,54px);line-height:1.14;letter-spacing:-.02em;font-weight:800}
+.lead{margin-top:16px;font-size:16px;line-height:1.65;color:var(--txt2);max-width:640px}
+.lead b{color:var(--txt);font-weight:600}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+@media(max-width:1080px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){.grid{grid-template-columns:1fr}}
+
+.gcard{display:block;text-decoration:none;border:1px solid var(--line);border-radius:20px;overflow:hidden;
+ background:rgba(7,11,15,.8);transition:transform .3s,border-color .3s,box-shadow .3s;position:relative}
+.gcard:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--gac) 55%,transparent);
+ box-shadow:0 28px 60px -30px var(--gac)}
+.gfrm{aspect-ratio:16/10;overflow:hidden;position:relative;
+ background:radial-gradient(130% 130% at 25% 15%,color-mix(in srgb,var(--gac) 16%,transparent),#04070a)}
+.gfrm iframe{width:1280px;height:800px;border:0;transform-origin:0 0;pointer-events:none;display:block;background:#04070a}
+.gfrm::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 62%,rgba(4,7,10,.85))}
+.glab{display:flex;align-items:center;gap:10px;padding:13px 16px;border-top:1px solid rgba(255,255,255,.05)}
+.glab .gdot{width:8px;height:8px;border-radius:50%;background:var(--gac);box-shadow:0 0 12px var(--gac);flex:none}
+.glab .gtx{min-width:0}
+.glab b{display:block;font-size:14px;color:var(--txt);line-height:1.3}
+.glab small{display:block;font-size:11px;color:var(--txt3);line-height:1.4;margin-top:2px}
+.glab .go{margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);transition:.25s;flex:none}
+.gcard:hover .go{color:var(--gac)}
+@media(max-width:680px){
+ .gfrm iframe{display:none}
+ .gfrm{aspect-ratio:16/7}
+}
+
+footer{position:relative;z-index:10;border-top:1px solid var(--line);margin-top:40px;padding:30px 5vw 40px;
+ font-size:11.5px;color:var(--txt3);line-height:1.8}
+footer .frow{max-width:1220px;margin:0 auto;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer b{color:var(--txt2)}
+.pbadges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pbadges span{border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt2)}
+
+@media (prefers-reduced-motion: reduce){.gcard{transition:none}}
+
+/* cambio pagina scorrevole */
+@view-transition{navigation:auto}
+@media (prefers-reduced-motion: no-preference){
+ body{animation:pagein .5s ease}
+ @keyframes pagein{from{opacity:0}to{opacity:1}}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index_v16.html">
+    <svg viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#4be08e" stroke-width="100" mask="url(#ebm)"/><circle cx="310" cy="622" r="310" fill="#4be08e"/><circle cx="1405" cy="622" r="310" fill="#4be08e"/></svg>
+    EcoBubble <small>Applied Intelligence</small>
+  </a>
+  <span style="display:flex;gap:10px">
+    <a class="navcta" href="index_v16.html">&larr; Home</a>
+    <a class="navcta" href="metodo.html">Metodo</a>
+    <a class="navcta" href="mailto:info@ecobubble.it?subject=Portfolio">Parliamone &rarr;</a>
+  </span>
+</header>
+
+<main>
+  <div class="kick">Il portfolio</div>
+  <h1>Sei reti, sei intelligenze.<br>Tutte figlie dello stesso motore.</h1>
+  <p class="lead">Ogni card è una <b>demo dal vivo</b>, in miniatura: la rete che si compone, misura e firma. Tocca una card per aprire la demo completa. Le reti GreenEazy e Plantiverse sono già in funzione, con numeri reali di piattaforma.</p>
+
+  <div class="grid">
+    <a class="gcard" style="--gac:#4be08e" href="demos/ennous.html" target="_blank" rel="noopener">
+      <div class="gfrm"><iframe src="demos/ennous.html?go=s1&amp;mini=1" title="Demo Ennous" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
+      <div class="glab"><i class="gdot"></i><div class="gtx"><b>Ennous</b><small>Il motore che genera intelligenze, una per organizzazione</small></div><span class="go">Apri &rarr;</span></div>
+    </a>
+    <a class="gcard" style="--gac:#35d0c0" href="demos/greeneazy.html" target="_blank" rel="noopener">
+      <div class="gfrm"><iframe src="demos/greeneazy.html?go=s3&amp;mini=1" title="Demo GreenEazy" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
+      <div class="glab"><i class="gdot"></i><div class="gtx"><b>GreenEazy</b><small>Il verde giusto, scelto dai dati · Patented</small></div><span class="go">Apri &rarr;</span></div>
+    </a>
+    <a class="gcard" style="--gac:#5aa9ff" href="demos/plantiverse.html" target="_blank" rel="noopener">
+      <div class="gfrm"><iframe src="demos/plantiverse.html?go=s4&amp;mini=1" title="Demo Plantiverse" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
+      <div class="glab"><i class="gdot"></i><div class="gtx"><b>Plantiverse</b><small>Ogni pianta parla, lo stress si coglie prima · Patented</small></div><span class="go">Apri &rarr;</span></div>
+    </a>
+    <a class="gcard" style="--gac:#ffc46b" href="demos/energia.html" target="_blank" rel="noopener">
+      <div class="gfrm"><iframe src="demos/energia.html?go=s3&amp;mini=1" title="Demo Energia e Infrastrutture" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
+      <div class="glab"><i class="gdot"></i><div class="gtx"><b>Energia &amp; Infrastrutture</b><small>Un portafoglio che si spiega alla banca</small></div><span class="go">Apri &rarr;</span></div>
+    </a>
+    <a class="gcard" style="--gac:#a98bff" href="demos/governance-ai.html" target="_blank" rel="noopener">
+      <div class="gfrm"><iframe src="demos/governance-ai.html?go=s3&amp;mini=1" title="Demo Governance AI" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
+      <div class="glab"><i class="gdot"></i><div class="gtx"><b>Governance AI</b><small>AI Act e DORA resi tangibili: copertura, deriva, audit</small></div><span class="go">Apri &rarr;</span></div>
+    </a>
+    <a class="gcard" style="--gac:#9df3c3" href="demos/natural-capital.html" target="_blank" rel="noopener">
+      <div class="gfrm"><iframe src="demos/natural-capital.html?go=s2&amp;mini=1" title="Demo Natural Capital" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div>
+      <div class="glab"><i class="gdot"></i><div class="gtx"><b>Natural Capital</b><small>Foreste misurate come capitale, carbonio difendibile</small></div><span class="go">Apri &rarr;</span></div>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <div class="frow">
+    <div style="max-width:560px">
+      <b>EcoBubble S.r.l.</b> · Infrastrutture di intelligenza artificiale costruite sulla singola organizzazione, orchestrate dal motore Ennous / Meta-Intelligence.<br>
+      Le anteprime sono le demo reali, in esecuzione. Dati di piattaforma reali dove indicato, scenari dimostrativi altrove.<br>
+      info@ecobubble.it
+    </div>
+    <div>
+      <div class="pbadges">
+        <span>Ennous · Patent pending</span>
+        <span>GreenEazy · Patented</span>
+        <span>Plantiverse · Patented</span>
+      </div>
+      <div style="margin-top:12px">© 2026 EcoBubble S.r.l. · Tutti i diritti riservati.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+"use strict";
+/* scala gli iframe alla larghezza reale della card */
+(function(){
+ function fit(){
+  [].slice.call(document.querySelectorAll(".gfrm")).forEach(function(box){
+   var f=box.querySelector("iframe");if(!f)return;
+   var s=box.clientWidth/1280;
+   f.style.transform="scale("+s+")";
+   f.style.height=Math.ceil(box.clientHeight/s)+"px";
+  });
+ }
+ addEventListener("resize",fit);
+ addEventListener("load",fit);
+ fit();
+})();
+</script>
+</body>
+</html>

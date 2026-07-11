@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Versione 11 — EcoBubble · La rete che si spiega</title>
+<title>Versione 11 · EcoBubble · La rete che si spiega</title>
 <meta name="description" content="EcoBubble sviluppa infrastrutture di intelligenza artificiale costruite sulla singola organizzazione. 15.000 nodi che si ricompongono per mostrare come funziona la rete: selezione dei motori, efficienza, privacy, indipendenza.">
 <link rel="canonical" href="https://www.ecobubble.it/">
-<meta property="og:title" content="EcoBubble — La rete multidimensionale che si spiega da sola">
+<meta property="og:title" content="EcoBubble · La rete multidimensionale che si spiega da sola">
 <meta property="og:description" content="15.000 nodi che si ricompongono capitolo per capitolo: come una infrastruttura di AI sceglie i motori giusti per la tua azienda, senza far uscire i dati.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1715 1243%22><defs><mask id=%22m%22><rect width=%221715%22 height=%221243%22 fill=%22white%22/><circle cx=%22310%22 cy=%22622%22 r=%22355%22 fill=%22black%22/><circle cx=%221405%22 cy=%22622%22 r=%22355%22 fill=%22black%22/></mask></defs><circle cx=%22857%22 cy=%22622%22 r=%22570%22 fill=%22none%22 stroke=%22%234be08e%22 stroke-width=%22100%22 mask=%22url(%23m)%22/><circle cx=%22310%22 cy=%22622%22 r=%22310%22 fill=%22%234be08e%22/><circle cx=%221405%22 cy=%22622%22 r=%22310%22 fill=%22%234be08e%22/></svg>">
@@ -39,14 +39,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
 
 /* palco sottotitoli */
 #play{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
- padding:0 26px 120px;pointer-events:none;text-align:center}
-#kick{font-size:11.5px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ac,var(--env));margin-bottom:22px;min-height:15px;transition:color .8s;opacity:.92}
-#cap{max-width:900px;font-size:clamp(24px,3.7vw,46px);line-height:1.4;font-weight:700;letter-spacing:-.015em;text-shadow:0 2px 40px rgba(4,7,10,.75)}
+ padding:0 26px 66px;pointer-events:none;text-align:center}
+#kick{font-size:11.5px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ac,var(--env));margin-bottom:16px;min-height:15px;transition:color .8s,opacity .2s ease;opacity:.92}
+#cap{max-width:900px;font-size:clamp(24px,3.7vw,46px);line-height:1.4;font-weight:700;letter-spacing:-.015em;text-shadow:0 2px 40px rgba(4,7,10,.75);transition:opacity .2s ease}
+#play.sw #kick,#play.sw #cap{opacity:0}
 #cap .w{opacity:.12;transition:opacity .22s ease,color .4s;border-radius:9px;padding:0 .06em}
 #cap .w.on{opacity:1}
 #cap .w.on.k{color:var(--ac,var(--env))}
 #cap .w.cur{color:var(--txt)}
-#sub{margin-top:22px;font-size:14.5px;color:var(--txt2);max-width:540px;line-height:1.6;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s;text-shadow:0 2px 30px rgba(4,7,10,.8)}
+#sub{margin-top:16px;font-size:14.5px;color:var(--txt2);max-width:720px;line-height:1.6;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s;text-shadow:0 2px 30px rgba(4,7,10,.8)}
 #sub.on{opacity:1;transform:none}
 
 /* etichetta obiettivo (scena selezione) */
@@ -58,26 +59,30 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
 #obj .dot{width:8px;height:8px;border-radius:50%;background:var(--ac,var(--env));box-shadow:0 0 12px var(--ac,var(--env))}
 #obj small{color:var(--txt3);font-weight:600}
 
-/* CTA finale — in flusso sotto il sottotitolo (niente sovrapposizioni) */
-#cta{display:none;margin-top:26px;gap:14px;flex-wrap:wrap;justify-content:center;pointer-events:auto}
+/* CTA finale: in flusso sotto il sottotitolo (niente sovrapposizioni) */
+#cta{display:none;margin-top:20px;gap:14px;flex-wrap:wrap;justify-content:center;pointer-events:auto}
 #cta.on{display:flex}
 .btn{display:inline-flex;align-items:center;gap:9px;font-size:15px;font-weight:700;text-decoration:none;border-radius:999px;padding:15px 28px;transition:.25s}
 .btn.p{background:var(--env);color:#04150b}
 .btn.p:hover{transform:translateY(-2px);box-shadow:0 18px 40px -16px var(--env)}
 .btn.s{border:1px solid var(--line);color:var(--txt);background:rgba(9,14,19,.5)}
 .btn.s:hover{border-color:rgba(255,255,255,.3)}
-/* portfolio: reti già in funzione */
-#port{display:none;margin-top:20px;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;pointer-events:auto;font-size:12.5px}
+/* portfolio: scritte piccole verso le demo, una sola riga */
+#port{display:none;margin-top:14px;align-items:center;gap:8px;flex-wrap:nowrap;justify-content:center;pointer-events:auto;font-size:11.5px;max-width:none;white-space:nowrap}
 #port.on{display:flex}
-#port span{color:var(--txt3);letter-spacing:.14em;text-transform:uppercase;font-size:10.5px}
-#port a{color:var(--txt2);text-decoration:none;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:7px 15px;background:rgba(9,14,19,.5);transition:.25s}
-#port a:hover{color:var(--txt);border-color:rgba(255,255,255,.28)}
+#port span{color:var(--txt3);letter-spacing:.14em;text-transform:uppercase;font-size:10px;margin-right:4px}
+#port a{color:var(--txt2);text-decoration:none;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:rgba(9,14,19,.5);transition:.25s;display:inline-flex;align-items:center;gap:6px}
+#port a i{width:6px;height:6px;border-radius:50%;background:var(--pac,var(--env));box-shadow:0 0 8px var(--pac,var(--env))}
+#port a:hover{color:var(--txt);border-color:var(--pac,rgba(255,255,255,.28))}
+#port a.all{color:var(--txt);border-color:rgba(75,224,142,.4)}
+#port a.all:hover{border-color:var(--env);color:var(--env)}
+@media(max-width:1120px){#port{flex-wrap:wrap;white-space:normal;max-width:720px}}
 /* overlay team */
 #team{position:fixed;left:50%;top:43%;transform:translate(-50%,-50%);z-index:20;display:flex;gap:26px;opacity:0;transition:opacity .55s;pointer-events:none;
  background:rgba(4,7,10,.5);border:1px solid var(--line);border-radius:28px;padding:30px 34px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 #team.on{opacity:1}
-#team .tm{text-align:center;width:150px}
-#team .tm img{width:112px;height:112px;border-radius:50%;object-fit:cover;object-position:50% 4%;border:1.5px solid var(--ac,var(--env));box-shadow:0 0 30px -6px var(--ac,var(--env));filter:grayscale(.28)}
+#team .tm{text-align:center;width:138px}
+#team .tm img{width:104px;height:104px;border-radius:50%;object-fit:cover;object-position:50% 4%;border:1.5px solid var(--ac,var(--env));box-shadow:0 0 30px -6px var(--ac,var(--env));filter:grayscale(.28)}
 #team .tm .n{font-size:14px;font-weight:700;margin-top:14px}
 #team .tm .r{font-size:11.5px;color:var(--ac,var(--txt2));margin-top:3px;font-weight:600}
 @media(max-width:640px){#team{gap:14px;flex-wrap:wrap;justify-content:center;max-width:320px;padding:20px}#team .tm{width:130px}#team .tm img{width:96px;height:96px}}
@@ -105,12 +110,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
 
 @media(max-width:640px){
  nav{padding:16px 18px}
- #play{padding-bottom:150px}
+ #play{padding-bottom:110px}
  #cap{font-size:clamp(22px,6vw,32px)}
  #hud{right:18px}#hint{left:18px}#bar{padding:16px 18px}
  #obj{top:20%}
 }
 @media (prefers-reduced-motion: reduce){#cap .w{transition:none}}
+
+/* cambio pagina scorrevole */
+@view-transition{navigation:auto}
+@media (prefers-reduced-motion: no-preference){
+ body{animation:pagein .5s ease}
+ @keyframes pagein{from{opacity:0}to{opacity:1}}
+}
 </style>
 </head>
 <body>
@@ -121,7 +133,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
 
 <nav>
   <a class="brand" href="#"><svg class="mark" viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm1"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#4be08e" stroke-width="100" mask="url(#ebm1)"/><circle cx="310" cy="622" r="310" fill="#4be08e"/><circle cx="1405" cy="622" r="310" fill="#4be08e"/></svg>EcoBubble <small>Applied Intelligence</small></a>
-  <a class="navcta" href="mailto:info@ecobubble.it?subject=Infrastruttura%20di%20intelligenza%20artificiale">Parliamone &rarr;</a>
+  <span style="display:flex;gap:10px"><a class="navcta" href="metodo.html">Metodo</a><a class="navcta" href="portfolio.html">Portfolio</a><a class="navcta" href="mailto:info@ecobubble.it?subject=Infrastruttura%20di%20intelligenza%20artificiale">Parliamone &rarr;</a></span>
 </nav>
 
 <!-- palco -->
@@ -133,20 +145,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
     <a class="btn p" href="mailto:info@ecobubble.it?subject=Infrastruttura%20di%20intelligenza%20artificiale">Scrivici &rarr;</a>
     <a class="btn s" href="https://calendly.com/nicola-nescatelli/30min" target="_blank" rel="noopener">Prenota una call</a>
   </div>
-  <div id="port"><span>Reti già in funzione</span>
-    <a href="https://ennous.it" target="_blank" rel="noopener">Ennous</a>
-    <a href="https://greeneazy.it" target="_blank" rel="noopener">GreenEazy</a>
-    <a href="https://platform.plantiverse.it" target="_blank" rel="noopener">Plantiverse</a>
+  <div id="port"><span>Il portfolio</span>
+    <a style="--pac:#4be08e" href="demos/ennous.html" target="_blank" rel="noopener"><i></i>Ennous</a>
+    <a style="--pac:#35d0c0" href="demos/greeneazy.html" target="_blank" rel="noopener"><i></i>GreenEazy</a>
+    <a style="--pac:#5aa9ff" href="demos/plantiverse.html" target="_blank" rel="noopener"><i></i>Plantiverse</a>
+    <a style="--pac:#ffc46b" href="demos/energia.html" target="_blank" rel="noopener"><i></i>Energia &amp; Infrastrutture</a>
+    <a style="--pac:#a98bff" href="demos/governance-ai.html" target="_blank" rel="noopener"><i></i>Governance AI</a>
+    <a style="--pac:#9df3c3" href="demos/natural-capital.html" target="_blank" rel="noopener"><i></i>Natural Capital</a>
+    <a class="all" href="portfolio.html">Tutto il portfolio &rarr;</a>
   </div>
 </div>
 
 <div id="obj"><span class="dot"></span><span id="objName"></span></div>
 
 <div id="team">
-  <div class="tm" style="--ac:var(--env)"><img src="assets/team/nicola.webp" alt="Nicola Nescatelli" loading="lazy"><div class="n">Nicola Nescatelli</div><div class="r">Founder &amp; CEO</div></div>
-  <div class="tm" style="--ac:var(--geo)"><img src="assets/team/andrea.webp" alt="Andrea Procaccini" loading="lazy"><div class="n">Andrea Procaccini</div><div class="r">AI &amp; Software</div></div>
-  <div class="tm" style="--ac:var(--violet)"><img src="assets/team/riccardo.jpg" alt="Riccardo Benini" loading="lazy"><div class="n">Riccardo Benini</div><div class="r">Ricerca &amp; Sviluppo</div></div>
-  <div class="tm" style="--ac:var(--amber)"><img src="assets/team/federico.webp" alt="Federico Di Vincenzo" loading="lazy"><div class="n">Federico Di Vincenzo</div><div class="r">Design &amp; Green</div></div>
+  <div class="tm" style="--ac:var(--env)"><img src="assets/team/nn.jpg" alt="Nicola Nescatelli" loading="lazy"><div class="n">Nicola Nescatelli</div><div class="r">Founder &amp; CEO</div></div>
+  <div class="tm" style="--ac:var(--geo)"><img src="assets/team/ap.jpg" alt="Andrea Procaccini" loading="lazy"><div class="n">Andrea Procaccini</div><div class="r">AI &amp; Modelling</div></div>
+  <div class="tm" style="--ac:var(--teal)"><img src="assets/team/lg.jpg" alt="Leonardo Giannini" loading="lazy"><div class="n">Leonardo Giannini</div><div class="r">Geospatial &amp; EO</div></div>
+  <div class="tm" style="--ac:var(--violet)"><img src="assets/team/fp.jpg" alt="Fabio Pallini" loading="lazy"><div class="n">Fabio Pallini</div><div class="r">Engineering &amp; Platform</div></div>
+  <div class="tm" style="--ac:var(--amber)"><img src="assets/team/fd.jpg" alt="Federico Di Vincenzo" loading="lazy"><div class="n">Federico Di Vincenzo</div><div class="r">Design &amp; Experience</div></div>
 </div>
 
 <div id="bar"></div>
@@ -156,16 +173,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
 <!-- contenuto leggibile senza JS -->
 <div id="fallback">
   <h1>Sviluppiamo infrastrutture di intelligenza artificiale costruite sulla tua organizzazione.</h1>
-  <p>Dentro pulsa una <b>rete multidimensionale</b> di centinaia di motori. Per ogni obiettivo si accendono <b>solo i nodi giusti</b> per la tua azienda.</p>
-  <p>I motori che non servono restano <b>spenti</b>: i costi di calcolo scendono dell'<b>80&#8211;90%</b>.</p>
-  <p>È <b>agnostica e flessibile</b>: quando i dati cambiano, la rete si ricompone. I tuoi <b>dati non escono mai</b>: l'intelligenza resta dove sei tu.</p>
-  <p>Indipendente da <b>governi, paesi e aziende terze</b>. Ogni risposta dichiara quanto fidarsi, con una <b>firma verificabile</b>. Alla fine del percorso l'infrastruttura <b>è tua</b>.</p>
+  <p>Dentro agisce una <b>rete multidimensionale</b> di centinaia di motori. Per ogni obiettivo si accendono <b>i nodi più adatti</b> alla tua azienda.</p>
+  <p>La rete attiva <b>i motori utili</b>: il calcolo si riduce dell'<b>80&#8211;90%</b>.</p>
+  <p>È <b>agnostica e flessibile</b>: quando i dati cambiano, la rete si ricompone. I tuoi <b>dati restano nei tuoi sistemi</b>: l'intelligenza resta dove sei tu.</p>
+  <p>Mantieni la piena <b>autonomia tecnologica</b>. Ogni risposta dichiara quanto fidarsi, con una <b>firma verificabile</b>. Alla fine del percorso l'infrastruttura <b>è tua</b>.</p>
   <p><a href="mailto:info@ecobubble.it">info@ecobubble.it</a></p>
 </div>
 
 <script>
 /* =========================================================================
-   PARTICLE ENGINE — 15.000 nodi di una rete multidimensionale che si
+   PARTICLE ENGINE: 15.000 nodi di una rete multidimensionale che si
    ricompongono per capitolo. Deriva dal PARTICLE BRAIN v5, con forme e
    ri-accensione (relight) pensate per SPIEGARE il prodotto.
    ========================================================================= */
@@ -369,28 +386,32 @@ return {go:go, ignite:ignite, litFor:litFor, objectiveSet:objectiveSet,
 })();
 
 /* =========================================================================
-   NARRAZIONE — karaoke in auto-play. Ogni beat: kicker, accento, didascalia
+   NARRAZIONE: karaoke in auto-play. Ogni beat: kicker, accento, didascalia
    parola-per-parola, visual (morph o ignite), sotto-passi opzionali.
    ========================================================================= */
 (function(){
 document.documentElement.classList.remove('nojs');
+/* portfolio: pillole del capitolo finale */
+var gal=document.getElementById('port');
+if(/[?&]port=1/.test(location.search))gal.classList.add('on');
 if(!ENGINE) return; /* niente WebGL: resta il fallback leggibile */
-var kick=document.getElementById('kick'),cap=document.getElementById('cap'),sub=document.getElementById('sub'),
+var playBox=document.getElementById('play'),
+    kick=document.getElementById('kick'),cap=document.getElementById('cap'),sub=document.getElementById('sub'),
     cta=document.getElementById('cta'),bar=document.getElementById('bar'),cnt=document.getElementById('cnt'),
     hint=document.getElementById('hint'),pp=document.getElementById('pp'),
     objBox=document.getElementById('obj'),objName=document.getElementById('objName'),glow=document.getElementById('glow'),
-    port=document.getElementById('port'),teamBox=document.getElementById('team');
+    teamBox=document.getElementById('team');
 var C=ENGINE.colors;
 
 function setAccent(hex){document.documentElement.style.setProperty('--ac',hex);glow.style.background='radial-gradient(56% 46% at 50% 54%, '+hex+', transparent 72%)';}
 function rgb(a){return 'rgb('+Math.round(a[0]*255)+','+Math.round(a[1]*255)+','+Math.round(a[2]*255)+')';}
 
 /* obiettivi della scena "selezione": ognuno accende una COMBINAZIONE diversa
-   di motori (numero e posizione cambiano) — copre i settori di aatech/arpinge
+   di motori (numero e posizione cambiano); copre i settori di aatech/arpinge
    e industria/finanza/ambiente. */
 var OBJ=[
  {name:'Prevedere il credito',    sub:'Finanza',           lit:ENGINE.objectiveSet(3,22), ac:C.GEO},
- {name:'Rischio operativo · DORA', sub:'Banche & assicurazioni',lit:ENGINE.objectiveSet(28,16),ac:C.GEO},
+ {name:'Rafforzare la conformità · DORA',sub:'Banche & assicurazioni',lit:ENGINE.objectiveSet(28,16),ac:C.GEO},
  {name:'Governare i modelli AI',  sub:'AI infrastructure', lit:ENGINE.objectiveSet(50,12),ac:C.VIO},
  {name:'Ottimizzare la produzione',sub:'Industria',        lit:ENGINE.objectiveSet(11,27),ac:C.AMB},
  {name:'Gestire l’energia',       sub:'Infrastrutture',    lit:ENGINE.objectiveSet(68,20),ac:C.VIO},
@@ -402,35 +423,35 @@ function nLit(o){return Object.keys(o).length;}
 var BEATS=[
  {k:'EcoBubble',ac:'#4be08e',shape:'network',
   cap:'Sviluppiamo <b>infrastrutture</b> di intelligenza artificiale <b>costruite</b> sulla tua <b>organizzazione</b>.',hold:2600},
- {k:'Il problema',ac:'#4be08e',shape:'network',
-  cap:'Ogni azienda ha <b>decisioni difficili</b>. I modelli <b>generici</b> non bastano.',
-  sub:'Servono i motori giusti, sul tuo problema e sui tuoi dati — non una scatola chiusa uguale per tutti.',hold:2900},
+ {k:'Il punto di partenza',ac:'#4be08e',shape:'network',
+  cap:'Ogni azienda ha <b>decisioni</b>, <b>dati</b> e <b>priorità</b> uniche.',
+  sub:'La rete seleziona i motori più adatti ai tuoi obiettivi e ai tuoi dati.',hold:2900},
  {k:'La rete',ac:'#4be08e',shape:'network',
-  cap:'Dentro pulsa una <b>rete multidimensionale</b>: <b>centinaia di motori</b>, uno per ogni modo di leggere i dati.',
-  sub:'Quanti ne servono per il tuo settore: più il problema è complesso, più motori entrano in gara.',hold:2900},
+  cap:'Dentro agisce una <b>rete multidimensionale</b>: <b>centinaia di motori</b>, uno per ogni modo di leggere i dati.',
+  sub:'La combinazione si adatta al tuo settore e alla complessità di ogni obiettivo.',hold:2900},
  {k:'01 · Selezione',ac:'#5aa9ff',
   cap:'Per ogni <b>obiettivo</b> si accende una <b>combinazione diversa</b> di motori.',hold:900,objcycle:true},
  {k:'02 · Efficienza',ac:'#35d0c0',ignite:GATED,igAc:C.ENV2,
-  cap:'I motori che <b>non servono</b> restano <b>spenti</b>: i costi di calcolo scendono dell’<b>80–90%</b>.',
-  sub:'Meno calcolo, stesso risultato: la rete accende solo ciò che serve, e lo misura.',hold:3000},
+  cap:'La rete attiva <b>i motori utili</b>: il calcolo si riduce dell’<b>80–90%</b>.',
+  sub:'Il calcolo si concentra sui motori più adatti e la rete ne misura il risultato.',hold:3000},
  {k:'03 · Agnostica',ac:'#5aa9ff',shape:'network',
   cap:'È <b>agnostica</b> e <b>flessibile</b>: quando i dati cambiano, la rete <b>si ricompone</b>.',
-  sub:'Nessun modello imposto, nessuna tecnologia obbligata.',hold:3000},
+  sub:'Modelli e tecnologie restano liberamente combinabili.',hold:3000},
  {k:'04 · Privacy',ac:'#4be08e',shape:'dome',
-  cap:'I tuoi <b>dati non escono mai</b>: l’intelligenza resta <b>dove sei tu</b>.',
-  sub:'Gira nei tuoi sistemi, sotto le tue chiavi. Niente dati verso piattaforme esterne.',hold:3200},
+  cap:'I tuoi <b>dati restano nei tuoi sistemi</b>: l’intelligenza resta <b>dove sei tu</b>.',
+  sub:'Funziona nei tuoi sistemi, sotto le tue chiavi e secondo le tue regole.',hold:3200},
  {k:'05 · Indipendenza',ac:'#a98bff',shape:'ring',
-  cap:'Indipendente da <b>governi</b>, <b>paesi</b> e <b>aziende terze</b>.',
-  sub:'Nessuna dipendenza da cloud stranieri o decisioni prese altrove. Sovranità reale.',hold:3200},
+  cap:'Mantieni la piena <b>autonomia tecnologica</b>.',
+  sub:'Cloud, modelli e infrastruttura restano sotto il tuo controllo. Sovranità reale.',hold:3200},
  {k:'06 · Fiducia',ac:'#ffc46b',shape:'lattice',
   cap:'Ogni risposta dichiara <b>quanto fidarsi</b>, con una <b>firma</b> che chiunque può verificare.',
   sub:'Copertura verificata (~90%) e catena di audit SHA-256: controllabile da una banca o un revisore.',hold:3200},
  {k:'Il team',ac:'#4be08e',shape:'network',team:true,
-  cap:'Dietro la rete, <b>tre fisici</b> e un <b>architetto</b>.',
+  cap:'Dietro la rete, <b>fisica</b>, <b>scienze della Terra</b> e <b>ingegneria</b>.',
   sub:'Fisica dei sistemi complessi applicata all’ambiente e al territorio. La rete la firmiamo noi.',hold:3600},
  {k:'Iniziamo',ac:'#4be08e',shape:'emblem',cta:true,port:true,
   cap:'Che <b>intelligenza</b> costruiamo per te?',
-  sub:'Alla fine del percorso l’infrastruttura è tua. Raccontaci il problema e i dati: ti diciamo che rete serve.',hold:99999}
+  sub:'Alla fine del percorso l’infrastruttura è tua: raccontaci il tuo obiettivo, ti diciamo che rete serve.',hold:99999}
 ];
 
 BEATS.forEach(function(b,i){var el=document.createElement('i');el.innerHTML='<b></b>';el.addEventListener('click',function(){play(i);});bar.appendChild(el);});
@@ -465,23 +486,30 @@ function animBar(i,ms){var el=barEls[i].querySelector('b'),t0=null,accum=0;
 
 function play(i){
  if(i<0||i>=BEATS.length)return;
- clearAll();idx=i;var b=BEATS[i];
+ clearAll();
+ var first=idx<0;idx=i;
+ /* dissolvenza morbida fra un capitolo e l'altro */
+ playBox.classList.add('sw');
+ later(function(){show(i);playBox.classList.remove('sw');},first?0:170);
+}
+function show(i){
+ var b=BEATS[i];
  setAccent(b.ac);kick.textContent=b.k;
  sub.textContent='';sub.classList.remove('on');
- cta.classList.remove('on');port.classList.remove('on');objBox.classList.remove('on');
+ cta.classList.remove('on');gal.classList.remove('on');objBox.classList.remove('on');
  teamBox.classList.toggle('on',!!b.team);
  cnt.textContent=(i+1)+' / '+BEATS.length;
  fillBar(i);
  if(b.shape)ENGINE.go(b.shape);
  if(b.ignite)ENGINE.ignite(b.ignite,b.igAc);
- var ws=words(b.cap),perWord=168,typeMs=ws.length*perWord;
+ var ws=words(b.cap),perWord=140,typeMs=ws.length*perWord;
  /* tempo di lettura: pausa proporzionata al testo (didascalia + sottotitolo) */
- var read=Math.max(b.hold,1500+(b.cap.replace(/<[^>]+>/g,'').length+(b.sub?b.sub.length:0))*30);
+ var read=Math.max(b.hold,1300+(b.cap.replace(/<[^>]+>/g,'').length+(b.sub?b.sub.length:0))*25);
  typeWords(ws,perWord,function(){
   if(b.sub){sub.textContent=b.sub;sub.classList.add('on');}
   if(b.cta)cta.classList.add('on');
-  if(b.port)port.classList.add('on');
-  if(b.objcycle){cycleObjectives(function(){scheduleNext(i,1600);});return;}
+  if(b.port)gal.classList.add('on');
+  if(b.objcycle){cycleObjectives(function(){scheduleNext(i,1450);});return;}
   scheduleNext(i,read);
  });
  if(!b.objcycle&&!b.cta)animBar(i,typeMs+read);
@@ -494,7 +522,7 @@ function cycleObjectives(done){
   var o=OBJ[n];setAccent(rgb(o.ac));
   objName.innerHTML=o.name+' <small>&middot; '+o.sub+' &middot; '+nLit(o.lit)+' motori accesi</small>';
   objBox.classList.add('on');
-  ENGINE.ignite(o.lit,o.ac);n++;later(step,1550);
+  ENGINE.ignite(o.lit,o.ac);n++;later(step,1400);
  })();
 }
 

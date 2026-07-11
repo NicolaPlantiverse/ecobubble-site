@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ennous · Demo Portfolio · Energia e Infrastrutture</title>
+<meta name="description" content="Dimostrazione EcoBubble per un fondo di infrastrutture energetiche. La rete Ennous compone i motori per ogni obiettivo, misura con confidenza calibrata e firma ogni decisione. Dati illustrativi.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1715 1243%22><defs><mask id=%22m%22><rect width=%221715%22 height=%221243%22 fill=%22white%22/><circle cx=%22310%22 cy=%22622%22 r=%22355%22 fill=%22black%22/><circle cx=%221405%22 cy=%22622%22 r=%22355%22 fill=%22black%22/></mask></defs><circle cx=%22857%22 cy=%22622%22 r=%22570%22 fill=%22none%22 stroke=%22%23ffc46b%22 stroke-width=%22100%22 mask=%22url(%23m)%22/><circle cx=%22310%22 cy=%22622%22 r=%22310%22 fill=%22%23ffc46b%22/><circle cx=%221405%22 cy=%22622%22 r=%22310%22 fill=%22%23ffc46b%22/></svg>">
+<style>
+:root{
+ --bg:#04070a;--panel:rgba(9,14,19,.72);--panel2:rgba(13,19,26,.85);
+ --ac:#ffc46b;--ac2:#ffdca3;--env:#4be08e;--geo:#5aa9ff;--vio:#a98bff;--teal:#35d0c0;--rose:#ff8fa3;
+ --txt:#eef4f0;--txt2:#93a7a0;--txt3:#5b6e66;--line:rgba(255,255,255,.09);
+ --ok:#4be08e;--warn:#ffc46b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:rgba(255,196,107,.3)}
+#net{position:fixed;inset:0;z-index:0}
+#veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 42%,transparent 40%,rgba(4,7,10,.78) 100%)}
+
+header{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 28px;background:linear-gradient(180deg,rgba(4,7,10,.88),rgba(4,7,10,.55) 70%,transparent)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;text-decoration:none;color:var(--txt)}
+.brand svg{width:28px;height:auto}
+.brand small{font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3)}
+.hright{display:flex;align-items:center;gap:10px}
+.badge{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--txt2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;background:rgba(9,14,19,.6)}
+.badge i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ac);margin-right:7px;vertical-align:1px}
+#lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:rgba(9,14,19,.6)}
+#lang button{appearance:none;border:0;background:transparent;color:var(--txt3);font:inherit;font-size:11px;font-weight:700;letter-spacing:.1em;padding:7px 13px;cursor:pointer;transition:.2s}
+#lang button.on{background:var(--ac);color:#1d1408}
+
+main{position:relative;z-index:10}
+section{min-height:100vh;display:flex;align-items:center;padding:110px 6vw 80px;position:relative}
+.wrap{width:100%;max-width:1180px;margin:0 auto}
+.kick{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ac);margin-bottom:18px}
+h1{font-size:clamp(34px,5vw,62px);line-height:1.12;letter-spacing:-.02em;font-weight:800;max-width:15em}
+h2{font-size:clamp(26px,3.4vw,42px);line-height:1.18;letter-spacing:-.018em;font-weight:800;max-width:17em}
+.lead{margin-top:20px;font-size:16.5px;line-height:1.65;color:var(--txt2);max-width:620px}
+.lead b{color:var(--txt);font-weight:600}
+
+.stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:38px}
+.stat{border:1px solid var(--line);border-radius:18px;padding:16px 22px;background:var(--panel);min-width:150px}
+.stat .v{font-size:26px;font-weight:800;letter-spacing:-.02em;color:var(--ac2);font-variant-numeric:tabular-nums}
+.stat .l{font-size:11.5px;color:var(--txt2);margin-top:4px;line-height:1.4}
+
+.scrollhint{margin-top:44px;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--txt3)}
+.scrollhint::after{content:"";display:block;width:1px;height:38px;margin-top:12px;background:linear-gradient(180deg,var(--ac),transparent)}
+
+.panel{border:1px solid var(--line);border-radius:22px;background:var(--panel);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:24px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:34px;align-items:start}
+@media(max-width:960px){.grid2{grid-template-columns:1fr}}
+
+/* portafoglio */
+.assets{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:34px}
+@media(max-width:960px){.assets{grid-template-columns:repeat(2,1fr)}}
+.asset{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:15px 16px;cursor:pointer;transition:border-color .25s,transform .25s;position:relative}
+.asset:hover{transform:translateY(-2px)}
+.asset.on{border-color:rgba(255,196,107,.65);box-shadow:0 14px 34px -22px var(--ac)}
+.asset .t{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ac)}
+.asset .n{font-size:13.5px;font-weight:700;margin-top:6px;line-height:1.35}
+.asset .m{font-size:11px;color:var(--txt2);margin-top:7px;font-variant-numeric:tabular-nums}
+.asset .dot{position:absolute;top:14px;right:14px;width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.asset .dot.w{background:var(--warn);box-shadow:0 0 8px var(--warn)}
+#adet{margin-top:16px;display:flex;gap:26px;flex-wrap:wrap;align-items:center;border:1px solid var(--line);border-radius:18px;background:var(--panel2);padding:18px 22px}
+#adet .kv{min-width:120px}
+#adet .kv .v{font-size:21px;font-weight:800;color:var(--ac2);font-variant-numeric:tabular-nums}
+#adet .kv .l{font-size:10.5px;color:var(--txt3);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+#adet .note{font-size:12.5px;color:var(--txt2);line-height:1.55;flex:1;min-width:220px}
+#adet .note b{color:var(--txt)}
+
+/* selezione */
+.objs{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.chip{appearance:none;border:1px solid var(--line);border-radius:999px;background:rgba(9,14,19,.6);color:var(--txt2);font:inherit;font-size:13px;font-weight:700;padding:11px 20px;cursor:pointer;transition:.25s}
+.chip:hover{color:var(--txt);border-color:rgba(255,255,255,.3)}
+.chip.on{background:var(--ac);border-color:var(--ac);color:#1d1408}
+#gatebox{margin-top:26px;display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch}
+@media(max-width:960px){#gatebox{grid-template-columns:1fr}}
+.gcount{font-size:clamp(30px,3.2vw,44px);font-weight:800;letter-spacing:-.02em;color:var(--ac2);font-variant-numeric:tabular-nums}
+.gcount small{font-size:.45em;color:var(--txt2);font-weight:600;letter-spacing:0}
+.gsub{font-size:13px;color:var(--txt2);margin-top:8px;line-height:1.6}
+.meter{margin-top:20px}
+.meter .lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--txt3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.meter .bar{height:10px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden}
+.meter .bar b{display:block;height:100%;width:100%;border-radius:6px;background:linear-gradient(90deg,var(--teal),var(--ac));transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+.meter .big{font-size:24px;font-weight:800;color:var(--teal);margin-top:10px;font-variant-numeric:tabular-nums}
+.fams{display:grid;grid-template-columns:1fr 1fr;gap:9px 18px;margin-top:6px}
+.fam{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--txt2)}
+.fam i{width:8px;height:8px;border-radius:50%;flex:none}
+.fam b{color:var(--txt);font-weight:700;font-variant-numeric:tabular-nums;margin-left:auto}
+
+/* misura */
+.scn{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+canvas.chart{width:100%;height:300px;display:block}
+.chartcap{font-size:11px;color:var(--txt3);margin-top:12px;line-height:1.6}
+.covline{display:flex;align-items:center;gap:16px;margin-top:16px;border-top:1px solid var(--line);padding-top:16px}
+.covline .arc{flex:none}
+.covline p{font-size:12.5px;color:var(--txt2);line-height:1.55}
+.covline p b{color:var(--env)}
+.kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.kpi{border:1px solid var(--line);border-radius:14px;padding:12px 16px;background:var(--panel2);min-width:130px}
+.kpi .v{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--txt)}
+.kpi .v.ok{color:var(--env)}
+.kpi .l{font-size:10.5px;color:var(--txt3);margin-top:3px;letter-spacing:.06em;text-transform:uppercase}
+
+/* ricevuta */
+#receipt{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.75;color:var(--txt2);border:1px solid var(--line);border-radius:18px;background:var(--panel2);padding:22px 24px;position:relative;overflow:hidden}
+#receipt .rk{color:var(--txt3)}
+#receipt .rv{color:var(--txt)}
+#receipt .hash{word-break:break-all;color:var(--ac2);letter-spacing:.02em}
+#receipt .sig{margin-top:14px;padding-top:14px;border-top:1px dashed rgba(255,255,255,.14)}
+#receipt::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--ac),transparent)}
+.rbtns{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+.btn{appearance:none;border:0;border-radius:999px;font:inherit;font-size:14px;font-weight:700;padding:13px 26px;cursor:pointer;transition:.25s;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn.p{background:var(--ac);color:#1d1408}
+.btn.p:hover{transform:translateY(-2px);box-shadow:0 16px 36px -16px var(--ac)}
+.btn.s{border:1px solid var(--line);background:rgba(9,14,19,.6);color:var(--txt)}
+.btn.s:hover{border-color:rgba(255,255,255,.3)}
+#vres{font-size:12.5px;margin-top:14px;min-height:18px;color:var(--env);font-weight:600}
+.chain{margin-top:18px;font-size:11px;color:var(--txt3);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.9}
+.chain b{color:var(--txt2)}
+
+/* chiusura + footer */
+#close .panel{padding:34px}
+.closecta{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+footer{position:relative;z-index:10;border-top:1px solid var(--line);padding:34px 6vw 44px;font-size:11.5px;color:var(--txt3);line-height:1.8;background:rgba(4,7,10,.85)}
+footer .frow{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer .fb{max-width:560px}
+footer b{color:var(--txt2)}
+.pbadges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pbadges span{border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt2)}
+
+/* rail sezioni */
+#rail{position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:12px}
+#rail a{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.16);transition:.3s;display:block}
+#rail a.on{background:var(--ac);box-shadow:0 0 10px var(--ac)}
+@media(max-width:960px){#rail{display:none}}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+ html{scroll-behavior:auto}
+ .rv{opacity:1;transform:none;transition:none}
+ .meter .bar b{transition:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="net" aria-hidden="true"></canvas>
+<div id="veil"></div>
+
+<header>
+  <a class="brand" href="#top">
+    <svg viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#ffc46b" stroke-width="100" mask="url(#ebm)"/><circle cx="310" cy="622" r="310" fill="#ffc46b"/><circle cx="1405" cy="622" r="310" fill="#ffc46b"/></svg>
+    EcoBubble <small data-t="brandsub">Motore Ennous</small>
+  </a>
+  <div class="hright">
+    <span class="badge" data-t="hdrbadge"><i></i>Demo Portfolio · Energia</span>
+    <span class="badge">Ennous · Patent pending</span>
+    <div id="lang"><button id="lit" class="on" type="button">IT</button><button id="len" type="button">EN</button></div>
+  </div>
+</header>
+
+<div id="rail" aria-hidden="true"></div>
+
+<main id="top">
+
+<!-- HERO -->
+<section id="s0">
+  <div class="wrap">
+    <div class="kick rv" data-t="k0">Dimostrazione per un fondo di infrastrutture energetiche</div>
+    <h1 class="rv" data-t="h0">Un portafoglio di energia. Una intelligenza costruita su di lui.</h1>
+    <p class="lead rv" data-t="l0">La rete Ennous ascolta ogni asset del fondo, compone per ogni obiettivo la <b>combinazione di motori</b> che serve, misura con <b>confidenza calibrata</b> e firma ogni decisione con una <b>prova verificabile da terzi</b>. Quello che segue è il prodotto in azione, su dati illustrativi.</p>
+    <div class="stats rv">
+      <div class="stat"><div class="v">12</div><div class="l" data-t="st1">asset in portafoglio</div></div>
+      <div class="stat"><div class="v">214</div><div class="l" data-t="st2">motori disponibili in rete</div></div>
+      <div class="stat"><div class="v">~90%</div><div class="l" data-t="st3">copertura calibrata delle stime</div></div>
+      <div class="stat"><div class="v">SHA-256</div><div class="l" data-t="st4">firma su ogni decisione</div></div>
+    </div>
+    <div class="scrollhint rv" data-t="sh0">Scorri</div>
+  </div>
+</section>
+
+<!-- 01 PORTAFOGLIO -->
+<section id="s1">
+  <div class="wrap">
+    <div class="kick rv" data-t="k1">01 · Il portafoglio</div>
+    <h2 class="rv" data-t="h1">Asset diversi, un solo linguaggio.</h2>
+    <p class="lead rv" data-t="l1">Fotovoltaico, eolico, biometano, accumulo, teleriscaldamento, idroelettrico. Tecnologie lontane fra loro, rese confrontabili: ogni asset parla alla rete con gli stessi indicatori. <b>Seleziona un asset</b> per leggerlo.</p>
+    <div class="assets rv" id="assets"></div>
+    <div id="adet" class="rv"></div>
+  </div>
+</section>
+
+<!-- 02 SELEZIONE -->
+<section id="s2">
+  <div class="wrap">
+    <div class="kick rv" data-t="k2">02 · La rete si compone</div>
+    <h2 class="rv" data-t="h2">Cambia l’obiettivo. Cambiano i motori accesi.</h2>
+    <p class="lead rv" data-t="l2">La rete dispone di centinaia di motori, ognuno legge i dati in un modo diverso. Per ogni obiettivo del fondo si accende una <b>combinazione dedicata</b> e il calcolo si concentra su di essa. <b>Scegli un obiettivo</b> e osserva la rete ricomporsi.</p>
+    <div class="objs rv" id="objs"></div>
+    <div id="gatebox" class="rv">
+      <div class="panel">
+        <div class="gcount"><span id="gc">34</span> <small id="gct">motori accesi su 214</small></div>
+        <p class="gsub" id="gsub"></p>
+        <div class="meter">
+          <div class="lbl"><span data-t="mt1">Calcolo utilizzato</span><span data-t="mt2">rispetto alla rete piena</span></div>
+          <div class="bar"><b id="mbar"></b></div>
+          <div class="big" id="msave">−84%</div>
+          <p class="gsub" data-t="mt3">La rete concentra il calcolo sui motori utili e misura il risultato.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <p class="gsub" style="margin:0 0 14px" data-t="famh">Famiglie di motori accese per questo obiettivo</p>
+        <div class="fams" id="fams"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 MISURA E SCENARI -->
+<section id="s3">
+  <div class="wrap">
+    <div class="kick rv" data-t="k3">03 · La misura</div>
+    <h2 class="rv" data-t="h3">Un numero, con la misura della sua affidabilità.</h2>
+    <p class="lead rv" data-t="l3">Ogni stima esce con una banda calibrata: il fondo sa <b>quanto fidarsi</b>, prima di decidere. Cambia lo scenario e osserva come la banda si allarga dove l’incertezza cresce, mentre la rete riaccende i motori che servono.</p>
+    <div class="scn rv" id="scns"></div>
+    <div class="grid2">
+      <div class="panel rv">
+        <p class="gsub" style="margin:0" id="fanTitle"></p>
+        <canvas class="chart" id="fan"></canvas>
+        <p class="chartcap" id="fanCap"></p>
+        <div class="covline">
+          <canvas class="arc" id="covArc" width="86" height="86"></canvas>
+          <p id="covTxt"></p>
+        </div>
+      </div>
+      <div class="panel rv">
+        <p class="gsub" style="margin:0" id="radTitle"></p>
+        <canvas class="chart" id="radar"></canvas>
+        <div class="kpis" id="kpis"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 RICEVUTA -->
+<section id="s4">
+  <div class="wrap">
+    <div class="kick rv" data-t="k4">04 · La ricevuta di decisione</div>
+    <h2 class="rv" data-t="h4">Ogni decisione lascia una prova verificabile.</h2>
+    <p class="lead rv" data-t="l4">Obiettivo, scenario, motori accesi, copertura, esito: tutto viene raccolto in una ricevuta e firmato con <b>SHA-256, calcolato adesso, nel tuo browser</b>. Il consiglio, la banca o il revisore verificano la firma in autonomia.</p>
+    <div class="grid2">
+      <div>
+        <div id="receipt" class="rv"></div>
+        <div class="rbtns rv">
+          <button class="btn p" id="signBtn" type="button" data-t="bsign">Firma la decisione</button>
+          <button class="btn s" id="verBtn" type="button" data-t="bver">Verifica la firma</button>
+        </div>
+        <div id="vres"></div>
+      </div>
+      <div class="panel rv">
+        <p class="gsub" style="margin:0 0 10px" data-t="chh">Catena di custodia della sessione</p>
+        <div class="chain" id="chain"></div>
+        <p class="chartcap" data-t="chcap">Ogni ricevuta incorpora la firma della precedente. La continuità crittografica rende ogni variazione immediatamente evidente a un verificatore indipendente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 CHIUSURA -->
+<section id="s5">
+  <div class="wrap">
+    <div class="kick rv" data-t="k5">05 · Cosa ha visto il fondo</div>
+    <h2 class="rv" data-t="h5">Una intelligenza cucita sul portafoglio. E alla fine è del fondo.</h2>
+    <div class="panel rv" style="margin-top:30px">
+      <p class="lead" style="margin:0" data-t="l5">Il fondo mantiene libertà di scelta sui modelli, piena custodia dei dati e autonomia da fornitori o paesi terzi. La rete si ricompone con il portafoglio. I numeri mostrati sono illustrativi: quelli reali nascono dai dati del fondo e restano suoi.</p>
+      <div class="closecta">
+        <a class="btn p" href="mailto:info@ecobubble.it?subject=Demo%20Energia%20e%20Infrastrutture" data-t="cta1">Parliamone</a>
+        <a class="btn s" href="https://www.ecobubble.it" target="_blank" rel="noopener" data-t="cta2">EcoBubble</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="frow">
+    <div class="fb">
+      <b>EcoBubble S.r.l.</b> · <span data-t="f1">Infrastrutture di intelligenza artificiale costruite sulla singola organizzazione, orchestrate dal motore Ennous / Meta-Intelligence.</span><br>
+      <span data-t="f2">Dimostrazione a scopo illustrativo. Tutti i dati, gli asset e i numeri sono esemplificativi e non si riferiscono ad alcun cliente reale. Le stime sono calibrate su storici dimostrativi.</span><br>
+      info@ecobubble.it
+    </div>
+    <div>
+      <div class="pbadges">
+        <span>Ennous · Patent pending</span>
+        <span data-t="fp1">Metodo Geo-Driven · Patent pending</span>
+      </div>
+      <div style="margin-top:12px" data-t="f3">© 2026 EcoBubble S.r.l. · Tutti i diritti riservati.</div>
+    </div>
+  </div>
+</footer>
+
+<noscript><div style="position:fixed;inset:0;z-index:99;background:#04070a;color:#eef4f0;padding:120px 8vw;font-size:18px;line-height:1.7">Questa dimostrazione richiede JavaScript. EcoBubble sviluppa infrastrutture di intelligenza artificiale costruite sulla singola organizzazione. Scrivi a info@ecobubble.it.</div></noscript>
+
+<script>
+"use strict";
+/* ============================================================
+   Ennous · Demo Portfolio · Energia e Infrastrutture
+   Dati illustrativi. Nessun meccanismo interno viene esposto.
+   ============================================================ */
+var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function $(s){return document.querySelector(s);}
+function $$(s){return [].slice.call(document.querySelectorAll(s));}
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+/* ---------------- i18n ---------------- */
+var L="it";
+var T={
+ brandsub:{it:"Motore Ennous",en:"Ennous engine"},
+ hdrbadge:{it:"Demo Portfolio · Energia",en:"Portfolio demo · Energy"},
+ k0:{it:"Dimostrazione per un fondo di infrastrutture energetiche",en:"Demonstration for an energy infrastructure fund"},
+ h0:{it:"Un portafoglio di energia. Una intelligenza costruita su di lui.",en:"An energy portfolio. An intelligence built on it."},
+ l0:{it:"La rete Ennous ascolta ogni asset del fondo, compone per ogni obiettivo la <b>combinazione di motori</b> che serve, misura con <b>confidenza calibrata</b> e firma ogni decisione con una <b>prova verificabile da terzi</b>. Quello che segue è il prodotto in azione, su dati illustrativi.",
+     en:"The Ennous network listens to every asset of the fund, assembles for each objective the <b>combination of engines</b> it needs, measures with <b>calibrated confidence</b> and signs every decision with <b>proof a third party can verify</b>. What follows is the product at work, on illustrative data."},
+ st1:{it:"asset in portafoglio",en:"assets in the portfolio"},
+ st2:{it:"motori disponibili in rete",en:"engines available in the network"},
+ st3:{it:"copertura calibrata delle stime",en:"calibrated coverage of estimates"},
+ st4:{it:"firma su ogni decisione",en:"signature on every decision"},
+ sh0:{it:"Scorri",en:"Scroll"},
+ k1:{it:"01 · Il portafoglio",en:"01 · The portfolio"},
+ h1:{it:"Asset diversi, un solo linguaggio.",en:"Different assets, one language."},
+ l1:{it:"Fotovoltaico, eolico, biometano, accumulo, teleriscaldamento, idroelettrico. Tecnologie lontane fra loro, rese confrontabili: ogni asset parla alla rete con gli stessi indicatori. <b>Seleziona un asset</b> per leggerlo.",
+     en:"Solar, wind, biomethane, storage, district heating, hydro. Technologies far apart, made comparable: every asset speaks to the network with the same indicators. <b>Select an asset</b> to read it."},
+ k2:{it:"02 · La rete si compone",en:"02 · The network assembles"},
+ h2:{it:"Cambia l’obiettivo. Cambiano i motori accesi.",en:"Change the objective. The lit engines change."},
+ l2:{it:"La rete dispone di centinaia di motori, ognuno legge i dati in un modo diverso. Per ogni obiettivo del fondo si accende una <b>combinazione dedicata</b> e il calcolo si concentra su di essa. <b>Scegli un obiettivo</b> e osserva la rete ricomporsi.",
+     en:"The network holds hundreds of engines, each reading data in a different way. For every fund objective a <b>dedicated combination</b> lights up and compute concentrates on it. <b>Pick an objective</b> and watch the network reshape."},
+ mt1:{it:"Calcolo utilizzato",en:"Compute in use"},
+ mt2:{it:"rispetto alla rete piena",en:"versus the full network"},
+ mt3:{it:"La rete concentra il calcolo sui motori utili e misura il risultato.",en:"The network concentrates compute on the useful engines and measures the result."},
+ famh:{it:"Famiglie di motori accese per questo obiettivo",en:"Engine families lit for this objective"},
+ k3:{it:"03 · La misura",en:"03 · The measurement"},
+ h3:{it:"Un numero, con la misura della sua affidabilità.",en:"A number, with a measure of its reliability."},
+ l3:{it:"Ogni stima esce con una banda calibrata: il fondo sa <b>quanto fidarsi</b>, prima di decidere. Cambia lo scenario e osserva come la banda si allarga dove l’incertezza cresce, mentre la rete riaccende i motori che servono.",
+     en:"Every estimate ships with a calibrated band: the fund knows <b>how much to trust it</b>, before deciding. Switch the scenario and watch the band widen where uncertainty grows, while the network relights the engines it needs."},
+ k4:{it:"04 · La ricevuta di decisione",en:"04 · The decision receipt"},
+ h4:{it:"Ogni decisione lascia una prova verificabile.",en:"Every decision leaves verifiable proof."},
+ l4:{it:"Obiettivo, scenario, motori accesi, copertura, esito: tutto viene raccolto in una ricevuta e firmato con <b>SHA-256, calcolato adesso, nel tuo browser</b>. Il consiglio, la banca o il revisore verificano la firma in autonomia.",
+     en:"Objective, scenario, lit engines, coverage and outcome are gathered in a receipt and signed with <b>SHA-256, computed now, in your browser</b>. The board, lender or auditor verifies the signature independently."},
+ bsign:{it:"Firma la decisione",en:"Sign the decision"},
+ bver:{it:"Verifica la firma",en:"Verify the signature"},
+ chh:{it:"Catena di custodia della sessione",en:"Chain of custody for this session"},
+ chcap:{it:"Ogni ricevuta incorpora la firma della precedente. La continuità crittografica rende ogni variazione immediatamente evidente a un verificatore indipendente.",
+        en:"Every receipt embeds the previous signature. Cryptographic continuity makes every change immediately evident to an independent verifier."},
+ k5:{it:"05 · Cosa ha visto il fondo",en:"05 · What the fund has seen"},
+ h5:{it:"Una intelligenza cucita sul portafoglio. E alla fine è del fondo.",en:"An intelligence tailored to the portfolio. And in the end the fund owns it."},
+ l5:{it:"Il fondo mantiene libertà di scelta sui modelli, piena custodia dei dati e autonomia da fornitori o paesi terzi. La rete si ricompone con il portafoglio. I numeri mostrati sono illustrativi: quelli reali nascono dai dati del fondo e restano suoi.",
+     en:"The fund keeps model choice, full custody of its data and autonomy from providers or foreign platforms. The network reshapes with the portfolio. The figures shown are illustrative: real figures grow from the fund's data and remain its own."},
+ cta1:{it:"Parliamone",en:"Talk to us"},
+ cta2:{it:"EcoBubble",en:"EcoBubble"},
+ f1:{it:"Infrastrutture di intelligenza artificiale costruite sulla singola organizzazione, orchestrate dal motore Ennous / Meta-Intelligence.",
+     en:"Artificial intelligence infrastructure built on the single organisation, orchestrated by the Ennous / Meta-Intelligence engine."},
+ f2:{it:"Dimostrazione a scopo illustrativo. Tutti i dati, gli asset e i numeri sono esemplificativi e non si riferiscono ad alcun cliente reale. Le stime sono calibrate su storici dimostrativi.",
+     en:"Demonstration for illustration only. All data, assets and figures are examples and refer to no real client. Estimates are calibrated on demonstration records."},
+ fp1:{it:"Metodo Geo-Driven · Patent pending",en:"Geo-Driven method · Patent pending"},
+ fp2:{it:"Metodo Bio-Driven · Patent pending",en:"Bio-Driven method · Patent pending"},
+ f3:{it:"© 2026 EcoBubble S.r.l. · Tutti i diritti riservati.",en:"© 2026 EcoBubble S.r.l. · All rights reserved."}
+};
+
+/* ---------------- dati illustrativi ---------------- */
+var FAMS=[
+ {it:"Lettura satellitare e territorio",en:"Satellite and territory reading",c:"#5aa9ff"},
+ {it:"Meteo e clima",en:"Weather and climate",c:"#35d0c0"},
+ {it:"Fisica d’impianto",en:"Plant behaviour",c:"#ffc46b"},
+ {it:"Mercato dell’energia",en:"Energy market",c:"#a98bff"},
+ {it:"Credito e covenant",en:"Credit and covenants",c:"#4be08e"},
+ {it:"Regolatorio e reporting",en:"Regulatory and reporting",c:"#ff8fa3"}
+];
+var OBJS=[
+ {id:"fin",it:"Finanza di progetto e DSCR",en:"Project finance and DSCR",n:34,save:84,seed:11,
+  mix:[2,4,6,9,8,5],
+  gsub:{it:"Per difendere il DSCR davanti alla banca si accendono mercato, credito e fisica d’impianto. La lettura satellitare resta a riposo.",
+        en:"To defend the DSCR before the lender, market, credit and plant engines light up. Satellite reading stays at rest."}},
+ {id:"yield",it:"Rendimento e disponibilità",en:"Yield and availability",n:41,save:81,seed:37,
+  mix:[7,8,14,4,3,5],
+  gsub:{it:"Per il rendimento tecnico la rete privilegia fisica d’impianto, meteo e territorio. Il credito osserva senza calcolare.",
+        en:"For technical yield the network favours plant, weather and territory engines. Credit watches without computing."}},
+ {id:"clima",it:"Rischio climatico",en:"Climate risk",n:27,save:87,seed:59,
+  mix:[8,9,4,2,1,3],
+  gsub:{it:"Per il rischio climatico si accendono clima, territorio e vulnerabilità degli impianti. Ventisette motori bastano.",
+        en:"For climate risk the network lights climate, territory and asset vulnerability engines. Twenty seven are enough."}},
+ {id:"esg",it:"Reporting GRESB · SFDR · Tassonomia UE",en:"GRESB · SFDR · EU Taxonomy reporting",n:22,save:90,seed:83,
+  mix:[4,2,3,1,3,9],
+  gsub:{it:"Per il reporting la rete accende i motori regolatori e le evidenze di misura. Ogni KPI dichiarato risale alla sua prova.",
+        en:"For disclosure the network lights regulatory engines and measurement evidence. Every declared KPI traces back to its proof."}}
+];
+var SCNS=[
+ {id:"base",it:"Base",en:"Base",dscr:1.38,band:.09,radar:[.45,.35,.30,.25,.40,.30],
+  cap:{it:"Traiettoria attesa del DSCR di portafoglio, 12 trimestri osservati e 8 attesi. La banda contiene il valore vero circa 9 volte su 10.",
+       en:"Expected path of the portfolio DSCR, 12 quarters observed and 8 expected. The band contains the true value about 9 times out of 10."}},
+ {id:"price",it:"Prezzo energia -25%",en:"Energy price -25%",dscr:1.24,band:.13,radar:[.80,.38,.32,.45,.42,.50],
+  cap:{it:"Con il prezzo dell’energia in calo del 25% il DSCR atteso scende ma resta sopra il covenant. La banda si allarga: la rete lo dichiara.",
+       en:"With energy prices down 25% the expected DSCR falls yet stays above the covenant. The band widens: the network says so."}},
+ {id:"heat",it:"Estate estrema",en:"Extreme summer",dscr:1.31,band:.14,radar:[.50,.78,.55,.30,.42,.35],
+  cap:{it:"Un’estate estrema pesa su resa e disponibilità. I motori climatici si riaccendono e la confidenza viene ricalibrata sul nuovo regime.",
+       en:"An extreme summer weighs on yield and availability. Climate engines relight and confidence is recalibrated on the new regime."}},
+ {id:"rate",it:"Tassi +200 pb",en:"Rates +200 bp",dscr:1.27,band:.11,radar:[.55,.36,.30,.72,.40,.58],
+  cap:{it:"Con 200 punti base in più il servizio del debito cresce. Credito e liquidità salgono nel radar, il margine sul covenant si assottiglia.",
+       en:"With 200 basis points more, debt service grows. Credit and liquidity rise on the radar, the covenant headroom narrows."}}
+];
+var RAX={it:["Mercato","Clima","Tecnico","Credito","Regolatorio","Liquidità"],en:["Market","Climate","Technical","Credit","Regulatory","Liquidity"]};
+var ASSETS=[
+ {t:"PV",n:{it:"Fotovoltaico Sud · 48 MW",en:"Solar South · 48 MW"},dscr:1.42,av:98.4,ok:1,
+  note:{it:"Resa allineata alla stima stagionale. <b>Stabilità confermata</b> dalla rete.",en:"Yield aligned with the seasonal estimate. <b>Stability confirmed</b> by the network."}},
+ {t:"WIND",n:{it:"Eolico Isole · 36 MW",en:"Wind Islands · 36 MW"},dscr:1.31,av:96.8,ok:0,
+  note:{it:"Variazione vibrazionale su una turbina, individuata <b>in anticipo</b>. Intervento pianificato nella finestra di basso vento.",en:"A vibration change on one turbine was identified <b>early</b>. Service is planned for the low wind window."}},
+ {t:"BIO",n:{it:"Biometano Pianura Est",en:"Biomethane East Plain"},dscr:1.26,av:97.5,ok:1,
+  note:{it:"Portata e qualità del gas stabili. Il project financing regge con margine sul covenant.",en:"Gas volume and quality stable. The project financing holds with covenant headroom."}},
+ {t:"BESS",n:{it:"Accumulo Centro · 20 MW / 80 MWh",en:"Storage Centre · 20 MW / 80 MWh"},dscr:1.55,av:99.1,ok:1,
+  note:{it:"Cicli e degrado in linea. I ricavi da servizi di rete superano lo scenario base.",en:"Cycling and degradation on plan. Grid service revenue runs above the base scenario."}},
+ {t:"DH",n:{it:"Teleriscaldamento Nord",en:"District heating North"},dscr:1.35,av:99.3,ok:1,
+  note:{it:"Stagione termica regolare, perdite di rete sotto soglia.",en:"Regular heating season, network losses below threshold."}},
+ {t:"HYDRO",n:{it:"Idroelettrico Alpi · 12 MW",en:"Hydro Alps · 12 MW"},dscr:1.48,av:95.2,ok:1,
+  note:{it:"Deflussi primaverili sopra la media, produzione in anticipo sul piano.",en:"Spring inflow above average, generation ahead of plan."}},
+ {t:"PV",n:{it:"Fotovoltaico Isole · 30 MW",en:"Solar Islands · 30 MW"},dscr:1.39,av:97.9,ok:1,
+  note:{it:"Sporcamento moduli in crescita lenta, lavaggio suggerito fra 6 settimane.",en:"Module soiling growing slowly, cleaning suggested in 6 weeks."}},
+ {t:"WIND",n:{it:"Eolico Appennino · 24 MW",en:"Wind Apennines · 24 MW"},dscr:1.28,av:96.1,ok:1,
+  note:{it:"Ventosità sotto la media del trimestre, entro la banda dichiarata.",en:"Wind below the quarterly average, within the declared band."}},
+ {t:"BIO",n:{it:"Biometano Pianura Ovest",en:"Biomethane West Plain"},dscr:1.24,av:97.0,ok:0,
+  note:{it:"Variazione graduale della resa di digestione, individuata <b>in anticipo</b>. Ricetta già riallineata.",en:"A gradual change in digestion yield was identified <b>early</b>. The feed recipe is already realigned."}},
+ {t:"BESS",n:{it:"Accumulo Nord · 10 MW / 40 MWh",en:"Storage North · 10 MW / 40 MWh"},dscr:1.51,av:99.0,ok:1,
+  note:{it:"Stabilità termica confermata, ricavi in banda.",en:"Thermal stability confirmed, revenue in band."}},
+ {t:"PV",n:{it:"Tetti industriali · 18 MW",en:"Industrial rooftops · 18 MW"},dscr:1.36,av:98.1,ok:1,
+  note:{it:"Portafoglio diffuso, telemetria completa su tutti i siti.",en:"Distributed portfolio, full telemetry on every site."}},
+ {t:"HYDRO",n:{it:"Idroelettrico Prealpi · 8 MW",en:"Hydro Prealps · 8 MW"},dscr:1.44,av:94.8,ok:1,
+  note:{it:"Attività sulla condotta completata nei tempi, disponibilità riallineata.",en:"Penstock work completed on schedule, availability realigned."}}
+];
+
+/* ---------------- rete di sfondo ---------------- */
+var NET=(function(){
+ var cv=$("#net"),CN=120,N=15000,centers=[],pointCluster=new Uint16Array(N);
+ var pos=new Float32Array(N*3),sizeA=new Float32Array(N),c0=new Float32Array(N*4),c1=new Float32Array(N*4);
+ var rnd=mulberry(20260710),i;
+ function litSetFor(seed,count){var rr=mulberry(seed),o={},n=0,guard=0;
+  while(n<count&&guard++<5000){var c=Math.floor(rr()*CN);if(!o[c]){o[c]=1;n++;}}return o;}
+ var gl=cv.getContext("webgl",{alpha:true,antialias:false,premultipliedAlpha:false})||cv.getContext("experimental-webgl");
+ if(!gl)return{setLit:function(){},litSetFor:litSetFor};
+ for(i=0;i<CN;i++){var a=i*2.399963,r=.18+.84*Math.sqrt(i/(CN-1));
+  centers.push([Math.cos(a)*r*1.25+(rnd()-.5)*.08,Math.sin(a)*r*.76+(rnd()-.5)*.07,(rnd()-.5)*.28]);}
+ for(i=0;i<N;i++){var ci=i%CN,cc=centers[ci],aa=rnd()*6.283185,rr=.012+Math.pow(rnd(),1.9)*.078,o=i*3;
+  pointCluster[i]=ci;pos[o]=cc[0]+Math.cos(aa)*rr;pos[o+1]=cc[1]+Math.sin(aa)*rr*.82;pos[o+2]=cc[2]+(rnd()-.5)*.10;
+  sizeA[i]=.55+rnd()*1.65;}
+ function shader(type,src){var s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);
+  if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s;}
+ function program(vs,fs){var p=gl.createProgram();gl.attachShader(p,shader(gl.VERTEX_SHADER,vs));gl.attachShader(p,shader(gl.FRAGMENT_SHADER,fs));gl.linkProgram(p);
+  if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(p));return p;}
+ var VS="attribute vec3 aP;attribute vec4 aC0;attribute vec4 aC1;attribute float aS;uniform float uMix;uniform float uAsp;uniform float uDpr;uniform vec2 uMouse;varying vec4 vC;void main(){vec3 p=aP;float ax=uMouse.y*.18;float ay=uMouse.x*.24;float cx=cos(ax),sx=sin(ax),cy=cos(ay),sy=sin(ay);p=vec3(cy*p.x+sy*p.z,cx*p.y-sx*(-sy*p.x+cy*p.z),sx*p.y+cx*(-sy*p.x+cy*p.z));float z=2.55-p.z;vec2 q=p.xy/z*2.15;q.x/=uAsp;gl_Position=vec4(q,0.,1.);vC=mix(aC0,aC1,uMix);gl_PointSize=min(7.,aS*uDpr*(.72+vC.a*5.2));}";
+ var FS="precision mediump float;varying vec4 vC;void main(){vec2 q=gl_PointCoord-.5;float d=dot(q,q);if(d>.25)discard;float a=smoothstep(.25,.015,d);gl_FragColor=vec4(vC.rgb,vC.a*a);}";
+ var LVS="attribute vec3 aP;uniform float uAsp;uniform vec2 uMouse;void main(){vec3 p=aP;float ax=uMouse.y*.18;float ay=uMouse.x*.24;float cx=cos(ax),sx=sin(ax),cy=cos(ay),sy=sin(ay);p=vec3(cy*p.x+sy*p.z,cx*p.y-sx*(-sy*p.x+cy*p.z),sx*p.y+cx*(-sy*p.x+cy*p.z));float z=2.55-p.z;vec2 q=p.xy/z*2.15;q.x/=uAsp;gl_Position=vec4(q,0.,1.);}";
+ var LFS="precision mediump float;uniform vec4 uColor;void main(){gl_FragColor=uColor;}";
+ var P=program(VS,FS),LP=program(LVS,LFS);
+ function makeBuffer(data,usage){var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,data,usage);return b;}
+ var bP=makeBuffer(pos,gl.STATIC_DRAW),bS=makeBuffer(sizeA,gl.STATIC_DRAW),bC0=makeBuffer(c0,gl.DYNAMIC_DRAW),bC1=makeBuffer(c1,gl.DYNAMIC_DRAW);
+ var edgePos=new Float32Array(0),bE=makeBuffer(edgePos,gl.DYNAMIC_DRAW),edgeCount=0;
+ function locs(p,names){var o={};for(var k=0;k<names.length;k++)o[names[k]]=gl.getAttribLocation(p,names[k]);return o;}
+ var A=locs(P,["aP","aC0","aC1","aS"]),LA=locs(LP,["aP"]);
+ var U={mix:gl.getUniformLocation(P,"uMix"),asp:gl.getUniformLocation(P,"uAsp"),dpr:gl.getUniformLocation(P,"uDpr"),mouse:gl.getUniformLocation(P,"uMouse")};
+ var LU={asp:gl.getUniformLocation(LP,"uAsp"),mouse:gl.getUniformLocation(LP,"uMouse"),color:gl.getUniformLocation(LP,"uColor")};
+ function attr(loc,b,n){gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,n,gl.FLOAT,false,0,0);}
+ function rgb(hex){var n=parseInt((hex||"#ffffff").slice(1),16);return[(n>>16&255)/255,(n>>8&255)/255,(n&255)/255];}
+ function mixNow(u){for(var k=0;k<c0.length;k++)c0[k]=c0[k]+(c1[k]-c0[k])*u;}
+ function targetColor(arr,pi,lit){var col=rgb(FAMS[pointCluster[pi]%FAMS.length].c),active=lit>.5,o=pi*4;
+  arr[o]=Math.min(1,col[0]*(active?1.12:.52)+(active?.035:0));arr[o+1]=Math.min(1,col[1]*(active?1.12:.52)+(active?.035:0));arr[o+2]=Math.min(1,col[2]*(active?1.12:.52)+(active?.035:0));
+  arr[o+3]=active?.07+.28*lit:.008+.035*lit;}
+ var start=performance.now(),duration=900,targetLit=new Float32Array(CN);
+ function buildEdges(set){var ids=[];for(var k=0;k<CN;k++)if(!set||set[k])ids.push(k);var out=[];
+  for(var q=0;q<ids.length;q++){var ii=ids[q],best=-1,bd=1e9,a=centers[ii];
+   for(var j=0;j<ids.length;j++){var jj=ids[j];if(jj===ii)continue;var b=centers[jj],dx=a[0]-b[0],dy=a[1]-b[1],dz=a[2]-b[2],d=dx*dx+dy*dy+dz*dz;if(d<bd){bd=d;best=jj;}}
+   if(best>=0&&ii<best){out.push(a[0],a[1],a[2],centers[best][0],centers[best][1],centers[best][2]);}}
+  edgePos=new Float32Array(out);edgeCount=edgePos.length/3;gl.bindBuffer(gl.ARRAY_BUFFER,bE);gl.bufferData(gl.ARRAY_BUFFER,edgePos,gl.DYNAMIC_DRAW);}
+ function setLit(set,flash){var now=performance.now(),u=Math.min(1,(now-start)/duration);mixNow(u);
+  for(var k=0;k<CN;k++)targetLit[k]=set?(set[k]?1:.10):.62;
+  for(var p=0;p<N;p++)targetColor(c1,p,targetLit[pointCluster[p]]);
+  gl.bindBuffer(gl.ARRAY_BUFFER,bC0);gl.bufferSubData(gl.ARRAY_BUFFER,0,c0);gl.bindBuffer(gl.ARRAY_BUFFER,bC1);gl.bufferSubData(gl.ARRAY_BUFFER,0,c1);
+  start=now;duration=flash?520:880;buildEdges(set);}
+ var W=0,H=0,dpr=1,asp=1,tx=0,ty=0,mx=0,my=0;
+ function resize(){dpr=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;asp=W/H;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);gl.viewport(0,0,cv.width,cv.height);}
+ resize();addEventListener("resize",resize);addEventListener("pointermove",function(e){tx=e.clientX/W-.5;ty=e.clientY/H-.5;},{passive:true});
+ gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.disable(gl.DEPTH_TEST);gl.clearColor(0,0,0,0);
+ function frame(now){mx+=(tx-mx)*.035;my+=(ty-my)*.035;var u=reduced?1:Math.min(1,(now-start)/duration);gl.clear(gl.COLOR_BUFFER_BIT);
+  if(edgeCount){gl.useProgram(LP);attr(LA.aP,bE,3);gl.uniform1f(LU.asp,asp);gl.uniform2f(LU.mouse,mx,my);gl.uniform4f(LU.color,1,1,1,.075);gl.drawArrays(gl.LINES,0,edgeCount);}
+  gl.useProgram(P);attr(A.aP,bP,3);attr(A.aC0,bC0,4);attr(A.aC1,bC1,4);attr(A.aS,bS,1);gl.uniform1f(U.mix,u);gl.uniform1f(U.asp,asp);gl.uniform1f(U.dpr,dpr);gl.uniform2f(U.mouse,mx,my);gl.drawArrays(gl.POINTS,0,N);
+  requestAnimationFrame(frame);}
+ setLit(null,false);requestAnimationFrame(frame);
+ return{setLit:setLit,litSetFor:litSetFor};
+})();
+
+/* ---------------- portafoglio ---------------- */
+var aSel=1;
+function renderAssets(){
+ var host=$("#assets");host.innerHTML="";
+ ASSETS.forEach(function(a,i){
+  var d=document.createElement("div");
+  d.className="asset"+(i===aSel?" on":"");
+  d.innerHTML='<span class="dot'+(a.ok?"":" w")+'"></span><div class="t">'+a.t+'</div><div class="n">'+a.n[L]+'</div><div class="m">DSCR '+a.dscr.toFixed(2)+"× · "+(L==="it"?"disp.":"avail.")+" "+a.av.toFixed(1)+"%</div>";
+  d.addEventListener("click",function(){aSel=i;renderAssets();});
+  host.appendChild(d);
+ });
+ var a=ASSETS[aSel];
+ $("#adet").innerHTML=
+  '<div class="kv"><div class="v">'+a.dscr.toFixed(2)+"×</div><div class='l'>DSCR</div></div>"+
+  '<div class="kv"><div class="v">'+a.av.toFixed(1)+'%</div><div class="l">'+(L==="it"?"Disponibilità":"Availability")+"</div></div>"+
+  '<div class="kv"><div class="v">~90%</div><div class="l">'+(L==="it"?"Confidenza":"Confidence")+"</div></div>"+
+  '<div class="note"><b>'+a.n[L]+"</b> · "+a.note[L]+"</div>";
+}
+
+/* ---------------- selezione / gating ---------------- */
+var oSel=0,countAnim=null;
+function renderObjs(){
+ var host=$("#objs");host.innerHTML="";
+ OBJS.forEach(function(o,i){
+  var b=document.createElement("button");
+  b.type="button";b.className="chip"+(i===oSel?" on":"");
+  b.textContent=o[L];
+  b.addEventListener("click",function(){oSel=i;applyObj(true);renderObjs();});
+  host.appendChild(b);
+ });
+}
+function applyObj(flash){
+ var o=OBJS[oSel];
+ NET.setLit(NET.litSetFor(o.seed,Math.round(o.n*120/214)+8),flash);
+ var from=parseInt($("#gc").textContent,10)||214,to=o.n,t0=null;
+ if(countAnim)cancelAnimationFrame(countAnim);
+ if(reduced){$("#gc").textContent=to;}
+ else{
+  var start=flash?214:from;
+  (function tick(now){if(t0===null)t0=now;var u=Math.min(1,(now-t0)/900);
+   $("#gc").textContent=Math.round(start+(to-start)*(u*u*(3-2*u)));
+   if(u<1)countAnim=requestAnimationFrame(tick);})(performance.now());
+ }
+ $("#gct").textContent=(L==="it"?"motori accesi su 214":"engines lit of 214");
+ $("#gsub").textContent=o.gsub[L];
+ $("#mbar").style.width=(100-o.save)+"%";
+ $("#msave").textContent="−"+o.save+"%";
+ var fh=$("#fams");fh.innerHTML="";
+ FAMS.forEach(function(f,i){
+  var d=document.createElement("div");d.className="fam";
+  d.innerHTML='<i style="background:'+f.c+';box-shadow:0 0 8px '+f.c+'"></i>'+f[L]+"<b>"+o.mix[i]+"</b>";
+  fh.appendChild(d);
+ });
+}
+
+/* ---------------- misura: fan + radar ---------------- */
+var sSel=0,animT=1,fromData=null;
+function scnData(s){
+ var rr=mulberry(400+SCNS.indexOf(s));
+ var pts=[],i;
+ for(i=0;i<20;i++){
+  var base=i<12?(1.34+Math.sin(i*.7)*.03+(rr()-.5)*.02):(1.34+(s.dscr-1.34)*((i-11)/8));
+  var bw=i<12?0:s.band*Math.sqrt((i-11)/8);
+  pts.push([base,bw]);
+ }
+ return {pts:pts,radar:s.radar};
+}
+var curData=null;
+function renderScns(){
+ var host=$("#scns");host.innerHTML="";
+ SCNS.forEach(function(s,i){
+  var b=document.createElement("button");
+  b.type="button";b.className="chip"+(i===sSel?" on":"");
+  b.textContent=s[L];
+  b.addEventListener("click",function(){
+   sSel=i;fromData=curData;animT=reduced?1:0;renderScns();updateScnTexts();
+   NET.setLit(NET.litSetFor(OBJS[oSel].seed+i*7,Math.round(OBJS[oSel].n*120/214)+8+i*3),true);
+  });
+  host.appendChild(b);
+ });
+}
+function updateScnTexts(){
+ var s=SCNS[sSel];
+ $("#fanTitle").textContent=(L==="it"?"DSCR di portafoglio, banda calibrata ~90%":"Portfolio DSCR, calibrated ~90% band");
+ $("#fanCap").textContent=s.cap[L];
+ $("#radTitle").textContent=(L==="it"?"Radar del rischio · sei letture, una scala":"Risk radar · six readings, one scale");
+ $("#covTxt").innerHTML=(L==="it"
+  ?"<b>Copertura verificata ~90%.</b> Sulle finestre di controllo, circa 9 intervalli su 10 hanno contenuto il valore poi osservato. La confidenza dichiarata è una promessa misurabile, non una impressione."
+  :"<b>Verified coverage ~90%.</b> Across the checking windows, about 9 bands out of 10 held the value later observed. Declared confidence is a measurable promise, not an impression.");
+ var head=(s.dscr-1.20);
+ $("#kpis").innerHTML=
+  '<div class="kpi"><div class="v ok">'+s.dscr.toFixed(2)+"×</div><div class='l'>"+(L==="it"?"DSCR atteso":"Expected DSCR")+"</div></div>"+
+  '<div class="kpi"><div class="v">1.20×</div><div class="l">Covenant</div></div>'+
+  '<div class="kpi"><div class="v'+(head>.1?" ok":"")+'">+'+head.toFixed(2)+"×</div><div class='l'>"+(L==="it"?"Margine":"Headroom")+"</div></div>"+
+  '<div class="kpi"><div class="v">±'+s.band.toFixed(2)+"</div><div class='l'>"+(L==="it"?"Banda a 8 trim.":"Band at 8 qtrs")+"</div></div>";
+}
+function lerpData(a,b,t){
+ if(!a||t>=1)return b;
+ var o={pts:[],radar:[]},i;
+ for(i=0;i<b.pts.length;i++)o.pts.push([a.pts[i][0]+(b.pts[i][0]-a.pts[i][0])*t,a.pts[i][1]+(b.pts[i][1]-a.pts[i][1])*t]);
+ for(i=0;i<6;i++)o.radar.push(a.radar[i]+(b.radar[i]-a.radar[i])*t);
+ return o;
+}
+function fitCanvas(cv){
+ var dpr=Math.min(2,devicePixelRatio||1),r=cv.getBoundingClientRect();
+ if(!r.width)return null;
+ cv.width=r.width*dpr;cv.height=r.height*dpr;
+ var ctx=cv.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);
+ return {ctx:ctx,w:r.width,h:r.height};
+}
+function drawFan(data){
+ var f=fitCanvas($("#fan"));if(!f)return;
+ var ctx=f.ctx,w=f.w,h=f.h,pad=34;
+ var y0=1.05,y1=1.65;
+ function X(i){return pad+ (w-pad-12)*(i/19);}
+ function Y(v){return h-24-(h-46)*((v-y0)/(y1-y0));}
+ ctx.strokeStyle="rgba(255,255,255,.07)";ctx.lineWidth=1;ctx.font="10px ui-monospace,Menlo,monospace";ctx.fillStyle="rgba(147,167,160,.8)";
+ [1.1,1.2,1.3,1.4,1.5,1.6].forEach(function(g){
+  ctx.beginPath();ctx.moveTo(pad,Y(g));ctx.lineTo(w-8,Y(g));ctx.stroke();
+  ctx.fillText(g.toFixed(2),2,Y(g)+3);
+ });
+ /* covenant */
+ ctx.setLineDash([5,5]);ctx.strokeStyle="rgba(255,143,163,.55)";
+ ctx.beginPath();ctx.moveTo(pad,Y(1.20));ctx.lineTo(w-8,Y(1.20));ctx.stroke();ctx.setLineDash([]);
+ ctx.fillStyle="rgba(255,143,163,.8)";ctx.fillText((L==="it"?"covenant 1.20×":"covenant 1.20×"),w-104,Y(1.20)-6);
+ /* banda */
+ var i;ctx.beginPath();
+ for(i=11;i<20;i++){var p=data.pts[i];ctx[i===11?"moveTo":"lineTo"](X(i),Y(p[0]+p[1]));}
+ for(i=19;i>=11;i--){var p2=data.pts[i];ctx.lineTo(X(i),Y(p2[0]-p2[1]));}
+ ctx.closePath();
+ var gr=ctx.createLinearGradient(X(11),0,X(19),0);
+ gr.addColorStop(0,"rgba(255,196,107,.05)");gr.addColorStop(1,"rgba(255,196,107,.22)");
+ ctx.fillStyle=gr;ctx.fill();
+ /* linea centrale */
+ ctx.lineWidth=2;
+ ctx.strokeStyle="rgba(238,244,240,.9)";
+ ctx.beginPath();for(i=0;i<12;i++)ctx[i?"lineTo":"moveTo"](X(i),Y(data.pts[i][0]));ctx.stroke();
+ ctx.strokeStyle="#ffc46b";ctx.setLineDash([2,4]);
+ ctx.beginPath();for(i=11;i<20;i++)ctx[i===11?"moveTo":"lineTo"](X(i),Y(data.pts[i][0]));ctx.stroke();ctx.setLineDash([]);
+ ctx.fillStyle="#ffdca3";
+ ctx.beginPath();ctx.arc(X(19),Y(data.pts[19][0]),3.4,0,6.29);ctx.fill();
+ ctx.fillStyle="rgba(147,167,160,.8)";
+ ctx.fillText(L==="it"?"osservato":"observed",pad+4,h-8);
+ ctx.fillText(L==="it"?"atteso, con banda":"expected, with band",X(12),h-8);
+}
+function drawRadar(data){
+ var f=fitCanvas($("#radar"));if(!f)return;
+ var ctx=f.ctx,w=f.w,h=f.h,cx=w/2,cy=h/2+6,R=Math.min(w,h)/2-38,i,k;
+ for(k=1;k<=4;k++){
+  ctx.strokeStyle="rgba(255,255,255,"+(k===4?".12":".05")+")";
+  ctx.beginPath();
+  for(i=0;i<=6;i++){var a=-Math.PI/2+i*Math.PI/3,r=R*k/4;ctx[i?"lineTo":"moveTo"](cx+Math.cos(a)*r,cy+Math.sin(a)*r);}
+  ctx.stroke();
+ }
+ ctx.font="10.5px -apple-system,Segoe UI,sans-serif";
+ for(i=0;i<6;i++){
+  var a2=-Math.PI/2+i*Math.PI/3;
+  ctx.strokeStyle="rgba(255,255,255,.06)";
+  ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a2)*R,cy+Math.sin(a2)*R);ctx.stroke();
+  ctx.fillStyle="rgba(147,167,160,.9)";
+  var lx=cx+Math.cos(a2)*(R+18),ly=cy+Math.sin(a2)*(R+14);
+  ctx.textAlign=Math.abs(Math.cos(a2))<.3?"center":(Math.cos(a2)>0?"left":"right");
+  ctx.fillText(RAX[L][i],lx,ly+3);
+ }
+ ctx.beginPath();
+ for(i=0;i<=6;i++){var a3=-Math.PI/2+(i%6)*Math.PI/3,v=data.radar[i%6];ctx[i?"lineTo":"moveTo"](cx+Math.cos(a3)*R*v,cy+Math.sin(a3)*R*v);}
+ ctx.closePath();
+ ctx.fillStyle="rgba(255,196,107,.14)";ctx.fill();
+ ctx.strokeStyle="#ffc46b";ctx.lineWidth=2;ctx.stroke();
+ for(i=0;i<6;i++){var a4=-Math.PI/2+i*Math.PI/3,v2=data.radar[i];
+  ctx.fillStyle="#ffdca3";ctx.beginPath();ctx.arc(cx+Math.cos(a4)*R*v2,cy+Math.sin(a4)*R*v2,3,0,6.29);ctx.fill();}
+}
+function chartLoop(){
+ var target=scnData(SCNS[sSel]);
+ if(animT<1)animT=Math.min(1,animT+.045);
+ curData=lerpData(fromData,target,animT*animT*(3-2*animT));
+ drawFan(curData);drawRadar(curData);
+ requestAnimationFrame(chartLoop);
+}
+
+/* ---------------- copertura arc ---------------- */
+function drawCov(){
+ var cv=$("#covArc"),ctx=cv.getContext("2d"),dpr=Math.min(2,devicePixelRatio||1);
+ cv.width=86*dpr;cv.height=86*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+ ctx.lineWidth=7;ctx.lineCap="round";
+ ctx.strokeStyle="rgba(255,255,255,.08)";
+ ctx.beginPath();ctx.arc(43,43,33,-Math.PI/2,Math.PI*1.5);ctx.stroke();
+ ctx.strokeStyle="#4be08e";
+ ctx.beginPath();ctx.arc(43,43,33,-Math.PI/2,-Math.PI/2+Math.PI*2*.9);ctx.stroke();
+ ctx.fillStyle="#eef4f0";ctx.font="700 15px -apple-system,Segoe UI,sans-serif";ctx.textAlign="center";
+ ctx.fillText("90%",43,48);
+}
+
+/* ---------------- ricevuta SHA-256 ---------------- */
+var chainN=0,lastHash="GENESI".padEnd(64,"0"),curHash="",curPayload="";
+function fnv64(str){
+ var h1=0x811c9dc5,h2=0x811c9dc5,i;
+ for(i=0;i<str.length;i++){h1^=str.charCodeAt(i);h1=(h1*0x01000193)>>>0;}
+ for(i=str.length-1;i>=0;i--){h2^=str.charCodeAt(i)*7&255;h2=(h2*0x01000193)>>>0;}
+ var out="",k;
+ for(k=0;k<8;k++){out+=((h1^(h2>>>(k*4)))>>>0).toString(16).padStart(8,"0");h1=(h1*31+k)>>>0;}
+ return out.slice(0,64);
+}
+function sha256(str){
+ if(window.crypto&&crypto.subtle&&crypto.subtle.digest){
+  return crypto.subtle.digest("SHA-256",new TextEncoder().encode(str)).then(function(buf){
+   return [].map.call(new Uint8Array(buf),function(b){return b.toString(16).padStart(2,"0");}).join("");
+  }).catch(function(){return Promise.resolve(fnv64(str));});
+ }
+ return Promise.resolve(fnv64(str));
+}
+function receiptPayload(){
+ var o=OBJS[oSel],s=SCNS[sSel];
+ return JSON.stringify({
+  rete:"ENNOUS·ENERGIA·DEMO",
+  blocco:chainN+1,
+  obiettivo:o[L],
+  scenario:s[L],
+  motori:o.n+"/214",
+  copertura:"~90%",
+  esito:"DSCR "+s.dscr.toFixed(2)+"x, covenant 1.20x, margine +"+(s.dscr-1.2).toFixed(2)+"x",
+  precedente:lastHash.slice(0,16),
+  ts:new Date().toISOString()
+ });
+}
+function renderReceipt(hash,signed){
+ var o=OBJS[oSel],s=SCNS[sSel];
+ var it=L==="it";
+ $("#receipt").innerHTML=
+  '<div><span class="rk">'+(it?"rete":"network")+':</span> <span class="rv">ENNOUS · '+(it?"ENERGIA · DEMO":"ENERGY · DEMO")+"</span></div>"+
+  '<div><span class="rk">'+(it?"blocco":"block")+':</span> <span class="rv">#'+String(chainN+1).padStart(3,"0")+"</span></div>"+
+  '<div><span class="rk">'+(it?"obiettivo":"objective")+':</span> <span class="rv">'+o[L]+"</span></div>"+
+  '<div><span class="rk">'+(it?"scenario":"scenario")+':</span> <span class="rv">'+s[L]+"</span></div>"+
+  '<div><span class="rk">'+(it?"motori accesi":"engines lit")+':</span> <span class="rv">'+o.n+" / 214 · "+(it?"calcolo evitato":"compute avoided")+" "+o.save+"%</span></div>"+
+  '<div><span class="rk">'+(it?"copertura calibrata":"calibrated coverage")+':</span> <span class="rv">~90%</span></div>'+
+  '<div><span class="rk">'+(it?"esito":"outcome")+':</span> <span class="rv">DSCR '+s.dscr.toFixed(2)+"× · covenant 1.20× · "+(it?"margine":"headroom")+" +"+(s.dscr-1.2).toFixed(2)+"×</span></div>"+
+  '<div><span class="rk">'+(it?"aggancio al blocco precedente":"link to previous block")+':</span> <span class="rv">'+lastHash.slice(0,16)+"…</span></div>"+
+  '<div class="sig"><span class="rk">'+(signed?(it?"firma SHA-256, calcolata in questo browser":"SHA-256 signature, computed in this browser"):(it?"firma":"signature"))+":</span><br>"+
+  '<span class="hash">'+(hash||(it?"non ancora firmata, premi «Firma la decisione»":"not yet signed, press “Sign the decision”"))+"</span></div>";
+}
+function typeHash(hash){
+ var el=$("#receipt .hash"),i=0;
+ if(reduced){el.textContent=hash;return;}
+ el.textContent="";
+ (function step(){
+  el.textContent=hash.slice(0,i)+(i<hash.length?"▌":"");
+  i+=3;
+  if(i<=hash.length+2)setTimeout(step,14);
+  else el.textContent=hash;
+ })();
+}
+function addChain(hash){
+ chainN++;
+ var d=document.createElement("div");
+ d.innerHTML=(L==="it"?"blocco":"block")+" <b>#"+String(chainN).padStart(3,"0")+"</b> · "+hash.slice(0,20)+"… ✓";
+ $("#chain").prepend(d);
+ lastHash=hash;
+}
+function bindReceipt(){
+ $("#signBtn").addEventListener("click",function(){
+  curPayload=receiptPayload();
+  sha256(curPayload).then(function(h){
+   curHash=h;renderReceipt(" ",true);typeHash(h);
+   setTimeout(function(){addChain(h);renderReceipt(h,true);},reduced?0:700);
+   $("#vres").textContent="";
+  });
+ });
+ $("#verBtn").addEventListener("click",function(){
+  if(!curHash){$("#vres").textContent=(L==="it"?"Prima firma una decisione.":"Sign a decision first.");return;}
+  sha256(curPayload).then(function(h){
+   $("#vres").textContent=(h===curHash)
+    ?(L==="it"?"✓ Firma valida: il contenuto non è stato alterato.":"✓ Valid signature: the content has not been altered.")
+    :(L==="it"?"✗ Firma non valida.":"✗ Invalid signature.");
+  });
+ });
+}
+
+/* ---------------- scroll / sezioni ---------------- */
+var SECS=["s0","s1","s2","s3","s4","s5"];
+function buildRail(){
+ var r=$("#rail");
+ SECS.forEach(function(id){var a=document.createElement("a");a.href="#"+id;r.appendChild(a);});
+}
+function sectionMode(id){
+ if(id==="s0")NET.setLit(null);
+ else if(id==="s1"){var all={};for(var k=0;k<120;k++)if(k%3)all[k]=1;NET.setLit(all);}
+ else if(id==="s2"||id==="s3")applyObj(false);
+ else if(id==="s4")NET.setLit(NET.litSetFor(7,24));
+ else if(id==="s5")NET.setLit(NET.litSetFor(99,60),true);
+}
+function bindScroll(){
+ var obs=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+   if(e.isIntersecting){
+    sectionMode(e.target.id);
+    var i=SECS.indexOf(e.target.id);
+    $$("#rail a").forEach(function(a,j){a.classList.toggle("on",j===i);});
+   }
+  });
+ },{threshold:.45});
+ SECS.forEach(function(id){obs.observe(document.getElementById(id));});
+ var robs=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");robs.unobserve(e.target);}});
+ },{threshold:.16});
+ $$(".rv").forEach(function(el){robs.observe(el);});
+}
+
+/* ---------------- lingua ---------------- */
+function applyLang(){
+ document.documentElement.lang=L;
+ $$("[data-t]").forEach(function(el){
+  var k=el.getAttribute("data-t");
+  if(T[k])el.innerHTML=T[k][L];
+ });
+ $("#lit").classList.toggle("on",L==="it");
+ $("#len").classList.toggle("on",L==="en");
+ renderAssets();renderObjs();applyObj(false);renderScns();updateScnTexts();
+ renderReceipt(curHash||null,!!curHash);
+}
+$("#lit").addEventListener("click",function(){L="it";applyLang();});
+$("#len").addEventListener("click",function(){L="en";applyLang();});
+
+/* ---------------- avvio ---------------- */
+buildRail();
+renderAssets();renderObjs();applyObj(false);renderScns();updateScnTexts();
+renderReceipt(null,false);bindReceipt();bindScroll();drawCov();
+addEventListener("resize",drawCov);
+requestAnimationFrame(chartLoop);
+/* hook QA e presentazione: ?lang=en apre in inglese, ?go=s3 apre una sezione */
+(function(){
+ if(/lang=en/.test(location.search)){L="en";applyLang();}
+ var m=location.search.match(/go=(s\d)/);
+ if(!m)return;
+ document.documentElement.style.scrollBehavior="auto";
+ $$(".rv").forEach(function(el){el.classList.add("in");});
+ SECS.forEach(function(id){if(id!==m[1])document.getElementById(id).style.display="none";});
+ sectionMode(m[1]);
+})();
+</script>
+</body>
+</html>

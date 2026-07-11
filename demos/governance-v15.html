@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ennous · Demo Portfolio · Governance dell&#8217;AI per i servizi finanziari</title>
+<meta name="description" content="Dimostrazione EcoBubble per un operatore di AI infrastructure al servizio di banche e assicurazioni. Ospitare i modelli non basta: la rete Ennous li governa, ne verifica la copertura e firma ogni evidenza. Dati illustrativi.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1715 1243%22><defs><mask id=%22m%22><rect width=%221715%22 height=%221243%22 fill=%22white%22/><circle cx=%22310%22 cy=%22622%22 r=%22355%22 fill=%22black%22/><circle cx=%221405%22 cy=%22622%22 r=%22355%22 fill=%22black%22/></mask></defs><circle cx=%22857%22 cy=%22622%22 r=%22570%22 fill=%22none%22 stroke=%22%23a98bff%22 stroke-width=%22100%22 mask=%22url(%23m)%22/><circle cx=%22310%22 cy=%22622%22 r=%22310%22 fill=%22%23a98bff%22/><circle cx=%221405%22 cy=%22622%22 r=%22310%22 fill=%22%23a98bff%22/></svg>">
+<style>
+:root{
+ --bg:#04070a;--panel:rgba(9,14,19,.72);--panel2:rgba(13,19,26,.85);
+ --ac:#a98bff;--ac2:#cdbcff;--env:#4be08e;--geo:#5aa9ff;--amber:#ffc46b;--teal:#35d0c0;--rose:#ff8fa3;
+ --txt:#eef4f0;--txt2:#93a7a0;--txt3:#5b6e66;--line:rgba(255,255,255,.09);
+ --ok:#4be08e;--warn:#ffc46b;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:rgba(169,139,255,.3)}
+#net{position:fixed;inset:0;z-index:0}
+#veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 42%,transparent 40%,rgba(4,7,10,.78) 100%)}
+
+header{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 28px;background:linear-gradient(180deg,rgba(4,7,10,.88),rgba(4,7,10,.55) 70%,transparent)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;text-decoration:none;color:var(--txt)}
+.brand svg{width:28px;height:auto}
+.brand small{font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3)}
+.hright{display:flex;align-items:center;gap:10px}
+.badge{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--txt2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;background:rgba(9,14,19,.6)}
+.badge i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ac);margin-right:7px;vertical-align:1px}
+#lang{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:rgba(9,14,19,.6)}
+#lang button{appearance:none;border:0;background:transparent;color:var(--txt3);font:inherit;font-size:11px;font-weight:700;letter-spacing:.1em;padding:7px 13px;cursor:pointer;transition:.2s}
+#lang button.on{background:var(--ac);color:#140d24}
+
+main{position:relative;z-index:10}
+section{min-height:100vh;display:flex;align-items:center;padding:110px 6vw 80px;position:relative}
+.wrap{width:100%;max-width:1180px;margin:0 auto}
+.kick{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ac);margin-bottom:18px}
+h1{font-size:clamp(34px,5vw,62px);line-height:1.12;letter-spacing:-.02em;font-weight:800;max-width:15em}
+h2{font-size:clamp(26px,3.4vw,42px);line-height:1.18;letter-spacing:-.018em;font-weight:800;max-width:17em}
+.lead{margin-top:20px;font-size:16.5px;line-height:1.65;color:var(--txt2);max-width:640px}
+.lead b{color:var(--txt);font-weight:600}
+
+.stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:38px}
+.stat{border:1px solid var(--line);border-radius:18px;padding:16px 22px;background:var(--panel);min-width:150px}
+.stat .v{font-size:26px;font-weight:800;letter-spacing:-.02em;color:var(--ac2);font-variant-numeric:tabular-nums}
+.stat .l{font-size:11.5px;color:var(--txt2);margin-top:4px;line-height:1.4}
+.scrollhint{margin-top:44px;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--txt3)}
+.scrollhint::after{content:"";display:block;width:1px;height:38px;margin-top:12px;background:linear-gradient(180deg,var(--ac),transparent)}
+
+.panel{border:1px solid var(--line);border-radius:22px;background:var(--panel);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:24px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:34px;align-items:start}
+@media(max-width:960px){.grid2{grid-template-columns:1fr}}
+
+/* flotta */
+.assets{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:34px}
+@media(max-width:960px){.assets{grid-template-columns:repeat(2,1fr)}}
+.asset{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:15px 16px;cursor:pointer;transition:border-color .25s,transform .25s;position:relative}
+.asset:hover{transform:translateY(-2px)}
+.asset.on{border-color:rgba(169,139,255,.65);box-shadow:0 14px 34px -22px var(--ac)}
+.asset .t{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ac)}
+.asset .n{font-size:13.5px;font-weight:700;margin-top:6px;line-height:1.35}
+.asset .m{font-size:11px;color:var(--txt2);margin-top:7px;font-variant-numeric:tabular-nums}
+.asset .dot{position:absolute;top:14px;right:14px;width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.asset .dot.w{background:var(--warn);box-shadow:0 0 8px var(--warn)}
+#adet{margin-top:16px;display:flex;gap:26px;flex-wrap:wrap;align-items:center;border:1px solid var(--line);border-radius:18px;background:var(--panel2);padding:18px 22px}
+#adet .kv{min-width:120px}
+#adet .kv .v{font-size:21px;font-weight:800;color:var(--ac2);font-variant-numeric:tabular-nums}
+#adet .kv .l{font-size:10.5px;color:var(--txt3);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+#adet .note{font-size:12.5px;color:var(--txt2);line-height:1.55;flex:1;min-width:220px}
+#adet .note b{color:var(--txt)}
+
+/* selezione */
+.objs{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.chip{appearance:none;border:1px solid var(--line);border-radius:999px;background:rgba(9,14,19,.6);color:var(--txt2);font:inherit;font-size:13px;font-weight:700;padding:11px 20px;cursor:pointer;transition:.25s}
+.chip:hover{color:var(--txt);border-color:rgba(255,255,255,.3)}
+.chip.on{background:var(--ac);border-color:var(--ac);color:#140d24}
+#gatebox{margin-top:26px;display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch}
+@media(max-width:960px){#gatebox{grid-template-columns:1fr}}
+.gcount{font-size:clamp(30px,3.2vw,44px);font-weight:800;letter-spacing:-.02em;color:var(--ac2);font-variant-numeric:tabular-nums}
+.gcount small{font-size:.45em;color:var(--txt2);font-weight:600;letter-spacing:0}
+.gsub{font-size:13px;color:var(--txt2);margin-top:8px;line-height:1.6}
+.meter{margin-top:20px}
+.meter .lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--txt3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.meter .bar{height:10px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden}
+.meter .bar b{display:block;height:100%;width:100%;border-radius:6px;background:linear-gradient(90deg,var(--teal),var(--ac));transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+.meter .big{font-size:24px;font-weight:800;color:var(--teal);margin-top:10px;font-variant-numeric:tabular-nums}
+.fams{display:grid;grid-template-columns:1fr 1fr;gap:9px 18px;margin-top:6px}
+.fam{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--txt2)}
+.fam i{width:8px;height:8px;border-radius:50%;flex:none}
+.fam b{color:var(--txt);font-weight:700;font-variant-numeric:tabular-nums;margin-left:auto}
+.gpu{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}
+.gpu .row{display:flex;justify-content:space-between;font-size:12px;color:var(--txt2);margin-bottom:8px}
+.gpu .row b{color:var(--txt);font-variant-numeric:tabular-nums}
+
+/* copertura e drift */
+.scn{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+canvas.chart{width:100%;height:300px;display:block}
+.chartcap{font-size:11px;color:var(--txt3);margin-top:12px;line-height:1.6}
+.covline{display:flex;align-items:center;gap:16px;margin-top:16px;border-top:1px solid var(--line);padding-top:16px}
+.covline .arc{flex:none}
+.covline p{font-size:12.5px;color:var(--txt2);line-height:1.55}
+.covline p b{color:var(--env)}
+.kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.kpi{border:1px solid var(--line);border-radius:14px;padding:12px 16px;background:var(--panel2);min-width:130px}
+.kpi .v{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--txt)}
+.kpi .v.ok{color:var(--env)}
+.kpi .v.wa{color:var(--warn)}
+.kpi .l{font-size:10.5px;color:var(--txt3);margin-top:3px;letter-spacing:.06em;text-transform:uppercase}
+
+/* certificato */
+#receipt{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;line-height:1.75;color:var(--txt2);border:1px solid var(--line);border-radius:18px;background:var(--panel2);padding:22px 24px;position:relative;overflow:hidden}
+#receipt .rk{color:var(--txt3)}
+#receipt .rv{color:var(--txt)}
+#receipt .hash{word-break:break-all;color:var(--ac2);letter-spacing:.02em}
+#receipt .sig{margin-top:14px;padding-top:14px;border-top:1px dashed rgba(255,255,255,.14)}
+#receipt::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--ac),transparent)}
+.rbtns{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+.btn{appearance:none;border:0;border-radius:999px;font:inherit;font-size:14px;font-weight:700;padding:13px 26px;cursor:pointer;transition:.25s;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn.p{background:var(--ac);color:#140d24}
+.btn.p:hover{transform:translateY(-2px);box-shadow:0 16px 36px -16px var(--ac)}
+.btn.s{border:1px solid var(--line);background:rgba(9,14,19,.6);color:var(--txt)}
+.btn.s:hover{border-color:rgba(255,255,255,.3)}
+#vres{font-size:12.5px;margin-top:14px;min-height:18px;color:var(--env);font-weight:600}
+.chain{margin-top:18px;font-size:11px;color:var(--txt3);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.9}
+.chain b{color:var(--txt2)}
+.map{margin-top:14px}
+.map .mrow{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--txt2);border-bottom:1px solid rgba(255,255,255,.05);padding:9px 2px}
+.map .mrow b{color:var(--txt);font-weight:600}
+.map .mrow span:last-child{color:var(--env);font-family:ui-monospace,Menlo,monospace;font-size:11px;white-space:nowrap}
+
+#close .panel{padding:34px}
+.closecta{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+footer{position:relative;z-index:10;border-top:1px solid var(--line);padding:34px 6vw 44px;font-size:11.5px;color:var(--txt3);line-height:1.8;background:rgba(4,7,10,.85)}
+footer .frow{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+footer .fb{max-width:560px}
+footer b{color:var(--txt2)}
+.pbadges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pbadges span{border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt2)}
+
+#rail{position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:12px}
+#rail a{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.16);transition:.3s;display:block}
+#rail a.on{background:var(--ac);box-shadow:0 0 10px var(--ac)}
+@media(max-width:960px){#rail{display:none}}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+ html{scroll-behavior:auto}
+ .rv{opacity:1;transform:none;transition:none}
+ .meter .bar b{transition:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="net" aria-hidden="true"></canvas>
+<div id="veil"></div>
+
+<header>
+  <a class="brand" href="#top">
+    <svg viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#a98bff" stroke-width="100" mask="url(#ebm)"/><circle cx="310" cy="622" r="310" fill="#a98bff"/><circle cx="1405" cy="622" r="310" fill="#a98bff"/></svg>
+    EcoBubble <small data-t="brandsub">Motore Ennous</small>
+  </a>
+  <div class="hright">
+    <span class="badge" data-t="hdrbadge"><i></i>Demo Portfolio · Governance AI</span>
+    <span class="badge">Ennous · Patent pending</span>
+    <div id="lang"><button id="lit" class="on" type="button">IT</button><button id="len" type="button">EN</button></div>
+  </div>
+</header>
+
+<div id="rail" aria-hidden="true"></div>
+
+<main id="top">
+
+<!-- HERO -->
+<section id="s0">
+  <div class="wrap">
+    <div class="kick rv" data-t="k0">Dimostrazione per un operatore di AI infrastructure al servizio della finanza</div>
+    <h1 class="rv" data-t="h0">Ospitare l&#8217;AI è metà del lavoro. L&#8217;altra metà è risponderne.</h1>
+    <p class="lead rv" data-t="l0">Banche e assicurazioni chiedono modelli affidabili e prove solide davanti alla vigilanza. La rete Ennous governa la flotta ospitata: <b>verifica la copertura</b> di ogni risposta, <b>individua le variazioni al primo segnale misurabile</b> e trasforma AI&nbsp;Act e DORA in <b>evidenze firmate</b>. Dati illustrativi.</p>
+    <div class="stats rv">
+      <div class="stat"><div class="v">247</div><div class="l" data-t="st1">modelli governati per banche e assicurazioni</div></div>
+      <div class="stat"><div class="v">238</div><div class="l" data-t="st2">motori di governance disponibili</div></div>
+      <div class="stat"><div class="v">~90%</div><div class="l" data-t="st3">copertura verificata delle risposte</div></div>
+      <div class="stat"><div class="v">SHA-256</div><div class="l" data-t="st4">catena di audit su ogni evidenza</div></div>
+    </div>
+    <div class="scrollhint rv" data-t="sh0">Scorri</div>
+  </div>
+</section>
+
+<!-- 01 LA FLOTTA -->
+<section id="s1">
+  <div class="wrap">
+    <div class="kick rv" data-t="k1">01 · La flotta di modelli</div>
+    <h2 class="rv" data-t="h1">Ogni modello ospitato ha un fascicolo aperto.</h2>
+    <p class="lead rv" data-t="l1">Credito, antifrode, antiriciclaggio, pricing, assistenti virtuali. Per ogni modello la rete mantiene classe AI&nbsp;Act, stato di conformità e profilo statistico, aggiornati in continuo. <b>Seleziona un modello</b> per aprirne il fascicolo.</p>
+    <div class="assets rv" id="assets"></div>
+    <div id="adet" class="rv"></div>
+  </div>
+</section>
+
+<!-- 02 SELEZIONE -->
+<section id="s2">
+  <div class="wrap">
+    <div class="kick rv" data-t="k2">02 · La rete si compone</div>
+    <h2 class="rv" data-t="h2">Ogni richiesta di governance accende motori diversi.</h2>
+    <p class="lead rv" data-t="l2">Audit, onboarding e test di vigilanza richiedono letture diverse. Per ogni compito la rete accende una <b>combinazione dedicata</b> di motori di verifica, con un <b>budget di calcolo esplicito</b>: il cliente vede quanto calcolo viene impiegato e quanto viene risparmiato. <b>Scegli un compito</b>.</p>
+    <div class="objs rv" id="objs"></div>
+    <div id="gatebox" class="rv">
+      <div class="panel">
+        <div class="gcount"><span id="gc">31</span> <small id="gct">motori accesi su 238</small></div>
+        <p class="gsub" id="gsub"></p>
+        <div class="meter">
+          <div class="lbl"><span data-t="mt1">Calcolo utilizzato</span><span data-t="mt2">rispetto alla rete piena</span></div>
+          <div class="bar"><b id="mbar"></b></div>
+          <div class="big" id="msave">−87%</div>
+        </div>
+        <div class="gpu">
+          <div class="row"><span data-t="gpu1">Budget di calcolo del compito</span><b id="gbud">120 GPU·h</b></div>
+          <div class="row"><span data-t="gpu2">Calcolo effettivamente impegnato</span><b id="guse">16 GPU·h</b></div>
+          <div class="row"><span data-t="gpu3">Restituito al cliente</span><b id="gret" style="color:var(--teal)">104 GPU·h</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <p class="gsub" style="margin:0 0 14px" data-t="famh">Famiglie di motori accese per questo compito</p>
+        <div class="fams" id="fams"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 COPERTURA E DRIFT -->
+<section id="s3">
+  <div class="wrap">
+    <div class="kick rv" data-t="k3">03 · Copertura e variazioni</div>
+    <h2 class="rv" data-t="h3">La conformità è una misura che si aggiorna.</h2>
+    <p class="lead rv" data-t="l3">Ogni modello dichiara una copertura e la rete la verifica in continuo. Quando i dati cambiano, la rete <b>individua il primo segnale misurabile</b>, ricompone i motori e ricalibra. Cambia il regime e osserva la risposta.</p>
+    <div class="scn rv" id="scns"></div>
+    <div class="grid2">
+      <div class="panel rv">
+        <p class="gsub" style="margin:0" id="fanTitle"></p>
+        <canvas class="chart" id="drift"></canvas>
+        <p class="chartcap" id="fanCap"></p>
+      </div>
+      <div class="panel rv">
+        <p class="gsub" style="margin:0" id="radTitle"></p>
+        <div class="covline" style="border-top:0;padding-top:6px">
+          <canvas class="arc" id="covArc" width="86" height="86"></canvas>
+          <p id="covTxt"></p>
+        </div>
+        <div class="kpis" id="kpis"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 CERTIFICATO -->
+<section id="s4">
+  <div class="wrap">
+    <div class="kick rv" data-t="k4">04 · Il certificato di copertura</div>
+    <h2 class="rv" data-t="h4">La vigilanza riceve evidenze firmate.</h2>
+    <p class="lead rv" data-t="l4">La rete raccoglie periodo, perimetro, copertura verificata ed esito in un certificato, firmato con <b>SHA-256 calcolato adesso, nel tuo browser</b>. La banca lo allega al proprio fascicolo e il revisore lo verifica in autonomia.</p>
+    <div class="grid2">
+      <div>
+        <div id="receipt" class="rv"></div>
+        <div class="rbtns rv">
+          <button class="btn p" id="signBtn" type="button" data-t="bsign">Emetti il certificato</button>
+          <button class="btn s" id="verBtn" type="button" data-t="bver">Verifica la firma</button>
+        </div>
+        <div id="vres"></div>
+      </div>
+      <div class="panel rv">
+        <p class="gsub" style="margin:0 0 6px" data-t="maph">Dal requisito all&#8217;evidenza firmata</p>
+        <div class="map" id="map"></div>
+        <p class="gsub" style="margin:14px 0 10px" data-t="chh">Catena di custodia della sessione</p>
+        <div class="chain" id="chain"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 CHIUSURA -->
+<section id="s5">
+  <div class="wrap">
+    <div class="kick rv" data-t="k5">05 · La tesi</div>
+    <h2 class="rv" data-t="h5">Loro ospitano l&#8217;intelligenza. Questa rete ne risponde.</h2>
+    <div class="panel rv" style="margin-top:30px">
+      <p class="lead" style="margin:0" data-t="l5">L&#8217;infrastruttura resta del suo operatore, i dati restano delle banche, la governance diventa un prodotto: copertura verificata, deriva sentita in anticipo, evidenze firmate che reggono davanti a vigilanza e revisori. I numeri di questa pagina sono illustrativi: quelli veri nascono dalla flotta reale, e restano dentro il perimetro del cliente.</p>
+      <div class="closecta">
+        <a class="btn p" href="mailto:info@ecobubble.it?subject=Demo%20Governance%20AI" data-t="cta1">Parliamone</a>
+        <a class="btn s" href="https://www.ecobubble.it" target="_blank" rel="noopener" data-t="cta2">EcoBubble</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="frow">
+    <div class="fb">
+      <b>EcoBubble S.r.l.</b> · <span data-t="f1">Infrastrutture di intelligenza artificiale costruite sulla singola organizzazione, orchestrate dal motore Ennous / Meta-Intelligence.</span><br>
+      <span data-t="f2">Dimostrazione a scopo illustrativo. Tutti i dati, i modelli e i numeri sono esemplificativi e non si riferiscono ad alcun cliente reale. Le coperture sono calibrate su storici dimostrativi.</span><br>
+      info@ecobubble.it
+    </div>
+    <div>
+      <div class="pbadges">
+        <span>Ennous · Patent pending</span>
+      </div>
+      <div style="margin-top:12px" data-t="f3">© 2026 EcoBubble S.r.l. · Tutti i diritti riservati.</div>
+    </div>
+  </div>
+</footer>
+
+<noscript><div style="position:fixed;inset:0;z-index:99;background:#04070a;color:#eef4f0;padding:120px 8vw;font-size:18px;line-height:1.7">Questa dimostrazione richiede JavaScript. EcoBubble sviluppa infrastrutture di intelligenza artificiale costruite sulla singola organizzazione. Scrivi a info@ecobubble.it.</div></noscript>
+
+<script>
+"use strict";
+/* ============================================================
+   Ennous · Demo Portfolio · Governance dell'AI, servizi finanziari
+   Dati illustrativi. Nessun meccanismo interno viene esposto.
+   ============================================================ */
+var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function $(s){return document.querySelector(s);}
+function $$(s){return [].slice.call(document.querySelectorAll(s));}
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+/* ---------------- i18n ---------------- */
+var L="it";
+var T={
+ brandsub:{it:"Motore Ennous",en:"Ennous engine"},
+ hdrbadge:{it:"Demo Portfolio · Governance AI",en:"Portfolio demo · AI governance"},
+ k0:{it:"Dimostrazione per un operatore di AI infrastructure al servizio della finanza",en:"Demonstration for an AI infrastructure operator serving finance"},
+ h0:{it:"Ospitare l’AI è metà del lavoro. L’altra metà è risponderne.",en:"Hosting AI is half the job. The other half is answering for it."},
+ l0:{it:"Banche e assicurazioni chiedono modelli affidabili e prove solide davanti alla vigilanza. La rete Ennous governa la flotta ospitata: <b>verifica la copertura</b> di ogni risposta, <b>individua le variazioni al primo segnale misurabile</b> e trasforma AI&nbsp;Act e DORA in <b>evidenze firmate</b>. Dati illustrativi.",
+     en:"Banks and insurers ask for reliable models and solid evidence for regulators. The Ennous network governs the hosted fleet: it <b>verifies coverage</b> for every answer, <b>identifies change at the first measurable signal</b> and delivers AI&nbsp;Act and DORA requirements as <b>signed evidence</b>. Illustrative data."},
+ st1:{it:"modelli governati per banche e assicurazioni",en:"models governed for banks and insurers"},
+ st2:{it:"motori di governance disponibili",en:"governance engines available"},
+ st3:{it:"copertura verificata delle risposte",en:"verified coverage of answers"},
+ st4:{it:"catena di audit su ogni evidenza",en:"audit chain on every piece of evidence"},
+ sh0:{it:"Scorri",en:"Scroll"},
+ k1:{it:"01 · La flotta di modelli",en:"01 · The model fleet"},
+ h1:{it:"Ogni modello ospitato ha un fascicolo aperto.",en:"Every hosted model has an open dossier."},
+ l1:{it:"Credito, antifrode, antiriciclaggio, pricing, assistenti virtuali. Per ogni modello la rete mantiene classe AI&nbsp;Act, stato di conformità e profilo statistico, aggiornati in continuo. <b>Seleziona un modello</b> per aprirne il fascicolo.",
+     en:"Credit, fraud defence, anti money laundering, pricing and virtual assistants. For every model the network keeps its AI&nbsp;Act class, compliance state and statistical profile current. <b>Select a model</b> to open its dossier."},
+ k2:{it:"02 · La rete si compone",en:"02 · The network assembles"},
+ h2:{it:"Ogni richiesta di governance accende motori diversi.",en:"Every governance request lights different engines."},
+ l2:{it:"Audit, onboarding e test di vigilanza richiedono letture diverse. Per ogni compito la rete accende una <b>combinazione dedicata</b> di motori di verifica, con un <b>budget di calcolo esplicito</b>: il cliente vede quanto calcolo viene impiegato e quanto viene risparmiato. <b>Scegli un compito</b>.",
+     en:"Audits, onboarding and supervisory tests require different readings. For each task the network lights a <b>dedicated combination</b> of verification engines with an <b>explicit compute budget</b>: the client sees the compute used and the amount saved. <b>Pick a task</b>."},
+ mt1:{it:"Calcolo utilizzato",en:"Compute in use"},
+ mt2:{it:"rispetto alla rete piena",en:"versus the full network"},
+ gpu1:{it:"Budget di calcolo del compito",en:"Compute budget for the task"},
+ gpu2:{it:"Calcolo effettivamente impegnato",en:"Compute actually committed"},
+ gpu3:{it:"Restituito al cliente",en:"Returned to the client"},
+ famh:{it:"Famiglie di motori accese per questo compito",en:"Engine families lit for this task"},
+ k3:{it:"03 · Copertura e variazioni",en:"03 · Coverage and change"},
+ h3:{it:"La conformità è una misura che si aggiorna.",en:"Compliance is a measure that stays current."},
+ l3:{it:"Ogni modello dichiara una copertura e la rete la verifica in continuo. Quando i dati cambiano, la rete <b>individua il primo segnale misurabile</b>, ricompone i motori e ricalibra. Cambia il regime e osserva la risposta.",
+     en:"Every model declares coverage and the network verifies it continuously. When data changes, the network <b>identifies the first measurable signal</b>, recomposes its engines and recalibrates. Switch the regime and observe the response."},
+ k4:{it:"04 · Il certificato di copertura",en:"04 · The coverage certificate"},
+ h4:{it:"La vigilanza riceve evidenze firmate.",en:"Regulators receive signed evidence."},
+ l4:{it:"La rete raccoglie periodo, perimetro, copertura verificata ed esito in un certificato, firmato con <b>SHA-256 calcolato adesso, nel tuo browser</b>. La banca lo allega al proprio fascicolo e il revisore lo verifica in autonomia.",
+     en:"The network gathers period, scope, verified coverage and outcome in a certificate signed with <b>SHA-256 computed now, in your browser</b>. The bank files it and the auditor verifies it independently."},
+ bsign:{it:"Emetti il certificato",en:"Issue the certificate"},
+ bver:{it:"Verifica la firma",en:"Verify the signature"},
+ maph:{it:"Dal requisito all’evidenza firmata",en:"From requirement to signed evidence"},
+ chh:{it:"Catena di custodia della sessione",en:"Chain of custody for this session"},
+ k5:{it:"05 · La tesi",en:"05 · The thesis"},
+ h5:{it:"Loro ospitano l’intelligenza. Questa rete ne risponde.",en:"They host the intelligence. This network answers for it."},
+ l5:{it:"L’infrastruttura resta del suo operatore, i dati restano delle banche, la governance diventa un prodotto: copertura verificata, deriva sentita in anticipo, evidenze firmate che reggono davanti a vigilanza e revisori. I numeri di questa pagina sono illustrativi: quelli veri nascono dalla flotta reale, e restano dentro il perimetro del cliente.",
+     en:"The infrastructure stays with its operator, the data stays with the banks, governance becomes a product: verified coverage, drift sensed ahead of time, signed evidence that stands before regulators and auditors. The figures on this page are illustrative: the real ones grow from the real fleet, and never leave the client perimeter."},
+ cta1:{it:"Parliamone",en:"Talk to us"},
+ cta2:{it:"EcoBubble",en:"EcoBubble"},
+ f1:{it:"Infrastrutture di intelligenza artificiale costruite sulla singola organizzazione, orchestrate dal motore Ennous / Meta-Intelligence.",
+     en:"Artificial intelligence infrastructure built on the single organisation, orchestrated by the Ennous / Meta-Intelligence engine."},
+ f2:{it:"Dimostrazione a scopo illustrativo. Tutti i dati, i modelli e i numeri sono esemplificativi e non si riferiscono ad alcun cliente reale. Le coperture sono calibrate su storici dimostrativi.",
+     en:"Demonstration for illustration only. All data, models and figures are examples and refer to no real client. Coverage is calibrated on demonstration records."},
+ fp1:{it:"Metodo Geo-Driven · Patent pending",en:"Geo-Driven method · Patent pending"},
+ fp2:{it:"Metodo Bio-Driven · Patent pending",en:"Bio-Driven method · Patent pending"},
+ f3:{it:"© 2026 EcoBubble S.r.l. · Tutti i diritti riservati.",en:"© 2026 EcoBubble S.r.l. · All rights reserved."}
+};
+
+/* ---------------- dati illustrativi ---------------- */
+var FAMS=[
+ {it:"Verifica di copertura",en:"Coverage verification",c:"#4be08e"},
+ {it:"Sorveglianza della deriva",en:"Drift surveillance",c:"#5aa9ff"},
+ {it:"Spiegabilità e contestazioni",en:"Explainability and challenge",c:"#ffc46b"},
+ {it:"Resilienza e continuità",en:"Resilience and continuity",c:"#35d0c0"},
+ {it:"Protezione del dato",en:"Data protection",c:"#ff8fa3"},
+ {it:"Reporting di vigilanza",en:"Regulatory reporting",c:"#a98bff"}
+];
+var OBJS=[
+ {id:"audit",it:"Audit AI Act",en:"AI Act audit",n:31,save:87,bud:120,use:16,seed:13,
+  mix:[8,4,7,2,3,7],
+  gsub:{it:"Per un audit la rete accende verifica di copertura, spiegabilità e reporting. La flotta continua a servire i clienti: l’audit non la ferma.",
+        en:"For an audit the network lights coverage checks, explainability and reporting. The fleet keeps serving clients: the audit does not stop it."}},
+ {id:"dora",it:"Incidente DORA",en:"DORA incident",n:44,save:81,bud:200,use:38,seed:41,
+  mix:[6,9,3,12,8,6],
+  gsub:{it:"Su un incidente la priorità è la continuità: si accendono resilienza, sorveglianza e protezione del dato, con il cronometro della notifica già attivo.",
+        en:"On an incident, continuity leads: resilience, surveillance and data protection light up, with the notification clock already running."}},
+ {id:"onb",it:"Onboarding di una banca",en:"Bank onboarding",n:26,save:89,bud:90,use:10,seed:67,
+  mix:[7,3,4,3,5,4],
+  gsub:{it:"Per portare una nuova banca a bordo la rete misura i suoi modelli, ne dichiara la copertura di partenza e apre il fascicolo di ciascuno.",
+        en:"To bring a new bank aboard, the network measures its models, declares their starting coverage and opens a dossier for each."}},
+ {id:"stress",it:"Stress test di vigilanza",en:"Supervisory stress test",n:52,save:78,bud:260,use:57,seed:89,
+  mix:[11,9,8,9,5,10],
+  gsub:{it:"Lo stress test è il compito più largo: cinquantadue motori riproducono regimi estremi e misurano dove le promesse dei modelli si rompono.",
+        en:"The stress test is the widest task: fifty two engines reproduce extreme regimes and measure where model promises break."}}
+];
+var SCNS=[
+ {id:"norm",it:"Regime normale",en:"Normal regime",cov:89.6,drift:0,regate:"n.a.",inc:0,
+  cap:{it:"Profilo statistico della flotta su 26 settimane. Coerenza confermata tra copertura dichiarata e osservata.",
+       en:"Statistical profile of the fleet across 26 weeks. Declared and observed coverage remain aligned."}},
+ {id:"drift",it:"Variazione dei dati",en:"Data change",cov:88.9,drift:1,regate:"4 h",inc:0,
+  cap:{it:"Alla settimana 14 i dati cambiano regime. La rete individua il segnale con 9 giorni di anticipo, ricompone i motori e ricalibra mantenendo la copertura nella banda dichiarata.",
+       en:"At week 14 the data changes regime. The network identifies the signal 9 days early, recomposes its engines and recalibrates while keeping coverage within the declared band."}},
+ {id:"peak",it:"Picco di domanda",en:"Demand peak",cov:89.2,drift:0,regate:"n.a.",inc:0,
+  cap:{it:"Un picco di traffico stringe il budget di calcolo. La rete spegne i motori meno informativi e protegge la copertura promessa: meno calcolo, stessa promessa.",
+       en:"A traffic peak tightens the compute budget. The network switches off the least informative engines and protects the promised coverage: less compute, same promise."}},
+ {id:"new",it:"Nuovo modello in ingresso",en:"New model intake",cov:90.4,drift:0,regate:"48 h",inc:0,
+  cap:{it:"Un modello nuovo entra in flotta sotto tutela: la rete lo osserva, ne calibra la confidenza e lo promuove solo quando la copertura promessa è verificata.",
+       en:"A new model enters the fleet under guardianship: the network watches it, calibrates its confidence and promotes it only once the promised coverage is verified."}}
+];
+var ASSETS=[
+ {t:"CREDITO",n:{it:"Scoring del credito retail",en:"Retail credit scoring"},risk:{it:"AI Act · alto rischio",en:"AI Act · high risk"},cov:91.2,ok:1,
+  note:{it:"Copertura dichiarata 90%, osservata 91.2%. Ultimo re-gating 12 giorni fa, stato di revisione allineato.",en:"Declared coverage 90%, observed 91.2%. Last re-gating 12 days ago, review state aligned."}},
+ {t:"ANTIFRODE",n:{it:"Antifrode sui pagamenti",en:"Payment fraud defence"},risk:{it:"AI Act · alto rischio",en:"AI Act · high risk"},cov:90.5,ok:1,
+  note:{it:"Latenza sotto i limiti concordati, falsi positivi in banda. Fascicolo completo per la banca titolare.",en:"Latency within agreed limits, false positives in band. Dossier complete for the owning bank."}},
+ {t:"AML",n:{it:"Monitoraggio antiriciclaggio",en:"Anti money laundering watch"},risk:{it:"AI Act · alto rischio",en:"AI Act · high risk"},cov:88.1,ok:0,
+  note:{it:"Variazione graduale nei pattern di transazione, individuata <b>al primo segnale misurabile</b>. Re-gating programmato entro 4 ore, evidenza già tracciata.",en:"A gradual change in transaction patterns was identified <b>at the first measurable signal</b>. Re-gating is scheduled within 4 hours and evidence is already recorded."}},
+ {t:"PRICING",n:{it:"Pricing assicurativo danni",en:"Non life insurance pricing"},risk:{it:"AI Act · alto rischio",en:"AI Act · high risk"},cov:90.9,ok:1,
+  note:{it:"Equità tariffaria verificata sulle coorti sensibili, evidenze firmate a ogni rilascio.",en:"Pricing fairness verified on sensitive cohorts, evidence signed at every release."}},
+ {t:"ASSISTENTE",n:{it:"Assistente virtuale clienti",en:"Customer virtual assistant"},risk:{it:"AI Act · rischio limitato",en:"AI Act · limited risk"},cov:89.4,ok:1,
+  note:{it:"Risposte guidate nel perimetro dichiarato, trasparenza verso l’utente già documentata.",en:"Answers remain within the declared scope, with user transparency already documented."}},
+ {t:"KYC",n:{it:"Lettura documenti KYC",en:"KYC document reading"},risk:{it:"AI Act · alto rischio",en:"AI Act · high risk"},cov:92.0,ok:1,
+  note:{it:"Accuratezza di estrazione oltre il 99.5% sulle classi rilevanti, revisione umana mirata.",en:"Extraction accuracy above 99.5% on relevant classes, with targeted human review."}},
+ {t:"RECUPERO",n:{it:"Priorità di recupero crediti",en:"Collections priority"},risk:{it:"AI Act · alto rischio",en:"AI Act · high risk"},cov:88.7,ok:0,
+  note:{it:"Variazione recente fra coorti individuata dalla rete: le decisioni sensibili seguono la revisione umana.",en:"A recent cohort variation was identified by the network: sensitive decisions follow human review."}},
+ {t:"TESORERIA",n:{it:"Previsione di liquidità",en:"Liquidity forecasting"},risk:{it:"AI Act · rischio limitato",en:"AI Act · limited risk"},cov:90.1,ok:1,
+  note:{it:"Bande di confidenza rispettate in 9 finestre su 10, come promesso.",en:"Confidence bands held in 9 windows out of 10, as promised."}}
+];
+var MAPROWS=[
+ {req:{it:"AI Act · governance dei dati",en:"AI Act · data governance"},ev:"#0142"},
+ {req:{it:"AI Act · sorveglianza post-mercato",en:"AI Act · post market watch"},ev:"#0157"},
+ {req:{it:"AI Act · trasparenza verso l’utente",en:"AI Act · user transparency"},ev:"#0163"},
+ {req:{it:"DORA · resilienza digitale",en:"DORA · digital resilience"},ev:"#0171"},
+ {req:{it:"DORA · notifica degli incidenti",en:"DORA · incident notification"},ev:"#0178"},
+ {req:{it:"DORA · test di continuità",en:"DORA · continuity testing"},ev:"#0185"}
+];
+
+/* ---------------- rete di sfondo ---------------- */
+var NET=(function(){
+ var cv=$("#net"),CN=120,N=15000,centers=[],pointCluster=new Uint16Array(N);
+ var pos=new Float32Array(N*3),sizeA=new Float32Array(N),c0=new Float32Array(N*4),c1=new Float32Array(N*4);
+ var rnd=mulberry(20260710),i;
+ function litSetFor(seed,count){var rr=mulberry(seed),o={},n=0,guard=0;
+  while(n<count&&guard++<5000){var c=Math.floor(rr()*CN);if(!o[c]){o[c]=1;n++;}}return o;}
+ var gl=cv.getContext("webgl",{alpha:true,antialias:false,premultipliedAlpha:false})||cv.getContext("experimental-webgl");
+ if(!gl)return{setLit:function(){},litSetFor:litSetFor};
+ for(i=0;i<CN;i++){var a=i*2.399963,r=.18+.84*Math.sqrt(i/(CN-1));
+  centers.push([Math.cos(a)*r*1.25+(rnd()-.5)*.08,Math.sin(a)*r*.76+(rnd()-.5)*.07,(rnd()-.5)*.28]);}
+ for(i=0;i<N;i++){var ci=i%CN,cc=centers[ci],aa=rnd()*6.283185,rr=.012+Math.pow(rnd(),1.9)*.078,o=i*3;
+  pointCluster[i]=ci;pos[o]=cc[0]+Math.cos(aa)*rr;pos[o+1]=cc[1]+Math.sin(aa)*rr*.82;pos[o+2]=cc[2]+(rnd()-.5)*.10;
+  sizeA[i]=.55+rnd()*1.65;}
+ function shader(type,src){var s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);
+  if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s;}
+ function program(vs,fs){var p=gl.createProgram();gl.attachShader(p,shader(gl.VERTEX_SHADER,vs));gl.attachShader(p,shader(gl.FRAGMENT_SHADER,fs));gl.linkProgram(p);
+  if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(p));return p;}
+ var VS="attribute vec3 aP;attribute vec4 aC0;attribute vec4 aC1;attribute float aS;uniform float uMix;uniform float uAsp;uniform float uDpr;uniform vec2 uMouse;varying vec4 vC;void main(){vec3 p=aP;float ax=uMouse.y*.18;float ay=uMouse.x*.24;float cx=cos(ax),sx=sin(ax),cy=cos(ay),sy=sin(ay);p=vec3(cy*p.x+sy*p.z,cx*p.y-sx*(-sy*p.x+cy*p.z),sx*p.y+cx*(-sy*p.x+cy*p.z));float z=2.55-p.z;vec2 q=p.xy/z*2.15;q.x/=uAsp;gl_Position=vec4(q,0.,1.);vC=mix(aC0,aC1,uMix);gl_PointSize=min(7.,aS*uDpr*(.72+vC.a*5.2));}";
+ var FS="precision mediump float;varying vec4 vC;void main(){vec2 q=gl_PointCoord-.5;float d=dot(q,q);if(d>.25)discard;float a=smoothstep(.25,.015,d);gl_FragColor=vec4(vC.rgb,vC.a*a);}";
+ var LVS="attribute vec3 aP;uniform float uAsp;uniform vec2 uMouse;void main(){vec3 p=aP;float ax=uMouse.y*.18;float ay=uMouse.x*.24;float cx=cos(ax),sx=sin(ax),cy=cos(ay),sy=sin(ay);p=vec3(cy*p.x+sy*p.z,cx*p.y-sx*(-sy*p.x+cy*p.z),sx*p.y+cx*(-sy*p.x+cy*p.z));float z=2.55-p.z;vec2 q=p.xy/z*2.15;q.x/=uAsp;gl_Position=vec4(q,0.,1.);}";
+ var LFS="precision mediump float;uniform vec4 uColor;void main(){gl_FragColor=uColor;}";
+ var P=program(VS,FS),LP=program(LVS,LFS);
+ function makeBuffer(data,usage){var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,data,usage);return b;}
+ var bP=makeBuffer(pos,gl.STATIC_DRAW),bS=makeBuffer(sizeA,gl.STATIC_DRAW),bC0=makeBuffer(c0,gl.DYNAMIC_DRAW),bC1=makeBuffer(c1,gl.DYNAMIC_DRAW);
+ var edgePos=new Float32Array(0),bE=makeBuffer(edgePos,gl.DYNAMIC_DRAW),edgeCount=0;
+ function locs(p,names){var o={};for(var k=0;k<names.length;k++)o[names[k]]=gl.getAttribLocation(p,names[k]);return o;}
+ var A=locs(P,["aP","aC0","aC1","aS"]),LA=locs(LP,["aP"]);
+ var U={mix:gl.getUniformLocation(P,"uMix"),asp:gl.getUniformLocation(P,"uAsp"),dpr:gl.getUniformLocation(P,"uDpr"),mouse:gl.getUniformLocation(P,"uMouse")};
+ var LU={asp:gl.getUniformLocation(LP,"uAsp"),mouse:gl.getUniformLocation(LP,"uMouse"),color:gl.getUniformLocation(LP,"uColor")};
+ function attr(loc,b,n){gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,n,gl.FLOAT,false,0,0);}
+ function rgb(hex){var n=parseInt((hex||"#ffffff").slice(1),16);return[(n>>16&255)/255,(n>>8&255)/255,(n&255)/255];}
+ function mixNow(u){for(var k=0;k<c0.length;k++)c0[k]=c0[k]+(c1[k]-c0[k])*u;}
+ function targetColor(arr,pi,lit){var col=rgb(FAMS[pointCluster[pi]%FAMS.length].c),active=lit>.5,o=pi*4;
+  arr[o]=Math.min(1,col[0]*(active?1.12:.52)+(active?.035:0));arr[o+1]=Math.min(1,col[1]*(active?1.12:.52)+(active?.035:0));arr[o+2]=Math.min(1,col[2]*(active?1.12:.52)+(active?.035:0));
+  arr[o+3]=active?.07+.28*lit:.008+.035*lit;}
+ var start=performance.now(),duration=900,targetLit=new Float32Array(CN);
+ function buildEdges(set){var ids=[];for(var k=0;k<CN;k++)if(!set||set[k])ids.push(k);var out=[];
+  for(var q=0;q<ids.length;q++){var ii=ids[q],best=-1,bd=1e9,a=centers[ii];
+   for(var j=0;j<ids.length;j++){var jj=ids[j];if(jj===ii)continue;var b=centers[jj],dx=a[0]-b[0],dy=a[1]-b[1],dz=a[2]-b[2],d=dx*dx+dy*dy+dz*dz;if(d<bd){bd=d;best=jj;}}
+   if(best>=0&&ii<best){out.push(a[0],a[1],a[2],centers[best][0],centers[best][1],centers[best][2]);}}
+  edgePos=new Float32Array(out);edgeCount=edgePos.length/3;gl.bindBuffer(gl.ARRAY_BUFFER,bE);gl.bufferData(gl.ARRAY_BUFFER,edgePos,gl.DYNAMIC_DRAW);}
+ function setLit(set,flash){var now=performance.now(),u=Math.min(1,(now-start)/duration);mixNow(u);
+  for(var k=0;k<CN;k++)targetLit[k]=set?(set[k]?1:.10):.62;
+  for(var p=0;p<N;p++)targetColor(c1,p,targetLit[pointCluster[p]]);
+  gl.bindBuffer(gl.ARRAY_BUFFER,bC0);gl.bufferSubData(gl.ARRAY_BUFFER,0,c0);gl.bindBuffer(gl.ARRAY_BUFFER,bC1);gl.bufferSubData(gl.ARRAY_BUFFER,0,c1);
+  start=now;duration=flash?520:880;buildEdges(set);}
+ var W=0,H=0,dpr=1,asp=1,tx=0,ty=0,mx=0,my=0;
+ function resize(){dpr=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;asp=W/H;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);gl.viewport(0,0,cv.width,cv.height);}
+ resize();addEventListener("resize",resize);addEventListener("pointermove",function(e){tx=e.clientX/W-.5;ty=e.clientY/H-.5;},{passive:true});
+ gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);gl.disable(gl.DEPTH_TEST);gl.clearColor(0,0,0,0);
+ function frame(now){mx+=(tx-mx)*.035;my+=(ty-my)*.035;var u=reduced?1:Math.min(1,(now-start)/duration);gl.clear(gl.COLOR_BUFFER_BIT);
+  if(edgeCount){gl.useProgram(LP);attr(LA.aP,bE,3);gl.uniform1f(LU.asp,asp);gl.uniform2f(LU.mouse,mx,my);gl.uniform4f(LU.color,1,1,1,.075);gl.drawArrays(gl.LINES,0,edgeCount);}
+  gl.useProgram(P);attr(A.aP,bP,3);attr(A.aC0,bC0,4);attr(A.aC1,bC1,4);attr(A.aS,bS,1);gl.uniform1f(U.mix,u);gl.uniform1f(U.asp,asp);gl.uniform1f(U.dpr,dpr);gl.uniform2f(U.mouse,mx,my);gl.drawArrays(gl.POINTS,0,N);
+  requestAnimationFrame(frame);}
+ setLit(null,false);requestAnimationFrame(frame);
+ return{setLit:setLit,litSetFor:litSetFor};
+})();
+
+/* ---------------- flotta ---------------- */
+var aSel=2;
+function renderAssets(){
+ var host=$("#assets");host.innerHTML="";
+ ASSETS.forEach(function(a,i){
+  var d=document.createElement("div");
+  d.className="asset"+(i===aSel?" on":"");
+  d.innerHTML='<span class="dot'+(a.ok?"":" w")+'"></span><div class="t">'+a.t+'</div><div class="n">'+a.n[L]+'</div><div class="m">'+a.risk[L]+"<br>"+(L==="it"?"copertura":"coverage")+" "+a.cov.toFixed(1)+"%</div>";
+  d.addEventListener("click",function(){aSel=i;renderAssets();});
+  host.appendChild(d);
+ });
+ var a=ASSETS[aSel];
+ $("#adet").innerHTML=
+  '<div class="kv"><div class="v">'+a.cov.toFixed(1)+'%</div><div class="l">'+(L==="it"?"Copertura osservata":"Observed coverage")+"</div></div>"+
+  '<div class="kv"><div class="v">90%</div><div class="l">'+(L==="it"?"Copertura promessa":"Promised coverage")+"</div></div>"+
+  '<div class="kv"><div class="v">'+(a.ok?"✓":"⟳")+'</div><div class="l">'+(a.ok?(L==="it"?"Conforme":"Compliant"):(L==="it"?"In osservazione":"Under watch"))+"</div></div>"+
+  '<div class="note"><b>'+a.n[L]+"</b> · "+a.note[L]+"</div>";
+}
+
+/* ---------------- selezione / gating ---------------- */
+var oSel=0,countAnim=null;
+function renderObjs(){
+ var host=$("#objs");host.innerHTML="";
+ OBJS.forEach(function(o,i){
+  var b=document.createElement("button");
+  b.type="button";b.className="chip"+(i===oSel?" on":"");
+  b.textContent=o[L];
+  b.addEventListener("click",function(){oSel=i;applyObj(true);renderObjs();});
+  host.appendChild(b);
+ });
+}
+function applyObj(flash){
+ var o=OBJS[oSel];
+ NET.setLit(NET.litSetFor(o.seed,Math.round(o.n*120/238)+8),flash);
+ var from=parseInt($("#gc").textContent,10)||238,to=o.n,t0=null;
+ if(countAnim)cancelAnimationFrame(countAnim);
+ if(reduced){$("#gc").textContent=to;}
+ else{
+  var start=flash?238:from;
+  (function tick(now){if(t0===null)t0=now;var u=Math.min(1,(now-t0)/900);
+   $("#gc").textContent=Math.round(start+(to-start)*(u*u*(3-2*u)));
+   if(u<1)countAnim=requestAnimationFrame(tick);})(performance.now());
+ }
+ $("#gct").textContent=(L==="it"?"motori accesi su 238":"engines lit of 238");
+ $("#gsub").textContent=o.gsub[L];
+ $("#mbar").style.width=(100-o.save)+"%";
+ $("#msave").textContent="−"+o.save+"%";
+ $("#gbud").textContent=o.bud+" GPU·h";
+ $("#guse").textContent=o.use+" GPU·h";
+ $("#gret").textContent=(o.bud-o.use)+" GPU·h";
+ var fh=$("#fams");fh.innerHTML="";
+ FAMS.forEach(function(f,i){
+  var d=document.createElement("div");d.className="fam";
+  d.innerHTML='<i style="background:'+f.c+';box-shadow:0 0 8px '+f.c+'"></i>'+f[L]+"<b>"+o.mix[i]+"</b>";
+  fh.appendChild(d);
+ });
+}
+
+/* ---------------- copertura e drift ---------------- */
+var sSel=0,animT=1,fromData=null,curData=null;
+function scnData(idx){
+ var pts=[],i;
+ for(i=0;i<26;i++){
+  var v=.92+Math.sin(i*.8)*.008;
+  if(idx===1){ /* deriva alla settimana 14, re-gating alla 16, recupero */
+   if(i>=13&&i<16)v=.92-(i-12)*.055;
+   else if(i===16)v=.80;
+   else if(i>16)v=Math.min(.92,.80+(i-16)*.035);
+  }
+  if(idx===2){ if(i>=18&&i<=21)v=.875+Math.abs(20-i)*.008; }
+  if(idx===3){ v=i<7?.78+i*.02:.92+Math.sin(i*.8)*.008; }
+  pts.push(v);
+ }
+ return {pts:pts,mark:idx===1?16:(idx===3?7:-1)};
+}
+function renderScns(){
+ var host=$("#scns");host.innerHTML="";
+ SCNS.forEach(function(s,i){
+  var b=document.createElement("button");
+  b.type="button";b.className="chip"+(i===sSel?" on":"");
+  b.textContent=s[L];
+  b.addEventListener("click",function(){
+   sSel=i;fromData=curData;animT=reduced?1:0;renderScns();updateScnTexts();
+   NET.setLit(NET.litSetFor(OBJS[oSel].seed+i*7,Math.round(OBJS[oSel].n*120/238)+8+i*3),true);
+  });
+  host.appendChild(b);
+ });
+}
+function updateScnTexts(){
+ var s=SCNS[sSel];
+ $("#fanTitle").textContent=(L==="it"?"Profilo statistico della flotta · 26 settimane":"Fleet statistical profile · 26 weeks");
+ $("#fanCap").textContent=s.cap[L];
+ $("#radTitle").textContent=(L==="it"?"La promessa, verificata":"The promise, verified");
+ $("#covTxt").innerHTML=(L==="it"
+  ?"<b>Copertura verificata "+s.cov.toFixed(1)+"%.</b> Promessa 90%: su 10 risposte con confidenza dichiarata, circa 9 si sono rivelate corrette entro la banda. La differenza fra promesso e osservato è essa stessa sorvegliata."
+  :"<b>Verified coverage "+s.cov.toFixed(1)+"%.</b> Promise 90%: of 10 answers with declared confidence, about 9 proved correct within the band. The gap between promised and observed is itself under watch.");
+ $("#kpis").innerHTML=
+  '<div class="kpi"><div class="v ok">'+s.cov.toFixed(1)+"%</div><div class='l'>"+(L==="it"?"Copertura osservata":"Observed coverage")+"</div></div>"+
+  '<div class="kpi"><div class="v'+(s.drift?" wa":"")+'">'+s.drift+"</div><div class='l'>"+(L==="it"?"Variazioni osservate":"Observed changes")+"</div></div>"+
+  '<div class="kpi"><div class="v">'+s.regate+"</div><div class='l'>"+(L==="it"?"Tempo di re-gating":"Re-gating time")+"</div></div>"+
+  '<div class="kpi"><div class="v ok">'+s.inc+"</div><div class='l'>"+(L==="it"?"Segnali in revisione":"Signals under review")+"</div></div>";
+}
+function lerpData(a,b,t){
+ if(!a||t>=1)return b;
+ var o={pts:[],mark:b.mark},i;
+ for(i=0;i<b.pts.length;i++)o.pts.push(a.pts[i]+(b.pts[i]-a.pts[i])*t);
+ return o;
+}
+function fitCanvas(cv){
+ var dpr=Math.min(2,devicePixelRatio||1),r=cv.getBoundingClientRect();
+ if(!r.width)return null;
+ cv.width=r.width*dpr;cv.height=r.height*dpr;
+ var ctx=cv.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);
+ return {ctx:ctx,w:r.width,h:r.height};
+}
+function drawDrift(data){
+ var f=fitCanvas($("#drift"));if(!f)return;
+ var ctx=f.ctx,w=f.w,h=f.h,pad=34;
+ var y0=.70,y1=1.0;
+ function X(i){return pad+(w-pad-12)*(i/25);}
+ function Y(v){return h-26-(h-50)*((v-y0)/(y1-y0));}
+ ctx.strokeStyle="rgba(255,255,255,.07)";ctx.lineWidth=1;ctx.font="10px ui-monospace,Menlo,monospace";ctx.fillStyle="rgba(147,167,160,.8)";
+ [.75,.80,.85,.90,.95].forEach(function(g){
+  ctx.beginPath();ctx.moveTo(pad,Y(g));ctx.lineTo(w-8,Y(g));ctx.stroke();
+  ctx.fillText((g*100).toFixed(0),8,Y(g)+3);
+ });
+ ctx.setLineDash([5,5]);ctx.strokeStyle="rgba(255,143,163,.55)";
+ ctx.beginPath();ctx.moveTo(pad,Y(.82));ctx.lineTo(w-8,Y(.82));ctx.stroke();ctx.setLineDash([]);
+ ctx.fillStyle="rgba(255,143,163,.8)";ctx.fillText(L==="it"?"banda di verifica":"verification band",w-118,Y(.82)-6);
+ /* area sotto la curva */
+ var i;
+ ctx.beginPath();ctx.moveTo(X(0),Y(data.pts[0]));
+ for(i=1;i<26;i++)ctx.lineTo(X(i),Y(data.pts[i]));
+ ctx.lineTo(X(25),h-26);ctx.lineTo(X(0),h-26);ctx.closePath();
+ var gr=ctx.createLinearGradient(0,0,0,h);
+ gr.addColorStop(0,"rgba(169,139,255,.16)");gr.addColorStop(1,"rgba(169,139,255,0)");
+ ctx.fillStyle=gr;ctx.fill();
+ ctx.lineWidth=2;ctx.strokeStyle="#a98bff";
+ ctx.beginPath();for(i=0;i<26;i++)ctx[i?"lineTo":"moveTo"](X(i),Y(data.pts[i]));ctx.stroke();
+ /* marcatore re-gating */
+ if(data.mark>=0){
+  var mx=X(data.mark),my=Y(data.pts[data.mark]);
+  ctx.strokeStyle="rgba(53,208,192,.7)";ctx.setLineDash([3,4]);
+  ctx.beginPath();ctx.moveTo(mx,h-26);ctx.lineTo(mx,my);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle="#35d0c0";ctx.beginPath();ctx.arc(mx,my,4,0,6.29);ctx.fill();
+  ctx.fillText("re-gating",Math.min(mx+6,w-70),my-8);
+ }
+ ctx.fillStyle="rgba(147,167,160,.8)";
+ ctx.fillText(L==="it"?"settimane":"weeks",w-70,h-8);
+}
+function chartLoop(){
+ var target=scnData(sSel);
+ if(animT<1)animT=Math.min(1,animT+.045);
+ curData=lerpData(fromData,target,animT*animT*(3-2*animT));
+ drawDrift(curData);
+ requestAnimationFrame(chartLoop);
+}
+function drawCov(){
+ var cv=$("#covArc"),ctx=cv.getContext("2d"),dpr=Math.min(2,devicePixelRatio||1);
+ cv.width=86*dpr;cv.height=86*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+ ctx.lineWidth=7;ctx.lineCap="round";
+ ctx.strokeStyle="rgba(255,255,255,.08)";
+ ctx.beginPath();ctx.arc(43,43,33,-Math.PI/2,Math.PI*1.5);ctx.stroke();
+ ctx.strokeStyle="#4be08e";
+ ctx.beginPath();ctx.arc(43,43,33,-Math.PI/2,-Math.PI/2+Math.PI*2*.9);ctx.stroke();
+ ctx.fillStyle="#eef4f0";ctx.font="700 15px -apple-system,Segoe UI,sans-serif";ctx.textAlign="center";
+ ctx.fillText("90%",43,48);
+}
+
+/* ---------------- certificato SHA-256 ---------------- */
+var chainN=0,lastHash="GENESI".padEnd(64,"0"),curHash="",curPayload="";
+function fnv64(str){
+ var h1=0x811c9dc5,h2=0x811c9dc5,i;
+ for(i=0;i<str.length;i++){h1^=str.charCodeAt(i);h1=(h1*0x01000193)>>>0;}
+ for(i=str.length-1;i>=0;i--){h2^=str.charCodeAt(i)*7&255;h2=(h2*0x01000193)>>>0;}
+ var out="",k;
+ for(k=0;k<8;k++){out+=((h1^(h2>>>(k*4)))>>>0).toString(16).padStart(8,"0");h1=(h1*31+k)>>>0;}
+ return out.slice(0,64);
+}
+function sha256(str){
+ if(window.crypto&&crypto.subtle&&crypto.subtle.digest){
+  return crypto.subtle.digest("SHA-256",new TextEncoder().encode(str)).then(function(buf){
+   return [].map.call(new Uint8Array(buf),function(b){return b.toString(16).padStart(2,"0");}).join("");
+  }).catch(function(){return Promise.resolve(fnv64(str));});
+ }
+ return Promise.resolve(fnv64(str));
+}
+function receiptPayload(){
+ var o=OBJS[oSel],s=SCNS[sSel];
+ return JSON.stringify({
+  rete:"ENNOUS·GOVERNANCE·DEMO",
+  blocco:chainN+1,
+  perimetro:"247 modelli · banche e assicurazioni",
+  compito:o[L],
+  regime:s[L],
+  motori:o.n+"/238",
+  copertura:s.cov.toFixed(1)+"%",
+  esito:"conforme, 0 non conformità aperte",
+  precedente:lastHash.slice(0,16),
+  ts:new Date().toISOString()
+ });
+}
+function renderReceipt(hash,signed){
+ var o=OBJS[oSel],s=SCNS[sSel];
+ var it=L==="it";
+ $("#receipt").innerHTML=
+  '<div><span class="rk">'+(it?"certificato":"certificate")+':</span> <span class="rv">'+(it?"COPERTURA E CONFORMITÀ · DEMO":"COVERAGE AND COMPLIANCE · DEMO")+"</span></div>"+
+  '<div><span class="rk">'+(it?"blocco":"block")+':</span> <span class="rv">#'+String(chainN+1).padStart(3,"0")+"</span></div>"+
+  '<div><span class="rk">'+(it?"perimetro":"scope")+':</span> <span class="rv">'+(it?"247 modelli · banche e assicurazioni":"247 models · banks and insurers")+"</span></div>"+
+  '<div><span class="rk">'+(it?"compito":"task")+':</span> <span class="rv">'+o[L]+"</span></div>"+
+  '<div><span class="rk">'+(it?"regime":"regime")+':</span> <span class="rv">'+s[L]+"</span></div>"+
+  '<div><span class="rk">'+(it?"motori accesi":"engines lit")+':</span> <span class="rv">'+o.n+" / 238 · "+(it?"calcolo evitato":"compute avoided")+" "+o.save+"%</span></div>"+
+  '<div><span class="rk">'+(it?"copertura verificata":"verified coverage")+':</span> <span class="rv">'+s.cov.toFixed(1)+"% · "+(it?"promessa":"promised")+" 90%</span></div>"+
+  '<div><span class="rk">'+(it?"esito":"outcome")+':</span> <span class="rv">'+(it?"conforme · 0 non conformità aperte":"compliant · 0 open findings")+"</span></div>"+
+  '<div><span class="rk">'+(it?"aggancio al blocco precedente":"link to previous block")+':</span> <span class="rv">'+lastHash.slice(0,16)+"…</span></div>"+
+  '<div class="sig"><span class="rk">'+(signed?(it?"firma SHA-256, calcolata in questo browser":"SHA-256 signature, computed in this browser"):(it?"firma":"signature"))+":</span><br>"+
+  '<span class="hash">'+(hash||(it?"non ancora emesso, premi «Emetti il certificato»":"not yet issued, press “Issue the certificate”"))+"</span></div>";
+}
+function typeHash(hash){
+ var el=$("#receipt .hash"),i=0;
+ if(reduced){el.textContent=hash;return;}
+ el.textContent="";
+ (function step(){
+  el.textContent=hash.slice(0,i)+(i<hash.length?"▌":"");
+  i+=3;
+  if(i<=hash.length+2)setTimeout(step,14);
+  else el.textContent=hash;
+ })();
+}
+function addChain(hash){
+ chainN++;
+ var d=document.createElement("div");
+ d.innerHTML=(L==="it"?"blocco":"block")+" <b>#"+String(chainN).padStart(3,"0")+"</b> · "+hash.slice(0,20)+"… ✓";
+ $("#chain").prepend(d);
+ lastHash=hash;
+}
+function renderMap(){
+ var host=$("#map");host.innerHTML="";
+ MAPROWS.forEach(function(r){
+  var d=document.createElement("div");d.className="mrow";
+  d.innerHTML="<b>"+r.req[L]+"</b><span>"+(L==="it"?"evidenza firmata ":"signed evidence ")+r.ev+" ✓</span>";
+  host.appendChild(d);
+ });
+}
+function bindReceipt(){
+ $("#signBtn").addEventListener("click",function(){
+  curPayload=receiptPayload();
+  sha256(curPayload).then(function(h){
+   curHash=h;renderReceipt(" ",true);typeHash(h);
+   setTimeout(function(){addChain(h);renderReceipt(h,true);},reduced?0:700);
+   $("#vres").textContent="";
+  });
+ });
+ $("#verBtn").addEventListener("click",function(){
+  if(!curHash){$("#vres").textContent=(L==="it"?"Prima emetti un certificato.":"Issue a certificate first.");return;}
+  sha256(curPayload).then(function(h){
+   $("#vres").textContent=(h===curHash)
+    ?(L==="it"?"✓ Firma valida: il certificato non è stato alterato.":"✓ Valid signature: the certificate has not been altered.")
+    :(L==="it"?"✗ Firma non valida.":"✗ Invalid signature.");
+  });
+ });
+}
+
+/* ---------------- scroll / sezioni ---------------- */
+var SECS=["s0","s1","s2","s3","s4","s5"];
+function buildRail(){
+ var r=$("#rail");
+ SECS.forEach(function(id){var a=document.createElement("a");a.href="#"+id;r.appendChild(a);});
+}
+function sectionMode(id){
+ if(id==="s0")NET.setLit(null);
+ else if(id==="s1"){var all={};for(var k=0;k<120;k++)if(k%3)all[k]=1;NET.setLit(all);}
+ else if(id==="s2"||id==="s3")applyObj(false);
+ else if(id==="s4")NET.setLit(NET.litSetFor(7,24));
+ else if(id==="s5")NET.setLit(NET.litSetFor(99,60),true);
+}
+function bindScroll(){
+ var obs=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+   if(e.isIntersecting){
+    sectionMode(e.target.id);
+    var i=SECS.indexOf(e.target.id);
+    $$("#rail a").forEach(function(a,j){a.classList.toggle("on",j===i);});
+   }
+  });
+ },{threshold:.45});
+ SECS.forEach(function(id){obs.observe(document.getElementById(id));});
+ var robs=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");robs.unobserve(e.target);}});
+ },{threshold:.16});
+ $$(".rv").forEach(function(el){robs.observe(el);});
+}
+
+/* ---------------- lingua ---------------- */
+function applyLang(){
+ document.documentElement.lang=L;
+ $$("[data-t]").forEach(function(el){
+  var k=el.getAttribute("data-t");
+  if(T[k])el.innerHTML=T[k][L];
+ });
+ $("#lit").classList.toggle("on",L==="it");
+ $("#len").classList.toggle("on",L==="en");
+ renderAssets();renderObjs();applyObj(false);renderScns();updateScnTexts();renderMap();
+ renderReceipt(curHash||null,!!curHash);
+}
+$("#lit").addEventListener("click",function(){L="it";applyLang();});
+$("#len").addEventListener("click",function(){L="en";applyLang();});
+
+/* ---------------- avvio ---------------- */
+buildRail();
+renderAssets();renderObjs();applyObj(false);renderScns();updateScnTexts();renderMap();
+renderReceipt(null,false);bindReceipt();bindScroll();drawCov();
+addEventListener("resize",drawCov);
+requestAnimationFrame(chartLoop);
+/* hook QA e presentazione: ?lang=en apre in inglese, ?go=s3 mostra solo quella sezione */
+(function(){
+ if(/lang=en/.test(location.search)){L="en";applyLang();}
+ var m=location.search.match(/go=(s\d)/);
+ if(!m)return;
+ document.documentElement.style.scrollBehavior="auto";
+ $$(".rv").forEach(function(el){el.classList.add("in");});
+ SECS.forEach(function(id){if(id!==m[1])document.getElementById(id).style.display="none";});
+ sectionMode(m[1]);
+})();
+</script>
+</body>
+</html>
