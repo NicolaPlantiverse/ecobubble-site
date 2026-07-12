@@ -13,6 +13,9 @@
 body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::selection{background:rgba(75,224,142,.3)}
 :focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+.l-en{display:none}
+html.en .l-it{display:none}
+html.en .l-en{display:inline}
 #bg{position:fixed;inset:0;z-index:0;width:100%;height:100%}
 .nogl #bg{background:radial-gradient(60% 60% at 50% 40%,rgba(20,40,32,.5),transparent)}
 #glow{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.12;background:radial-gradient(56% 46% at 50% 54%,var(--ac),transparent 72%)}
@@ -26,10 +29,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:cent
 .brandx b{color:var(--txt2);font-weight:700;transition:color .25s}
 .brandx:hover b{color:var(--env)}
 .navlinks{display:flex;gap:10px;align-items:center}
-.navcta{font-size:13px;font-weight:700;color:var(--txt);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:10px 18px;transition:.25s;background:rgba(255,255,255,.03)}
+.navcta{font-size:13px;font-weight:700;color:var(--txt);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:10px 18px;transition:.25s;background:rgba(255,255,255,.03);cursor:pointer;font-family:inherit}
 .navcta:hover{border-color:color-mix(in srgb,var(--ac) 60%,transparent);color:var(--ac2)}
 .navcta.primary{background:var(--env);border-color:var(--env);color:#04150b}
 .navcta.primary:hover{color:#04150b;box-shadow:0 12px 34px -16px var(--env)}
+#langsel{position:relative}
+#langMenu{position:absolute;top:calc(100% + 8px);right:0;display:none;min-width:160px;background:rgba(9,14,19,.96);border:1px solid var(--line);border-radius:14px;padding:6px;z-index:60;box-shadow:0 18px 40px -18px rgba(0,0,0,.8)}
+#langsel.open #langMenu{display:block}
+#langMenu button{appearance:none;display:block;width:100%;text-align:left;background:none;border:0;color:var(--txt2);font:700 13px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;padding:10px 12px;border-radius:9px;cursor:pointer;transition:.2s}
+#langMenu button:hover{background:rgba(255,255,255,.06);color:var(--txt)}
 main{position:relative;z-index:10}
 section{padding:0 6vw}
 .wrap{max-width:1120px;margin:0 auto}
@@ -39,8 +47,8 @@ h1{font-size:clamp(34px,5vw,60px);line-height:1.12;letter-spacing:-.02em;font-we
 .lead{margin-top:20px;font-size:16.5px;line-height:1.68;color:var(--txt2);max-width:660px;text-shadow:0 2px 30px rgba(4,7,10,.8)}
 .lead b{color:var(--txt);font-weight:600}
 .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
-.badges span{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--txt2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;background:rgba(9,14,19,.6)}
-.badges span.hot{border-color:color-mix(in srgb,var(--ac) 45%,transparent);color:var(--ac2)}
+.badges>span{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--txt2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;background:rgba(9,14,19,.6)}
+.badges>span.hot{border-color:color-mix(in srgb,var(--ac) 45%,transparent);color:var(--ac2)}
 .stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
 .stat{border:1px solid var(--line);border-radius:18px;padding:15px 20px;background:var(--panel);min-width:150px;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
 .stat .v{font-size:25px;font-weight:800;letter-spacing:-.02em;color:var(--ac2);font-variant-numeric:tabular-nums}
@@ -49,11 +57,11 @@ h1{font-size:clamp(34px,5vw,60px);line-height:1.12;letter-spacing:-.02em;font-we
 .scrollhint::after{content:"";display:block;width:1px;height:38px;margin-top:12px;background:linear-gradient(180deg,var(--ac),transparent)}
 h2{font-size:clamp(24px,3.2vw,38px);line-height:1.2;letter-spacing:-.018em;font-weight:800;max-width:18em}
 .sub{margin-top:14px;font-size:14.5px;line-height:1.65;color:var(--txt2);max-width:640px}
+.sub b{color:var(--txt);font-weight:600}
 .sec{padding-top:64px;padding-bottom:64px}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
-.cards.four{grid-template-columns:repeat(4,1fr)}
-@media(max-width:1020px){.cards,.cards.four{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.cards,.cards.four{grid-template-columns:1fr}}
+@media(max-width:1020px){.cards{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.cards{grid-template-columns:1fr}}
 .card{border:1px solid var(--line);border-radius:20px;background:var(--panel);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:22px;transition:border-color .3s,transform .3s}
 .card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--ac) 45%,transparent)}
 .card .t{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ac)}
@@ -77,10 +85,6 @@ h2{font-size:clamp(24px,3.2vw,38px);line-height:1.2;letter-spacing:-.018em;font-
 .archline b{color:var(--txt)}
 .archline a{color:var(--env);font-weight:700;text-decoration:none;margin-left:auto;white-space:nowrap}
 .archline a:hover{text-decoration:underline}
-.netchips{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
-.netchips a{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--txt2);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 16px;background:rgba(9,14,19,.5);transition:.25s}
-.netchips a i{width:7px;height:7px;border-radius:50%;background:var(--nac,var(--env));box-shadow:0 0 8px var(--nac,var(--env))}
-.netchips a:hover{color:var(--txt);border-color:var(--nac,rgba(255,255,255,.3))}
 .ngrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:38px}
 .ncard{display:block;text-decoration:none;border:1px solid var(--line);border-radius:20px;background:var(--panel);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:22px;transition:border-color .3s,transform .3s;position:relative}
 .ncard:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--nac) 55%,transparent);box-shadow:0 24px 50px -30px var(--nac)}
@@ -110,60 +114,88 @@ footer a:hover{color:var(--txt)}
 <div id="veil"></div>
 <nav aria-label="Navigazione principale">
   <div class="brandwrap">
-    <a class="brand" href="../index_v16C.html"><svg viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm1"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#4be08e" stroke-width="100" mask="url(#ebm1)"/><circle cx="310" cy="622" r="310" fill="#4be08e"/><circle cx="1405" cy="622" r="310" fill="#4be08e"/></svg>EcoBubble <small class="hidemob">Applied Intelligence</small></a>
+    <a class="brand" href="../index.html"><svg viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm1"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#4be08e" stroke-width="100" mask="url(#ebm1)"/><circle cx="310" cy="622" r="310" fill="#4be08e"/><circle cx="1405" cy="622" r="310" fill="#4be08e"/></svg>EcoBubble <small class="hidemob">Applied Intelligence</small></a>
     <a class="brandx" href="https://www.plantiverse.it" target="_blank" rel="noopener" title="Sviluppato con Plantiverse">&times; <b>Plantiverse</b></a>
   </div>
-  <div class="navlinks"><a class="navcta hidemob" href="https://greeneazy.it" target="_blank" rel="noopener">greeneazy.it</a><a class="navcta" href="index.html">Le reti</a><a class="navcta primary" href="mailto:info@ecobubble.it?subject=Pilota%20GreenEazy">Avvia un pilota &rarr;</a></div>
+  <div class="navlinks">
+    <div id="langsel">
+      <button class="navcta" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">&#127470;&#127481; IT &#9662;</button>
+      <div id="langMenu" role="listbox" aria-label="Lingua / Language">
+        <button type="button" data-lang="it">&#127470;&#127481; Italiano</button>
+        <button type="button" data-lang="en">&#127468;&#127463; English</button>
+      </div>
+    </div>
+    <a class="navcta hidemob" href="https://greeneazy.it" target="_blank" rel="noopener">greeneazy.it</a><a class="navcta" href="index.html"><span class="l-it">Le reti</span><span class="l-en">The networks</span></a><a class="navcta primary" href="mailto:info@ecobubble.it?subject=Pilota%20GreenEazy"><span class="l-it">Avvia un pilota &rarr;</span><span class="l-en">Start a pilot &rarr;</span></a></div>
 </nav>
 <main>
   <section id="hero"><div class="wrap">
-    <div class="kick">La rete &middot; GreenEazy</div>
-    <h1>Il verde giusto,<br>scelto dai dati.</h1>
-    <p class="lead">Comprare piante &egrave; facile. Comprare le piante <b>giuste</b> non lo &egrave;: online nessuno ti dice se quella specie vivr&agrave; davvero sul tuo balcone, nel tuo giardino, nel cortile della tua azienda. GreenEazy lo sa. E sa anche quali di quelle piante <b>assorbono gli inquinanti</b> presenti dove vivi.</p>
+    <div class="kick"><span class="l-it">La rete &middot; GreenEazy</span><span class="l-en">The network &middot; GreenEazy</span></div>
+    <h1><span class="l-it">Il verde giusto,<br>scelto dai dati.</span><span class="l-en">The right green,<br>chosen by data.</span></h1>
+    <p class="lead"><span class="l-it">Comprare piante &egrave; facile. Comprare le piante <b>giuste</b> non lo &egrave;: online nessuno ti dice se quella specie vivr&agrave; davvero sul tuo balcone, nel tuo giardino, nel cortile della tua azienda. GreenEazy lo sa. E sa anche quali di quelle piante <b>assorbono gli inquinanti</b> presenti dove vivi.</span><span class="l-en">Buying plants is easy. Buying the <b>right</b> plants is not: online, nobody tells you whether that species will actually live on your balcony, in your garden, in your company courtyard. GreenEazy knows. And it also knows which of those plants <b>absorb the pollutants</b> around you.</span></p>
     <div class="badges">
-    <span class="hot">In funzione</span>
+    <span class="hot"><span class="l-it">In funzione</span><span class="l-en">Live</span></span>
     <span>Patented</span>
-    <span>Dati del motore reale</span>
+    <span><span class="l-it">Dati del motore reale</span><span class="l-en">Real engine data</span></span>
   </div>
     <div class="stats">
-    <div class="stat"><div class="v">6.072</div><div class="l">specie nell&#8217;enciclopedia botanica</div></div>
-    <div class="stat"><div class="v">135</div><div class="l">inquinanti mappati sulle piante che li assorbono</div></div>
-    <div class="stat"><div class="v">~22 kg</div><div class="l">CO&#8322; assorbita a pianta ogni anno, da misura di rete</div></div>
+    <div class="stat"><div class="v">6.072</div><div class="l"><span class="l-it">specie nell&#8217;enciclopedia botanica</span><span class="l-en">species in the botanical encyclopedia</span></div></div>
+    <div class="stat"><div class="v">135</div><div class="l"><span class="l-it">inquinanti mappati sulle piante che li assorbono</span><span class="l-en">pollutants mapped on the plants that absorb them</span></div></div>
+    <div class="stat"><div class="v">~22 kg</div><div class="l"><span class="l-it">CO&#8322; assorbita a pianta ogni anno, da misura di rete</span><span class="l-en">CO&#8322; absorbed per plant each year, network measurement</span></div></div>
   </div>
-    <div class="scrollhint">Scorri</div>
+    <div class="scrollhint"><span class="l-it">Scorri</span><span class="l-en">Scroll</span></div>
   </div></section>
   <section class="sec"><div class="wrap">
-    <h2>Due problemi, una sola scelta.</h2>
-    <p class="sub">Chi compra verde sbaglia due volte: sceglie piante che non sopravvivono al posto, e ignora che alcune piante avrebbero potuto lavorare per lui. GreenEazy risolve entrambe le cose nello stesso gesto.</p>
+    <h2><span class="l-it">Due problemi, una sola scelta.</span><span class="l-en">Two problems, one choice.</span></h2>
+    <p class="sub"><span class="l-it">Chi compra verde sbaglia due volte: sceglie piante che non sopravvivono al posto, e ignora che alcune piante avrebbero potuto lavorare per lui. GreenEazy risolve entrambe le cose nello stesso gesto.</span><span class="l-en">Green buyers get it wrong twice: they choose plants that will not survive the place, and they ignore that some plants could have worked for them. GreenEazy solves both in the same gesture.</span></p>
 <div class="cards">
-    <div class="card"><div class="t">01 &middot; La pianta adatta</div><h3>Niente pi&ugrave; acquisti sbagliati</h3><p>Racconti a GreenEazy il tuo spazio: luce, clima, esposizione, quanto tempo hai per la cura. La rete filtra 6.072 specie e propone <b>solo quelle che possono davvero vivere l&igrave;</b>. &Egrave; il consiglio dell&#8217;esperto, dentro un marketplace.</p></div>
-    <div class="card"><div class="t">02 &middot; Il verde che fitorimedia</div><h3>Piante che assorbono gli inquinanti locali</h3><p>Tra le specie adatte, la rete indica il <b>sottogruppo che fitorimedia</b>: assorbe gli inquinanti rilevati nella tua zona, con l&#8217;aria misurata da satellite e centraline. Il tuo verde diventa anche un filtro ambientale.</p></div>
-    <div class="card"><div class="t">03 &middot; Il documento</div><h3>La prova di quanto assorbi</h3><p>La piattaforma rilascia <b>documenti</b> che indicano quali inquinanti il verde scelto assorbe e in che quantit&agrave; media. Una prova utile per rendicontazione ambientale, bandi pubblici e comunicazione.</p></div>
+    <div class="card"><div class="t"><span class="l-it">01 &middot; La pianta adatta</span><span class="l-en">01 &middot; The right plant</span></div><h3><span class="l-it">Niente pi&ugrave; acquisti sbagliati</span><span class="l-en">No more wrong purchases</span></h3><p><span class="l-it">Racconti a GreenEazy il tuo spazio: luce, clima, esposizione, quanto tempo hai per la cura. La rete filtra 6.072 specie e propone <b>solo quelle che possono davvero vivere l&igrave;</b>. &Egrave; il consiglio dell&#8217;esperto, dentro un marketplace.</span><span class="l-en">Tell GreenEazy about your space: light, climate, exposure, how much time you have for care. The network filters 6,072 species and proposes <b>only those that can truly live there</b>. Expert advice, inside a marketplace.</span></p></div>
+    <div class="card"><div class="t"><span class="l-it">02 &middot; Il verde che fitorimedia</span><span class="l-en">02 &middot; Green that phytoremediates</span></div><h3><span class="l-it">Piante che assorbono gli inquinanti locali</span><span class="l-en">Plants that absorb local pollutants</span></h3><p><span class="l-it">Tra le specie adatte, la rete indica il <b>sottogruppo che fitorimedia</b>: assorbe gli inquinanti rilevati nella tua zona, con l&#8217;aria misurata da satellite e centraline. Il tuo verde diventa anche un filtro ambientale.</span><span class="l-en">Among the suitable species, the network highlights the <b>subset that phytoremediates</b>: it absorbs the pollutants detected in your area, with air measured by satellite and ground stations. Your green becomes an environmental filter too.</span></p></div>
+    <div class="card"><div class="t"><span class="l-it">03 &middot; Il documento</span><span class="l-en">03 &middot; The document</span></div><h3><span class="l-it">La prova di quanto assorbi</span><span class="l-en">Proof of what you absorb</span></h3><p><span class="l-it">La piattaforma rilascia <b>documenti</b> che indicano quali inquinanti il verde scelto assorbe e in che quantit&agrave; media. Una prova utile per rendicontazione ambientale, bandi pubblici e comunicazione.</span><span class="l-en">The platform issues <b>documents</b> stating which pollutants your chosen green absorbs and in which average quantity. Useful evidence for environmental reporting, public tenders and communication.</span></p></div>
   </div>
   </div></section>
   <section class="sec"><div class="wrap">
-    <h2>Per chi &egrave; pensata.</h2>
+    <h2><span class="l-it">Per chi &egrave; pensata.</span><span class="l-en">Who it is for.</span></h2>
 <div class="who">
-    <div class="w1"><b>Privati</b><p>Balconi, terrazzi e giardini: piante che vivono davvero, senza tentativi a vuoto.</p></div>
-    <div class="w1"><b>Imprese</b><p>Spazi verdi aziendali con assorbimenti documentati, pronti per la rendicontazione ambientale.</p></div>
-    <div class="w1"><b>Amministrazioni</b><p>Aree verdi pubbliche progettate sugli inquinanti reali del quartiere.</p></div>
-    <div class="w1"><b>Vivai e retail</b><p>Un marketplace che porta il consiglio esperto dentro la vendita online.</p></div>
+    <div class="w1"><b><span class="l-it">Privati</span><span class="l-en">Private homes</span></b><p><span class="l-it">Balconi, terrazzi e giardini: piante che vivono davvero, senza tentativi a vuoto.</span><span class="l-en">Balconies, terraces and gardens: plants that truly live, without wasted attempts.</span></p></div>
+    <div class="w1"><b><span class="l-it">Imprese</span><span class="l-en">Companies</span></b><p><span class="l-it">Spazi verdi aziendali con assorbimenti documentati, pronti per la rendicontazione ambientale.</span><span class="l-en">Corporate green spaces with documented absorption, ready for environmental reporting.</span></p></div>
+    <div class="w1"><b><span class="l-it">Amministrazioni</span><span class="l-en">Administrations</span></b><p><span class="l-it">Aree verdi pubbliche progettate sugli inquinanti reali del quartiere.</span><span class="l-en">Public green areas designed on the real pollutants of the neighbourhood.</span></p></div>
+    <div class="w1"><b><span class="l-it">Vivai e retail</span><span class="l-en">Nurseries & retail</span></b><p><span class="l-it">Un marketplace che porta il consiglio esperto dentro la vendita online.</span><span class="l-en">A marketplace that brings expert advice inside online sales.</span></p></div>
   </div>
 <div class="ctas">
-    <a class="btn p" href="https://greeneazy.it" target="_blank" rel="noopener">Prova GreenEazy &rarr;</a>
-    <a class="btn s" href="../demos/greeneazy-v16b.html" target="_blank" rel="noopener">Apri la demo interattiva</a>
-    <a class="btn s" href="mailto:info@ecobubble.it?subject=Pilota%20GreenEazy">Avvia un pilota</a>
+    <a class="btn p" href="https://greeneazy.it" target="_blank" rel="noopener"><span class="l-it">Prova GreenEazy &rarr;</span><span class="l-en">Try GreenEazy &rarr;</span></a>
+    <a class="btn s" href="../demos/greeneazy-v16b.html" target="_blank" rel="noopener"><span class="l-it">Apri la demo interattiva</span><span class="l-en">Open the interactive demo</span></a>
+    <a class="btn s" href="mailto:info@ecobubble.it?subject=Pilota%20GreenEazy"><span class="l-it">Avvia un pilota</span><span class="l-en">Start a pilot</span></a>
   </div>
-    <div class="archline"><i></i><span>Questa rete &egrave; una configurazione di <b>Ennous</b>, l&#8217;architettura comune a tutte le reti EcoBubble.</span><a href="architettura.html">Scopri l&#8217;architettura &rarr;</a></div>
+    <div class="archline"><i></i><span><span class="l-it">Questa rete &egrave; una configurazione di <b>Ennous</b>, l&#8217;architettura comune a tutte le reti EcoBubble.</span><span class="l-en">This network is a configuration of <b>Ennous</b>, the architecture shared by all EcoBubble networks.</span></span><a href="architettura.html"><span class="l-it">Scopri l&#8217;architettura &rarr;</span><span class="l-en">Discover the architecture &rarr;</span></a></div>
   </div></section>
 </main>
 <footer>
   <div class="frow">
-    <div style="max-width:560px"><b>EcoBubble S.r.l.</b> &times; <a href="https://www.plantiverse.it" target="_blank" rel="noopener"><b>Plantiverse S.r.l.</b></a> &middot; GreenEazy &egrave; una rete in funzione: i numeri vengono dal motore reale. Brevetto concesso.<br>Le reti del portfolio e l&#8217;architettura Ennous sono sviluppate con <a href="https://www.plantiverse.it" target="_blank" rel="noopener">Plantiverse S.r.l.</a><br>info@ecobubble.it</div>
-    <div><a href="../index_v16C.html">&larr; Torna alla home</a> &middot; <a href="index.html">Tutte le reti</a><div style="margin-top:10px">&copy; 2026 EcoBubble S.r.l. &middot; Tutti i diritti riservati.</div></div>
+    <div style="max-width:560px"><b>EcoBubble S.r.l.</b> &times; <a href="https://www.plantiverse.it" target="_blank" rel="noopener"><b>Plantiverse S.r.l.</b></a> &middot; <span class="l-it">GreenEazy &egrave; una rete in funzione: i numeri vengono dal motore reale. Brevetto concesso.</span><span class="l-en">GreenEazy is a live network: numbers come from the real engine. Patent granted.</span><br><span class="l-it">Le reti del portfolio e l&#8217;architettura Ennous sono sviluppate con <a href="https://www.plantiverse.it" target="_blank" rel="noopener">Plantiverse S.r.l.</a></span><span class="l-en">The portfolio networks and the Ennous architecture are developed with <a href="https://www.plantiverse.it" target="_blank" rel="noopener">Plantiverse S.r.l.</a></span><br>info@ecobubble.it</div>
+    <div><a href="../index.html"><span class="l-it">&larr; Torna alla home</span><span class="l-en">&larr; Back to the home page</span></a> &middot; <a href="index.html"><span class="l-it">Tutte le reti</span><span class="l-en">All networks</span></a><div style="margin-top:10px">&copy; 2026 EcoBubble S.r.l. <span class="l-it">&middot; Tutti i diritti riservati.</span><span class="l-en">&middot; All rights reserved.</span></div></div>
   </div>
 </footer>
 <script>window.RETE_CFG={ac:[0.21,0.82,0.75],ac2:[0.29,0.88,0.55],ac3:[0.36,0.66,1.0],sx:0.55,sy:0.02};</script>
 <script src="../assets/rete-bg-v16c.js"></script>
+<script>
+(function(){
+var LANG=(function(){try{var s=localStorage.getItem('eb_lang');if(s==='it'||s==='en')return s;}catch(e){}
+ return ((navigator.language||'it').toLowerCase().indexOf('it')===0)?'it':'en';})();
+var ml=location.search.match(/[?&]lang=(it|en)/);if(ml)LANG=ml[1];
+function apply(){document.documentElement.classList.toggle('en',LANG==='en');document.documentElement.lang=LANG;
+ var b=document.getElementById('langBtn');if(b)b.innerHTML=LANG==='en'?'&#127468;&#127463; EN &#9662;':'&#127470;&#127481; IT &#9662;';}
+var langSel=document.getElementById('langsel'),langBtn=document.getElementById('langBtn');
+if(langBtn){
+ langBtn.addEventListener('click',function(e){e.stopPropagation();
+  var open=langSel.classList.toggle('open');langBtn.setAttribute('aria-expanded',open?'true':'false');});
+ [].slice.call(document.querySelectorAll('#langMenu button')).forEach(function(b){
+  b.addEventListener('click',function(e){e.stopPropagation();LANG=b.getAttribute('data-lang');
+   try{localStorage.setItem('eb_lang',LANG);}catch(err){}
+   apply();langSel.classList.remove('open');langBtn.setAttribute('aria-expanded','false');});});
+ document.addEventListener('click',function(){langSel.classList.remove('open');langBtn.setAttribute('aria-expanded','false');});
+}
+apply();
+})();
+</script>
 </body>
 </html>

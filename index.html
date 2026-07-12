@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>EcoBubble · Infrastrutture di intelligenza artificiale su misura</title>
+<title>EcoBubble · Intelligenza artificiale costruita sulla tua organizzazione</title>
 <meta name="description" content="EcoBubble sviluppa infrastrutture di intelligenza artificiale su misura. Una rete multidimensionale seleziona i motori più adatti e mantiene dati, modelli e controllo nei sistemi del cliente.">
 <meta name="theme-color" content="#04070a">
 <link rel="canonical" href="https://www.ecobubble.it/">
@@ -43,6 +43,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
 .navcta:hover{border-color:rgba(75,224,142,.6);color:var(--env)}
 .navcta.primary{background:var(--env);border-color:var(--env);color:#04150b}
 .navcta.primary:hover{color:#04150b;box-shadow:0 12px 34px -16px var(--env)}
+/* selettore lingua: tendina compatta con bandierine, pronta ad accogliere altre lingue */
+#langsel{position:relative}
+#langBtn{letter-spacing:.04em}
+#langMenu{position:absolute;top:calc(100% + 8px);right:0;display:none;min-width:160px;background:rgba(9,14,19,.96);border:1px solid var(--line);border-radius:14px;padding:6px;z-index:60;box-shadow:0 18px 40px -18px rgba(0,0,0,.8)}
+#langsel.open #langMenu{display:block}
+#langMenu button{appearance:none;display:block;width:100%;text-align:left;background:none;border:0;color:var(--txt2);font:700 13px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;padding:10px 12px;border-radius:9px;cursor:pointer;transition:.2s}
+#langMenu button:hover{background:rgba(255,255,255,.06);color:var(--txt)}
 
 /* palco sottotitoli */
 #play{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
@@ -81,7 +88,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
 .btn.p:hover{transform:translateY(-2px);box-shadow:0 18px 40px -16px var(--env)}
 .btn.s{border:1px solid var(--line);color:var(--txt);background:rgba(9,14,19,.5)}
 .btn.s:hover{border-color:rgba(255,255,255,.3)}
-/* portfolio: scritte piccole verso le demo, una sola riga */
+/* portfolio: scritte piccole verso le sottopagine delle reti, una sola riga */
 #port{display:none;margin-top:14px;align-items:center;gap:8px;flex-wrap:nowrap;justify-content:center;pointer-events:auto;font-size:11.5px;max-width:none;white-space:nowrap}
 #port.on{display:flex}
 #port span{color:var(--txt3);letter-spacing:.14em;text-transform:uppercase;font-size:10px;margin-right:4px}
@@ -91,15 +98,24 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
 #port a.all{color:var(--txt);border-color:rgba(75,224,142,.4)}
 #port a.all:hover{border-color:var(--env);color:var(--env)}
 @media(max-width:1120px){#port{flex-wrap:wrap;white-space:normal;max-width:720px}}
+/* architettura: Ennous non è una rete del portfolio, è ciò che le genera */
+#arch{display:none;margin-top:12px;font-size:11.5px;color:var(--txt3);pointer-events:auto;letter-spacing:.02em;text-shadow:0 2px 20px rgba(4,7,10,.8)}
+#arch.on{display:block}
+#arch a{color:var(--env);text-decoration:none;font-weight:700;border-bottom:1px solid rgba(75,224,142,.35);padding-bottom:1px;transition:border-color .25s}
+#arch a:hover{border-bottom-color:var(--env)}
 /* overlay team */
 #team{position:fixed;left:50%;top:43%;transform:translate(-50%,-50%);z-index:20;display:flex;gap:26px;opacity:0;transition:opacity .55s;pointer-events:none;
  background:rgba(4,7,10,.5);border:1px solid var(--line);border-radius:28px;padding:30px 34px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
-#team.on{opacity:1}
-#team .tm{text-align:center;width:138px}
-#team .tm img{width:104px;height:104px;border-radius:50%;object-fit:cover;object-position:50% 4%;border:1.5px solid var(--ac,var(--env));box-shadow:0 0 30px -6px var(--ac,var(--env));filter:grayscale(.28)}
-#team .tm .n{font-size:14px;font-weight:700;margin-top:14px}
+#team.on{opacity:1;pointer-events:auto}
+#team .tm{text-align:center;width:162px;cursor:default}
+#team .tm img{width:116px;height:116px;border-radius:50%;object-fit:cover;object-position:50% 4%;border:1.5px solid var(--ac,var(--env));box-shadow:0 0 30px -6px var(--ac,var(--env));filter:grayscale(.28);
+ transition:transform .35s ease,box-shadow .35s ease,filter .35s ease}
+/* hover sul nome o sulla card: il cerchio si "ignize" come i nodi della rete al passaggio del mouse */
+#team .tm:hover img{transform:scale(1.14);filter:grayscale(0);box-shadow:0 0 52px -2px var(--ac,var(--env))}
+#team .tm .n{font-size:14px;font-weight:700;margin-top:14px;white-space:nowrap;transition:color .3s}
+#team .tm:hover .n{color:var(--ac,var(--env))}
 #team .tm .r{font-size:11.5px;color:var(--ac,var(--txt2));margin-top:3px;font-weight:600}
-@media(max-width:640px){#team{gap:14px;flex-wrap:wrap;justify-content:center;max-width:320px;padding:20px}#team .tm{width:130px}#team .tm img{width:96px;height:96px}}
+@media(max-width:640px){#team{gap:14px;flex-wrap:wrap;justify-content:center;max-width:380px;padding:20px}#team .tm{width:148px}#team .tm img{width:100px;height:100px}}
 
 /* barra di avanzamento capitoli */
 #bar{position:fixed;left:0;right:0;bottom:0;z-index:22;display:flex;gap:6px;padding:16px 30px}
@@ -150,7 +166,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
 
 <nav aria-label="Navigazione principale">
   <a class="brand" href="#"><svg class="mark" viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm1"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#4be08e" stroke-width="100" mask="url(#ebm1)"/><circle cx="310" cy="622" r="310" fill="#4be08e"/><circle cx="1405" cy="622" r="310" fill="#4be08e"/></svg>EcoBubble <small>Applied Intelligence</small></a>
-  <div class="navlinks"><a class="navcta portfolio-link" href="portfolio.html">Portfolio</a><button class="navcta" id="summaryBtn" type="button">Sintesi</button><a class="navcta primary" href="mailto:info@ecobubble.it?subject=Pilota%20di%20intelligenza%20artificiale">Avvia un pilota &rarr;</a></div>
+  <div class="navlinks">
+    <div id="langsel">
+      <button class="navcta" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">&#127470;&#127481; IT &#9662;</button>
+      <div id="langMenu" role="listbox" aria-label="Lingua / Language">
+        <button type="button" data-lang="it">&#127470;&#127481; Italiano</button>
+        <button type="button" data-lang="en">&#127468;&#127463; English</button>
+      </div>
+    </div>
+    <a class="navcta portfolio-link" id="navReti" href="reti/index.html">Le reti</a><button class="navcta" id="summaryBtn" type="button">Sintesi</button><a class="navcta primary" id="navPilot" href="mailto:info@ecobubble.it?subject=Pilota%20di%20intelligenza%20artificiale">Avvia un pilota &rarr;</a></div>
 </nav>
 
 <!-- palco -->
@@ -159,30 +183,30 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
   <div id="cap"></div>
   <p id="sub"></p>
   <div id="cta">
-    <a class="btn p" href="mailto:info@ecobubble.it?subject=Pilota%20di%20intelligenza%20artificiale">Avvia un pilota &rarr;</a>
-    <a class="btn s" href="https://calendly.com/nicola-nescatelli/30min" target="_blank" rel="noopener">Prenota 30 minuti</a>
+    <a class="btn p" id="ctaPilot" href="mailto:info@ecobubble.it?subject=Pilota%20di%20intelligenza%20artificiale">Avvia un pilota &rarr;</a>
+    <a class="btn s" id="ctaCal" href="https://calendly.com/nicola-nescatelli/30min" target="_blank" rel="noopener">Prenota 30 minuti</a>
   </div>
-  <div id="port"><span>Il portfolio</span>
-    <a style="--pac:#4be08e" href="demos/ennous.html" target="_blank" rel="noopener"><i></i>Ennous</a>
-    <a style="--pac:#35d0c0" href="demos/greeneazy.html" target="_blank" rel="noopener"><i></i>GreenEazy</a>
-    <a style="--pac:#5aa9ff" href="demos/plantiverse.html" target="_blank" rel="noopener"><i></i>Plantiverse</a>
-    <a style="--pac:#ffc46b" href="demos/energia.html" target="_blank" rel="noopener"><i></i>Energia &amp; Infrastrutture</a>
-    <a style="--pac:#a98bff" href="demos/governance-ai.html" target="_blank" rel="noopener"><i></i>Governance AI</a>
-    <a style="--pac:#9df3c3" href="demos/natural-capital.html" target="_blank" rel="noopener"><i></i>Natural Capital</a>
-    <a class="all" href="portfolio.html">Tutto il portfolio &rarr;</a>
+  <div id="port"><span id="portLbl">Le reti</span>
+    <a style="--pac:#35d0c0" href="reti/greeneazy.html"><i></i>GreenEazy</a>
+    <a style="--pac:#8be34b" href="reti/plantiverse.html"><i></i>Plantiverse</a>
+    <a style="--pac:#ffc46b" href="reti/energia.html"><i></i>Energia &amp; Infrastrutture</a>
+    <a style="--pac:#a98bff" href="reti/governance.html"><i></i>Governance AI</a>
+    <a style="--pac:#9df3c3" href="reti/natural-capital.html"><i></i>Natural Capital</a>
+    <a class="all" id="portAll" href="reti/index.html">Tutte le reti &rarr;</a>
   </div>
+  <div id="arch">Sotto ognuna, la stessa architettura: <a href="reti/architettura.html">Ennous, la rete multidimensionale &rarr;</a></div>
 </div>
 <p id="srStatus" class="sr-only" aria-live="polite"></p>
 
 <div id="synth" aria-hidden="true"><small>La sintesi</small>
-Un&#8217;intelligenza con la <b>forma della tua azienda</b>: accende solo i <b>motori che servono</b>, non fa uscire <b>un solo dato</b>, firma <b>ogni risposta</b>. E alla fine <b>è tua</b>.</div>
+Un&#8217;intelligenza con la <b>forma della tua azienda</b>: accende solo i <b>motori che servono</b>, non fa uscire <b>un solo dato</b>, firma <b>ogni risposta</b>. <b>&Egrave; tutta tua</b>.</div>
 <div id="obj"><span class="dot"></span><span id="objName"></span></div>
 
 <div id="team">
   <div class="tm" style="--ac:var(--env)"><img src="assets/team/nn.jpg" alt="Nicola Nescatelli" loading="lazy"><div class="n">Nicola Nescatelli</div><div class="r">Founder &amp; CEO</div></div>
   <div class="tm" style="--ac:var(--geo)"><img src="assets/team/ap.jpg" alt="Andrea Procaccini" loading="lazy"><div class="n">Andrea Procaccini</div><div class="r">AI &amp; Modelling</div></div>
   <div class="tm" style="--ac:var(--teal)"><img src="assets/team/lg.jpg" alt="Leonardo Giannini" loading="lazy"><div class="n">Leonardo Giannini</div><div class="r">Geospatial &amp; EO</div></div>
-  <div class="tm" style="--ac:var(--violet)"><img src="assets/team/fp.jpg" alt="Fabio Pallini" loading="lazy"><div class="n">Fabio Pallini</div><div class="r">Engineering &amp; Platform</div></div>
+  <div class="tm" style="--ac:var(--violet)"><img src="assets/team/fp.jpg" alt="Fabio Pallini" loading="lazy"><div class="n">Fabio Pallini</div><div class="r">IT Solution Architect</div></div>
   <div class="tm" style="--ac:var(--amber)"><img src="assets/team/fd.jpg" alt="Federico Di Vincenzo" loading="lazy"><div class="n">Federico Di Vincenzo</div><div class="r">Design &amp; Experience</div></div>
 </div>
 
@@ -198,6 +222,7 @@ Un&#8217;intelligenza con la <b>forma della tua azienda</b>: accende solo i <b>m
   <p>È <b>agnostica e flessibile</b>: quando i dati cambiano, la rete si ricompone. I tuoi <b>dati restano nei tuoi sistemi</b>: l'intelligenza resta dove sei tu.</p>
   <p>Mantieni la piena <b>autonomia tecnologica</b>. Ogni risposta dichiara quanto fidarsi, con una <b>firma verificabile</b>. Alla fine del percorso l'infrastruttura <b>è tua</b>.</p>
   <p>Ogni rete nasce da un <b>pilota misurato</b>, con obiettivi, tempi e criteri di successo definiti insieme.</p>
+  <p>Le reti: <a href="reti/greeneazy.html">GreenEazy</a> · <a href="reti/plantiverse.html">Plantiverse</a> · <a href="reti/energia.html">Energia &amp; Infrastrutture</a> · <a href="reti/governance.html">Governance AI</a> · <a href="reti/natural-capital.html">Natural Capital</a> · <a href="reti/architettura.html">l'architettura Ennous</a>.</p>
   <p><a href="mailto:info@ecobubble.it">info@ecobubble.it</a></p>
 </div>
 
@@ -212,7 +237,9 @@ var cv=document.getElementById('stage');
 var gl=cv.getContext('webgl',{antialias:false,alpha:true})||cv.getContext('experimental-webgl',{antialias:false,alpha:true});
 if(!gl){document.body.classList.add('nogl');return null;}
 var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-var N=15000,NH=440,NP=320;
+/* schermi grandi (es. Studio Display): piu nodi e punti piu grandi, o la rete si dirada */
+var BIGSCR=Math.max(innerWidth,innerHeight)>1700;
+var N=BIGSCR?22000:15000,NH=440,NP=320;
 function rnd(a,b){return a+Math.random()*(b-a);}
 var ENV=[0.29,0.88,0.55],ENV2=[0.63,0.95,0.77],GEO=[0.36,0.66,1.0],GEO2=[0.73,0.85,1.0],VIO=[0.66,0.55,1.0],AMB=[1.0,0.77,0.42],WHT=[0.95,1.0,0.97],DARK=[0.10,0.16,0.15];
 
@@ -279,11 +306,26 @@ function shapeRing(){var s=mk(),i;
    put(s,i,x,y*0.86,z,Math.random()<0.05?WHT:VIO,0.6+0.5*Math.random());}
   else{var a3=Math.random()*6.2832,rr=1.3*Math.cbrt(Math.random());put(s,i,Math.cos(a3)*rr,Math.sin(a3)*rr*0.7,rnd(-0.2,0.2),[0.5,0.55,0.6],0.2);}}
  return s;}
-function shapeLattice(){var s=mk(),i,side=Math.ceil(Math.cbrt(N));
- for(i=0;i<N;i++){var gx=i%side,gy=Math.floor(i/side)%side,gz=Math.floor(i/(side*side));
-  var x=(gx/(side-1)-0.5)*2.3,y=(gy/(side-1)-0.5)*1.5,z=(gz/(side-1)-0.5)*1.0;
-  var edge=(gx%6===0||gy%6===0)?1:0;
-  put(s,i,x+rnd(-0.02,0.02),y+rnd(-0.02,0.02),z+rnd(-0.02,0.02),edge?AMB:[0.5,0.42,0.3],edge?1.1:0.32);}
+function shapeLattice(){var s=mk(),i;
+ /* griglia 3D leggibile: tutti i punti corrono LUNGO gli spigoli di un reticolo
+    7x5x4 piu piccolo (83 linee piene) + incroci luminosi. La griglia e ruotata
+    di ~30 gradi nella forma stessa: mai frontale piatta, le linee di profondita
+    non si impilano in punti accecanti (sono anche meno e piu tenui). */
+ var GX=7,GY=5,GZ=4,SW=1.7,SH=1.05,SD=0.8,CA=Math.cos(0.52),SA=Math.sin(0.52);
+ function px(a){return (a/(GX-1)-0.5)*SW;}
+ function py(a){return (a/(GY-1)-0.5)*SH;}
+ function pz(a){return (a/(GZ-1)-0.5)*SD;}
+ function putR(i,x,y,z,c,f){put(s,i,x*CA+z*SA,y,-x*SA+z*CA,c,f);}
+ for(i=0;i<N;i++){
+  var j=rnd(-0.006,0.006),j2=rnd(-0.006,0.006),j3=rnd(-0.006,0.006);
+  if(i%9===0){var ax=Math.floor(Math.random()*GX),ay=Math.floor(Math.random()*GY),az=Math.floor(Math.random()*GZ);
+   putR(i,px(ax)+j,py(ay)+j2,pz(az)+j3,Math.random()<0.25?WHT:AMB,1.2);}
+  else{var r2=Math.random(),d=r2<0.42?0:(r2<0.84?1:2),t=Math.random(),
+       bx=Math.floor(Math.random()*GX),by=Math.floor(Math.random()*GY),bz=Math.floor(Math.random()*GZ),x,y,z,f;
+   if(d===0){x=(t-0.5)*SW;y=py(by);z=pz(bz);f=0.6+0.4*Math.random();}
+   else if(d===1){x=px(bx);y=(t-0.5)*SH;z=pz(bz);f=0.6+0.4*Math.random();}
+   else{x=px(bx);y=py(by);z=(t-0.5)*SD;f=0.32+0.22*Math.random();}
+   putR(i,x+j,y+j2,z+j3,AMB,f);}}
  return s;}
 function shapeEmblem(){var s=mk(),R=0.72,TH=0.052,DR=0.31,DX=0.66,GAP=0.055,i;
  for(i=0;i<N;i++){var u=Math.random();
@@ -311,11 +353,11 @@ function sh(type,src){var o=gl.createShader(type);gl.shaderSource(o,src);gl.comp
 function prog(vs,fs){var p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,vs));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(p);return p;}
 var ROT='float cy=cos(uRy),sy=sin(uRy);p=vec3(p.x*cy+p.z*sy,p.y,-p.x*sy+p.z*cy);float cx=cos(uRx),sx=sin(uRx);p=vec3(p.x,p.y*cx-p.z*sx,p.y*sx+p.z*cx);float s=2.3/(2.3-p.z);';
 var VS='attribute vec3 aPA;attribute vec3 aPB;attribute vec3 aCA;attribute vec3 aCB;attribute float aR;'+
-'uniform float uT,uTime,uRy,uRx,uAsp,uDpr,uWob,uShiftY;uniform vec2 uM;varying vec3 vC;varying float vA;'+
+'uniform float uT,uTime,uRy,uRx,uAsp,uDpr,uWob,uShiftY,uScl;uniform vec2 uM;varying vec3 vC;varying float vA;'+
 'void main(){vec3 p=mix(aPA,aPB,uT);p+=uWob*(0.012+0.026*aR)*vec3(sin(uTime*0.7+aR*43.7),cos(uTime*0.8+aR*29.3),sin(uTime*0.6+aR*17.9));'+ROT+
 'vec2 scr=vec2(p.x*s*0.72/uAsp,p.y*s*0.72+uShiftY);gl_Position=vec4(scr,0.0,1.0);'+
 'float md=length(vec2((scr.x-uM.x)*uAsp,scr.y-uM.y));float bo=smoothstep(0.40,0.0,md);'+
-'gl_PointSize=(1.3+2.3*aR)*s*uDpr*(1.0+1.5*bo);vC=mix(aCA,aCB,uT);'+
+'gl_PointSize=(1.3+2.3*aR)*s*uDpr*uScl*(1.0+1.5*bo/uScl);vC=mix(aCA,aCB,uT);'+
 'float br=max(vC.r,max(vC.g,vC.b));'+
 'vA=(0.5+0.5*clamp(s-0.7,0.0,1.0))*(0.72+0.28*sin(uTime*2.0+aR*95.0))*(1.0+1.3*bo)*(0.35+0.65*smoothstep(0.12,0.5,br));}';
 var FS='precision mediump float;varying vec3 vC;varying float vA;void main(){vec2 q=gl_PointCoord-vec2(0.5);float d=length(q);float a=smoothstep(0.5,0.03,d)*vA;gl_FragColor=vec4(vC*a,a);}';
@@ -323,7 +365,7 @@ var P=prog(VS,FS);
 var LVS='attribute vec3 aA;attribute vec3 aB;attribute vec3 aC;uniform float uT,uRy,uRx,uAsp,uShiftY;varying vec3 vC;void main(){vec3 p=mix(aA,aB,uT);'+ROT+'gl_Position=vec4(p.x*s*0.72/uAsp,p.y*s*0.72+uShiftY,0.0,1.0);vC=aC;}';
 var LFS='precision mediump float;uniform float uA;varying vec3 vC;void main(){gl_FragColor=vec4(vC,1.0)*uA;}';
 var LP=prog(LVS,LFS);
-var PVS='attribute vec3 aA0;attribute vec3 aB0;attribute vec3 aA1;attribute vec3 aB1;attribute float aPh;attribute float aSp;uniform float uT,uTime,uRy,uRx,uAsp,uDpr,uShiftY;varying float vA;void main(){float tt=fract(aPh+uTime*aSp);vec3 e0=mix(aA0,aB0,uT);vec3 e1=mix(aA1,aB1,uT);vec3 p=mix(e0,e1,tt);'+ROT+'gl_Position=vec4(p.x*s*0.72/uAsp,p.y*s*0.72+uShiftY,0.0,1.0);gl_PointSize=(2.0+1.6*sin(tt*3.14159))*s*uDpr;vA=sin(tt*3.14159)*clamp(s-0.55,0.0,1.0);}';
+var PVS='attribute vec3 aA0;attribute vec3 aB0;attribute vec3 aA1;attribute vec3 aB1;attribute float aPh;attribute float aSp;uniform float uT,uTime,uRy,uRx,uAsp,uDpr,uShiftY,uScl;varying float vA;void main(){float tt=fract(aPh+uTime*aSp);vec3 e0=mix(aA0,aB0,uT);vec3 e1=mix(aA1,aB1,uT);vec3 p=mix(e0,e1,tt);'+ROT+'gl_Position=vec4(p.x*s*0.72/uAsp,p.y*s*0.72+uShiftY,0.0,1.0);gl_PointSize=(2.0+1.6*sin(tt*3.14159))*s*uDpr*uScl;vA=sin(tt*3.14159)*clamp(s-0.55,0.0,1.0);}';
 var PFS='precision mediump float;uniform float uA;varying float vA;void main(){vec2 q=gl_PointCoord-vec2(0.5);float d=length(q);float a=smoothstep(0.5,0.0,d)*vA*uA;gl_FragColor=vec4(vec3(0.75,1.0,0.88)*a,a);}';
 var PP=prog(PVS,PFS);
 
@@ -368,8 +410,10 @@ var FACE={catalog:0.55,network:1,dome:0.75,ring:0.8,lattice:0.5,emblem:0.12};
 var SHIFT={emblem:0.30};
 var rotAmp=1,drift=0,lineAmp=0.34,pulseAmp=1,shiftY=0;
 
-var W,H2,dpr,asp;
-function size(){dpr=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H2=innerHeight;cv.width=W*dpr;cv.height=H2*dpr;asp=W/H2;gl.viewport(0,0,cv.width,cv.height);}
+var W,H2,dpr,asp,scl;
+function size(){dpr=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H2=innerHeight;cv.width=W*dpr;cv.height=H2*dpr;asp=W/H2;
+ /* scala punto NEUTRA sul laptop (min<=1000 -> 1), cresce solo su monitor grandi */
+ scl=Math.min(1.6,Math.max(1,Math.min(W,H2)/1000));gl.viewport(0,0,cv.width,cv.height);}
 size();window.addEventListener('resize',function(){clearTimeout(size._t);size._t=setTimeout(size,150);});
 
 var tmx=0,tmy=0,mx=0,my=0,dragging=false,dpx=0,yv=0;
@@ -380,11 +424,11 @@ window.addEventListener('pointerup',function(){dragging=false;});
 gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);
 var AT={},UN={},LT={},PT={};
 ['aPA','aPB','aCA','aCB','aR'].forEach(function(n){AT[n]=gl.getAttribLocation(P,n);});
-['uT','uTime','uRy','uRx','uAsp','uDpr','uWob','uM','uShiftY'].forEach(function(n){UN[n]=gl.getUniformLocation(P,n);});
+['uT','uTime','uRy','uRx','uAsp','uDpr','uWob','uM','uShiftY','uScl'].forEach(function(n){UN[n]=gl.getUniformLocation(P,n);});
 ['aA','aB','aC'].forEach(function(n){LT[n]=gl.getAttribLocation(LP,n);});
 ['uT','uRy','uRx','uAsp','uA','uShiftY'].forEach(function(n){LT[n]=gl.getUniformLocation(LP,n);});
 ['aA0','aB0','aA1','aB1','aPh','aSp'].forEach(function(n){PT[n]=gl.getAttribLocation(PP,n);});
-['uT','uTime','uRy','uRx','uAsp','uDpr','uA','uShiftY'].forEach(function(n){PT[n]=gl.getUniformLocation(PP,n);});
+['uT','uTime','uRy','uRx','uAsp','uDpr','uA','uShiftY','uScl'].forEach(function(n){PT[n]=gl.getUniformLocation(PP,n);});
 function attr(loc,b,size){gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,size,gl.FLOAT,false,0,0);}
 function dis(){for(var i=0;i<8;i++)gl.disableVertexAttribArray(i);}
 
@@ -401,9 +445,9 @@ function frame(now){var dt=Math.min(0.05,(now-last)/1000);last=now;
  var ry=drift+mx*0.5,rx=-0.12*rotAmp+my*0.32;var tm=reduced?0:now/1000;
  gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
  if(lineAmp>0.004&&ENUM>0){gl.useProgram(LP);dis();attr(LT.aA,bLA,3);attr(LT.aB,bLB,3);attr(LT.aC,bLC,3);gl.uniform1f(LT.uT,e);gl.uniform1f(LT.uRy,ry);gl.uniform1f(LT.uRx,rx);gl.uniform1f(LT.uAsp,asp);gl.uniform1f(LT.uA,lineAmp);gl.uniform1f(LT.uShiftY,shiftY);gl.drawArrays(gl.LINES,0,ENUM);}
- if(pulseAmp>0.02&&!reduced){gl.useProgram(PP);dis();attr(PT.aA0,bp.aA0,3);attr(PT.aB0,bp.aB0,3);attr(PT.aA1,bp.aA1,3);attr(PT.aB1,bp.aB1,3);attr(PT.aPh,bPh,1);attr(PT.aSp,bSp,1);gl.uniform1f(PT.uT,e);gl.uniform1f(PT.uTime,tm);gl.uniform1f(PT.uRy,ry);gl.uniform1f(PT.uRx,rx);gl.uniform1f(PT.uAsp,asp);gl.uniform1f(PT.uDpr,dpr);gl.uniform1f(PT.uA,pulseAmp);gl.uniform1f(PT.uShiftY,shiftY);gl.drawArrays(gl.POINTS,0,NP);}
+ if(pulseAmp>0.02&&!reduced){gl.useProgram(PP);dis();attr(PT.aA0,bp.aA0,3);attr(PT.aB0,bp.aB0,3);attr(PT.aA1,bp.aA1,3);attr(PT.aB1,bp.aB1,3);attr(PT.aPh,bPh,1);attr(PT.aSp,bSp,1);gl.uniform1f(PT.uT,e);gl.uniform1f(PT.uTime,tm);gl.uniform1f(PT.uRy,ry);gl.uniform1f(PT.uRx,rx);gl.uniform1f(PT.uAsp,asp);gl.uniform1f(PT.uDpr,dpr);gl.uniform1f(PT.uA,pulseAmp);gl.uniform1f(PT.uShiftY,shiftY);gl.uniform1f(PT.uScl,scl);gl.drawArrays(gl.POINTS,0,NP);}
  gl.useProgram(P);dis();attr(AT.aPA,bPA,3);attr(AT.aPB,bPB,3);attr(AT.aCA,bCA,3);attr(AT.aCB,bCB,3);attr(AT.aR,bR,1);
- gl.uniform1f(UN.uT,e);gl.uniform1f(UN.uTime,tm);gl.uniform1f(UN.uRy,ry);gl.uniform1f(UN.uRx,rx);gl.uniform1f(UN.uAsp,asp);gl.uniform1f(UN.uDpr,dpr);gl.uniform1f(UN.uWob,reduced?0:1);gl.uniform2f(UN.uM,mx*2.0,-my*2.0);gl.uniform1f(UN.uShiftY,shiftY);
+ gl.uniform1f(UN.uT,e);gl.uniform1f(UN.uTime,tm);gl.uniform1f(UN.uRy,ry);gl.uniform1f(UN.uRx,rx);gl.uniform1f(UN.uAsp,asp);gl.uniform1f(UN.uDpr,dpr);gl.uniform1f(UN.uWob,reduced?0:1);gl.uniform2f(UN.uM,mx*2.0,-my*2.0);gl.uniform1f(UN.uShiftY,shiftY);gl.uniform1f(UN.uScl,scl);
  gl.drawArrays(gl.POINTS,0,N);
  requestAnimationFrame(frame);}
 requestAnimationFrame(frame);
@@ -419,9 +463,9 @@ return {go:go, ignite:ignite, litFor:litFor, objectiveSet:objectiveSet,
 (function(){
 if(!ENGINE){document.documentElement.classList.add('nojs');return;}
 document.documentElement.classList.remove('nojs');
-/* portfolio: pillole del capitolo finale */
-var gal=document.getElementById('port');
-if(/[?&]port=1/.test(location.search))gal.classList.add('on');
+/* portfolio: pillole del capitolo finale + riga architettura Ennous */
+var gal=document.getElementById('port'),archl=document.getElementById('arch');
+if(/[?&]port=1/.test(location.search)){gal.classList.add('on');archl.classList.add('on');}
 var playBox=document.getElementById('play'),kick=document.getElementById('kick'),cap=document.getElementById('cap'),sub=document.getElementById('sub'),
     cta=document.getElementById('cta'),bar=document.getElementById('bar'),cnt=document.getElementById('cnt'),
     hint=document.getElementById('hint'),pp=document.getElementById('pp'),
@@ -430,6 +474,35 @@ var playBox=document.getElementById('play'),kick=document.getElementById('kick')
     synthBox=document.getElementById('synth');
 var C=ENGINE.colors;
 
+/* ===== lingua: IT default, EN per i mercati esteri; struttura pronta per altre lingue ===== */
+var LANG=(function(){try{var s=localStorage.getItem('eb_lang');if(s==='it'||s==='en')return s;}catch(e){}
+ return ((navigator.language||'it').toLowerCase().indexOf('it')===0)?'it':'en';})();
+function TT(o,f){return (LANG==='en'&&o[f+'_en']!=null)?o[f+'_en']:o[f];}
+var UI={
+ it:{reti:'Le reti',sintesi:'Sintesi',pilot:'Avvia un pilota →',hint:'Scorri verso il basso · una schermata alla volta',
+     cta2:'Prenota 30 minuti',port:'Le reti',all:'Tutte le reti →',lit:' motori accesi',flag:'🇮🇹 IT ▾',
+     arch:'Sotto ognuna, la stessa architettura: <a href="reti/architettura.html">Ennous, la rete multidimensionale &rarr;</a>',
+     synth:'<small>La sintesi</small>Un’intelligenza con la <b>forma della tua azienda</b>: accende solo i <b>motori che servono</b>, non fa uscire <b>un solo dato</b>, firma <b>ogni risposta</b>. <b>È tutta tua</b>.'},
+ en:{reti:'The networks',sintesi:'Summary',pilot:'Start a pilot →',hint:'Scroll down · one screen at a time',
+     cta2:'Book 30 minutes',port:'The networks',all:'All networks →',lit:' engines lit',flag:'🇬🇧 EN ▾',
+     arch:'Beneath each one, the same architecture: <a href="reti/architettura.html">Ennous, the multidimensional network &rarr;</a>',
+     synth:'<small>The summary</small>An intelligence with <b>the shape of your company</b>: it lights only <b>the engines that matter</b>, lets out <b>not a single data point</b>, signs <b>every answer</b>. <b>It is all yours</b>.'}
+};
+function applyLang(){var u=UI[LANG];
+ document.documentElement.lang=LANG;
+ document.getElementById('navReti').textContent=u.reti;
+ document.getElementById('summaryBtn').textContent=u.sintesi;
+ document.getElementById('navPilot').textContent=u.pilot;
+ document.getElementById('hint').textContent=u.hint;
+ document.getElementById('ctaPilot').textContent=u.pilot;
+ document.getElementById('ctaCal').textContent=u.cta2;
+ document.getElementById('portLbl').textContent=u.port;
+ document.getElementById('portAll').textContent=u.all;
+ document.getElementById('arch').innerHTML=u.arch;
+ document.getElementById('synth').innerHTML=u.synth;
+ document.getElementById('langBtn').textContent=u.flag;
+}
+
 function setAccent(hex){document.documentElement.style.setProperty('--ac',hex);glow.style.background='radial-gradient(56% 46% at 50% 54%, '+hex+', transparent 72%)';}
 function rgb(a){return 'rgb('+Math.round(a[0]*255)+','+Math.round(a[1]*255)+','+Math.round(a[2]*255)+')';}
 
@@ -437,12 +510,12 @@ function rgb(a){return 'rgb('+Math.round(a[0]*255)+','+Math.round(a[1]*255)+','+
    di motori (numero e posizione cambiano); copre i settori di aatech/arpinge
    e industria/finanza/ambiente. */
 var OBJ=[
- {name:'Prevedere il credito',    sub:'Finanza',           lit:ENGINE.objectiveSet(3,22), ac:C.GEO},
- {name:'Rafforzare la conformità · DORA',sub:'Banche & assicurazioni',lit:ENGINE.objectiveSet(28,16),ac:C.GEO},
- {name:'Governare i modelli AI',  sub:'AI infrastructure', lit:ENGINE.objectiveSet(50,12),ac:C.VIO},
- {name:'Ottimizzare la produzione',sub:'Industria',        lit:ENGINE.objectiveSet(11,27),ac:C.AMB},
- {name:'Gestire l’energia',       sub:'Infrastrutture',    lit:ENGINE.objectiveSet(68,20),ac:C.VIO},
- {name:'Interpretare il territorio',sub:'Ambiente',        lit:ENGINE.objectiveSet(40,15),ac:C.ENV}
+ {name:'Prevedere il credito',name_en:'Predict credit',sub:'Finanza',sub_en:'Finance',lit:ENGINE.objectiveSet(3,22), ac:C.GEO},
+ {name:'Rafforzare la conformità · DORA',name_en:'Strengthen compliance · DORA',sub:'Banche & assicurazioni',sub_en:'Banks & insurance',lit:ENGINE.objectiveSet(28,16),ac:C.GEO},
+ {name:'Governare i modelli AI',name_en:'Govern AI models',sub:'AI infrastructure',sub_en:'AI infrastructure',lit:ENGINE.objectiveSet(50,12),ac:C.VIO},
+ {name:'Ottimizzare la produzione',name_en:'Optimise production',sub:'Industria',sub_en:'Industry',lit:ENGINE.objectiveSet(11,27),ac:C.AMB},
+ {name:'Gestire l’energia',name_en:'Manage energy',sub:'Infrastrutture',sub_en:'Infrastructure',lit:ENGINE.objectiveSet(68,20),ac:C.VIO},
+ {name:'Interpretare il territorio',name_en:'Read the territory',sub:'Ambiente',sub_en:'Environment',lit:ENGINE.objectiveSet(40,15),ac:C.ENV}
 ];
 var GATED=ENGINE.objectiveSet(48,9);
 function nLit(o){return Object.keys(o).length;}
@@ -450,39 +523,62 @@ function nLit(o){return Object.keys(o).length;}
 var BEATS=[
  {k:'EcoBubble',ac:'#4be08e',shape:'network',
   cap:'Costruiamo <b>infrastrutture di intelligenza artificiale</b> sulla forma della tua <b>organizzazione</b>.',
-  sub:'Dati, obiettivi e regole diventano la struttura della rete.',hold:2600},
- {k:'Il punto di partenza',ac:'#4be08e',shape:'network',
+  cap_en:'We build <b>artificial intelligence infrastructures</b> shaped on your <b>organisation</b>.',
+  sub:'Dati, obiettivi e regole diventano la struttura della rete.',
+  sub_en:'Data, goals and rules become the structure of the network.',hold:2600},
+ {k:'Il punto di partenza',k_en:'The starting point',ac:'#4be08e',shape:'network',
   cap:'Ogni azienda ha <b>decisioni</b>, <b>dati</b> e <b>priorità</b> uniche.',
-  sub:'La rete seleziona i motori più adatti ai tuoi obiettivi e ai tuoi dati.',hold:2900},
- {k:'La rete',ac:'#4be08e',shape:'network',
+  cap_en:'Every company has unique <b>decisions</b>, <b>data</b> and <b>priorities</b>.',
+  sub:'La rete seleziona i motori più adatti ai tuoi obiettivi e ai tuoi dati.',
+  sub_en:'The network selects the engines best suited to your goals and your data.',hold:2900},
+ {k:'La rete',k_en:'The network',ac:'#4be08e',shape:'network',
   cap:'Dentro agisce una <b>rete multidimensionale</b>: <b>centinaia di motori</b>, uno per ogni modo di leggere i dati.',
-  sub:'La combinazione si adatta al tuo settore e alla complessità di ogni obiettivo.',hold:2900},
- {k:'01 · Selezione',ac:'#5aa9ff',
-  cap:'Per ogni <b>obiettivo</b> si accende una <b>combinazione diversa</b> di motori.',hold:900,objcycle:true},
- {k:'02 · Efficienza',ac:'#35d0c0',ignite:GATED,igAc:C.ENV2,
+  cap_en:'Inside runs a <b>multidimensional network</b>: <b>hundreds of engines</b>, one for every way of reading data.',
+  sub:'La combinazione si adatta al tuo settore e alla complessità di ogni obiettivo.',
+  sub_en:'The combination adapts to your sector and to the complexity of each goal.',hold:2900},
+ {k:'01 · Selezione',k_en:'01 · Selection',ac:'#5aa9ff',
+  cap:'Per ogni <b>obiettivo</b> si accende una <b>combinazione diversa</b> di motori.',
+  cap_en:'For every <b>goal</b>, a <b>different combination</b> of engines lights up.',hold:900,objcycle:true},
+ {k:'02 · Efficienza',k_en:'02 · Efficiency',ac:'#35d0c0',ignite:GATED,igAc:C.ENV2,
   cap:'La rete attiva <b>i motori utili</b>: il calcolo si riduce dell’<b>80/90%</b>.',
-  sub:'Il calcolo si concentra sui motori più adatti e la rete ne misura il risultato.',hold:3000},
- {k:'03 · Agnostica',ac:'#5aa9ff',shape:'network',
+  cap_en:'The network activates <b>only the useful engines</b>: computation drops by <b>80/90%</b>.',
+  sub:'Il calcolo si concentra sui motori più adatti e la rete ne misura il risultato.',
+  sub_en:'Computation concentrates on the most suitable engines and the network measures the result.',hold:3000},
+ {k:'03 · Agnostica',k_en:'03 · Agnostic',ac:'#5aa9ff',shape:'network',
   cap:'È <b>agnostica</b> e <b>flessibile</b>: quando i dati cambiano, la rete <b>si ricompone</b>.',
-  sub:'Modelli e tecnologie restano liberamente combinabili.',hold:3000},
- {k:'04 · Privacy',ac:'#4be08e',shape:'dome',
+  cap_en:'It is <b>agnostic</b> and <b>flexible</b>: when data changes, the network <b>recomposes itself</b>.',
+  sub:'Modelli e tecnologie restano liberamente combinabili.',
+  sub_en:'Models and technologies remain freely combinable.',hold:3000},
+ {k:'04 · Privacy',k_en:'04 · Privacy',ac:'#4be08e',shape:'dome',
   cap:'I tuoi <b>dati restano nei tuoi sistemi</b>: l’intelligenza resta <b>dove sei tu</b>.',
-  sub:'Funziona nei tuoi sistemi, sotto le tue chiavi e secondo le tue regole.',hold:3200},
- {k:'05 · Indipendenza',ac:'#a98bff',shape:'ring',
+  cap_en:'Your <b>data stays in your systems</b>: intelligence stays <b>where you are</b>.',
+  sub:'Funziona nei tuoi sistemi, sotto le tue chiavi e secondo le tue regole.',
+  sub_en:'It runs in your systems, under your keys and by your rules.',hold:3200},
+ {k:'05 · Indipendenza',k_en:'05 · Independence',ac:'#a98bff',shape:'ring',
   cap:'Mantieni la piena <b>autonomia tecnologica</b>.',
-  sub:'Cloud, modelli e infrastruttura restano sotto il tuo controllo. Sovranità reale.',hold:3200},
- {k:'06 · Fiducia',ac:'#ffc46b',shape:'lattice',
+  cap_en:'You keep full <b>technological autonomy</b>.',
+  sub:'Cloud, modelli e infrastruttura restano sotto il tuo controllo. Sovranità reale.',
+  sub_en:'Cloud, models and infrastructure remain under your control. Real sovereignty.',hold:3200},
+ {k:'06 · Fiducia',k_en:'06 · Trust',ac:'#ffc46b',shape:'lattice',
   cap:'Ogni risposta dichiara <b>quanto fidarsi</b>, con una <b>firma</b> che chiunque può verificare.',
-  sub:'Copertura verificata (~90%) e catena di audit SHA-256: controllabile da una banca o un revisore.',hold:3200},
- {k:'07 · Pilota',ac:'#4be08e',shape:'network',
+  cap_en:'Every answer declares <b>how much to trust it</b>, with a <b>signature</b> anyone can verify.',
+  sub:'Copertura verificata (~90%) e catena di audit SHA-256: controllabile da una banca o un revisore.',
+  sub_en:'Verified coverage (~90%) and a SHA-256 audit chain: checkable by a bank or an auditor.',hold:3200},
+ {k:'07 · Pilota',k_en:'07 · Pilot',ac:'#4be08e',shape:'network',
   cap:'Ogni rete nasce da un <b>pilota misurato</b> sui tuoi <b>dati</b> e sui tuoi <b>obiettivi</b>.',
-  sub:'Criteri di successo, tempi e risultati sono definiti insieme fin dall’inizio.',hold:3000},
- {k:'Il team',ac:'#4be08e',shape:'network',team:true,
-  cap:'Dietro la rete, <b>fisica</b>, <b>scienze della Terra</b> e <b>ingegneria</b>.',
-  sub:'Fisica dei sistemi complessi applicata all’ambiente e al territorio. La rete la firmiamo noi.',hold:3600},
- {k:'Iniziamo',ac:'#4be08e',shape:'emblem',cta:true,port:true,
+  cap_en:'Every network starts from a <b>measured pilot</b> on your <b>data</b> and your <b>goals</b>.',
+  sub:'Criteri di successo, tempi e risultati sono definiti insieme fin dall’inizio.',
+  sub_en:'Success criteria, timelines and results are defined together from day one.',hold:3000},
+ {k:'Il team',k_en:'The team',ac:'#4be08e',shape:'network',team:true,
+  cap:'Dietro la rete, <b>fisica</b>, <b>dati</b> e <b>tecnologia</b>.',
+  cap_en:'Behind the network, <b>physics</b>, <b>data</b> and <b>technology</b>.',
+  sub:'Fisica dei sistemi complessi, intelligenza artificiale e piattaforme. La rete la firmiamo noi.',
+  sub_en:'Complex systems physics, artificial intelligence and platforms. We sign the network ourselves.',hold:3600},
+ {k:'Iniziamo',k_en:'Let’s begin',ac:'#4be08e',shape:'emblem',cta:true,port:true,
   cap:'Che <b>intelligenza</b> costruiamo per te?',
-  sub:'Definiamo obiettivi, metriche e rete. Il primo passo è un pilota misurato, l’infrastruttura resta tua.',hold:99999}
+  cap_en:'What <b>intelligence</b> shall we build for you?',
+  sub:'Definiamo obiettivi, metriche e rete. Il primo passo è un pilota misurato, l’infrastruttura resta tua.',
+  sub_en:'We define goals, metrics and network. The first step is a measured pilot, the infrastructure remains yours.',hold:99999}
 ];
 
 BEATS.forEach(function(b,i){var el=document.createElement('button');el.type='button';el.innerHTML='<b></b>';el.setAttribute('aria-label','Capitolo '+(i+1)+': '+b.k);el.addEventListener('click',function(){play(i);});bar.appendChild(el);});
@@ -529,23 +625,24 @@ function show(i){
  var b=BEATS[i];
  if(i!==BEATS.length-1)summaryMode=false;
  synthBox.classList.toggle('on',summaryMode&&i===BEATS.length-1);
- setAccent(b.ac);kick.textContent=b.k;
+ var capS=TT(b,'cap'),subS=TT(b,'sub');
+ setAccent(b.ac);kick.textContent=TT(b,'k');
  sub.textContent='';sub.classList.remove('on');
- cta.classList.remove('on');gal.classList.remove('on');objBox.classList.remove('on');
+ cta.classList.remove('on');gal.classList.remove('on');archl.classList.remove('on');objBox.classList.remove('on');
  teamBox.classList.toggle('on',!!b.team);
  cnt.textContent=(i+1)+' / '+BEATS.length;
- srStatus.textContent=b.k+'. '+b.cap.replace(/<[^>]+>/g,'')+(b.sub?' '+b.sub:'');
+ srStatus.textContent=TT(b,'k')+'. '+capS.replace(/<[^>]+>/g,'')+(subS?' '+subS:'');
  fillBar(i);
  if(b.shape)ENGINE.go(b.shape);
  if(b.ignite)ENGINE.ignite(b.ignite,b.igAc);
  var reducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- var ws=words(b.cap),perWord=reducedMotion?0:130,typeMs=ws.length*perWord;
+ var ws=words(capS),perWord=reducedMotion?0:130,typeMs=ws.length*perWord;
  /* tempo di lettura: pausa proporzionata al testo (didascalia + sottotitolo) */
- var read=Math.max(b.hold,1150+(b.cap.replace(/<[^>]+>/g,'').length+(b.sub?b.sub.length:0))*22);
+ var read=Math.max(b.hold,1150+(capS.replace(/<[^>]+>/g,'').length+(subS?subS.length:0))*22);
  typeWords(ws,perWord,function(){
-  if(b.sub){sub.textContent=b.sub;sub.classList.add('on');}
+  if(subS){sub.textContent=subS;sub.classList.add('on');}
   if(b.cta)cta.classList.add('on');
-  if(b.port&&!summaryMode)gal.classList.add('on');
+  if(b.port&&!summaryMode){gal.classList.add('on');archl.classList.add('on');}
   if(b.objcycle){cycleObjectives(function(){completeBar(i);});return;}
   completeBar(i);
  });
@@ -556,7 +653,7 @@ function cycleObjectives(done){
  (function step(){if(paused){later(step,200);return;}
   if(n>=OBJ.length){objBox.classList.remove('on');if(done)done();return;}
   var o=OBJ[n];setAccent(rgb(o.ac));
-  objName.innerHTML=o.name+' <small>&middot; '+o.sub+' &middot; '+nLit(o.lit)+' motori accesi</small>';
+  objName.innerHTML=TT(o,'name')+' <small>&middot; '+TT(o,'sub')+' &middot; '+nLit(o.lit)+UI[LANG].lit+'</small>';
   objBox.classList.add('on');
   ENGINE.ignite(o.lit,o.ac);n++;later(step,1150);
  })();
@@ -585,6 +682,20 @@ stage.addEventListener('pointerdown',function(e){downX=e.clientX;dragMoved=false
 window.addEventListener('pointermove',function(e){if(Math.abs(e.clientX-downX)>6)dragMoved=true;});
 stage.addEventListener('click',function(){if(!dragMoved)next();});
 summaryBtn.addEventListener('click',function(){paused=false;summaryMode=true;play(BEATS.length-1);});
+
+/* selettore lingua: tendina con bandierine */
+var langSel=document.getElementById('langsel'),langBtn=document.getElementById('langBtn');
+function setLang(l){if(l===LANG||!UI[l])return;LANG=l;try{localStorage.setItem('eb_lang',l);}catch(e){}
+ applyLang();if(idx>=0)play(idx);}
+langBtn.addEventListener('click',function(e){e.stopPropagation();
+ var open=langSel.classList.toggle('open');langBtn.setAttribute('aria-expanded',open?'true':'false');});
+[].slice.call(document.querySelectorAll('#langMenu button')).forEach(function(b){
+ b.addEventListener('click',function(e){e.stopPropagation();setLang(b.getAttribute('data-lang'));
+  langSel.classList.remove('open');langBtn.setAttribute('aria-expanded','false');});});
+document.addEventListener('click',function(){langSel.classList.remove('open');langBtn.setAttribute('aria-expanded','false');});
+/* hook QA: ?lang=xx forza la lingua */
+var ml=location.search.match(/[?&]lang=(it|en)/);if(ml)LANG=ml[1];
+applyLang();
 
 /* hook QA: ?ch=N mostra direttamente il capitolo richiesto */
 var m=location.search.match(/ch=(\d+)/);

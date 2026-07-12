@@ -13,6 +13,9 @@
 body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::selection{background:rgba(75,224,142,.3)}
 :focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+.l-en{display:none}
+html.en .l-it{display:none}
+html.en .l-en{display:inline}
 #bg{position:fixed;inset:0;z-index:0;width:100%;height:100%}
 .nogl #bg{background:radial-gradient(60% 60% at 50% 40%,rgba(20,40,32,.5),transparent)}
 #glow{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.12;background:radial-gradient(56% 46% at 50% 54%,var(--ac),transparent 72%)}
@@ -26,10 +29,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:cent
 .brandx b{color:var(--txt2);font-weight:700;transition:color .25s}
 .brandx:hover b{color:var(--env)}
 .navlinks{display:flex;gap:10px;align-items:center}
-.navcta{font-size:13px;font-weight:700;color:var(--txt);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:10px 18px;transition:.25s;background:rgba(255,255,255,.03)}
+.navcta{font-size:13px;font-weight:700;color:var(--txt);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:10px 18px;transition:.25s;background:rgba(255,255,255,.03);cursor:pointer;font-family:inherit}
 .navcta:hover{border-color:color-mix(in srgb,var(--ac) 60%,transparent);color:var(--ac2)}
 .navcta.primary{background:var(--env);border-color:var(--env);color:#04150b}
 .navcta.primary:hover{color:#04150b;box-shadow:0 12px 34px -16px var(--env)}
+#langsel{position:relative}
+#langMenu{position:absolute;top:calc(100% + 8px);right:0;display:none;min-width:160px;background:rgba(9,14,19,.96);border:1px solid var(--line);border-radius:14px;padding:6px;z-index:60;box-shadow:0 18px 40px -18px rgba(0,0,0,.8)}
+#langsel.open #langMenu{display:block}
+#langMenu button{appearance:none;display:block;width:100%;text-align:left;background:none;border:0;color:var(--txt2);font:700 13px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;padding:10px 12px;border-radius:9px;cursor:pointer;transition:.2s}
+#langMenu button:hover{background:rgba(255,255,255,.06);color:var(--txt)}
 main{position:relative;z-index:10}
 section{padding:0 6vw}
 .wrap{max-width:1120px;margin:0 auto}
@@ -39,8 +47,8 @@ h1{font-size:clamp(34px,5vw,60px);line-height:1.12;letter-spacing:-.02em;font-we
 .lead{margin-top:20px;font-size:16.5px;line-height:1.68;color:var(--txt2);max-width:660px;text-shadow:0 2px 30px rgba(4,7,10,.8)}
 .lead b{color:var(--txt);font-weight:600}
 .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
-.badges span{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--txt2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;background:rgba(9,14,19,.6)}
-.badges span.hot{border-color:color-mix(in srgb,var(--ac) 45%,transparent);color:var(--ac2)}
+.badges>span{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--txt2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;background:rgba(9,14,19,.6)}
+.badges>span.hot{border-color:color-mix(in srgb,var(--ac) 45%,transparent);color:var(--ac2)}
 .stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
 .stat{border:1px solid var(--line);border-radius:18px;padding:15px 20px;background:var(--panel);min-width:150px;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
 .stat .v{font-size:25px;font-weight:800;letter-spacing:-.02em;color:var(--ac2);font-variant-numeric:tabular-nums}
@@ -49,11 +57,11 @@ h1{font-size:clamp(34px,5vw,60px);line-height:1.12;letter-spacing:-.02em;font-we
 .scrollhint::after{content:"";display:block;width:1px;height:38px;margin-top:12px;background:linear-gradient(180deg,var(--ac),transparent)}
 h2{font-size:clamp(24px,3.2vw,38px);line-height:1.2;letter-spacing:-.018em;font-weight:800;max-width:18em}
 .sub{margin-top:14px;font-size:14.5px;line-height:1.65;color:var(--txt2);max-width:640px}
+.sub b{color:var(--txt);font-weight:600}
 .sec{padding-top:64px;padding-bottom:64px}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
-.cards.four{grid-template-columns:repeat(4,1fr)}
-@media(max-width:1020px){.cards,.cards.four{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.cards,.cards.four{grid-template-columns:1fr}}
+@media(max-width:1020px){.cards{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.cards{grid-template-columns:1fr}}
 .card{border:1px solid var(--line);border-radius:20px;background:var(--panel);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:22px;transition:border-color .3s,transform .3s}
 .card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--ac) 45%,transparent)}
 .card .t{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ac)}
@@ -77,10 +85,6 @@ h2{font-size:clamp(24px,3.2vw,38px);line-height:1.2;letter-spacing:-.018em;font-
 .archline b{color:var(--txt)}
 .archline a{color:var(--env);font-weight:700;text-decoration:none;margin-left:auto;white-space:nowrap}
 .archline a:hover{text-decoration:underline}
-.netchips{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
-.netchips a{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--txt2);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 16px;background:rgba(9,14,19,.5);transition:.25s}
-.netchips a i{width:7px;height:7px;border-radius:50%;background:var(--nac,var(--env));box-shadow:0 0 8px var(--nac,var(--env))}
-.netchips a:hover{color:var(--txt);border-color:var(--nac,rgba(255,255,255,.3))}
 .ngrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:38px}
 .ncard{display:block;text-decoration:none;border:1px solid var(--line);border-radius:20px;background:var(--panel);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:22px;transition:border-color .3s,transform .3s;position:relative}
 .ncard:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--nac) 55%,transparent);box-shadow:0 24px 50px -30px var(--nac)}
@@ -110,60 +114,85 @@ footer a:hover{color:var(--txt)}
 <div id="veil"></div>
 <nav aria-label="Navigazione principale">
   <div class="brandwrap">
-    <a class="brand" href="../index_v16C.html"><svg viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm1"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#4be08e" stroke-width="100" mask="url(#ebm1)"/><circle cx="310" cy="622" r="310" fill="#4be08e"/><circle cx="1405" cy="622" r="310" fill="#4be08e"/></svg>EcoBubble <small class="hidemob">Applied Intelligence</small></a>
+    <a class="brand" href="../index.html"><svg viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm1"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#4be08e" stroke-width="100" mask="url(#ebm1)"/><circle cx="310" cy="622" r="310" fill="#4be08e"/><circle cx="1405" cy="622" r="310" fill="#4be08e"/></svg>EcoBubble <small class="hidemob">Applied Intelligence</small></a>
     <a class="brandx" href="https://www.plantiverse.it" target="_blank" rel="noopener" title="Sviluppato con Plantiverse">&times; <b>Plantiverse</b></a>
   </div>
-  <div class="navlinks"><a class="navcta" href="index.html">Le reti</a><a class="navcta primary" href="mailto:info@ecobubble.it?subject=Portfolio%20EcoBubble">Avvia un pilota &rarr;</a></div>
+  <div class="navlinks">
+    <div id="langsel">
+      <button class="navcta" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">&#127470;&#127481; IT &#9662;</button>
+      <div id="langMenu" role="listbox" aria-label="Lingua / Language">
+        <button type="button" data-lang="it">&#127470;&#127481; Italiano</button>
+        <button type="button" data-lang="en">&#127468;&#127463; English</button>
+      </div>
+    </div>
+    <a class="navcta" href="index.html"><span class="l-it">Le reti</span><span class="l-en">The networks</span></a><a class="navcta primary" href="mailto:info@ecobubble.it?subject=Portfolio%20EcoBubble"><span class="l-it">Avvia un pilota &rarr;</span><span class="l-en">Start a pilot &rarr;</span></a></div>
 </nav>
 <main>
   <section id="hero" style="min-height:auto;padding-top:150px"><div class="wrap">
-    <div class="kick">Il portfolio</div>
-    <h1>Cinque reti,<br>una sola architettura.</h1>
-    <p class="lead">Due sono gi&agrave; <b>in funzione</b>, con dati reali di piattaforma: GreenEazy e Plantiverse.
-    Tre mostrano la stessa architettura applicata a energia, finanza regolata e capitale naturale,
-    in scenari dimostrativi. Sotto tutte, <b>Ennous</b>.</p>
+    <div class="kick"><span class="l-it">Il portfolio</span><span class="l-en">The portfolio</span></div>
+    <h1><span class="l-it">Cinque reti,<br>una sola architettura.</span><span class="l-en">Five networks,<br>one architecture.</span></h1>
+    <p class="lead"><span class="l-it">Due sono gi&agrave; <b>in funzione</b>, con dati reali di piattaforma: GreenEazy e Plantiverse. Tre mostrano la stessa architettura applicata a energia, finanza regolata e capitale naturale, in scenari dimostrativi. Sotto tutte, <b>Ennous</b>.</span><span class="l-en">Two are already <b>live</b>, with real platform data: GreenEazy and Plantiverse. Three show the same architecture applied to energy, regulated finance and natural capital, in demonstration scenarios. Beneath them all, <b>Ennous</b>.</span></p>
     <div class="ngrid">
-      <a class="ncard" style="--nac:#35d0c0" href="greeneazy.html"><span class="state on">In funzione</span>
+      <a class="ncard" style="--nac:#35d0c0" href="greeneazy.html"><span class="state on"><span class="l-it">In funzione</span><span class="l-en">Live</span></span>
         <b><i></i>GreenEazy</b>
-        <p>Il verde giusto, scelto dai dati. E la prova scritta di quali inquinanti assorbe.</p>
-        <span class="go">Apri la pagina &rarr;</span></a>
-      <a class="ncard" style="--nac:#8be34b" href="plantiverse.html"><span class="state on">In funzione</span>
+        <p><span class="l-it">Il verde giusto, scelto dai dati. E la prova scritta di quali inquinanti assorbe.</span><span class="l-en">The right green, chosen by data. With written proof of which pollutants it absorbs.</span></p>
+        <span class="go"><span class="l-it">Apri la pagina &rarr;</span><span class="l-en">Open the page &rarr;</span></span></a>
+      <a class="ncard" style="--nac:#8be34b" href="plantiverse.html"><span class="state on"><span class="l-it">In funzione</span><span class="l-en">Live</span></span>
         <b><i></i>Plantiverse</b>
-        <p>Ogni pianta parla: lo stress colto prima dei sintomi, previsioni a 7, 14 e 30 giorni.</p>
-        <span class="go">Apri la pagina &rarr;</span></a>
-      <a class="ncard" style="--nac:#ffc46b" href="energia.html"><span class="state">Scenario dimostrativo</span>
-        <b><i></i>Energia &amp; Infrastrutture</b>
-        <p>Un portafoglio che si spiega alla banca: DSCR vivo, scenari di stress, firma SHA-256.</p>
-        <span class="go">Apri la pagina &rarr;</span></a>
-      <a class="ncard" style="--nac:#a98bff" href="governance.html"><span class="state">Scenario dimostrativo</span>
-        <b><i></i>Governance AI</b>
-        <p>Molti modelli, una rete che li orchestra. AI Act e DORA come certificati firmati.</p>
-        <span class="go">Apri la pagina &rarr;</span></a>
-      <a class="ncard" style="--nac:#9df3c3" href="natural-capital.html"><span class="state">Scenario dimostrativo</span>
+        <p><span class="l-it">Ogni pianta parla: lo stress colto prima dei sintomi, previsioni a 7, 14 e 30 giorni.</span><span class="l-en">Every plant speaks: stress caught before symptoms, forecasts at 7, 14 and 30 days.</span></p>
+        <span class="go"><span class="l-it">Apri la pagina &rarr;</span><span class="l-en">Open the page &rarr;</span></span></a>
+      <a class="ncard" style="--nac:#ffc46b" href="energia.html"><span class="state"><span class="l-it">Scenario dimostrativo</span><span class="l-en">Demonstration scenario</span></span>
+        <b><i></i><span class="l-it">Energia &amp; Infrastrutture</span><span class="l-en">Energy &amp; Infrastructure</span></b>
+        <p><span class="l-it">Un portafoglio che si spiega alla banca: DSCR vivo, scenari di stress, firma SHA-256.</span><span class="l-en">A portfolio that explains itself to the bank: living DSCR, stress scenarios, SHA-256 signature.</span></p>
+        <span class="go"><span class="l-it">Apri la pagina &rarr;</span><span class="l-en">Open the page &rarr;</span></span></a>
+      <a class="ncard" style="--nac:#a98bff" href="governance.html"><span class="state"><span class="l-it">Scenario dimostrativo</span><span class="l-en">Demonstration scenario</span></span>
+        <b><i></i><span class="l-it">Governance AI</span><span class="l-en">AI Governance</span></b>
+        <p><span class="l-it">Molti modelli, una rete che li orchestra. AI Act e DORA come certificati firmati.</span><span class="l-en">Many models, one network that orchestrates them. AI Act and DORA as signed certificates.</span></p>
+        <span class="go"><span class="l-it">Apri la pagina &rarr;</span><span class="l-en">Open the page &rarr;</span></span></a>
+      <a class="ncard" style="--nac:#9df3c3" href="natural-capital.html"><span class="state"><span class="l-it">Scenario dimostrativo</span><span class="l-en">Demonstration scenario</span></span>
         <b><i></i>Natural Capital</b>
-        <p>Foreste misurate come capitale: variazioni colte in anticipo, carbonio difendibile.</p>
-        <span class="go">Apri la pagina &rarr;</span></a>
+        <p><span class="l-it">Foreste misurate come capitale: variazioni colte in anticipo, carbonio difendibile.</span><span class="l-en">Forests measured as capital: changes caught early, defensible carbon.</span></p>
+        <span class="go"><span class="l-it">Apri la pagina &rarr;</span><span class="l-en">Open the page &rarr;</span></span></a>
       <a class="ncard wide" style="--nac:#4be08e" href="architettura.html"><span class="state on">Patent pending</span>
-        <b><i></i>Ennous &middot; L&#8217;architettura</b>
-        <p>Non &egrave; una rete del portfolio: &egrave; ci&ograve; che le genera. Una rete multidimensionale di centinaia
-        di motori che accende solo i nodi utili, misura la fiducia e firma ogni risposta.</p>
-        <span class="go">Scopri l&#8217;architettura &rarr;</span></a>
+        <b><i></i><span class="l-it">Ennous &middot; L&#8217;architettura</span><span class="l-en">Ennous &middot; The architecture</span></b>
+        <p><span class="l-it">Non &egrave; una rete del portfolio: &egrave; ci&ograve; che le genera. Una rete multidimensionale di centinaia di motori che accende solo i nodi utili, misura la fiducia e firma ogni risposta.</span><span class="l-en">It is not a network in the portfolio: it is what generates them. A multidimensional network of hundreds of engines that lights only the useful nodes, measures trust and signs every answer.</span></p>
+        <span class="go"><span class="l-it">Scopri l&#8217;architettura &rarr;</span><span class="l-en">Discover the architecture &rarr;</span></span></a>
     </div>
   </div></section>
   <section class="sec"><div class="wrap">
 <div class="ctas">
-    <a class="btn p" href="mailto:info@ecobubble.it?subject=Portfolio%20EcoBubble">Avvia un pilota &rarr;</a>
-    <a class="btn s" href="../index_v16C.html">Torna alla home</a>
+    <a class="btn p" href="mailto:info@ecobubble.it?subject=Portfolio%20EcoBubble"><span class="l-it">Avvia un pilota &rarr;</span><span class="l-en">Start a pilot &rarr;</span></a>
+    <a class="btn s" href="../index.html"><span class="l-it">Torna alla home</span><span class="l-en">Back to the home page</span></a>
   </div>
   </div></section>
 </main>
 <footer>
   <div class="frow">
-    <div style="max-width:560px"><b>EcoBubble S.r.l.</b> &times; <a href="https://www.plantiverse.it" target="_blank" rel="noopener"><b>Plantiverse S.r.l.</b></a> &middot; GreenEazy e Plantiverse mostrano dati reali di piattaforma; le altre reti usano scenari dimostrativi.<br>Le reti del portfolio e l&#8217;architettura Ennous sono sviluppate con <a href="https://www.plantiverse.it" target="_blank" rel="noopener">Plantiverse S.r.l.</a><br>info@ecobubble.it</div>
-    <div><a href="../index_v16C.html">&larr; Torna alla home</a> &middot; <a href="index.html">Tutte le reti</a><div style="margin-top:10px">&copy; 2026 EcoBubble S.r.l. &middot; Tutti i diritti riservati.</div></div>
+    <div style="max-width:560px"><b>EcoBubble S.r.l.</b> &times; <a href="https://www.plantiverse.it" target="_blank" rel="noopener"><b>Plantiverse S.r.l.</b></a> &middot; <span class="l-it">GreenEazy e Plantiverse mostrano dati reali di piattaforma; le altre reti usano scenari dimostrativi.</span><span class="l-en">GreenEazy and Plantiverse show real platform data; the other networks use demonstration scenarios.</span><br><span class="l-it">Le reti del portfolio e l&#8217;architettura Ennous sono sviluppate con <a href="https://www.plantiverse.it" target="_blank" rel="noopener">Plantiverse S.r.l.</a></span><span class="l-en">The portfolio networks and the Ennous architecture are developed with <a href="https://www.plantiverse.it" target="_blank" rel="noopener">Plantiverse S.r.l.</a></span><br>info@ecobubble.it</div>
+    <div><a href="../index.html"><span class="l-it">&larr; Torna alla home</span><span class="l-en">&larr; Back to the home page</span></a> &middot; <a href="index.html"><span class="l-it">Tutte le reti</span><span class="l-en">All networks</span></a><div style="margin-top:10px">&copy; 2026 EcoBubble S.r.l. <span class="l-it">&middot; Tutti i diritti riservati.</span><span class="l-en">&middot; All rights reserved.</span></div></div>
   </div>
 </footer>
 <script>window.RETE_CFG={ac:[0.29,0.88,0.55],ac2:[0.36,0.66,1.0],ac3:[0.66,0.55,1.0],sx:0.5,sy:0.3};</script>
 <script src="../assets/rete-bg-v16c.js"></script>
+<script>
+(function(){
+var LANG=(function(){try{var s=localStorage.getItem('eb_lang');if(s==='it'||s==='en')return s;}catch(e){}
+ return ((navigator.language||'it').toLowerCase().indexOf('it')===0)?'it':'en';})();
+var ml=location.search.match(/[?&]lang=(it|en)/);if(ml)LANG=ml[1];
+function apply(){document.documentElement.classList.toggle('en',LANG==='en');document.documentElement.lang=LANG;
+ var b=document.getElementById('langBtn');if(b)b.innerHTML=LANG==='en'?'&#127468;&#127463; EN &#9662;':'&#127470;&#127481; IT &#9662;';}
+var langSel=document.getElementById('langsel'),langBtn=document.getElementById('langBtn');
+if(langBtn){
+ langBtn.addEventListener('click',function(e){e.stopPropagation();
+  var open=langSel.classList.toggle('open');langBtn.setAttribute('aria-expanded',open?'true':'false');});
+ [].slice.call(document.querySelectorAll('#langMenu button')).forEach(function(b){
+  b.addEventListener('click',function(e){e.stopPropagation();LANG=b.getAttribute('data-lang');
+   try{localStorage.setItem('eb_lang',LANG);}catch(err){}
+   apply();langSel.classList.remove('open');langBtn.setAttribute('aria-expanded','false');});});
+ document.addEventListener('click',function(){langSel.classList.remove('open');langBtn.setAttribute('aria-expanded','false');});
+}
+apply();
+})();
+</script>
 </body>
 </html>
