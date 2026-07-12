@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Plantiverse · L&#8217;intelligenza delle colture</title>
-<meta name="description" content="Plantiverse è la rete EcoBubble che legge le piante dal cielo e dal suolo: 573 piante monitorate, 359 specie, 6.390 report agronomici, stress colto prima dei sintomi. Demo interattiva sui dati reali della piattaforma.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1715 1243%22><defs><mask id=%22m%22><rect width=%221715%22 height=%221243%22 fill=%22white%22/><circle cx=%22310%22 cy=%22622%22 r=%22355%22 fill=%22black%22/><circle cx=%221405%22 cy=%22622%22 r=%22355%22 fill=%22black%22/></mask></defs><circle cx=%22857%22 cy=%22622%22 r=%22570%22 fill=%22none%22 stroke=%22%235aa9ff%22 stroke-width=%22100%22 mask=%22url(%23m)%22/><circle cx=%22310%22 cy=%22622%22 r=%22310%22 fill=%22%235aa9ff%22/><circle cx=%221405%22 cy=%22622%22 r=%22310%22 fill=%22%235aa9ff%22/></svg>">
+<title>GreenEazy · L&#8217;intelligenza del verde urbano</title>
+<meta name="description" content="GreenEazy è la rete EcoBubble che sceglie la pianta giusta per ogni luogo: 6.072 specie in enciclopedia, 135 inquinanti mappati, aria misurata dal satellite Copernicus, cura che segue il meteo. Demo interattiva sui dati reali del motore.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1715 1243%22><defs><mask id=%22m%22><rect width=%221715%22 height=%221243%22 fill=%22white%22/><circle cx=%22310%22 cy=%22622%22 r=%22355%22 fill=%22black%22/><circle cx=%221405%22 cy=%22622%22 r=%22355%22 fill=%22black%22/></mask></defs><circle cx=%22857%22 cy=%22622%22 r=%22570%22 fill=%22none%22 stroke=%22%2335d0c0%22 stroke-width=%22100%22 mask=%22url(%23m)%22/><circle cx=%22310%22 cy=%22622%22 r=%22310%22 fill=%22%2335d0c0%22/><circle cx=%221405%22 cy=%22622%22 r=%22310%22 fill=%22%2335d0c0%22/></svg>">
 <style>
 :root{
  --bg:#050b16;--panel:rgba(10,16,27,.72);--panel2:rgba(14,21,33,.85);
- --ac:#5aa9ff;--ac2:#a7cdff;--env:#4be08e;--vio:#a98bff;--amber:#ffc46b;--teal:#35d0c0;--rose:#ff8fa3;
+ --ac:#35d0c0;--ac2:#8ceadf;--env:#4be08e;--geo:#5aa9ff;--vio:#a98bff;--amber:#ffc46b;--rose:#ff8fa3;
  --txt:#eef4f0;--txt2:#93a7a0;--txt3:#5b6e66;--line:rgba(255,255,255,.09);
  --ok:#4be08e;--warn:#ffc46b;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-::selection{background:rgba(90,169,255,.3)}
+::selection{background:rgba(53,208,192,.3)}
 #net{position:fixed;inset:0;z-index:0}
 #veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 42%,transparent 40%,rgba(5,11,22,.78) 100%)}
 
@@ -27,7 +27,7 @@ header{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:c
 .hright{display:flex;align-items:center;gap:10px}
 .badge{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--txt2);border:1px solid var(--line);border-radius:999px;padding:6px 13px;background:rgba(10,16,27,.6)}
 .badge i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ac);margin-right:7px;vertical-align:1px}
-.badge.gold{border-color:rgba(90,169,255,.45);color:var(--ac2)}
+.badge.gold{border-color:rgba(53,208,192,.45);color:var(--ac2)}
 
 main{position:relative;z-index:10}
 section{min-height:100vh;display:flex;align-items:center;padding:110px 6vw 80px;position:relative}
@@ -53,7 +53,7 @@ h2{font-size:clamp(26px,3.4vw,42px);line-height:1.18;letter-spacing:-.018em;font
 @media(max-width:960px){.assets{grid-template-columns:repeat(2,1fr)}}
 .asset{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:15px 16px;cursor:pointer;transition:border-color .25s,transform .25s;position:relative}
 .asset:hover{transform:translateY(-2px)}
-.asset.on{border-color:rgba(90,169,255,.65);box-shadow:0 14px 34px -22px var(--ac)}
+.asset.on{border-color:rgba(53,208,192,.65);box-shadow:0 14px 34px -22px var(--ac)}
 .asset .t{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ac)}
 .asset .n{font-size:13.5px;font-weight:700;margin-top:6px;line-height:1.35}
 .asset .m{font-size:11px;color:var(--txt2);margin-top:7px;font-variant-numeric:tabular-nums}
@@ -69,7 +69,7 @@ h2{font-size:clamp(26px,3.4vw,42px);line-height:1.18;letter-spacing:-.018em;font
 .objs{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
 .chip{appearance:none;border:1px solid var(--line);border-radius:999px;background:rgba(10,16,27,.6);color:var(--txt2);font:inherit;font-size:13px;font-weight:700;padding:11px 20px;cursor:pointer;transition:.25s}
 .chip:hover{color:var(--txt);border-color:rgba(255,255,255,.3)}
-.chip.on{background:var(--ac);border-color:var(--ac);color:#061527}
+.chip.on{background:var(--ac);border-color:var(--ac);color:#03211d}
 #gatebox{margin-top:26px;display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:stretch}
 @media(max-width:960px){#gatebox{grid-template-columns:1fr}}
 .gcount{font-size:clamp(30px,3.2vw,44px);font-weight:800;letter-spacing:-.02em;color:var(--ac2);font-variant-numeric:tabular-nums}
@@ -78,8 +78,8 @@ h2{font-size:clamp(26px,3.4vw,42px);line-height:1.18;letter-spacing:-.018em;font
 .meter{margin-top:20px}
 .meter .lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--txt3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
 .meter .bar{height:10px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden}
-.meter .bar b{display:block;height:100%;width:100%;border-radius:6px;background:linear-gradient(90deg,var(--teal),var(--ac));transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
-.meter .big{font-size:24px;font-weight:800;color:var(--teal);margin-top:10px;font-variant-numeric:tabular-nums}
+.meter .bar b{display:block;height:100%;width:100%;border-radius:6px;background:linear-gradient(90deg,var(--env),var(--ac));transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+.meter .big{font-size:24px;font-weight:800;color:var(--env);margin-top:10px;font-variant-numeric:tabular-nums}
 .fams{display:grid;grid-template-columns:1fr 1fr;gap:9px 18px;margin-top:6px}
 .fam{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--txt2)}
 .fam i{width:8px;height:8px;border-radius:50%;flex:none}
@@ -111,7 +111,7 @@ canvas.heat{width:100%;height:280px;display:block;border-radius:12px}
 #receipt::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--ac),transparent)}
 .rbtns{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
 .btn{appearance:none;border:0;border-radius:999px;font:inherit;font-size:14px;font-weight:700;padding:13px 26px;cursor:pointer;transition:.25s;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
-.btn.p{background:var(--ac);color:#061527}
+.btn.p{background:var(--ac);color:#03211d}
 .btn.p:hover{transform:translateY(-2px);box-shadow:0 16px 36px -16px var(--ac)}
 .btn.s{border:1px solid var(--line);background:rgba(10,16,27,.6);color:var(--txt)}
 .btn.s:hover{border-color:rgba(255,255,255,.3)}
@@ -127,7 +127,7 @@ footer .fb{max-width:560px}
 footer b{color:var(--txt2)}
 .pbadges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .pbadges span{border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--txt2)}
-.pbadges span.gold{border-color:rgba(90,169,255,.45);color:var(--ac2)}
+.pbadges span.gold{border-color:rgba(53,208,192,.45);color:var(--ac2)}
 
 #rail{position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:12px}
 #rail a{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.16);transition:.3s;display:block}
@@ -150,7 +150,7 @@ footer b{color:var(--txt2)}
 
 /* velatura minimale nel colore della rete */
 body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
- background:radial-gradient(85% 60% at 82% -8%,rgba(90,169,255,.10),transparent 60%),radial-gradient(70% 55% at -5% 105%,rgba(90,169,255,.05),transparent 55%)}
+ background:radial-gradient(85% 60% at 82% -8%,rgba(53,208,192,.10),transparent 60%),radial-gradient(70% 55% at -5% 105%,rgba(53,208,192,.05),transparent 55%)}
 
 /* cambio pagina scorrevole */
 @view-transition{navigation:auto}
@@ -164,21 +164,28 @@ html{scroll-snap-type:y mandatory}
 html.mini{scroll-snap-type:none}
 section{scroll-snap-align:start;scroll-snap-stop:always}
 footer{scroll-snap-align:start}
+#net{opacity:.24}
+#sectorConstellation{position:fixed;inset:0;z-index:2;pointer-events:none;filter:drop-shadow(0 0 12px rgba(53,208,192,.2))}
+.demo-authors{position:fixed;right:22px;bottom:18px;z-index:45;display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(5,11,22,.82);backdrop-filter:blur(12px);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--txt3)}
+.demo-authors a{color:var(--txt2);text-decoration:none;font-weight:800}.demo-authors a:hover{color:var(--ac)}
+@media(max-width:640px){.demo-authors{right:12px;bottom:10px}.demo-authors span{display:none}}
 </style>
 </head>
-<body>
+<body data-sector="green" data-sector-accent="#35d0c0">
+<canvas id="sectorConstellation" aria-hidden="true"></canvas>
+<div class="demo-authors" aria-label="Autori della demo"><span>Una demo di</span><a href="https://www.ecobubble.it" target="_blank" rel="noopener">EcoBubble</a><b>×</b><a href="https://www.plantiverse.it" target="_blank" rel="noopener">Plantiverse</a></div>
 
 <canvas id="net" aria-hidden="true"></canvas>
 <div id="veil"></div>
 
 <header>
   <a class="brand" href="../index_v16.html">
-    <svg viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#5aa9ff" stroke-width="100" mask="url(#ebm)"/><circle cx="310" cy="622" r="310" fill="#5aa9ff"/><circle cx="1405" cy="622" r="310" fill="#5aa9ff"/></svg>
-    EcoBubble <small>Rete Plantiverse</small>
+    <svg viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#35d0c0" stroke-width="100" mask="url(#ebm)"/><circle cx="310" cy="622" r="310" fill="#35d0c0"/><circle cx="1405" cy="622" r="310" fill="#35d0c0"/></svg>
+    EcoBubble <small>Rete GreenEazy</small>
   </a>
   <div class="hright">
-    <span class="badge"><i></i>Demo · Agricoltura</span>
-    <span class="badge gold">Plantiverse · Patented</span>
+    <span class="badge"><i></i>Demo · Verde urbano</span>
+    <span class="badge gold">GreenEazy · Patented</span>
   </div>
 </header>
 
@@ -189,25 +196,25 @@ footer{scroll-snap-align:start}
 <!-- HERO -->
 <section id="s0">
   <div class="wrap">
-    <div class="kick rv">La rete EcoBubble che legge i sistemi viventi · già in funzione</div>
-    <h1 class="rv">Ogni pianta parla. Plantiverse ascolta.</h1>
-    <p class="lead rv">Plantiverse legge le piante con <b>occhi multispettrali</b>, dal campo e dal satellite, e coglie lo stress <b>prima dei sintomi</b>. Non è un prototipo: i numeri qui sotto sono quelli <b>reali della piattaforma</b> (2026), costruiti con agronomi in campo ed enti di ricerca nazionali. Gli scenari interattivi più sotto sono dimostrativi.</p>
+    <div class="kick rv">La rete EcoBubble per il verde urbano e i patrimoni verdi · già in funzione</div>
+    <h1 class="rv">Il verde giusto, scelto dai dati. E tenuto in salute.</h1>
+    <p class="lead rv">GreenEazy suggerisce la pianta giusta per ogni luogo: tra quelle che possono viverci bene sceglie quelle che <b>assorbono gli inquinanti misurati proprio lì</b>, poi le tiene in salute con una <b>cura che segue il meteo</b>. Il motore è alimentato dalle misure vive della rete Plantiverse e dai dati satellitari Copernicus. I numeri qui sotto sono <b>reali</b> (2026); gli scenari urbani più avanti sono dimostrativi.</p>
     <div class="stats rv">
-      <div class="stat"><div class="v">573</div><div class="l">piante monitorate una a una</div></div>
-      <div class="stat"><div class="v">359</div><div class="l">specie tracciate in campo</div></div>
-      <div class="stat"><div class="v">6.390</div><div class="l">report agronomici raccolti</div></div>
+      <div class="stat"><div class="v">6.072</div><div class="l">specie nell&#8217;enciclopedia botanica</div></div>
+      <div class="stat"><div class="v">135</div><div class="l">inquinanti mappati sulle piante che li assorbono</div></div>
       <div class="stat"><div class="v">&gt;85%</div><div class="l">degli episodi di stress colti prima dei sintomi</div></div>
+      <div class="stat"><div class="v">~22 kg</div><div class="l">CO&#8322; assorbita a pianta ogni anno, da misura di rete</div></div>
     </div>
     <div class="scrollhint rv">Scorri</div>
   </div>
 </section>
 
-<!-- 01 I CAMPI -->
+<!-- 01 IL PATRIMONIO -->
 <section id="s1">
   <div class="wrap">
-    <div class="kick rv">01 · La piattaforma, in numeri veri</div>
-    <h2 class="rv">Non una promessa. Una rete che misura da anni.</h2>
-    <p class="lead rv">Dispositivi in campo, camere multispettrali, agronomi che etichettano, un gemello digitale che moltiplica ogni sensore. Questi sono i numeri correnti della piattaforma, verificabili su platform.plantiverse.it. <b>Seleziona una voce</b> per capirla.</p>
+    <div class="kick rv">01 · Il motore, in numeri veri</div>
+    <h2 class="rv">Non un catalogo. Un motore alimentato da misure.</h2>
+    <p class="lead rv">Enciclopedia botanica, fitorimedio documentato, aria letta dal satellite, cura che segue le previsioni e le misure vive della rete Plantiverse. Questi sono i numeri correnti del motore GreenEazy. <b>Seleziona una voce</b> per capirla.</p>
     <div class="assets rv" id="assets"></div>
     <div id="adet" class="rv"></div>
   </div>
@@ -217,18 +224,18 @@ footer{scroll-snap-align:start}
 <section id="s2">
   <div class="wrap">
     <div class="kick rv">02 · La rete si compone</div>
-    <h2 class="rv">Cambia la domanda agronomica. Cambiano i motori accesi.</h2>
-    <p class="lead rv">Difendere un vigneto dalla peronospora non è prevedere la resa del mais. Per ogni domanda Plantiverse accende una <b>combinazione dedicata</b> di motori e lascia il resto spento: i costi di calcolo scendono dell&#8217;80-90%. <b>Scegli una domanda</b>.</p>
+    <h2 class="rv">Cambia la domanda. Cambiano i motori accesi.</h2>
+    <p class="lead rv">La sicurezza di un viale non è l&#8217;irrigazione di un parco. Per ogni domanda della città GreenEazy accende una <b>combinazione dedicata</b> di motori e lascia il resto spento: stessi risultati, una frazione del calcolo. <b>Scegli una domanda</b>.</p>
     <div class="objs rv" id="objs"></div>
     <div id="gatebox" class="rv">
       <div class="panel">
-        <div class="gcount"><span id="gc">31</span> <small>motori accesi su 204</small></div>
+        <div class="gcount"><span id="gc">27</span> <small>motori accesi su 198</small></div>
         <p class="gsub" id="gsub"></p>
         <div class="meter">
           <div class="lbl"><span>Calcolo utilizzato</span><span>rispetto alla rete piena</span></div>
           <div class="bar"><b id="mbar"></b></div>
-          <div class="big" id="msave">-85%</div>
-          <p class="gsub">I motori che non servono non consumano nulla. Stesso risultato, una frazione del calcolo.</p>
+          <div class="big" id="msave">-86%</div>
+          <p class="gsub">I motori che non servono non consumano nulla. Un bilancio comunale se ne accorge.</p>
         </div>
       </div>
       <div class="panel">
@@ -239,23 +246,23 @@ footer{scroll-snap-align:start}
   </div>
 </section>
 
-<!-- 03 LA LETTURA MULTISPETTRALE -->
+<!-- 03 LO STRESS PRIMA DEI SINTOMI -->
 <section id="s3">
   <div class="wrap">
-    <div class="kick rv">03 · Le piante parlano prima</div>
-    <h2 class="rv">La malattia si vede nello spettro settimane prima che si veda sulla foglia.</h2>
-    <p class="lead rv">Quando la macchia compare sulla foglia, il raccolto ha già pagato. Plantiverse sente il segnale precoce: <b>più dell&#8217;85% degli episodi di stress viene colto prima dei sintomi visibili</b>, con metodologia validata su 661 specie insieme a CNR-IAC e Sapienza. Lo scenario qui sotto è dimostrativo: cambia la stagione e osserva i campi rispondere.</p>
+    <div class="kick rv">03 · Gli alberi parlano prima</div>
+    <h2 class="rv">Lo stress si vede nello spettro settimane prima che si veda in strada.</h2>
+    <p class="lead rv">Quando una chioma ingiallisce, il danno è già fatto. GreenEazy sente il segnale precoce: <b>più dell&#8217;85% degli episodi di stress viene colto prima dei sintomi visibili</b>, con metodologia validata su 661 specie insieme a CNR-IAC e Sapienza. Lo scenario urbano qui sotto è dimostrativo: cambia la stagione e osserva la città rispondere.</p>
     <div class="scn rv" id="scns"></div>
     <div class="grid2">
       <div class="panel rv">
-        <p class="gsub" style="margin:0">Mappa dello stress · una cella, una zona di campo</p>
+        <p class="gsub" style="margin:0">Mappa dello stress · una cella, un gruppo di alberi</p>
         <canvas class="heat" id="heat"></canvas>
         <div class="legend">
           <span><i style="background:#123c26"></i>quiete</span>
           <span><i style="background:#3f7a37"></i>osservazione</span>
           <span><i style="background:#ffc46b"></i>segnale precoce</span>
           <span><i style="background:#ff8fa3"></i>sintomatico</span>
-          <span><i style="background:transparent;border:1.5px solid #a7cdff;border-radius:50%"></i>colto in anticipo</span>
+          <span><i style="background:transparent;border:1.5px solid #8ceadf;border-radius:50%"></i>colto in anticipo</span>
         </div>
         <p class="chartcap" id="heatCap"></p>
       </div>
@@ -269,69 +276,47 @@ footer{scroll-snap-align:start}
   </div>
 </section>
 
-<!-- 04 LA RESA -->
+<!-- 04 IL BILANCIO DEL VERDE -->
 <section id="s4">
   <div class="wrap">
-    <div class="kick rv">04 · Dalla lettura alla previsione</div>
-    <h2 class="rv">La salute di domani, con la sua confidenza.</h2>
-    <p class="lead rv">Il modello di stress, addestrato sui report degli agronomi e sui 58 indici spettrali, restituisce per ogni pianta la <b>traiettoria di salute a 7, 14 e 30 giorni</b>, con una banda calibrata: chi decide sa quanto fidarsi. È il metodo Bio-Driven: dal sistema vivo alla decisione.</p>
-    <div class="grid2">
-      <div class="panel rv">
-        <p class="gsub" style="margin:0">Indice di salute della pianta · scala 0-100, banda ~90% (traiettoria dimostrativa)</p>
-        <canvas class="chart" id="fan"></canvas>
-        <p class="chartcap">12 finestre osservate e 8 previste fino a 30 giorni. La banda contiene il valore poi misurato circa 9 volte su 10: dentro la banda si programma l&#8217;intervento, fuori no.</p>
-      </div>
-      <div class="panel rv">
-        <p class="gsub" style="margin:0">La promessa, verificata</p>
-        <div class="covline" style="border-top:0;padding-top:6px">
-          <canvas class="arc" id="covArc" width="86" height="86"></canvas>
-          <p><b>Copertura calibrata ~90%.</b> La confidenza dichiarata è una promessa misurabile, controllata finestra per finestra sui dati reali della rete.</p>
-        </div>
-        <div class="kpis">
-          <div class="kpi"><div class="v ok">44 &euro;</div><div class="l">Costo monitoraggio a pianta col twin, era 880 &euro;</div></div>
-          <div class="kpi"><div class="v">58</div><div class="l">Indici spettrali nel registro</div></div>
-          <div class="kpi"><div class="v">7·14·30 g</div><div class="l">Orizzonti di previsione</div></div>
-          <div class="kpi"><div class="v ok">661</div><div class="l">Specie validate con CNR e Sapienza</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 05 LA RICEVUTA -->
-<section id="s5">
-  <div class="wrap">
-    <div class="kick rv">05 · La ricevuta di campo</div>
-    <h2 class="rv">Ogni decisione di campagna lascia una prova.</h2>
-    <p class="lead rv">Domanda, stagione, motori accesi, copertura, esito: tutto in una ricevuta firmata con <b>SHA-256, calcolato adesso, nel tuo browser</b>. Utile per il quaderno di campagna, i disciplinari, la filiera e chi compra il raccolto.</p>
+    <div class="kick rv">04 · Il bilancio del verde</div>
+    <h2 class="rv">Dal verde curato al verde certificato.</h2>
+    <p class="lead rv">CO&#8322; assorbita da misura, alberi ad alto rischio, interventi fatti al momento giusto: GreenEazy raccoglie tutto in un bilancio del verde e lo firma con <b>SHA-256, calcolato adesso, nel tuo browser</b>. Il consiglio comunale, i cittadini o un revisore lo verificano da soli. È lo stesso principio del Certificato d&#8217;Impatto già emesso dalla piattaforma.</p>
     <div class="grid2">
       <div>
         <div id="receipt" class="rv"></div>
         <div class="rbtns rv">
-          <button class="btn p" id="signBtn" type="button">Firma la decisione</button>
+          <button class="btn p" id="signBtn" type="button">Firma il bilancio</button>
           <button class="btn s" id="verBtn" type="button">Verifica la firma</button>
         </div>
         <div id="vres"></div>
       </div>
       <div class="panel rv">
-        <p class="gsub" style="margin:0 0 10px">Catena di custodia della sessione</p>
+        <p class="gsub" style="margin:0 0 12px">Cosa entra nel bilancio, e da dove viene</p>
+        <div class="kpis" style="margin-top:0">
+          <div class="kpi"><div class="v ok">~22 kg</div><div class="l">CO&#8322; a pianta / anno · misura di rete</div></div>
+          <div class="kpi"><div class="v">6.072</div><div class="l">specie disponibili al progetto</div></div>
+          <div class="kpi"><div class="v">135</div><div class="l">inquinanti mappati</div></div>
+          <div class="kpi"><div class="v wa" id="riskKpi">210</div><div class="l">alberi ad alto rischio · scenario</div></div>
+        </div>
+        <p class="gsub" style="margin:16px 0 10px">Catena di custodia della sessione</p>
         <div class="chain" id="chain"></div>
-        <p class="chartcap">Ogni ricevuta incorpora la firma della precedente: la storia della campagna non si può riscrivere. La filiera può risalire dal prodotto alla decisione che l&#8217;ha generato.</p>
+        <p class="chartcap">Ogni bilancio incorpora la firma del precedente: la storia del verde della città non si può riscrivere. Utile per PNRR, bandi e rendicontazione ESG.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 06 CHIUSURA -->
-<section id="s6">
+<!-- 05 CHIUSURA -->
+<section id="s5">
   <div class="wrap">
-    <div class="kick rv">06 · Cosa ha visto l&#8217;azienda</div>
-    <h2 class="rv">Meno trattamenti, meno acqua, più certezza. E la prova di tutto.</h2>
+    <div class="kick rv">05 · Cosa ha visto la città</div>
+    <h2 class="rv">Il verde smette di essere una spesa cieca. Diventa un patrimonio che rende conto.</h2>
     <div class="panel rv" style="margin-top:30px">
-      <p class="lead" style="margin:0">Plantiverse è una rete generata dal motore Ennous, già in funzione su piante e territorio: 573 piante monitorate, 359 specie, 6.390 report agronomici, metodologia validata su 661 specie con CNR-IAC e Sapienza. Gli scenari di stagione di questa demo sono dimostrativi; sui tuoi campi la rete lavora con i tuoi dati, che restano tuoi.</p>
+      <p class="lead" style="margin:0">Meno sopralluoghi a tappeto, interventi dove servono, un bilancio che regge davanti a chiunque. GreenEazy è una rete generata dal motore Ennous, già in funzione: enciclopedia di 6.072 specie, 135 inquinanti mappati, cura guidata dal meteo e misure vive della rete Plantiverse. Gli scenari urbani di questa demo sono dimostrativi; sulla tua città il motore lavora con i tuoi alberi, e i dati restano tuoi.</p>
       <div class="closecta">
-        <a class="btn p" href="mailto:info@ecobubble.it?subject=Plantiverse">Parliamone</a>
-        <a class="btn s" href="https://platform.plantiverse.it" target="_blank" rel="noopener">platform.plantiverse.it</a>
+        <a class="btn p" href="mailto:info@ecobubble.it?subject=GreenEazy">Parliamone</a>
+        <a class="btn s" href="https://greeneazy.it" target="_blank" rel="noopener">greeneazy.it</a>
         <a class="btn s" href="../index_v16.html">Torna al sito</a>
       </div>
     </div>
@@ -344,13 +329,13 @@ footer{scroll-snap-align:start}
   <div class="frow">
     <div class="fb">
       <b>EcoBubble S.r.l.</b> · Infrastrutture di intelligenza artificiale costruite sulla singola organizzazione, orchestrate dal motore Ennous / Meta-Intelligence.<br>
-      I numeri di piattaforma (piante, specie, report, indici, dispositivi, twin, Flora, fitorimedio, validazione) sono dati reali della rete Plantiverse, aggiornati al 2026. Gli scenari di stagione, le mappe e le traiettorie interattive sono dimostrativi e non si riferiscono ad alcuna azienda cliente.<br>
+      I numeri del motore (specie, inquinanti, misure di rete, validazione, CO&#8322; per pianta) sono dati reali della piattaforma GreenEazy / Plantiverse, aggiornati al 2026. Gli scenari urbani, le mappe e le stagioni interattive sono dimostrativi e non si riferiscono ad alcuna città reale.<br>
       info@ecobubble.it
     </div>
     <div>
       <div class="pbadges">
-        <span class="gold">Plantiverse · Patented</span>
-        <span class="gold">Metodo Bio-Driven · Patent pending</span>
+        <span class="gold">GreenEazy · Patented</span>
+        <span class="gold">Metodo Geo-Driven · Patent pending</span>
         <span>Ennous · Patent pending</span>
       </div>
       <div style="margin-top:12px">© 2026 EcoBubble S.r.l. · Tutti i diritti riservati.</div>
@@ -363,7 +348,7 @@ footer{scroll-snap-align:start}
 <script>
 "use strict";
 /* ============================================================
-   Plantiverse · Demo · L'intelligenza delle colture
+   GreenEazy · Demo · L'intelligenza del verde urbano
    Dati illustrativi. Nessun meccanismo interno viene esposto.
    ============================================================ */
 var reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -373,62 +358,54 @@ function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a
 
 /* ---------------- dati illustrativi ---------------- */
 var FAMS=[
- {n:"Lettura multispettrale",c:"#5aa9ff"},
- {n:"Fisiologia delle colture",c:"#4be08e"},
+ {n:"Lettura satellitare e aerea",c:"#5aa9ff"},
+ {n:"Salute degli alberi",c:"#4be08e"},
  {n:"Suolo e acqua",c:"#35d0c0"},
- {n:"Meteo e clima",c:"#ffc46b"},
- {n:"Mercati e filiera",c:"#a98bff"},
+ {n:"Clima urbano",c:"#ffc46b"},
+ {n:"Costi e cantieri",c:"#a98bff"},
  {n:"Prova e audit",c:"#ff8fa3"}
 ];
 var OBJS=[
- {id:"difesa",n:"Difesa dalle malattie",lit:31,save:85,seed:23,mix:[9,8,3,5,1,5],
-  gsub:"Per la difesa si accendono lettura multispettrale, fisiologia e clima: il trattamento parte quando serve davvero, non a calendario."},
- {id:"acqua",n:"Irrigazione di precisione",lit:26,save:88,seed:51,mix:[6,4,9,5,0,2],
-  gsub:"Per l&#8217;acqua la rete unisce suolo, chioma e previsioni: ogni settore irriguo riceve i suoi litri, e i litri si contano."},
- {id:"resa",n:"Previsione di resa",lit:29,save:86,seed:79,mix:[7,8,3,4,4,3],
-  gsub:"Per la resa si accendono crescita, meteo e mercati: il numero arriva settimane prima, con la banda accanto."},
- {id:"filiera",n:"Carbonio e filiera",lit:20,save:90,seed:95,mix:[4,3,4,2,2,5],
-  gsub:"Per la filiera la rete raccoglie pratiche, carbonio e prove firmate: il disciplinare si dimostra riga per riga."}
+ {id:"progetto",n:"Progettare un&#8217;area verde",lit:27,save:86,seed:21,mix:[6,9,2,3,4,3],
+  gsub:"Prima le specie che possono vivere nel luogo (luce, suolo, clima, ingombro), poi tra queste quelle che piacciono: la proposta nasce dall&#8217;enciclopedia di 6.072 specie, non da un listino."},
+ {id:"aria",n:"Scegliere per l&#8217;aria",lit:24,save:88,seed:49,mix:[5,4,8,4,1,2],
+  gsub:"La posizione porta con sé l&#8217;inquinamento reale, letto dal satellite Copernicus e dalle centraline: il motore privilegia le specie che assorbono i PM, gli ossidi e l&#8217;ozono di quel punto, sui 135 inquinanti mappati."},
+ {id:"cura",n:"Piano di cura dinamico",lit:21,save:89,seed:77,mix:[6,5,3,2,1,4],
+  gsub:"Le previsioni meteo guidano irrigazione e difesa: litri per metro quadro adattati a pioggia e caldo, rischio peronospora dal punto di rugiada, avvisi solo quando la routine non basta."},
+ {id:"esg",n:"Report ESG misurato",lit:33,save:83,seed:93,mix:[4,7,4,3,10,5],
+  gsub:"L&#8217;impatto dichiarato nasce dalle misure della rete, circa 22 kg di CO&#8322; assorbiti a pianta ogni anno, e ogni numero del report risale alla sua evidenza firmata."}
 ];
 var SCNS=[
- {id:"base",n:"Stagione regolare",ep:5,caught:5,days:23,perdita:"1,2%",heatSeed:11,hot:3,
-  heatCap:"Una stagione tranquilla. Poche zone chiedono attenzione, tutte segnalate dal livello spettrale ben prima di qualsiasi macchia visibile.",
-  earlyCap:"Segnale spettrale (azzurro) contro sintomi visibili (rosa). Lo spazio fra le due curve è l&#8217;anticipo dell&#8217;azienda: circa tre settimane."},
- {id:"pero",n:"Pressione di peronospora",ep:13,caught:12,days:16,perdita:"2,8%",heatSeed:37,hot:8,
-  heatCap:"La peronospora parte dai bassifondi umidi del vigneto. I cerchi indicano i focolai colti quando le foglie erano ancora sane alla vista: si tratta il focolaio, non l&#8217;intero vigneto.",
-  earlyCap:"Sotto pressione l&#8217;anticipo vale il raccolto: 12 focolai su 13 colti prima dei sintomi, 16 giorni di vantaggio mediano, trattamenti mirati sulle zone giuste."},
- {id:"sicc",n:"Siccità",ep:17,caught:15,days:19,perdita:"3,5%",heatSeed:67,hot:11,
-  heatCap:"Lo stress idrico emerge prima sui suoli sciolti e sui giovani impianti. L&#8217;acqua disponibile va dove rende di più: la mappa decide i turni.",
-  earlyCap:"In siccità la rete ricalibra la banda della resa e ridisegna i turni irrigui: 15 episodi su 17 colti in anticipo, acqua ridotta senza pagare in raccolto."},
- {id:"grandine",n:"Dopo la grandine",ep:24,caught:21,days:2,perdita:"6,1%",heatSeed:91,hot:14,
-  heatCap:"Dopo la grandine la domanda cambia: dove ha colpito, quanto ha tolto, cosa si recupera. La mappa dei danni arriva prima del perito.",
-  earlyCap:"In 48 ore ogni appezzamento è rimappato: perdita stimata con la sua banda, pratiche assicurative documentate, recupero pianificato."}
+ {id:"base",n:"Stagione regolare",ep:4,caught:4,days:21,risk:210,heatSeed:7,hot:3,
+  heatCap:"Una stagione tranquilla. Poche zone chiedono attenzione, tutte segnalate dal livello spettrale ben prima di qualsiasi cambiamento visibile.",
+  earlyCap:"Segnale spettrale (verde acqua) contro sintomi visibili (rosa). Lo spazio fra le due curve è l&#8217;anticipo della città: circa tre settimane."},
+ {id:"caldo",n:"Ondata di calore",ep:16,caught:14,days:17,risk:520,heatSeed:31,hot:10,
+  heatCap:"Il caldo colpisce prima i viali sull&#8217;asfalto e i suoli sottili. Il cerchio indica i gruppi colti quando erano ancora verdi alla vista: acqua e ombreggiature arrivano in anticipo.",
+  earlyCap:"Sotto un&#8217;ondata di calore l&#8217;anticipo vale di più: 14 episodi su 16 colti prima dei sintomi, 17 giorni di vantaggio mediano."},
+ {id:"vento",n:"Dopo la tempesta",ep:25,caught:22,days:2,risk:610,heatSeed:63,hot:14,
+  heatCap:"Dopo una tempesta la domanda cambia: non se ci sono danni, ma esattamente dove, quanto gravi e in che ordine intervenire.",
+  earlyCap:"In 48 ore la città è rimappata: rami pericolanti ordinati per rischio, viabilità protetta, e il conto dei danni misurato invece che stimato."},
+ {id:"nuovi",n:"Nuove piantumazioni",ep:5,caught:5,days:19,risk:180,heatSeed:89,hot:4,
+  heatCap:"I nuovi impianti sono i più fragili: due estati decidono se un albero attecchisce. La rete li segue uno a uno.",
+  earlyCap:"Sulle nuove piantumazioni l&#8217;attecchimento sale quando lo stress idrico è colto subito: qui il 94% delle piante supera la seconda estate."}
 ];
 var ASSETS=[
- {t:"CAMPIONI",n:"19.155 campioni multispettrali",st:"raccolti in campo",ok:1,
-  note:"Ogni campione è una lettura dello spettro della pianta: la base su cui il modello impara a distinguere una foglia sana da una che sta per soffrire."},
- {t:"PIANTE",n:"573 piante monitorate",st:"613 con storia spettrale",ok:1,
-  note:"Ogni pianta ha un fascicolo: letture multispettrali, fotografie e note agronomiche legate nel tempo, consultabili una a una."},
- {t:"SPECIE",n:"359 specie tracciate",st:"statistiche per specie",ok:1,
-  note:"Per ogni specie la piattaforma costruisce la sua linea di base di salute: la stessa lettura vale di più a ogni stagione."},
- {t:"REPORT",n:"6.390 report agronomici",st:"10.781 totali · 17 rilevatori",ok:1,
-  note:"Il giudizio dell&#8217;agronomo in campo etichetta i dati: il modello impara da occhi esperti, non da simulazioni."},
- {t:"DISPOSITIVI",n:"18 dispositivi in campo",st:"più 2 camere multispettrali",ok:1,
-  note:"Rilevatori e illuminatori sincronizzati con la piattaforma; le camere multispettrali leggono lo spettro foglia per foglia."},
- {t:"FOTO",n:"8.121 fotografie",st:"agganciate alle misure",ok:1,
-  note:"Ogni immagine è legata a misure e report: l&#8217;archivio si interroga per pianta, specie o data."},
- {t:"INDICI",n:"58 indici spettrali",st:"un registro di calcolo unico",ok:1,
-  note:"Cinquantotto modi di leggere una foglia, calcolati su ogni campione: dal vigore alla firma dell&#8217;acqua."},
- {t:"TWIN",n:"688 piante nel gemello digitale",st:"da 880 a 44 euro a pianta",ok:1,
-  note:"Le piante non strumentate vengono virtualizzate con satellite, specie e vicini di campo: il costo di monitoraggio per pianta scende <b>da 880 a 44 euro</b>."},
  {t:"FLORA",n:"6.072 specie in enciclopedia",st:"1.104 generi",ok:1,
-  note:"Esposizione, suolo, altezza, fabbisogno idrico giornaliero e immagini per ogni specie: la conoscenza che alimenta anche GreenEazy."},
+  note:"Per ogni specie: esposizione, suolo, altezza, fabbisogno idrico giornaliero e immagini. È il catalogo vivo da cui nasce ogni proposta di impianto."},
  {t:"FITORIMEDIO",n:"5.229 record di fitorimedio",st:"2.349 piante · 135 inquinanti",ok:1,
-  note:"Quali piante assorbono quali inquinanti, con 388 abbinamenti ad alta priorità documentati in letteratura."},
- {t:"PREVISIONE",n:"Previsioni a 7, 14 e 30 giorni",st:"modello addestrato sui report",ok:1,
-  note:"Il modello di stress, addestrato su oltre cento variabili per pianta, restituisce traiettoria di salute e raccomandazioni."},
+  note:"Quali piante assorbono quali inquinanti, con <b>388 abbinamenti ad alta priorità</b> documentati in letteratura: la scelta segue l&#8217;aria del luogo."},
+ {t:"ARIA",n:"Aria misurata sul luogo",st:"Copernicus · PM, NO&#8322;, O&#8323;, SO&#8322;",ok:1,
+  note:"Satellite Copernicus più centraline a terra: l&#8217;inquinamento reale dell&#8217;indirizzo, non una media nazionale, guida la selezione delle specie."},
+ {t:"CURA",n:"Cura che segue il meteo",st:"irrigazione adattiva · allerte malattie",ok:1,
+  note:"Le previsioni guidano litri e difesa: irrigazione adattata a pioggia e caldo, rischio peronospora calcolato dal punto di rugiada, avvisi solo quando la routine non basta."},
+ {t:"MISURE",n:"573 piante misurate davvero",st:"6.390 report agronomici",ok:1,
+  note:"Il motore impara dalla rete Plantiverse: letture multispettrali e giudizi di agronomi in campo, non schede statiche copiate da un manuale."},
  {t:"VALIDAZIONE",n:"661 specie validate",st:"con CNR-IAC e Sapienza",ok:1,
-  note:"La metodologia di lettura pre-sintomatica è validata con enti di ricerca nazionali: più dell&#8217;85% degli episodi di stress viene colto prima dei sintomi."}
+  note:"La lettura pre-sintomatica dello stress è validata con enti di ricerca nazionali: più dell&#8217;85% degli episodi viene colto prima dei sintomi."},
+ {t:"IMPATTO",n:"~22 kg di CO&#8322; a pianta l&#8217;anno",st:"misura derivata dalla rete",ok:1,
+  note:"L&#8217;assorbimento dichiarato nei report nasce dalle misure della rete, non da tabelle generiche: per questo si può firmare."},
+ {t:"TWIN",n:"688 piante nel gemello digitale",st:"il verde non strumentato si segue lo stesso",ok:1,
+  note:"Satellite, statistiche di specie e vicini di campo al posto del sensore: il costo di monitoraggio per pianta scende <b>da 880 a 44 euro</b>."}
 ];
 
 /* ---------------- rete di sfondo ---------------- */
@@ -437,9 +414,9 @@ var NET=(function(){
  var gl=cv.getContext("webgl",{antialias:false,alpha:true})||cv.getContext("experimental-webgl",{antialias:false,alpha:true});
  var noop={setLit:function(){},litSetFor:function(){return{};},setFam:function(){},recompose:function(){}};
  if(!gl)return noop;
- var ACC=hex3("#5aa9ff"),NIGHT=[0.16,0.28,0.52];
+ var ACC=hex3("#35d0c0"),NIGHT=[0.16,0.28,0.52];
  function hex3(h){var n=parseInt(h.slice(1),16);return[(n>>16&255)/255,(n>>8&255)/255,(n&255)/255];}
- var rnd=mulberry(33);
+ var rnd=mulberry(22);
  var CN=120,PER=84,N=CN*PER,NP=140;
  /* geometria fissa: offset locali + indice hub. Gli hub vivono in un uniform e possono migrare. */
  var OFF=new Float32Array(N*3),HB=new Float32Array(N),RN=new Float32Array(N);
@@ -461,7 +438,7 @@ var NET=(function(){
   }
   return out;
  }
- var hubCur=genHubs(33+1),hubTgt=hubCur.slice(0);
+ var hubCur=genHubs(22+1),hubTgt=hubCur.slice(0);
  /* archi: coppie di indici hub, scelte sul layout iniziale */
  var E=[],seen={};
  for(i=0;i<CN;i++){
@@ -595,14 +572,14 @@ var NET=(function(){
  return {setLit:setLit,litSetFor:litSetFor,setFam:setFam,recompose:recompose};
 })();
 
-/* ---------------- campi ---------------- */
-var aSel=0;
+/* ---------------- patrimonio ---------------- */
+var aSel=1;
 function renderAssets(){
  var host=$("#assets");host.innerHTML="";
  ASSETS.forEach(function(a,i){
   var d=document.createElement("div");
   d.className="asset"+(i===aSel?" on":"");
-  d.innerHTML='<span class="dot'+(a.ok?"":" w")+'"></span><div class="t">'+a.t+'</div><div class="n">'+a.n+'</div><div class="m">'+a.st+"</div>";
+  d.innerHTML='<span class="dot"></span><div class="t">'+a.t+'</div><div class="n">'+a.n+'</div><div class="m">'+a.st+"</div>";
   d.addEventListener("click",function(){aSel=i;renderAssets();});
   host.appendChild(d);
  });
@@ -620,7 +597,7 @@ function renderObjs(){
  OBJS.forEach(function(o,i){
   var b=document.createElement("button");
   b.type="button";b.className="chip"+(i===oSel?" on":"");
-  b.textContent=o.n;
+  b.innerHTML=o.n;
   b.addEventListener("click",function(){oSel=i;applyObj(true);renderObjs();});
   host.appendChild(b);
  });
@@ -628,12 +605,12 @@ function renderObjs(){
 function applyObj(flash){
  var o=OBJS[oSel];
  if(flash)NET.recompose(500+oSel*31);
- NET.setLit(NET.litSetFor(o.seed,Math.round(o.lit*120/204)+8),flash);
- var from=parseInt($("#gc").textContent,10)||204,to=o.lit,t0=null;
+ NET.setLit(NET.litSetFor(o.seed,Math.round(o.lit*120/198)+8),flash);
+ var from=parseInt($("#gc").textContent,10)||198,to=o.lit,t0=null;
  if(countAnim)cancelAnimationFrame(countAnim);
  if(reduced){$("#gc").textContent=to;}
  else{
-  var start=flash?204:from;
+  var start=flash?198:from;
   (function tick(now){if(t0===null)t0=now;var u=Math.min(1,(now-t0)/900);
    $("#gc").textContent=Math.round(start+(to-start)*(u*u*(3-2*u)));
    if(u<1)countAnim=requestAnimationFrame(tick);})(performance.now());
@@ -653,7 +630,7 @@ function applyObj(flash){
 var sSel=0,animT=1,fromGrid=null,curGrid=null;
 var GW=16,GH=9;
 function gridFor(idx){
- var s=SCNS[idx],rr=mulberry(3000+s.heatSeed),cells=[],i;
+ var s=SCNS[idx],rr=mulberry(2000+s.heatSeed),cells=[],i;
  for(i=0;i<GW*GH;i++)cells.push({v:rr()*.24,early:0});
  var h;
  for(h=0;h<s.hot;h++){
@@ -680,7 +657,7 @@ function renderScns(){
   b.textContent=s.n;
   b.addEventListener("click",function(){
    sSel=i;fromGrid=curGrid;animT=reduced?1:0;renderScns();updateScnTexts();
-   NET.setLit(NET.litSetFor(OBJS[oSel].seed+i*7,Math.round(OBJS[oSel].lit*120/204)+8+i*3),true);
+   NET.setLit(NET.litSetFor(OBJS[oSel].seed+i*7,Math.round(OBJS[oSel].lit*120/198)+8+i*3),true);
   });
   host.appendChild(b);
  });
@@ -693,8 +670,9 @@ function updateScnTexts(){
  $("#kpis").innerHTML=
   '<div class="kpi"><div class="v">'+s.ep+'</div><div class="l">Episodi di stress</div></div>'+
   '<div class="kpi"><div class="v ok">'+s.caught+" ("+caughtPct+'%)</div><div class="l">Colti prima dei sintomi</div></div>'+
-  '<div class="kpi"><div class="v">'+(sSel===3?"48 h":s.days+" g")+'</div><div class="l">'+(sSel===3?"Mappa completa dei danni":"Anticipo mediano")+"</div></div>"+
-  '<div class="kpi"><div class="v'+(parseFloat(s.perdita.replace(",","."))>3?" wa":"")+'">'+s.perdita+'</div><div class="l">Raccolto a rischio</div></div>';
+  '<div class="kpi"><div class="v">'+(sSel===2?"48 h":s.days+" g")+'</div><div class="l">'+(sSel===2?"Mappa completa dei danni":"Anticipo mediano")+"</div></div>"+
+  '<div class="kpi"><div class="v'+(s.risk>400?" wa":"")+'">'+s.risk+'</div><div class="l">Alberi ad alto rischio</div></div>';
+ var rk=$("#riskKpi");if(rk)rk.textContent=s.risk;
 }
 function lerpGrid(a,b,t){
  if(!a||t>=1)return b;
@@ -731,7 +709,7 @@ function drawHeat(cells){
   ctx.fill();
   ctx.globalAlpha=1;
   if(c.early&&c.v>.5){
-   ctx.strokeStyle="rgba(167,205,255,.95)";ctx.lineWidth=1.6;
+   ctx.strokeStyle="rgba(140,234,223,.95)";ctx.lineWidth=1.6;
    ctx.beginPath();ctx.arc(px+cw/2,py+ch/2,Math.min(cw,ch)*.30,0,6.29);ctx.stroke();
   }
  }
@@ -746,73 +724,22 @@ function drawEarly(){
  [0,.25,.5,.75,1].forEach(function(g){
   ctx.beginPath();ctx.moveTo(pad,Y(g));ctx.lineTo(w-8,Y(g));ctx.stroke();
  });
- var shift=sSel===3?2:Math.round(s.days/3.2);
+ var shift=sSel===2?2:Math.round(s.days/3.2);
  var onset=13;
  function sig(i,off){var u=(i-(onset-off))/5;return 1/(1+Math.exp(-u*2.2));}
  ctx.lineWidth=2;
- ctx.strokeStyle="#5aa9ff";
+ ctx.strokeStyle="#35d0c0";
  ctx.beginPath();for(i=0;i<26;i++)ctx[i?"lineTo":"moveTo"](X(i),Y(sig(i,shift)*.86+.05));ctx.stroke();
  ctx.strokeStyle="#ff8fa3";
  ctx.beginPath();for(i=0;i<26;i++)ctx[i?"lineTo":"moveTo"](X(i),Y(sig(i,0)*.86+.05));ctx.stroke();
  var xa=X(onset-shift),xb=X(onset);
- ctx.fillStyle="rgba(167,205,255,.10)";
+ ctx.fillStyle="rgba(140,234,223,.10)";
  ctx.fillRect(xa,Y(1),xb-xa,Y(0)-Y(1));
- ctx.fillStyle="#a7cdff";
- ctx.fillText(sSel===3?"48 h":s.days+" giorni",Math.max(pad,(xa+xb)/2-20),Y(1)+14);
- ctx.fillStyle="#5aa9ff";ctx.fillText("segnale spettrale",pad+4,Y(.97)+10);
+ ctx.fillStyle="#8ceadf";
+ ctx.fillText(sSel===2?"48 h":s.days+" giorni",Math.max(pad,(xa+xb)/2-20),Y(1)+14);
+ ctx.fillStyle="#35d0c0";ctx.fillText("segnale spettrale",pad+4,Y(.97)+10);
  ctx.fillStyle="#ff8fa3";ctx.fillText("sintomi visibili",w-104,Y(.05)-6);
  ctx.fillStyle="rgba(147,167,160,.8)";ctx.fillText("giorni dell'episodio",w-124,h-8);
-}
-
-/* ---------------- fan resa ---------------- */
-function fanData(){
- var pts=[],i,rr=mulberry(888);
- for(i=0;i<20;i++){
-  var base=i<12?(53+i*.22+(rr()-.5)*.7):(53+12*.22+(i-11)*.36);
-  var bw=i<12?0:4*Math.sqrt((i-11)/8);
-  pts.push([base,bw]);
- }
- return pts;
-}
-function drawFan(){
- var f=fitCanvas($("#fan"));if(!f)return;
- var ctx=f.ctx,w=f.w,h=f.h,pad=38;
- var pts=fanData(),y0=44,y1=68,i;
- function X(i){return pad+(w-pad-12)*(i/19);}
- function Y(v){return h-26-(h-50)*((v-y0)/(y1-y0));}
- ctx.strokeStyle="rgba(255,255,255,.07)";ctx.lineWidth=1;ctx.font="10px ui-monospace,Menlo,monospace";ctx.fillStyle="rgba(147,167,160,.8)";
- [46,50,54,58,62,66].forEach(function(g){
-  ctx.beginPath();ctx.moveTo(pad,Y(g));ctx.lineTo(w-8,Y(g));ctx.stroke();
-  ctx.fillText(String(g),12,Y(g)+3);
- });
- ctx.beginPath();
- for(i=11;i<20;i++)ctx[i===11?"moveTo":"lineTo"](X(i),Y(pts[i][0]+pts[i][1]));
- for(i=19;i>=11;i--)ctx.lineTo(X(i),Y(pts[i][0]-pts[i][1]));
- ctx.closePath();
- var gr=ctx.createLinearGradient(X(11),0,X(19),0);
- gr.addColorStop(0,"rgba(90,169,255,.05)");gr.addColorStop(1,"rgba(90,169,255,.22)");
- ctx.fillStyle=gr;ctx.fill();
- ctx.lineWidth=2;
- ctx.strokeStyle="rgba(238,244,240,.9)";
- ctx.beginPath();for(i=0;i<12;i++)ctx[i?"lineTo":"moveTo"](X(i),Y(pts[i][0]));ctx.stroke();
- ctx.strokeStyle="#5aa9ff";ctx.setLineDash([2,4]);
- ctx.beginPath();for(i=11;i<20;i++)ctx[i===11?"moveTo":"lineTo"](X(i),Y(pts[i][0]));ctx.stroke();ctx.setLineDash([]);
- ctx.fillStyle="#a7cdff";
- ctx.beginPath();ctx.arc(X(19),Y(pts[19][0]),3.4,0,6.29);ctx.fill();
- ctx.fillStyle="rgba(147,167,160,.8)";
- ctx.fillText("osservato",pad+4,h-8);
- ctx.fillText("atteso, con banda",X(12),h-8);
-}
-function drawCov(){
- var cv=$("#covArc"),ctx=cv.getContext("2d"),dpr=Math.min(2,devicePixelRatio||1);
- cv.width=86*dpr;cv.height=86*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
- ctx.lineWidth=7;ctx.lineCap="round";
- ctx.strokeStyle="rgba(255,255,255,.08)";
- ctx.beginPath();ctx.arc(43,43,33,-Math.PI/2,Math.PI*1.5);ctx.stroke();
- ctx.strokeStyle="#4be08e";
- ctx.beginPath();ctx.arc(43,43,33,-Math.PI/2,-Math.PI/2+Math.PI*2*.9);ctx.stroke();
- ctx.fillStyle="#eef4f0";ctx.font="700 15px -apple-system,Segoe UI,sans-serif";ctx.textAlign="center";
- ctx.fillText("90%",43,48);
 }
 function chartLoop(){
  var target=gridFor(sSel);
@@ -822,7 +749,7 @@ function chartLoop(){
  requestAnimationFrame(chartLoop);
 }
 
-/* ---------------- ricevuta SHA-256 ---------------- */
+/* ---------------- bilancio SHA-256 ---------------- */
 var chainN=0,lastHash="GENESI".padEnd(64,"0"),curHash="",curPayload="";
 function fnv64(str){
  var h1=0x811c9dc5,h2=0x811c9dc5,i;
@@ -843,14 +770,14 @@ function sha256(str){
 function receiptPayload(){
  var o=OBJS[oSel],s=SCNS[sSel];
  return JSON.stringify({
-  rete:"PLANTIVERSE·DEMO",
+  rete:"GREENEAZY·DEMO",
   blocco:chainN+1,
-  piattaforma:"573 piante · 359 specie · 6.390 report",
-  domanda:o.n,
-  stagione:s.n,
-  motori:o.lit+"/204",
+  motore:"6.072 specie · 135 inquinanti · misure rete Plantiverse",
+  domanda:o.n.replace(/&#8322;/g,"2").replace(/&#8217;/g,"'"),
+  stagione:s.n+" (scenario dimostrativo)",
+  motori:o.lit+"/198",
   copertura:"~90%",
-  esito:"salute prevista a 30 giorni 58/100 ±4 · raccolto a rischio "+s.perdita+" (scenario dimostrativo)",
+  esito:"CO2 ~22 kg a pianta/anno da misura · alto rischio "+s.risk+" (scenario)",
   precedente:lastHash.slice(0,16),
   ts:new Date().toISOString()
  });
@@ -858,17 +785,17 @@ function receiptPayload(){
 function renderReceipt(hash,signed){
  var o=OBJS[oSel],s=SCNS[sSel];
  $("#receipt").innerHTML=
-  '<div><span class="rk">rete:</span> <span class="rv">PLANTIVERSE · DEMO</span></div>'+
+  '<div><span class="rk">bilancio:</span> <span class="rv">VERDE URBANO · DEMO</span></div>'+
   '<div><span class="rk">blocco:</span> <span class="rv">#'+String(chainN+1).padStart(3,"0")+"</span></div>"+
-  '<div><span class="rk">piattaforma:</span> <span class="rv">573 piante · 359 specie · 6.390 report</span></div>'+
+  '<div><span class="rk">motore:</span> <span class="rv">6.072 specie · 135 inquinanti · misure rete Plantiverse</span></div>'+
   '<div><span class="rk">domanda:</span> <span class="rv">'+o.n+"</span></div>"+
   '<div><span class="rk">stagione (dimostrativa):</span> <span class="rv">'+s.n+"</span></div>"+
-  '<div><span class="rk">motori accesi:</span> <span class="rv">'+o.lit+" / 204 · calcolo evitato "+o.save+"%</span></div>"+
+  '<div><span class="rk">motori accesi:</span> <span class="rv">'+o.lit+" / 198 · calcolo evitato "+o.save+"%</span></div>"+
   '<div><span class="rk">copertura calibrata:</span> <span class="rv">~90%</span></div>'+
-  '<div><span class="rk">esito:</span> <span class="rv">salute prevista a 30 giorni 58/100 ±4 · raccolto a rischio '+s.perdita+"</span></div>"+
+  '<div><span class="rk">esito:</span> <span class="rv">CO&#8322; ~22 kg a pianta/anno da misura · alto rischio '+s.risk+" (scenario)</span></div>"+
   '<div><span class="rk">aggancio al blocco precedente:</span> <span class="rv">'+lastHash.slice(0,16)+"…</span></div>"+
   '<div class="sig"><span class="rk">'+(signed?"firma SHA-256, calcolata in questo browser":"firma")+":</span><br>"+
-  '<span class="hash">'+(hash||"non ancora firmata, premi «Firma la decisione»")+"</span></div>";
+  '<span class="hash">'+(hash||"non ancora firmato, premi «Firma il bilancio»")+"</span></div>";
 }
 function typeHash(hash){
  var el=$("#receipt .hash"),i=0;
@@ -898,17 +825,17 @@ function bindReceipt(){
   });
  });
  $("#verBtn").addEventListener("click",function(){
-  if(!curHash){$("#vres").textContent="Prima firma una decisione.";return;}
+  if(!curHash){$("#vres").textContent="Prima firma un bilancio.";return;}
   sha256(curPayload).then(function(h){
    $("#vres").textContent=(h===curHash)
-    ?"✓ Firma valida: il contenuto non è stato alterato."
+    ?"✓ Firma valida: il bilancio non è stato alterato."
     :"✗ Firma non valida.";
   });
  });
 }
 
 /* ---------------- scroll / sezioni ---------------- */
-var SECS=["s0","s1","s2","s3","s4","s5","s6"];
+var SECS=["s0","s1","s2","s3","s4","s5"];
 function buildRail(){
  var r=$("#rail");
  SECS.forEach(function(id){var a=document.createElement("a");a.href="#"+id;r.appendChild(a);});
@@ -918,9 +845,8 @@ function sectionMode(id){
  if(id==="s0")NET.setLit(null);
  else if(id==="s1"){var all={};for(var k=0;k<120;k++)if(k%3)all[k]=1;NET.setLit(all);}
  else if(id==="s2"||id==="s3")applyObj(false);
- else if(id==="s4")NET.setLit(NET.litSetFor(31,34));
- else if(id==="s5")NET.setLit(NET.litSetFor(7,24));
- else if(id==="s6")NET.setLit(NET.litSetFor(99,60),true);
+ else if(id==="s4")NET.setLit(NET.litSetFor(7,24));
+ else if(id==="s5")NET.setLit(NET.litSetFor(99,60),true);
 }
 function bindScroll(){
  var obs=new IntersectionObserver(function(es){
@@ -942,8 +868,7 @@ function bindScroll(){
 /* ---------------- avvio ---------------- */
 buildRail();
 renderAssets();renderObjs();applyObj(false);renderScns();updateScnTexts();
-renderReceipt(null,false);bindReceipt();bindScroll();drawCov();drawFan();
-addEventListener("resize",function(){drawCov();drawFan();});
+renderReceipt(null,false);bindReceipt();bindScroll();
 requestAnimationFrame(chartLoop);
 /* hook QA e presentazione: ?go=s3 mostra solo quella sezione */
 (function(){
@@ -956,5 +881,6 @@ requestAnimationFrame(chartLoop);
  sectionMode(m[1]);
 })();
 </script>
+<script src="../assets/sector-constellation-v16b.js"></script>
 </body>
 </html>

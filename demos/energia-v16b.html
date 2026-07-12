@@ -144,9 +144,16 @@ footer b{color:var(--txt2)}
  .rv{opacity:1;transform:none;transition:none}
  .meter .bar b{transition:none}
 }
+#net{opacity:.24}
+#sectorConstellation{position:fixed;inset:0;z-index:2;pointer-events:none;filter:drop-shadow(0 0 12px rgba(255,196,107,.2))}
+.demo-authors{position:fixed;right:22px;bottom:18px;z-index:45;display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(4,7,10,.82);backdrop-filter:blur(12px);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--txt3)}
+.demo-authors a{color:var(--txt2);text-decoration:none;font-weight:800}.demo-authors a:hover{color:var(--ac)}
+@media(max-width:640px){.demo-authors{right:12px;bottom:10px}.demo-authors span{display:none}}
 </style>
 </head>
-<body>
+<body data-sector="energy" data-sector-accent="#ffc46b">
+<canvas id="sectorConstellation" aria-hidden="true"></canvas>
+<div class="demo-authors" aria-label="Autori della demo"><span>Una demo di</span><a href="https://www.ecobubble.it" target="_blank" rel="noopener">EcoBubble</a><b>×</b><a href="https://www.plantiverse.it" target="_blank" rel="noopener">Plantiverse</a></div>
 
 <canvas id="net" aria-hidden="true"></canvas>
 <div id="veil"></div>
@@ -838,5 +845,6 @@ requestAnimationFrame(chartLoop);
  sectionMode(m[1]);
 })();
 </script>
+<script src="../assets/sector-constellation-v16b.js"></script>
 </body>
 </html>
