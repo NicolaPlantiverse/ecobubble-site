@@ -43,6 +43,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
 .navcta:hover{border-color:rgba(75,224,142,.6);color:var(--env)}
 .navcta.primary{background:var(--env);border-color:var(--env);color:#04150b}
 .navcta.primary:hover{color:#04150b;box-shadow:0 12px 34px -16px var(--env)}
+/* selettore lingua: tendina compatta con bandierine, pronta ad accogliere altre lingue */
+#langsel{position:relative}
+#langBtn{letter-spacing:.04em}
+#langMenu{position:absolute;top:calc(100% + 8px);right:0;display:none;min-width:160px;background:rgba(9,14,19,.96);border:1px solid var(--line);border-radius:14px;padding:6px;z-index:60;box-shadow:0 18px 40px -18px rgba(0,0,0,.8)}
+#langsel.open #langMenu{display:block}
+#langMenu button{appearance:none;display:block;width:100%;text-align:left;background:none;border:0;color:var(--txt2);font:700 13px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;padding:10px 12px;border-radius:9px;cursor:pointer;transition:.2s}
+#langMenu button:hover{background:rgba(255,255,255,.06);color:var(--txt)}
 
 /* palco sottotitoli */
 #play{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
@@ -159,7 +166,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
 
 <nav aria-label="Navigazione principale">
   <a class="brand" href="#"><svg class="mark" viewBox="0 0 1715 1243" aria-hidden="true"><defs><mask id="ebm1"><rect width="1715" height="1243" fill="#fff"/><circle cx="310" cy="622" r="355" fill="#000"/><circle cx="1405" cy="622" r="355" fill="#000"/></mask></defs><circle cx="857" cy="622" r="570" fill="none" stroke="#4be08e" stroke-width="100" mask="url(#ebm1)"/><circle cx="310" cy="622" r="310" fill="#4be08e"/><circle cx="1405" cy="622" r="310" fill="#4be08e"/></svg>EcoBubble <small>Applied Intelligence</small></a>
-  <div class="navlinks"><a class="navcta portfolio-link" href="reti/index.html">Le reti</a><button class="navcta" id="summaryBtn" type="button">Sintesi</button><a class="navcta primary" href="mailto:info@ecobubble.it?subject=Pilota%20di%20intelligenza%20artificiale">Avvia un pilota &rarr;</a></div>
+  <div class="navlinks">
+    <div id="langsel">
+      <button class="navcta" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">&#127470;&#127481; IT &#9662;</button>
+      <div id="langMenu" role="listbox" aria-label="Lingua / Language">
+        <button type="button" data-lang="it">&#127470;&#127481; Italiano</button>
+        <button type="button" data-lang="en">&#127468;&#127463; English</button>
+      </div>
+    </div>
+    <a class="navcta portfolio-link" id="navReti" href="reti/index.html">Le reti</a><button class="navcta" id="summaryBtn" type="button">Sintesi</button><a class="navcta primary" id="navPilot" href="mailto:info@ecobubble.it?subject=Pilota%20di%20intelligenza%20artificiale">Avvia un pilota &rarr;</a></div>
 </nav>
 
 <!-- palco -->
@@ -168,23 +183,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
   <div id="cap"></div>
   <p id="sub"></p>
   <div id="cta">
-    <a class="btn p" href="mailto:info@ecobubble.it?subject=Pilota%20di%20intelligenza%20artificiale">Avvia un pilota &rarr;</a>
-    <a class="btn s" href="https://calendly.com/nicola-nescatelli/30min" target="_blank" rel="noopener">Prenota 30 minuti</a>
+    <a class="btn p" id="ctaPilot" href="mailto:info@ecobubble.it?subject=Pilota%20di%20intelligenza%20artificiale">Avvia un pilota &rarr;</a>
+    <a class="btn s" id="ctaCal" href="https://calendly.com/nicola-nescatelli/30min" target="_blank" rel="noopener">Prenota 30 minuti</a>
   </div>
-  <div id="port"><span>Le reti</span>
+  <div id="port"><span id="portLbl">Le reti</span>
     <a style="--pac:#35d0c0" href="reti/greeneazy.html"><i></i>GreenEazy</a>
     <a style="--pac:#8be34b" href="reti/plantiverse.html"><i></i>Plantiverse</a>
     <a style="--pac:#ffc46b" href="reti/energia.html"><i></i>Energia &amp; Infrastrutture</a>
     <a style="--pac:#a98bff" href="reti/governance.html"><i></i>Governance AI</a>
     <a style="--pac:#9df3c3" href="reti/natural-capital.html"><i></i>Natural Capital</a>
-    <a class="all" href="reti/index.html">Tutte le reti &rarr;</a>
+    <a class="all" id="portAll" href="reti/index.html">Tutte le reti &rarr;</a>
   </div>
   <div id="arch">Sotto ognuna, la stessa architettura: <a href="reti/architettura.html">Ennous, la rete multidimensionale &rarr;</a></div>
 </div>
 <p id="srStatus" class="sr-only" aria-live="polite"></p>
 
 <div id="synth" aria-hidden="true"><small>La sintesi</small>
-Un&#8217;intelligenza con la <b>forma della tua azienda</b>: accende solo i <b>motori che servono</b>, non fa uscire <b>un solo dato</b>, firma <b>ogni risposta</b>. E alla fine <b>è tua</b>.</div>
+Un&#8217;intelligenza con la <b>forma della tua azienda</b>: accende solo i <b>motori che servono</b>, non fa uscire <b>un solo dato</b>, firma <b>ogni risposta</b>. <b>&Egrave; tutta tua</b>.</div>
 <div id="obj"><span class="dot"></span><span id="objName"></span></div>
 
 <div id="team">
@@ -459,6 +474,35 @@ var playBox=document.getElementById('play'),kick=document.getElementById('kick')
     synthBox=document.getElementById('synth');
 var C=ENGINE.colors;
 
+/* ===== lingua: IT default, EN per i mercati esteri; struttura pronta per altre lingue ===== */
+var LANG=(function(){try{var s=localStorage.getItem('eb_lang');if(s==='it'||s==='en')return s;}catch(e){}
+ return ((navigator.language||'it').toLowerCase().indexOf('it')===0)?'it':'en';})();
+function TT(o,f){return (LANG==='en'&&o[f+'_en']!=null)?o[f+'_en']:o[f];}
+var UI={
+ it:{reti:'Le reti',sintesi:'Sintesi',pilot:'Avvia un pilota →',hint:'Scorri verso il basso · una schermata alla volta',
+     cta2:'Prenota 30 minuti',port:'Le reti',all:'Tutte le reti →',lit:' motori accesi',flag:'🇮🇹 IT ▾',
+     arch:'Sotto ognuna, la stessa architettura: <a href="reti/architettura.html">Ennous, la rete multidimensionale &rarr;</a>',
+     synth:'<small>La sintesi</small>Un’intelligenza con la <b>forma della tua azienda</b>: accende solo i <b>motori che servono</b>, non fa uscire <b>un solo dato</b>, firma <b>ogni risposta</b>. <b>È tutta tua</b>.'},
+ en:{reti:'The networks',sintesi:'Summary',pilot:'Start a pilot →',hint:'Scroll down · one screen at a time',
+     cta2:'Book 30 minutes',port:'The networks',all:'All networks →',lit:' engines lit',flag:'🇬🇧 EN ▾',
+     arch:'Beneath each one, the same architecture: <a href="reti/architettura.html">Ennous, the multidimensional network &rarr;</a>',
+     synth:'<small>The summary</small>An intelligence with <b>the shape of your company</b>: it lights only <b>the engines that matter</b>, lets out <b>not a single data point</b>, signs <b>every answer</b>. <b>It is all yours</b>.'}
+};
+function applyLang(){var u=UI[LANG];
+ document.documentElement.lang=LANG;
+ document.getElementById('navReti').textContent=u.reti;
+ document.getElementById('summaryBtn').textContent=u.sintesi;
+ document.getElementById('navPilot').textContent=u.pilot;
+ document.getElementById('hint').textContent=u.hint;
+ document.getElementById('ctaPilot').textContent=u.pilot;
+ document.getElementById('ctaCal').textContent=u.cta2;
+ document.getElementById('portLbl').textContent=u.port;
+ document.getElementById('portAll').textContent=u.all;
+ document.getElementById('arch').innerHTML=u.arch;
+ document.getElementById('synth').innerHTML=u.synth;
+ document.getElementById('langBtn').textContent=u.flag;
+}
+
 function setAccent(hex){document.documentElement.style.setProperty('--ac',hex);glow.style.background='radial-gradient(56% 46% at 50% 54%, '+hex+', transparent 72%)';}
 function rgb(a){return 'rgb('+Math.round(a[0]*255)+','+Math.round(a[1]*255)+','+Math.round(a[2]*255)+')';}
 
@@ -466,12 +510,12 @@ function rgb(a){return 'rgb('+Math.round(a[0]*255)+','+Math.round(a[1]*255)+','+
    di motori (numero e posizione cambiano); copre i settori di aatech/arpinge
    e industria/finanza/ambiente. */
 var OBJ=[
- {name:'Prevedere il credito',    sub:'Finanza',           lit:ENGINE.objectiveSet(3,22), ac:C.GEO},
- {name:'Rafforzare la conformità · DORA',sub:'Banche & assicurazioni',lit:ENGINE.objectiveSet(28,16),ac:C.GEO},
- {name:'Governare i modelli AI',  sub:'AI infrastructure', lit:ENGINE.objectiveSet(50,12),ac:C.VIO},
- {name:'Ottimizzare la produzione',sub:'Industria',        lit:ENGINE.objectiveSet(11,27),ac:C.AMB},
- {name:'Gestire l’energia',       sub:'Infrastrutture',    lit:ENGINE.objectiveSet(68,20),ac:C.VIO},
- {name:'Interpretare il territorio',sub:'Ambiente',        lit:ENGINE.objectiveSet(40,15),ac:C.ENV}
+ {name:'Prevedere il credito',name_en:'Predict credit',sub:'Finanza',sub_en:'Finance',lit:ENGINE.objectiveSet(3,22), ac:C.GEO},
+ {name:'Rafforzare la conformità · DORA',name_en:'Strengthen compliance · DORA',sub:'Banche & assicurazioni',sub_en:'Banks & insurance',lit:ENGINE.objectiveSet(28,16),ac:C.GEO},
+ {name:'Governare i modelli AI',name_en:'Govern AI models',sub:'AI infrastructure',sub_en:'AI infrastructure',lit:ENGINE.objectiveSet(50,12),ac:C.VIO},
+ {name:'Ottimizzare la produzione',name_en:'Optimise production',sub:'Industria',sub_en:'Industry',lit:ENGINE.objectiveSet(11,27),ac:C.AMB},
+ {name:'Gestire l’energia',name_en:'Manage energy',sub:'Infrastrutture',sub_en:'Infrastructure',lit:ENGINE.objectiveSet(68,20),ac:C.VIO},
+ {name:'Interpretare il territorio',name_en:'Read the territory',sub:'Ambiente',sub_en:'Environment',lit:ENGINE.objectiveSet(40,15),ac:C.ENV}
 ];
 var GATED=ENGINE.objectiveSet(48,9);
 function nLit(o){return Object.keys(o).length;}
@@ -479,39 +523,62 @@ function nLit(o){return Object.keys(o).length;}
 var BEATS=[
  {k:'EcoBubble',ac:'#4be08e',shape:'network',
   cap:'Costruiamo <b>infrastrutture di intelligenza artificiale</b> sulla forma della tua <b>organizzazione</b>.',
-  sub:'Dati, obiettivi e regole diventano la struttura della rete.',hold:2600},
- {k:'Il punto di partenza',ac:'#4be08e',shape:'network',
+  cap_en:'We build <b>artificial intelligence infrastructures</b> shaped on your <b>organisation</b>.',
+  sub:'Dati, obiettivi e regole diventano la struttura della rete.',
+  sub_en:'Data, goals and rules become the structure of the network.',hold:2600},
+ {k:'Il punto di partenza',k_en:'The starting point',ac:'#4be08e',shape:'network',
   cap:'Ogni azienda ha <b>decisioni</b>, <b>dati</b> e <b>priorità</b> uniche.',
-  sub:'La rete seleziona i motori più adatti ai tuoi obiettivi e ai tuoi dati.',hold:2900},
- {k:'La rete',ac:'#4be08e',shape:'network',
+  cap_en:'Every company has unique <b>decisions</b>, <b>data</b> and <b>priorities</b>.',
+  sub:'La rete seleziona i motori più adatti ai tuoi obiettivi e ai tuoi dati.',
+  sub_en:'The network selects the engines best suited to your goals and your data.',hold:2900},
+ {k:'La rete',k_en:'The network',ac:'#4be08e',shape:'network',
   cap:'Dentro agisce una <b>rete multidimensionale</b>: <b>centinaia di motori</b>, uno per ogni modo di leggere i dati.',
-  sub:'La combinazione si adatta al tuo settore e alla complessità di ogni obiettivo.',hold:2900},
- {k:'01 · Selezione',ac:'#5aa9ff',
-  cap:'Per ogni <b>obiettivo</b> si accende una <b>combinazione diversa</b> di motori.',hold:900,objcycle:true},
- {k:'02 · Efficienza',ac:'#35d0c0',ignite:GATED,igAc:C.ENV2,
+  cap_en:'Inside runs a <b>multidimensional network</b>: <b>hundreds of engines</b>, one for every way of reading data.',
+  sub:'La combinazione si adatta al tuo settore e alla complessità di ogni obiettivo.',
+  sub_en:'The combination adapts to your sector and to the complexity of each goal.',hold:2900},
+ {k:'01 · Selezione',k_en:'01 · Selection',ac:'#5aa9ff',
+  cap:'Per ogni <b>obiettivo</b> si accende una <b>combinazione diversa</b> di motori.',
+  cap_en:'For every <b>goal</b>, a <b>different combination</b> of engines lights up.',hold:900,objcycle:true},
+ {k:'02 · Efficienza',k_en:'02 · Efficiency',ac:'#35d0c0',ignite:GATED,igAc:C.ENV2,
   cap:'La rete attiva <b>i motori utili</b>: il calcolo si riduce dell’<b>80/90%</b>.',
-  sub:'Il calcolo si concentra sui motori più adatti e la rete ne misura il risultato.',hold:3000},
- {k:'03 · Agnostica',ac:'#5aa9ff',shape:'network',
+  cap_en:'The network activates <b>only the useful engines</b>: computation drops by <b>80/90%</b>.',
+  sub:'Il calcolo si concentra sui motori più adatti e la rete ne misura il risultato.',
+  sub_en:'Computation concentrates on the most suitable engines and the network measures the result.',hold:3000},
+ {k:'03 · Agnostica',k_en:'03 · Agnostic',ac:'#5aa9ff',shape:'network',
   cap:'È <b>agnostica</b> e <b>flessibile</b>: quando i dati cambiano, la rete <b>si ricompone</b>.',
-  sub:'Modelli e tecnologie restano liberamente combinabili.',hold:3000},
- {k:'04 · Privacy',ac:'#4be08e',shape:'dome',
+  cap_en:'It is <b>agnostic</b> and <b>flexible</b>: when data changes, the network <b>recomposes itself</b>.',
+  sub:'Modelli e tecnologie restano liberamente combinabili.',
+  sub_en:'Models and technologies remain freely combinable.',hold:3000},
+ {k:'04 · Privacy',k_en:'04 · Privacy',ac:'#4be08e',shape:'dome',
   cap:'I tuoi <b>dati restano nei tuoi sistemi</b>: l’intelligenza resta <b>dove sei tu</b>.',
-  sub:'Funziona nei tuoi sistemi, sotto le tue chiavi e secondo le tue regole.',hold:3200},
- {k:'05 · Indipendenza',ac:'#a98bff',shape:'ring',
+  cap_en:'Your <b>data stays in your systems</b>: intelligence stays <b>where you are</b>.',
+  sub:'Funziona nei tuoi sistemi, sotto le tue chiavi e secondo le tue regole.',
+  sub_en:'It runs in your systems, under your keys and by your rules.',hold:3200},
+ {k:'05 · Indipendenza',k_en:'05 · Independence',ac:'#a98bff',shape:'ring',
   cap:'Mantieni la piena <b>autonomia tecnologica</b>.',
-  sub:'Cloud, modelli e infrastruttura restano sotto il tuo controllo. Sovranità reale.',hold:3200},
- {k:'06 · Fiducia',ac:'#ffc46b',shape:'lattice',
+  cap_en:'You keep full <b>technological autonomy</b>.',
+  sub:'Cloud, modelli e infrastruttura restano sotto il tuo controllo. Sovranità reale.',
+  sub_en:'Cloud, models and infrastructure remain under your control. Real sovereignty.',hold:3200},
+ {k:'06 · Fiducia',k_en:'06 · Trust',ac:'#ffc46b',shape:'lattice',
   cap:'Ogni risposta dichiara <b>quanto fidarsi</b>, con una <b>firma</b> che chiunque può verificare.',
-  sub:'Copertura verificata (~90%) e catena di audit SHA-256: controllabile da una banca o un revisore.',hold:3200},
- {k:'07 · Pilota',ac:'#4be08e',shape:'network',
+  cap_en:'Every answer declares <b>how much to trust it</b>, with a <b>signature</b> anyone can verify.',
+  sub:'Copertura verificata (~90%) e catena di audit SHA-256: controllabile da una banca o un revisore.',
+  sub_en:'Verified coverage (~90%) and a SHA-256 audit chain: checkable by a bank or an auditor.',hold:3200},
+ {k:'07 · Pilota',k_en:'07 · Pilot',ac:'#4be08e',shape:'network',
   cap:'Ogni rete nasce da un <b>pilota misurato</b> sui tuoi <b>dati</b> e sui tuoi <b>obiettivi</b>.',
-  sub:'Criteri di successo, tempi e risultati sono definiti insieme fin dall’inizio.',hold:3000},
- {k:'Il team',ac:'#4be08e',shape:'network',team:true,
+  cap_en:'Every network starts from a <b>measured pilot</b> on your <b>data</b> and your <b>goals</b>.',
+  sub:'Criteri di successo, tempi e risultati sono definiti insieme fin dall’inizio.',
+  sub_en:'Success criteria, timelines and results are defined together from day one.',hold:3000},
+ {k:'Il team',k_en:'The team',ac:'#4be08e',shape:'network',team:true,
   cap:'Dietro la rete, <b>fisica</b>, <b>dati</b> e <b>tecnologia</b>.',
-  sub:'Fisica dei sistemi complessi, intelligenza artificiale e piattaforme. La rete la firmiamo noi.',hold:3600},
- {k:'Iniziamo',ac:'#4be08e',shape:'emblem',cta:true,port:true,
+  cap_en:'Behind the network, <b>physics</b>, <b>data</b> and <b>technology</b>.',
+  sub:'Fisica dei sistemi complessi, intelligenza artificiale e piattaforme. La rete la firmiamo noi.',
+  sub_en:'Complex systems physics, artificial intelligence and platforms. We sign the network ourselves.',hold:3600},
+ {k:'Iniziamo',k_en:'Let’s begin',ac:'#4be08e',shape:'emblem',cta:true,port:true,
   cap:'Che <b>intelligenza</b> costruiamo per te?',
-  sub:'Definiamo obiettivi, metriche e rete. Il primo passo è un pilota misurato, l’infrastruttura resta tua.',hold:99999}
+  cap_en:'What <b>intelligence</b> shall we build for you?',
+  sub:'Definiamo obiettivi, metriche e rete. Il primo passo è un pilota misurato, l’infrastruttura resta tua.',
+  sub_en:'We define goals, metrics and network. The first step is a measured pilot, the infrastructure remains yours.',hold:99999}
 ];
 
 BEATS.forEach(function(b,i){var el=document.createElement('button');el.type='button';el.innerHTML='<b></b>';el.setAttribute('aria-label','Capitolo '+(i+1)+': '+b.k);el.addEventListener('click',function(){play(i);});bar.appendChild(el);});
@@ -558,21 +625,22 @@ function show(i){
  var b=BEATS[i];
  if(i!==BEATS.length-1)summaryMode=false;
  synthBox.classList.toggle('on',summaryMode&&i===BEATS.length-1);
- setAccent(b.ac);kick.textContent=b.k;
+ var capS=TT(b,'cap'),subS=TT(b,'sub');
+ setAccent(b.ac);kick.textContent=TT(b,'k');
  sub.textContent='';sub.classList.remove('on');
  cta.classList.remove('on');gal.classList.remove('on');archl.classList.remove('on');objBox.classList.remove('on');
  teamBox.classList.toggle('on',!!b.team);
  cnt.textContent=(i+1)+' / '+BEATS.length;
- srStatus.textContent=b.k+'. '+b.cap.replace(/<[^>]+>/g,'')+(b.sub?' '+b.sub:'');
+ srStatus.textContent=TT(b,'k')+'. '+capS.replace(/<[^>]+>/g,'')+(subS?' '+subS:'');
  fillBar(i);
  if(b.shape)ENGINE.go(b.shape);
  if(b.ignite)ENGINE.ignite(b.ignite,b.igAc);
  var reducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- var ws=words(b.cap),perWord=reducedMotion?0:130,typeMs=ws.length*perWord;
+ var ws=words(capS),perWord=reducedMotion?0:130,typeMs=ws.length*perWord;
  /* tempo di lettura: pausa proporzionata al testo (didascalia + sottotitolo) */
- var read=Math.max(b.hold,1150+(b.cap.replace(/<[^>]+>/g,'').length+(b.sub?b.sub.length:0))*22);
+ var read=Math.max(b.hold,1150+(capS.replace(/<[^>]+>/g,'').length+(subS?subS.length:0))*22);
  typeWords(ws,perWord,function(){
-  if(b.sub){sub.textContent=b.sub;sub.classList.add('on');}
+  if(subS){sub.textContent=subS;sub.classList.add('on');}
   if(b.cta)cta.classList.add('on');
   if(b.port&&!summaryMode){gal.classList.add('on');archl.classList.add('on');}
   if(b.objcycle){cycleObjectives(function(){completeBar(i);});return;}
@@ -585,7 +653,7 @@ function cycleObjectives(done){
  (function step(){if(paused){later(step,200);return;}
   if(n>=OBJ.length){objBox.classList.remove('on');if(done)done();return;}
   var o=OBJ[n];setAccent(rgb(o.ac));
-  objName.innerHTML=o.name+' <small>&middot; '+o.sub+' &middot; '+nLit(o.lit)+' motori accesi</small>';
+  objName.innerHTML=TT(o,'name')+' <small>&middot; '+TT(o,'sub')+' &middot; '+nLit(o.lit)+UI[LANG].lit+'</small>';
   objBox.classList.add('on');
   ENGINE.ignite(o.lit,o.ac);n++;later(step,1150);
  })();
@@ -614,6 +682,20 @@ stage.addEventListener('pointerdown',function(e){downX=e.clientX;dragMoved=false
 window.addEventListener('pointermove',function(e){if(Math.abs(e.clientX-downX)>6)dragMoved=true;});
 stage.addEventListener('click',function(){if(!dragMoved)next();});
 summaryBtn.addEventListener('click',function(){paused=false;summaryMode=true;play(BEATS.length-1);});
+
+/* selettore lingua: tendina con bandierine */
+var langSel=document.getElementById('langsel'),langBtn=document.getElementById('langBtn');
+function setLang(l){if(l===LANG||!UI[l])return;LANG=l;try{localStorage.setItem('eb_lang',l);}catch(e){}
+ applyLang();if(idx>=0)play(idx);}
+langBtn.addEventListener('click',function(e){e.stopPropagation();
+ var open=langSel.classList.toggle('open');langBtn.setAttribute('aria-expanded',open?'true':'false');});
+[].slice.call(document.querySelectorAll('#langMenu button')).forEach(function(b){
+ b.addEventListener('click',function(e){e.stopPropagation();setLang(b.getAttribute('data-lang'));
+  langSel.classList.remove('open');langBtn.setAttribute('aria-expanded','false');});});
+document.addEventListener('click',function(){langSel.classList.remove('open');langBtn.setAttribute('aria-expanded','false');});
+/* hook QA: ?lang=xx forza la lingua */
+var ml=location.search.match(/[?&]lang=(it|en)/);if(ml)LANG=ml[1];
+applyLang();
 
 /* hook QA: ?ch=N mostra direttamente il capitolo richiesto */
 var m=location.search.match(/ch=(\d+)/);
