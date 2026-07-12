@@ -99,12 +99,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
 /* overlay team */
 #team{position:fixed;left:50%;top:43%;transform:translate(-50%,-50%);z-index:20;display:flex;gap:26px;opacity:0;transition:opacity .55s;pointer-events:none;
  background:rgba(4,7,10,.5);border:1px solid var(--line);border-radius:28px;padding:30px 34px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
-#team.on{opacity:1}
-#team .tm{text-align:center;width:138px}
-#team .tm img{width:104px;height:104px;border-radius:50%;object-fit:cover;object-position:50% 4%;border:1.5px solid var(--ac,var(--env));box-shadow:0 0 30px -6px var(--ac,var(--env));filter:grayscale(.28)}
-#team .tm .n{font-size:14px;font-weight:700;margin-top:14px}
+#team.on{opacity:1;pointer-events:auto}
+#team .tm{text-align:center;width:162px;cursor:default}
+#team .tm img{width:116px;height:116px;border-radius:50%;object-fit:cover;object-position:50% 4%;border:1.5px solid var(--ac,var(--env));box-shadow:0 0 30px -6px var(--ac,var(--env));filter:grayscale(.28);
+ transition:transform .35s ease,box-shadow .35s ease,filter .35s ease}
+/* hover sul nome o sulla card: il cerchio si "ignize" come i nodi della rete al passaggio del mouse */
+#team .tm:hover img{transform:scale(1.14);filter:grayscale(0);box-shadow:0 0 52px -2px var(--ac,var(--env))}
+#team .tm .n{font-size:14px;font-weight:700;margin-top:14px;white-space:nowrap;transition:color .3s}
+#team .tm:hover .n{color:var(--ac,var(--env))}
 #team .tm .r{font-size:11.5px;color:var(--ac,var(--txt2));margin-top:3px;font-weight:600}
-@media(max-width:640px){#team{gap:14px;flex-wrap:wrap;justify-content:center;max-width:320px;padding:20px}#team .tm{width:130px}#team .tm img{width:96px;height:96px}}
+@media(max-width:640px){#team{gap:14px;flex-wrap:wrap;justify-content:center;max-width:380px;padding:20px}#team .tm{width:148px}#team .tm img{width:100px;height:100px}}
 
 /* barra di avanzamento capitoli */
 #bar{position:fixed;left:0;right:0;bottom:0;z-index:22;display:flex;gap:6px;padding:16px 30px}
@@ -169,7 +173,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:cent
   </div>
   <div id="port"><span>Le reti</span>
     <a style="--pac:#35d0c0" href="reti/greeneazy.html"><i></i>GreenEazy</a>
-    <a style="--pac:#5aa9ff" href="reti/plantiverse.html"><i></i>Plantiverse</a>
+    <a style="--pac:#8be34b" href="reti/plantiverse.html"><i></i>Plantiverse</a>
     <a style="--pac:#ffc46b" href="reti/energia.html"><i></i>Energia &amp; Infrastrutture</a>
     <a style="--pac:#a98bff" href="reti/governance.html"><i></i>Governance AI</a>
     <a style="--pac:#9df3c3" href="reti/natural-capital.html"><i></i>Natural Capital</a>
@@ -187,7 +191,7 @@ Un&#8217;intelligenza con la <b>forma della tua azienda</b>: accende solo i <b>m
   <div class="tm" style="--ac:var(--env)"><img src="assets/team/nn.jpg" alt="Nicola Nescatelli" loading="lazy"><div class="n">Nicola Nescatelli</div><div class="r">Founder &amp; CEO</div></div>
   <div class="tm" style="--ac:var(--geo)"><img src="assets/team/ap.jpg" alt="Andrea Procaccini" loading="lazy"><div class="n">Andrea Procaccini</div><div class="r">AI &amp; Modelling</div></div>
   <div class="tm" style="--ac:var(--teal)"><img src="assets/team/lg.jpg" alt="Leonardo Giannini" loading="lazy"><div class="n">Leonardo Giannini</div><div class="r">Geospatial &amp; EO</div></div>
-  <div class="tm" style="--ac:var(--violet)"><img src="assets/team/fp.jpg" alt="Fabio Pallini" loading="lazy"><div class="n">Fabio Pallini</div><div class="r">Engineering &amp; Platform</div></div>
+  <div class="tm" style="--ac:var(--violet)"><img src="assets/team/fp.jpg" alt="Fabio Pallini" loading="lazy"><div class="n">Fabio Pallini</div><div class="r">IT Solution Architect</div></div>
   <div class="tm" style="--ac:var(--amber)"><img src="assets/team/fd.jpg" alt="Federico Di Vincenzo" loading="lazy"><div class="n">Federico Di Vincenzo</div><div class="r">Design &amp; Experience</div></div>
 </div>
 
@@ -287,12 +291,26 @@ function shapeRing(){var s=mk(),i;
    put(s,i,x,y*0.86,z,Math.random()<0.05?WHT:VIO,0.6+0.5*Math.random());}
   else{var a3=Math.random()*6.2832,rr=1.3*Math.cbrt(Math.random());put(s,i,Math.cos(a3)*rr,Math.sin(a3)*rr*0.7,rnd(-0.2,0.2),[0.5,0.55,0.6],0.2);}}
  return s;}
-function shapeLattice(){var s=mk(),i,side=Math.ceil(Math.cbrt(N));
- for(i=0;i<N;i++){var gx=i%side,gy=Math.floor(i/side)%side,gz=Math.floor(i/(side*side));
-  var x=(gx/(side-1)-0.5)*2.3,y=(gy/(side-1)-0.5)*1.5,z=(gz/(side-1)-0.5)*1.0;
-  /* piu linee accese (anche in profondita) e trama di fondo piu visibile: reticolo denso */
-  var edge=(gx%5===0||gy%5===0||gz%6===0)?1:0;
-  put(s,i,x+rnd(-0.02,0.02),y+rnd(-0.02,0.02),z+rnd(-0.02,0.02),edge?AMB:[0.5,0.42,0.3],edge?1.1:0.45);}
+function shapeLattice(){var s=mk(),i;
+ /* griglia 3D leggibile: tutti i punti corrono LUNGO gli spigoli di un reticolo
+    7x5x4 piu piccolo (83 linee piene) + incroci luminosi. La griglia e ruotata
+    di ~30 gradi nella forma stessa: mai frontale piatta, le linee di profondita
+    non si impilano in punti accecanti (sono anche meno e piu tenui). */
+ var GX=7,GY=5,GZ=4,SW=1.7,SH=1.05,SD=0.8,CA=Math.cos(0.52),SA=Math.sin(0.52);
+ function px(a){return (a/(GX-1)-0.5)*SW;}
+ function py(a){return (a/(GY-1)-0.5)*SH;}
+ function pz(a){return (a/(GZ-1)-0.5)*SD;}
+ function putR(i,x,y,z,c,f){put(s,i,x*CA+z*SA,y,-x*SA+z*CA,c,f);}
+ for(i=0;i<N;i++){
+  var j=rnd(-0.006,0.006),j2=rnd(-0.006,0.006),j3=rnd(-0.006,0.006);
+  if(i%9===0){var ax=Math.floor(Math.random()*GX),ay=Math.floor(Math.random()*GY),az=Math.floor(Math.random()*GZ);
+   putR(i,px(ax)+j,py(ay)+j2,pz(az)+j3,Math.random()<0.25?WHT:AMB,1.2);}
+  else{var r2=Math.random(),d=r2<0.42?0:(r2<0.84?1:2),t=Math.random(),
+       bx=Math.floor(Math.random()*GX),by=Math.floor(Math.random()*GY),bz=Math.floor(Math.random()*GZ),x,y,z,f;
+   if(d===0){x=(t-0.5)*SW;y=py(by);z=pz(bz);f=0.6+0.4*Math.random();}
+   else if(d===1){x=px(bx);y=(t-0.5)*SH;z=pz(bz);f=0.6+0.4*Math.random();}
+   else{x=px(bx);y=py(by);z=(t-0.5)*SD;f=0.32+0.22*Math.random();}
+   putR(i,x+j,y+j2,z+j3,AMB,f);}}
  return s;}
 function shapeEmblem(){var s=mk(),R=0.72,TH=0.052,DR=0.31,DX=0.66,GAP=0.055,i;
  for(i=0;i<N;i++){var u=Math.random();
@@ -489,8 +507,8 @@ var BEATS=[
   cap:'Ogni rete nasce da un <b>pilota misurato</b> sui tuoi <b>dati</b> e sui tuoi <b>obiettivi</b>.',
   sub:'Criteri di successo, tempi e risultati sono definiti insieme fin dall’inizio.',hold:3000},
  {k:'Il team',ac:'#4be08e',shape:'network',team:true,
-  cap:'Dietro la rete, <b>fisica</b>, <b>scienze della Terra</b> e <b>ingegneria</b>.',
-  sub:'Fisica dei sistemi complessi applicata all’ambiente e al territorio. La rete la firmiamo noi.',hold:3600},
+  cap:'Dietro la rete, <b>fisica</b>, <b>dati</b> e <b>tecnologia</b>.',
+  sub:'Fisica dei sistemi complessi, intelligenza artificiale e piattaforme. La rete la firmiamo noi.',hold:3600},
  {k:'Iniziamo',ac:'#4be08e',shape:'emblem',cta:true,port:true,
   cap:'Che <b>intelligenza</b> costruiamo per te?',
   sub:'Definiamo obiettivi, metriche e rete. Il primo passo è un pilota misurato, l’infrastruttura resta tua.',hold:99999}
