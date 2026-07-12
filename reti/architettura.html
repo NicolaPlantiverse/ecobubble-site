@@ -72,10 +72,15 @@ h2{font-size:clamp(26px,3.4vw,42px);line-height:1.16;letter-spacing:-.018em;font
 .qgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
 @media(max-width:960px){.qgrid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.qgrid{grid-template-columns:1fr}}
-.q{border:1px solid var(--line);border-radius:20px;background:var(--panel);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:22px;transition:border-color .3s,transform .3s,box-shadow .3s}
+.q{border:1px solid var(--line);border-radius:20px;background:var(--panel);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:22px;transition:border-color .3s,transform .3s,box-shadow .3s;cursor:pointer;position:relative}
 .q:hover{transform:translateY(-3px);border-color:rgba(75,224,142,.45);box-shadow:0 22px 46px -30px var(--env)}
 .q .n{font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--txt3)}
+.q .pm{position:absolute;top:18px;right:18px;color:var(--txt3);font-size:15px;font-weight:700;transition:transform .3s,color .3s}
+.q.open .pm{transform:rotate(45deg);color:var(--env)}
 .q p{font-size:15.5px;font-weight:700;line-height:1.45;margin-top:9px;color:var(--txt)}
+.q .qa{max-height:0;overflow:hidden;transition:max-height .45s ease,margin-top .3s;font-size:12.5px;font-weight:400;line-height:1.6;color:var(--txt2)}
+.q.open .qa{max-height:170px;margin-top:10px}
+.q .qa b{color:var(--txt);font-weight:600}
 
 /* il metodo, in una riga */
 #method{text-align:center}
@@ -130,8 +135,24 @@ h2{font-size:clamp(26px,3.4vw,42px);line-height:1.16;letter-spacing:-.018em;font
 .sk .l{font-size:10px;color:var(--txt3);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
 .simnote{font-size:13px;line-height:1.65;color:var(--txt2)}
 .simnote b{color:var(--txt)}
-.receipt{margin-top:16px;border-top:1px solid var(--line);padding-top:14px;font-size:11.5px;color:var(--txt3);font-variant-numeric:tabular-nums}
+.receipt{margin-top:16px;border-top:1px solid var(--line);padding-top:12px;font-size:11.5px;color:var(--txt3);font-variant-numeric:tabular-nums}
 .receipt b{color:var(--ac2);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700}
+.receipt .rt{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;color:var(--txt3)}
+.rrow{display:flex;justify-content:space-between;gap:14px;padding:2.5px 0}
+.rrow span{flex:none}
+.rrow b{text-align:right;overflow-wrap:anywhere}
+.archline{display:flex;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:14px 20px;font-size:13px;color:var(--txt2);line-height:1.6}
+.archline i{width:8px;height:8px;border-radius:50%;background:var(--env);box-shadow:0 0 12px var(--env);flex:none}
+.archline b{color:var(--txt)}
+.moe{margin-top:40px}
+.moecap{font-size:12.5px;color:var(--txt3);margin-bottom:12px}
+.moerow{display:flex;align-items:baseline;gap:18px;border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:13px 18px;flex-wrap:wrap}
+.moerow+.moerow{margin-top:8px}
+.moerow b{font-size:13.5px;color:var(--txt);min-width:200px}
+.moerow span{font-size:12px;color:var(--txt3);line-height:1.6}
+.moerow.hot{border-color:rgba(75,224,142,.45)}
+.moerow.hot b{color:var(--ac2)}
+.moerow.hot span{color:var(--txt2)}
 
 /* numeri + lignaggio */
 .stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
@@ -223,14 +244,20 @@ h2{font-size:clamp(26px,3.4vw,42px);line-height:1.16;letter-spacing:-.018em;font
   <div class="kick">01 &middot; <span class="l-it">Il problema</span><span class="l-en">The problem</span></div>
   <h2><span class="l-it">L&#8217;IA arriva ovunque.<br>Sei domande restano.</span><span class="l-en">AI reaches everywhere.<br>Six questions remain.</span></h2>
   <div class="qgrid">
-    <div class="q"><div class="n">Q1</div><p><span class="l-it">Quale modello, per quale obiettivo?</span><span class="l-en">Which model, for which goal?</span></p></div>
-    <div class="q"><div class="n">Q2</div><p><span class="l-it">Quando conviene calcolare, e quando no?</span><span class="l-en">When is computing worth it, and when not?</span></p></div>
-    <div class="q"><div class="n">Q3</div><p><span class="l-it">Tutto il segnale, o solo quello comodo?</span><span class="l-en">All the signal, or only the convenient part?</span></p></div>
-    <div class="q"><div class="n">Q4</div><p><span class="l-it">Black box, o una risposta che si pu&ograve; aprire?</span><span class="l-en">Black box, or an answer that can be opened?</span></p></div>
-    <div class="q"><div class="n">Q5</div><p><span class="l-it">Efficienza ed errore: misurati, o assunti?</span><span class="l-en">Efficiency and error: measured, or assumed?</span></p></div>
-    <div class="q"><div class="n">Q6</div><p><span class="l-it">Chi governa i modelli, quando sono decine?</span><span class="l-en">Who governs the models, when there are dozens?</span></p></div>
+    <div class="q"><span class="pm">+</span><div class="n">Q1</div><p><span class="l-it">Quale modello, per quale obiettivo?</span><span class="l-en">Which model, for which goal?</span></p>
+      <div class="qa"><span class="l-it">Ennous non sposa un modello: tiene un catalogo di 10&sup2; motori e per ogni obiettivo compone la <b>squadra migliore</b>. Anche il modello che usi gi&agrave; pu&ograve; entrare, se merita.</span><span class="l-en">Ennous does not marry one model: it keeps a catalogue of 10&sup2; engines and composes the <b>best team</b> for each goal. Even the model you already use can join, if it earns it.</span></div></div>
+    <div class="q"><span class="pm">+</span><div class="n">Q2</div><p><span class="l-it">Quando conviene calcolare, e quando no?</span><span class="l-en">When is computing worth it, and when not?</span></p>
+      <div class="qa"><span class="l-it">Il gating confronta <b>valore e costo</b> del calcolo prima di accenderlo: ci&ograve; che non serve resta spento, e il risparmio &egrave; misurato, non stimato.</span><span class="l-en">The gating compares the <b>value and cost</b> of computing before switching it on: what is not needed stays off, and the saving is measured, not guessed.</span></div></div>
+    <div class="q"><span class="pm">+</span><div class="n">Q3</div><p><span class="l-it">Tutto il segnale, o solo quello comodo?</span><span class="l-en">All the signal, or only the convenient part?</span></p>
+      <div class="qa"><span class="l-it">Ogni sorgente utile entra con la sua <b>qualit&agrave; misurata</b>: satelliti, sensori, sistemi. Nessuna scorciatoia sul dato comodo, nessun dato senza identit&agrave;.</span><span class="l-en">Every useful source enters with its <b>measured quality</b>: satellites, sensors, systems. No shortcut on the convenient data, no data without identity.</span></div></div>
+    <div class="q"><span class="pm">+</span><div class="n">Q4</div><p><span class="l-it">Black box, o una risposta che si pu&ograve; aprire?</span><span class="l-en">Black box, or an answer that can be opened?</span></p>
+      <div class="qa"><span class="l-it">Ogni risposta <b>si apre</b>: quali famiglie di motori hanno contribuito, con che peso, con che confidenza. Il ragionamento si pu&ograve; leggere, non solo credere.</span><span class="l-en">Every answer <b>opens</b>: which engine families contributed, with what weight, with what confidence. The reasoning can be read, not just believed.</span></div></div>
+    <div class="q"><span class="pm">+</span><div class="n">Q5</div><p><span class="l-it">Efficienza ed errore: misurati, o assunti?</span><span class="l-en">Efficiency and error: measured, or assumed?</span></p>
+      <div class="qa"><span class="l-it">Calcolo ed errore sono <b>metriche di governance</b>: osservati in esercizio, tracciati nel tempo, esportabili verso audit e regolatore.</span><span class="l-en">Compute and error are <b>governance metrics</b>: observed in service, tracked over time, exportable to audit and regulator.</span></div></div>
+    <div class="q"><span class="pm">+</span><div class="n">Q6</div><p><span class="l-it">Chi governa i modelli, quando sono decine?</span><span class="l-en">Who governs the models, when there are dozens?</span></p>
+      <div class="qa"><span class="l-it">I meta-layer osservano <b>copertura e deriva</b> di ogni motore e ricompongono la rete quando serve: la governance sta nell&#8217;architettura, non in un comitato.</span><span class="l-en">The meta-layers observe each engine&#8217;s <b>coverage and drift</b> and recompose the network when needed: governance lives in the architecture, not in a committee.</span></div></div>
   </div>
-  <p class="sub"><span class="l-it">Ennous nasce per rispondere a tutte e sei <b>per costruzione</b>, non per promessa.</span><span class="l-en">Ennous answers all six <b>by construction</b>, not by promise.</span></p>
+  <p class="sub"><span class="l-it">Ennous nasce per rispondere a tutte e sei <b>per costruzione</b>, non per promessa. Tocca una domanda per l&#8217;approfondimento.</span><span class="l-en">Ennous answers all six <b>by construction</b>, not by promise. Tap a question for the deep dive.</span></p>
 </div></section>
 
 <!-- 3 · IL METODO, IN UNA RIGA -->
@@ -268,9 +295,10 @@ h2{font-size:clamp(26px,3.4vw,42px);line-height:1.16;letter-spacing:-.018em;font
   <canvas id="pipe"></canvas>
   <div class="pipecap">
     <span><span class="l-it">Catalogo</span><span class="l-en">Catalogue</span><b>10&sup2;</b></span>
-    <span><span class="l-it">Selezione</span><span class="l-en">Selection</span><b id="pipeN">~1 su 10</b></span>
+    <span><span class="l-it">Selezione</span><span class="l-en">Selection</span><b>~1 su 10</b></span>
     <span><span class="l-it">Fusione</span><span class="l-en">Fusion</span><b>L4</b></span>
     <span><span class="l-it">Decisione</span><span class="l-en">Decision</span><b>L5 &middot; &plusmn;q</b></span>
+    <span><span class="l-it">Prova</span><span class="l-en">Proof</span><b>SHA-256</b></span>
   </div>
 </div></section>
 
@@ -284,15 +312,16 @@ h2{font-size:clamp(26px,3.4vw,42px);line-height:1.16;letter-spacing:-.018em;font
       <div class="simbig" id="simv">100.0 <small id="simu"></small></div>
       <div class="simband" id="simb"></div>
       <div class="simrow">
-        <div class="sk"><div class="v" id="skEng">&ndash;</div><div class="l"><span class="l-it">motori accesi</span><span class="l-en">engines lit</span></div></div>
-        <div class="sk"><div class="v ok" id="skSave">&ndash;</div><div class="l"><span class="l-it">calcolo risparmiato</span><span class="l-en">compute saved</span></div></div>
+        <div class="sk"><div class="v">~1 su 10</div><div class="l"><span class="l-it">selezione dinamica</span><span class="l-en">dynamic selection</span></div></div>
+        <div class="sk"><div class="v ok">&minus;80/90%</div><div class="l"><span class="l-it">calcolo risparmiato</span><span class="l-en">compute saved</span></div></div>
         <div class="sk"><div class="v ok">~90%</div><div class="l"><span class="l-it">copertura</span><span class="l-en">coverage</span></div></div>
         <div class="sk"><div class="v" id="skGate">&ndash;</div><div class="l">gate</div></div>
       </div>
-      <div class="receipt"><span class="l-it">Ricevuta</span><span class="l-en">Receipt</span> &middot; <b id="simh">&ndash;</b> &middot; <span class="l-it">calcolata nel browser, come nelle reti reali</span><span class="l-en">computed in the browser, as in the real networks</span></div>
+      <div class="receipt" id="simr"></div>
     </div>
     <div class="simbox"><canvas id="simchart" style="display:block;width:100%;height:150px"></canvas><p class="simnote" id="simn" style="margin-top:14px"></p></div>
   </div>
+  <div class="archline" style="margin-top:22px"><i></i><span><span class="l-it">La rete <b>misura e dimostra</b>: le decisioni restano alle persone.</span><span class="l-en">The network <b>measures and proves</b>: decisions remain with people.</span></span></div>
 </div></section>
 
 <!-- 7 · I NUMERI + LIGNAGGIO -->
@@ -305,6 +334,11 @@ h2{font-size:clamp(26px,3.4vw,42px);line-height:1.16;letter-spacing:-.018em;font
     <div class="stat"><div class="v">&minus;80/90%</div><div class="l"><span class="l-it">di calcolo rispetto ad accenderli tutti</span><span class="l-en">of compute versus lighting them all</span></div></div>
     <div class="stat"><div class="v">~90%</div><div class="l"><span class="l-it">copertura calibrata, verificata sui dati</span><span class="l-en">calibrated coverage, verified on data</span></div></div>
     <div class="stat"><div class="v">SHA-256</div><div class="l"><span class="l-it">catena di audit di ogni risposta</span><span class="l-en">audit chain of every answer</span></div></div>
+  </div>
+  <div class="moe">
+    <p class="moecap"><span class="l-it">L&#8217;evoluzione del mixture-of-experts: generalizzata e governata.</span><span class="l-en">The evolution of mixture-of-experts: generalised and governed.</span></p>
+    <div class="moerow"><b>Mixture-of-experts</b><span><span class="l-it">esperti neurali &middot; tutti residenti &middot; un solo obiettivo &middot; routing per token &middot; nessuna prova</span><span class="l-en">neural experts &middot; all resident &middot; one objective &middot; per-token routing &middot; no proof</span></span></div>
+    <div class="moerow hot"><b>Meta-Intelligence &middot; Ennous</b><span><span class="l-it">qualunque modello &middot; si accende solo il sottoinsieme ottimale &middot; gating multi-obiettivo &middot; calibrata e provata</span><span class="l-en">any kind of model &middot; only the optimal subset runs &middot; multi-objective gating &middot; calibrated and proved</span></span></div>
   </div>
   <div class="lineage">
     <div class="lk">ECOBUBBLE</div>
@@ -327,7 +361,14 @@ h2{font-size:clamp(26px,3.4vw,42px);line-height:1.16;letter-spacing:-.018em;font
     <a class="btn s" href="https://www.ennous.it" target="_blank" rel="noopener">ennous.it</a>
     <a class="btn s" href="index.html"><span class="l-it">Le reti</span><span class="l-en">The networks</span></a>
   </div>
-  <div class="netchips">
+  <p class="sub" style="margin-top:36px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--txt3)"><span class="l-it">Da dove iniziare</span><span class="l-en">Where to start</span></p>
+  <div class="netchips" style="margin-top:12px">
+    <a href="mailto:info@ecobubble.it?subject=Pilota%20su%20una%20decisione"><i></i><span class="l-it">Un pilota su una decisione</span><span class="l-en">A pilot on one decision</span></a>
+    <a href="mailto:info@ecobubble.it?subject=Ricevuta%20di%20decisione%20per%20il%20board"><i></i><span class="l-it">Una ricevuta di decisione per il board</span><span class="l-en">A board-ready decision receipt</span></a>
+    <a href="mailto:info@ecobubble.it?subject=Audit%20dell%27orchestrazione%20IA"><i></i><span class="l-it">Un audit dell&#8217;orchestrazione IA</span><span class="l-en">An AI orchestration audit</span></a>
+    <a href="mailto:info@ecobubble.it?subject=Un%20settore%20nuovo"><i></i><span class="l-it">Il mio settore non c&#8217;&egrave; ancora</span><span class="l-en">My sector is not listed yet</span></a>
+  </div>
+  <div class="netchips" style="margin-top:26px">
     <a style="--nac:#35d0c0" href="greeneazy.html"><i></i>GreenEazy</a>
     <a style="--nac:#8be34b" href="plantiverse.html"><i></i>Plantiverse</a>
     <a style="--nac:#ffc46b" href="energia.html"><i></i><span class="l-it">Energia &amp; Infrastrutture</span><span class="l-en">Energy &amp; Infrastructure</span></a>
@@ -430,7 +471,10 @@ var SEC=[
  {it:'AI infrastructure',en:'AI infrastructure',obit:'Governare i modelli di IA',oben:'Govern AI models',ac:'#a98bff',lit:litSet(50,9)},
  {it:'Industria',en:'Industry',obit:'Ottimizzare la produzione',oben:'Optimise production',ac:'#ffc46b',lit:litSet(11,17)},
  {it:'Energia',en:'Energy',obit:'Gestire l’energia',oben:'Manage energy',ac:'#ffe0b0',lit:litSet(68,14)},
- {it:'Ambiente',en:'Environment',obit:'Interpretare il territorio',oben:'Read the territory',ac:'#4be08e',lit:litSet(40,10)}
+ {it:'Ambiente',en:'Environment',obit:'Interpretare il territorio',oben:'Read the territory',ac:'#4be08e',lit:litSet(40,10)},
+ {it:'Altro settore',en:'Other sector',obit:'Il tuo obiettivo',oben:'Your goal',ac:'#eef4f0',lit:litSet(77,13),
+  noteit:'la rete non è chiusa sui settori: la combinazione per il tuo si costruisce nel pilota, sui tuoi dati.',
+  noteen:'the network is not closed on sectors: the combination for yours is built in the pilot, on your data.'}
 ];
 var secSel=0,PIPE={lit:SEC[0].lit};
 function renderSec(){
@@ -440,8 +484,10 @@ function renderSec(){
  var s=SEC[secSel];PIPE.lit=s.lit;
  var sub=document.getElementById('pipesub');
  sub.style.setProperty('--pac',s.ac);
- sub.innerHTML='<b>'+T(s.obit,s.oben)+'</b> · <b>'+s.lit.length+'</b> '+T('motori accesi su 10²: una combinazione diversa per ogni settore, e per ogni obiettivo.','engines lit out of 10²: a different combination for every sector, and for every goal.');
- document.getElementById('pipeN').textContent=s.lit.length+' / 10²';
+ /* niente conteggi: quali e quanti motori si accendono resta dentro la rete */
+ sub.innerHTML='<b>'+T(s.obit,s.oben)+'</b> · '+(s.noteit?T(s.noteit,s.noteen):T(
+  'una combinazione diversa di motori per ogni settore e per ogni obiettivo. Quali e quanti, lo sa la rete.',
+  'a different combination of engines for every sector and for every goal. Which and how many, the network knows.'));
 }
 
 /* ============ pipeline animata ============ */
@@ -454,48 +500,93 @@ function size(){dpr=Math.min(2,window.devicePixelRatio||1);var r=cv.getBoundingC
  if(r.width<10)return;W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
 size();addEventListener('resize',function(){clearTimeout(size._t);size._t=setTimeout(size,150);});
 var COLS=['#35d0c0','#5aa9ff','#4be08e','#a98bff','#ffc46b'];
+/* motori sparsi (non a griglia): posizioni deterministiche */
+function h01(i){var x=Math.sin(i*127.1+13.7)*43758.5453;return x-Math.floor(x);}
+var POS=[],pi;for(pi=0;pi<100;pi++)POS.push([0.11+0.33*h01(pi),0.12+0.76*h01(pi+57)]);
+function PLBL(){return LANG==='en'
+ ?['DATA','ENGINES','GATE','FUSION','DECISION','PROOF']
+ :['DATI','MOTORI','GATE','FUSIONE','DECISIONE','PROVA'];}
 function frame(now){var t=reduced?0:now/1000;
  if(!W)size();
  if(W){ctx.clearRect(0,0,W,H);
- var gx0=W*0.04,gy0=H*0.10,gw=W*0.24,gh=H*0.80;
- var fx=W*0.62,fy=H*0.5,dx=W*0.94,dy=H*0.5;
  var LIT=PIPE.lit,i;
- for(i=0;i<100;i++){var r=i%10,c=Math.floor(i/10);
-  var cx=gx0+c/9*gw,cy=gy0+r/9*gh;
-  var lit=LIT.indexOf(i);
-  if(lit>=0){var col=COLS[lit%COLS.length];
-   var pu=0.75+0.25*Math.sin(t*2+i);
+ var dxD=W*0.035,dyD=H*0.5,gX=W*0.55,fx=W*0.67,fy=H*0.5,dx=W*0.80,dy=H*0.5,px2=W*0.93,py2=H*0.5;
+ /* etichette dei passi */
+ var LB=PLBL();ctx.font='700 9px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif';
+ ctx.fillStyle='rgba(147,167,160,0.55)';
+ ctx.fillText(LB[0],dxD-8,H*0.06);
+ ctx.fillText(LB[1],W*0.25,H*0.06);
+ ctx.fillText(LB[2],gX-12,H*0.06);
+ ctx.fillText(LB[3],fx-18,H*0.06);
+ ctx.fillText(LB[4],dx-22,H*0.06);
+ ctx.fillStyle='rgba(157,243,195,0.8)';
+ ctx.fillText(LB[5],px2-14,H*0.06);
+ /* gate: soglia verticale tratteggiata */
+ ctx.strokeStyle='rgba(255,196,107,0.22)';ctx.lineWidth=1;ctx.setLineDash([3,6]);
+ ctx.beginPath();ctx.moveTo(gX,H*0.10);ctx.lineTo(gX,H*0.90);ctx.stroke();ctx.setLineDash([]);
+ /* nodo dati + filo verso i motori accesi */
+ ctx.fillStyle='rgba(238,244,240,0.85)';ctx.beginPath();ctx.arc(dxD,dyD,4,0,6.2832);ctx.fill();
+ ctx.fillStyle='rgba(238,244,240,0.15)';ctx.beginPath();ctx.arc(dxD,dyD,10+2*Math.sin(t*2),0,6.2832);ctx.fill();
+ /* catalogo sparso: spenti tenui, accesi con anello colore */
+ for(i=0;i<100;i++){var ex=POS[i][0]*W,ey=POS[i][1]*H,li=LIT.indexOf(i);
+  if(li>=0){var col=COLS[li%COLS.length],pu=0.75+0.25*Math.sin(t*2+i);
+   /* filo dati -> motore */
+   ctx.strokeStyle='rgba(238,244,240,0.07)';ctx.lineWidth=1;
+   ctx.beginPath();ctx.moveTo(dxD,dyD);ctx.lineTo(ex,ey);ctx.stroke();
    ctx.fillStyle=col;ctx.globalAlpha=pu;
-   ctx.beginPath();ctx.arc(cx,cy,3.4,0,6.2832);ctx.fill();
-   ctx.globalAlpha=0.22*pu;ctx.beginPath();ctx.arc(cx,cy,8,0,6.2832);ctx.fill();ctx.globalAlpha=1;
-  }else{ctx.fillStyle='rgba(120,150,140,0.20)';ctx.beginPath();ctx.arc(cx,cy,1.8,0,6.2832);ctx.fill();}}
- for(i=0;i<LIT.length;i++){var idx=LIT[i],rr=idx%10,cc=Math.floor(idx/10);
-  var x0=gx0+cc/9*gw,y0=gy0+rr/9*gh,col2=COLS[i%COLS.length];
-  var mx=(x0+fx)/2+W*0.03,my=(y0+fy)/2;
-  ctx.strokeStyle=col2;ctx.globalAlpha=0.16;ctx.lineWidth=1;
+   ctx.beginPath();ctx.arc(ex,ey,3.2,0,6.2832);ctx.fill();
+   ctx.globalAlpha=0.9;ctx.strokeStyle=col;ctx.lineWidth=1.2;
+   ctx.beginPath();ctx.arc(ex,ey,6.5,0,6.2832);ctx.stroke();
+   ctx.globalAlpha=0.16*pu;ctx.beginPath();ctx.arc(ex,ey,12,0,6.2832);ctx.fill();ctx.globalAlpha=1;
+  }else{ctx.fillStyle='rgba(120,150,140,0.16)';ctx.beginPath();ctx.arc(ex,ey,1.7,0,6.2832);ctx.fill();}}
+ /* percorsi motore acceso -> (gate) -> fusione, con evidenze in viaggio */
+ for(i=0;i<LIT.length;i++){var idx=LIT[i],x0=POS[idx][0]*W,y0=POS[idx][1]*H,col2=COLS[i%COLS.length];
+  var mx=gX,my=(y0+fy)/2;
+  ctx.strokeStyle=col2;ctx.globalAlpha=0.15;ctx.lineWidth=1;
   ctx.beginPath();ctx.moveTo(x0,y0);ctx.quadraticCurveTo(mx,my,fx,fy);ctx.stroke();ctx.globalAlpha=1;
-  var tt=(t*0.5+i*0.13)%1,it2=1-tt;
-  var px=it2*it2*x0+2*it2*tt*mx+tt*tt*fx,py=it2*it2*y0+2*it2*tt*my+tt*tt*fy;
+  var tt=(t*0.5+i*0.11)%1,it2=1-tt;
+  var qx=it2*it2*x0+2*it2*tt*mx+tt*tt*fx,qy=it2*it2*y0+2*it2*tt*my+tt*tt*fy;
   ctx.fillStyle=col2;ctx.globalAlpha=0.85*Math.sin(tt*3.1416);
-  ctx.beginPath();ctx.arc(px,py,2.4,0,6.2832);ctx.fill();ctx.globalAlpha=1;}
+  ctx.beginPath();ctx.arc(qx,qy,2.3,0,6.2832);ctx.fill();ctx.globalAlpha=1;}
+ /* fusione L4 */
  var fp=0.8+0.2*Math.sin(t*2.4);
- ctx.fillStyle='rgba(255,196,107,0.14)';ctx.beginPath();ctx.arc(fx,fy,22*fp,0,6.2832);ctx.fill();
- ctx.fillStyle='#ffc46b';ctx.beginPath();ctx.arc(fx,fy,7,0,6.2832);ctx.fill();
+ ctx.fillStyle='rgba(255,196,107,0.14)';ctx.beginPath();ctx.arc(fx,fy,20*fp,0,6.2832);ctx.fill();
+ ctx.fillStyle='#ffc46b';ctx.beginPath();ctx.arc(fx,fy,6.5,0,6.2832);ctx.fill();
+ /* fusione -> decisione */
  ctx.strokeStyle='rgba(255,196,107,0.35)';ctx.lineWidth=1.4;
- ctx.beginPath();ctx.moveTo(fx+10,fy);ctx.lineTo(dx-30,dy);ctx.stroke();
+ ctx.beginPath();ctx.moveTo(fx+9,fy);ctx.lineTo(dx-11,dy);ctx.stroke();
  var t3=(t*0.7)%1;
  ctx.fillStyle='#ffe0b0';ctx.globalAlpha=Math.sin(t3*3.1416);
- ctx.beginPath();ctx.arc(fx+10+(dx-40-fx)*t3,dy,2.8,0,6.2832);ctx.fill();ctx.globalAlpha=1;
- ctx.fillStyle='rgba(169,139,255,0.15)';ctx.beginPath();ctx.arc(dx-18,dy,26,0,6.2832);ctx.fill();
- ctx.fillStyle='#a98bff';ctx.beginPath();ctx.arc(dx-18,dy,8,0,6.2832);ctx.fill();
- var bh=H*0.22*(1+0.12*Math.sin(t*1.6));
+ ctx.beginPath();ctx.arc(fx+9+(dx-20-fx)*t3,dy,2.6,0,6.2832);ctx.fill();ctx.globalAlpha=1;
+ /* decisione L5 con banda ±q */
+ ctx.fillStyle='rgba(169,139,255,0.15)';ctx.beginPath();ctx.arc(dx,dy,22,0,6.2832);ctx.fill();
+ ctx.fillStyle='#a98bff';ctx.beginPath();ctx.arc(dx,dy,7,0,6.2832);ctx.fill();
+ var bh=H*0.18*(1+0.12*Math.sin(t*1.6));
  ctx.strokeStyle='rgba(205,188,255,0.75)';ctx.lineWidth=2;
- ctx.beginPath();ctx.moveTo(dx-18,dy-bh);ctx.lineTo(dx-18,dy+bh);ctx.stroke();
- ctx.beginPath();ctx.moveTo(dx-26,dy-bh);ctx.lineTo(dx-10,dy-bh);ctx.stroke();
- ctx.beginPath();ctx.moveTo(dx-26,dy+bh);ctx.lineTo(dx-10,dy+bh);ctx.stroke();}
+ ctx.beginPath();ctx.moveTo(dx,dy-bh);ctx.lineTo(dx,dy+bh);ctx.stroke();
+ ctx.beginPath();ctx.moveTo(dx-7,dy-bh);ctx.lineTo(dx+7,dy-bh);ctx.stroke();
+ ctx.beginPath();ctx.moveTo(dx-7,dy+bh);ctx.lineTo(dx+7,dy+bh);ctx.stroke();
+ /* decisione -> prova (esagono SHA-256) */
+ ctx.strokeStyle='rgba(157,243,195,0.35)';ctx.lineWidth=1.4;
+ ctx.beginPath();ctx.moveTo(dx+9,dy);ctx.lineTo(px2-15,py2);ctx.stroke();
+ var t4=(t*0.6+0.4)%1;
+ ctx.fillStyle='#9df3c3';ctx.globalAlpha=Math.sin(t4*3.1416);
+ ctx.beginPath();ctx.arc(dx+9+(px2-26-dx)*t4,py2,2.4,0,6.2832);ctx.fill();ctx.globalAlpha=1;
+ var hr=11,k;
+ ctx.fillStyle='rgba(157,243,195,0.12)';ctx.beginPath();ctx.arc(px2,py2,20,0,6.2832);ctx.fill();
+ ctx.strokeStyle='#9df3c3';ctx.lineWidth=1.6;ctx.beginPath();
+ for(k=0;k<6;k++){var a=k/6*6.2832-1.5708;var hx=px2+hr*Math.cos(a),hy=py2+hr*Math.sin(a);
+  if(k===0)ctx.moveTo(hx,hy);else ctx.lineTo(hx,hy);}
+ ctx.closePath();ctx.stroke();
+ ctx.fillStyle='rgba(157,243,195,0.25)';ctx.fill();}
  requestAnimationFrame(frame);}
 requestAnimationFrame(frame);
 })();
+
+/* ============ domande a tendina ============ */
+[].slice.call(document.querySelectorAll('.q')).forEach(function(q){
+ q.addEventListener('click',function(){q.classList.toggle('open');});
+});
 
 /* ============ simulatore ============ */
 var SC=[
@@ -522,11 +613,19 @@ function renderSim(){
  document.getElementById('simv').firstChild.nodeValue=v.toFixed(1)+' ';
  document.getElementById('simu').textContent=T('indice di cassa · scenario','cash index · scenario');
  document.getElementById('simb').innerHTML='&plusmn;'+s.band.toFixed(1)+' &middot; <b>'+T('confidenza calibrata ~90%','calibrated confidence ~90%')+'</b>';
- document.getElementById('skEng').textContent=s.eng+' / 10²';
- document.getElementById('skSave').textContent='−'+(100-s.eng)+'%';
  var g=document.getElementById('skGate');g.textContent=s.gate;
  g.className='v '+(s.gate==='✓'?'ok':'wa');
- document.getElementById('simh').textContent=fnv(T(s.it,s.en)+v.toFixed(1)+s.band);
+ /* ricevuta di decisione: il prodotto è la ricevuta, i motori restano non divulgati */
+ var h=fnv(T(s.it,s.en)+v.toFixed(1)+s.band);
+ var ts=new Date().toISOString().slice(0,19)+'Z';
+ document.getElementById('simr').innerHTML=
+  '<div class="rt">'+T('Ricevuta di decisione · dimostrativa','Decision receipt · demonstrative')+'</div>'+
+  '<div class="rrow"><span>decision id</span><b>EB-'+ts.slice(0,10).replace(/-/g,'')+'-'+h.slice(0,4).toUpperCase()+'</b></div>'+
+  '<div class="rrow"><span>timestamp</span><b>'+ts+'</b></div>'+
+  '<div class="rrow"><span>'+T('obiettivo','objective')+'</span><b>'+T(s.it,s.en)+'</b></div>'+
+  '<div class="rrow"><span>'+T('motori','engines')+'</span><b>'+T('sottoinsieme dinamico · non divulgato','dynamic subset · not disclosed')+'</b></div>'+
+  '<div class="rrow"><span>'+T('confidenza','confidence')+'</span><b>~90% [&plusmn;'+s.band.toFixed(1)+']</b></div>'+
+  '<div class="rrow"><span>hash · demo</span><b>'+h+'</b></div>';
  document.getElementById('simn').innerHTML=T(s.nit,s.nen);
  drawFan(s,v);
 }
