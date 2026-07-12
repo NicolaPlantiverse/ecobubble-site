@@ -87,8 +87,26 @@ h2{font-size:clamp(26px,3.4vw,42px);line-height:1.16;letter-spacing:-.018em;font
 #mcap{margin-top:22px;min-height:52px;font-size:14.5px;line-height:1.6;color:var(--txt2);max-width:560px;margin-left:auto;margin-right:auto;transition:opacity .3s}
 #mcap b{color:var(--txt)}
 
+/* i layer */
+.lgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:34px}
+@media(max-width:1020px){.lgrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.lgrid{grid-template-columns:1fr 1fr}}
+.lcard{border:1px solid var(--line);border-radius:18px;background:var(--panel);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:18px;transition:border-color .3s,transform .3s,box-shadow .3s}
+.lcard:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--lc) 55%,transparent);box-shadow:0 20px 44px -30px var(--lc)}
+.lcard .ln{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--lc)}
+.lcard .ln i{width:8px;height:8px;border-radius:50%;background:var(--lc);box-shadow:0 0 10px var(--lc);flex:none}
+.lcard h3{font-size:14.5px;font-weight:700;margin-top:9px;line-height:1.3}
+.lcard p{font-size:11.5px;line-height:1.55;color:var(--txt2);margin-top:7px}
+.mlrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+@media(max-width:640px){.mlrow{grid-template-columns:1fr}}
+.mlrow .lcard{border-style:dashed}
+.mlrow .lcard .ln i{border-radius:50%;background:transparent;border:2px solid var(--lc);width:9px;height:9px;box-shadow:0 0 10px var(--lc)}
+
 /* pipeline */
-#pipe{display:block;width:100%;height:320px;margin-top:30px}
+#pipesec{display:flex;gap:9px;flex-wrap:wrap;margin-top:24px}
+#pipesub{margin-top:14px;font-size:12.5px;color:var(--txt2)}
+#pipesub b{color:var(--pac,var(--env))}
+#pipe{display:block;width:100%;height:300px;margin-top:14px}
 .pipecap{display:flex;justify-content:space-between;gap:10px;max-width:980px;margin:8px auto 0;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt3);font-weight:700}
 .pipecap span b{display:block;color:var(--txt2);letter-spacing:.02em;text-transform:none;font-size:12px;margin-top:3px}
 
@@ -223,22 +241,42 @@ h2{font-size:clamp(26px,3.4vw,42px);line-height:1.16;letter-spacing:-.018em;font
   <p id="mcap"></p>
 </div></section>
 
-<!-- 4 · LA PIPELINE -->
+<!-- 4 · I LAYER -->
+<section id="layers"><div class="wrap">
+  <div class="kick">03 &middot; <span class="l-it">I layer</span><span class="l-en">The layers</span></div>
+  <h2><span class="l-it">Cinque layer decidono.<br>Due meta-layer vegliano.</span><span class="l-en">Five layers decide.<br>Two meta-layers watch over.</span></h2>
+  <div class="lgrid">
+    <div class="lcard" style="--lc:#35d0c0"><div class="ln"><i></i>L1</div><h3><span class="l-it">Percezione</span><span class="l-en">Perception</span></h3><p><span class="l-it">I dati entrano da sensori, satelliti e sistemi. Nessuno entra senza identit&agrave;.</span><span class="l-en">Data enters from sensors, satellites and systems. Nothing enters without identity.</span></p></div>
+    <div class="lcard" style="--lc:#8ceadf"><div class="ln"><i></i>L2</div><h3><span class="l-it">Qualit&agrave;</span><span class="l-en">Quality</span></h3><p><span class="l-it">Ogni segnale riceve un punteggio di affidabilit&agrave;. Il dato anomalo va in quarantena.</span><span class="l-en">Every signal receives a reliability score. Anomalous data goes in quarantine.</span></p></div>
+    <div class="lcard" style="--lc:#5aa9ff"><div class="ln"><i></i>L3</div><h3><span class="l-it">Previsione</span><span class="l-en">Forecast</span></h3><p><span class="l-it">I motori selezionati trasformano i segnali in stime, ognuno sul suo dominio.</span><span class="l-en">The selected engines turn signals in estimates, each on its own domain.</span></p></div>
+    <div class="lcard" style="--lc:#ffc46b"><div class="ln"><i></i>L4</div><h3><span class="l-it">Fusione</span><span class="l-en">Fusion</span></h3><p><span class="l-it">Le stime diventano una sola lettura, pesata su quanto ogni motore sa davvero.</span><span class="l-en">Estimates become one reading, weighted on what each engine truly knows.</span></p></div>
+    <div class="lcard" style="--lc:#a98bff"><div class="ln"><i></i>L5</div><h3><span class="l-it">Decisione</span><span class="l-en">Decision</span></h3><p><span class="l-it">Una risposta con banda di confidenza calibrata e firma SHA-256.</span><span class="l-en">One answer with a calibrated confidence band and a SHA-256 signature.</span></p></div>
+  </div>
+  <div class="mlrow">
+    <div class="lcard" style="--lc:#9df3c3"><div class="ln"><i></i>ML6 &middot; <span class="l-it">Memoria</span><span class="l-en">Memory</span></div><h3><span class="l-it">La rete ricorda</span><span class="l-en">The network remembers</span></h3><p><span class="l-it">Ogni esito torna alla rete: le combinazioni che funzionano pesano di pi&ugrave; la volta dopo.</span><span class="l-en">Every outcome returns to the network: combinations that work weigh more the next time.</span></p></div>
+    <div class="lcard" style="--lc:#ff8fa3"><div class="ln"><i></i>ML7 &middot; <span class="l-it">Vigilanza</span><span class="l-en">Watch</span></div><h3><span class="l-it">La rete si controlla</span><span class="l-en">The network checks itself</span></h3><p><span class="l-it">Copertura e deriva sono osservate in continuo: un motore che cambia viene rimesso alla prova.</span><span class="l-en">Coverage and drift are observed continuously: an engine that changes is re-tested.</span></p></div>
+  </div>
+  <p class="sub"><span class="l-it">I meta-layer <b>orbitano, non decidono</b>: osservano la rete e la ricompongono. Qui i layer sono raccontati al livello dei principi; il come vive nei brevetti e nei piloti.</span><span class="l-en">The meta-layers <b>orbit, they do not decide</b>: they observe the network and recompose it. Here the layers are told at the level of principles; the how lives in the patents and the pilots.</span></p>
+</div></section>
+
+<!-- 5 · LA PIPELINE -->
 <section id="pipeline"><div class="wrap">
-  <div class="kick">03 &middot; <span class="l-it">La pipeline, dal vivo</span><span class="l-en">The pipeline, live</span></div>
-  <h2><span class="l-it">10&sup2; motori nel catalogo.<br>Se ne accendono ~10.</span><span class="l-en">10&sup2; engines in the catalogue.<br>~10 light up.</span></h2>
+  <div class="kick">04 &middot; <span class="l-it">La pipeline, dal vivo</span><span class="l-en">The pipeline, live</span></div>
+  <h2><span class="l-it">Cambia il settore.<br>Cambiano i motori accesi.</span><span class="l-en">Change the sector.<br>The lit engines change.</span></h2>
+  <div id="pipesec"></div>
+  <p id="pipesub"></p>
   <canvas id="pipe"></canvas>
   <div class="pipecap">
     <span><span class="l-it">Catalogo</span><span class="l-en">Catalogue</span><b>10&sup2;</b></span>
-    <span><span class="l-it">Selezione</span><span class="l-en">Selection</span><b>~1 su 10</b></span>
+    <span><span class="l-it">Selezione</span><span class="l-en">Selection</span><b id="pipeN">~1 su 10</b></span>
     <span><span class="l-it">Fusione</span><span class="l-en">Fusion</span><b>L4</b></span>
     <span><span class="l-it">Decisione</span><span class="l-en">Decision</span><b>L5 &middot; &plusmn;q</b></span>
   </div>
 </div></section>
 
-<!-- 5 · IL SIMULATORE -->
+<!-- 6 · IL SIMULATORE -->
 <section id="simulator"><div class="wrap">
-  <div class="kick">04 &middot; <span class="l-it">Il simulatore di decisione</span><span class="l-en">The decision simulator</span></div>
+  <div class="kick">05 &middot; <span class="l-it">Il simulatore di decisione</span><span class="l-en">The decision simulator</span></div>
   <h2><span class="l-it">Cambia lo scenario.<br>Guarda la rete ricomporsi.</span><span class="l-en">Change the scenario.<br>Watch the network recompose.</span></h2>
   <div class="scn" id="scn"></div>
   <div id="simout">
@@ -253,13 +291,13 @@ h2{font-size:clamp(26px,3.4vw,42px);line-height:1.16;letter-spacing:-.018em;font
       </div>
       <div class="receipt"><span class="l-it">Ricevuta</span><span class="l-en">Receipt</span> &middot; <b id="simh">&ndash;</b> &middot; <span class="l-it">calcolata nel browser, come nelle reti reali</span><span class="l-en">computed in the browser, as in the real networks</span></div>
     </div>
-    <div class="simbox"><p class="simnote" id="simn"></p></div>
+    <div class="simbox"><canvas id="simchart" style="display:block;width:100%;height:150px"></canvas><p class="simnote" id="simn" style="margin-top:14px"></p></div>
   </div>
 </div></section>
 
-<!-- 6 · I NUMERI + LIGNAGGIO -->
+<!-- 7 · I NUMERI + LIGNAGGIO -->
 <section id="numbers"><div class="wrap">
-  <div class="kick">05 &middot; <span class="l-it">I numeri</span><span class="l-en">The numbers</span></div>
+  <div class="kick">06 &middot; <span class="l-it">I numeri</span><span class="l-en">The numbers</span></div>
   <h2><span class="l-it">Misurati, non promessi.</span><span class="l-en">Measured, not promised.</span></h2>
   <div class="stats">
     <div class="stat"><div class="v">10<sup>2</sup></div><div class="l"><span class="l-it">motori nel catalogo della rete</span><span class="l-en">engines in the network catalogue</span></div></div>
@@ -312,7 +350,7 @@ var ml=location.search.match(/[?&]lang=(it|en)/);if(ml)LANG=ml[1];
 function T(it,en){return LANG==='en'?en:it;}
 function applyLang(){document.documentElement.classList.toggle('en',LANG==='en');document.documentElement.lang=LANG;
  var b=document.getElementById('langBtn');if(b)b.innerHTML=LANG==='en'?'&#127468;&#127463; EN &#9662;':'&#127470;&#127481; IT &#9662;';
- renderMethod();renderSim();}
+ renderMethod();renderSec();renderSim();}
 (function(){var langSel=document.getElementById('langsel'),langBtn=document.getElementById('langBtn');
  langBtn.addEventListener('click',function(e){e.stopPropagation();
   var open=langSel.classList.toggle('open');langBtn.setAttribute('aria-expanded',open?'true':'false');});
@@ -384,6 +422,28 @@ function setM(i){mIdx=i;
  mcap.innerHTML=T(w.cit,w.cen);}
 setInterval(function(){if(document.hidden)return;setM((mIdx+1)%MW.length);},2400);
 
+/* ============ settori: ogni settore accende una combinazione diversa ============ */
+function litSet(off,n){var a=[],i;for(i=0;i<n;i++)a.push((off+i*3+(i*i)%7)%100);return a;}
+var SEC=[
+ {it:'Finanza',en:'Finance',obit:'Prevedere il credito',oben:'Predict credit',ac:'#5aa9ff',lit:litSet(3,12)},
+ {it:'Banche & assicurazioni',en:'Banks & insurance',obit:'Rafforzare la conformità · DORA',oben:'Strengthen compliance · DORA',ac:'#a9cdff',lit:litSet(28,16)},
+ {it:'AI infrastructure',en:'AI infrastructure',obit:'Governare i modelli di IA',oben:'Govern AI models',ac:'#a98bff',lit:litSet(50,9)},
+ {it:'Industria',en:'Industry',obit:'Ottimizzare la produzione',oben:'Optimise production',ac:'#ffc46b',lit:litSet(11,17)},
+ {it:'Energia',en:'Energy',obit:'Gestire l’energia',oben:'Manage energy',ac:'#ffe0b0',lit:litSet(68,14)},
+ {it:'Ambiente',en:'Environment',obit:'Interpretare il territorio',oben:'Read the territory',ac:'#4be08e',lit:litSet(40,10)}
+];
+var secSel=0,PIPE={lit:SEC[0].lit};
+function renderSec(){
+ var box=document.getElementById('pipesec');box.innerHTML='';
+ SEC.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.className='chip'+(i===secSel?' on':'');
+  b.textContent=T(s.it,s.en);b.addEventListener('click',function(){secSel=i;renderSec();});box.appendChild(b);});
+ var s=SEC[secSel];PIPE.lit=s.lit;
+ var sub=document.getElementById('pipesub');
+ sub.style.setProperty('--pac',s.ac);
+ sub.innerHTML='<b>'+T(s.obit,s.oben)+'</b> · <b>'+s.lit.length+'</b> '+T('motori accesi su 10²: una combinazione diversa per ogni settore, e per ogni obiettivo.','engines lit out of 10²: a different combination for every sector, and for every goal.');
+ document.getElementById('pipeN').textContent=s.lit.length+' / 10²';
+}
+
 /* ============ pipeline animata ============ */
 (function(){
 var cv=document.getElementById('pipe'),ctx=cv.getContext('2d');
@@ -394,13 +454,12 @@ function size(){dpr=Math.min(2,window.devicePixelRatio||1);var r=cv.getBoundingC
  if(r.width<10)return;W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
 size();addEventListener('resize',function(){clearTimeout(size._t);size._t=setTimeout(size,150);});
 var COLS=['#35d0c0','#5aa9ff','#4be08e','#a98bff','#ffc46b'];
-var LIT=[3,12,27,38,41,55,62,74,86,97];
 function frame(now){var t=reduced?0:now/1000;
  if(!W)size();
  if(W){ctx.clearRect(0,0,W,H);
  var gx0=W*0.04,gy0=H*0.10,gw=W*0.24,gh=H*0.80;
  var fx=W*0.62,fy=H*0.5,dx=W*0.94,dy=H*0.5;
- var i;
+ var LIT=PIPE.lit,i;
  for(i=0;i<100;i++){var r=i%10,c=Math.floor(i/10);
   var cx=gx0+c/9*gw,cy=gy0+r/9*gh;
   var lit=LIT.indexOf(i);
@@ -469,7 +528,36 @@ function renderSim(){
  g.className='v '+(s.gate==='✓'?'ok':'wa');
  document.getElementById('simh').textContent=fnv(T(s.it,s.en)+v.toFixed(1)+s.band);
  document.getElementById('simn').innerHTML=T(s.nit,s.nen);
+ drawFan(s,v);
 }
+/* ventaglio: la stima scende verso il valore di scenario, la banda si allarga nel tempo */
+function drawFan(s,v){
+ var cv=document.getElementById('simchart'),ctx=cv.getContext('2d');if(!ctx)return;
+ var dpr=Math.min(2,window.devicePixelRatio||1),r=cv.getBoundingClientRect();
+ var W=r.width||520,H=r.height||150;
+ cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+ ctx.clearRect(0,0,W,H);
+ var pad=8,x0=pad,x1=W-pad;
+ var lo=Math.min(100,v)-s.band-1,hi=Math.max(100,v)+s.band+1;
+ function Y(val){return pad+(hi-val)/(hi-lo)*(H-2*pad);}
+ var N=40,i;
+ /* banda */
+ ctx.beginPath();
+ for(i=0;i<=N;i++){var f=i/N,val=100+(v-100)*f*f*(3-2*f);ctx.lineTo(x0+f*(x1-x0),Y(val+s.band*f));}
+ for(i=N;i>=0;i--){var f2=i/N,val2=100+(v-100)*f2*f2*(3-2*f2);ctx.lineTo(x0+f2*(x1-x0),Y(val2-s.band*f2));}
+ ctx.closePath();ctx.fillStyle='rgba(75,224,142,0.13)';ctx.fill();
+ /* riferimento 100 */
+ ctx.strokeStyle='rgba(255,255,255,0.12)';ctx.lineWidth=1;ctx.setLineDash([3,5]);
+ ctx.beginPath();ctx.moveTo(x0,Y(100));ctx.lineTo(x1,Y(100));ctx.stroke();ctx.setLineDash([]);
+ /* linea centrale */
+ ctx.beginPath();
+ for(i=0;i<=N;i++){var f3=i/N,val3=100+(v-100)*f3*f3*(3-2*f3);ctx.lineTo(x0+f3*(x1-x0),Y(val3));}
+ ctx.strokeStyle='#4be08e';ctx.lineWidth=2;ctx.stroke();
+ /* punto finale */
+ ctx.fillStyle='#9df3c3';ctx.beginPath();ctx.arc(x1,Y(v),3.6,0,6.2832);ctx.fill();
+ ctx.fillStyle='rgba(157,243,195,0.25)';ctx.beginPath();ctx.arc(x1,Y(v),9,0,6.2832);ctx.fill();
+}
+addEventListener('resize',function(){clearTimeout(drawFan._t);drawFan._t=setTimeout(renderSim,180);});
 
 applyLang();
 </script>
