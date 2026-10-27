@@ -1,0 +1,12 @@
+# EcoBubble
+
+> EcoBubble S.r.l. (Italia) sviluppa infrastrutture di intelligenza artificiale private e su misura, che girano nei sistemi del cliente (on-premise o cloud privato). Il motore è Ennous, architettura Meta-Intelligence (patent pending), sviluppata con Plantiverse S.r.l.
+
+## Pagine
+- [IA locale e on-premise per aziende](https://www.ecobubble.it/ia-locale-on-premise.html): cosa costruiamo, come funziona il pilota, domande frequenti (italiano)
+- [Private AI infrastructure](https://www.ecobubble.it/en/private-ai-infrastructure.html): the same offer in English, for regulated organisations (banks, insurers, public bodies, industry)
+- [Le reti già costruite](https://www.ecobubble.it/reti/index.html): sei casi di settore
+- [Architettura Ennous](https://www.ecobubble.it/reti/architettura.html)
+
+## Contatto
+info@ecobubble.it · https://calendly.com/nicola-nescatelli/30min
